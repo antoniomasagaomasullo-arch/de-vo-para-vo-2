@@ -875,6 +875,7 @@ Seu objetivo é responder a perguntas de forma amigável e profissional, com bas
 Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.`;
 
 function initChatbot() {
+    const chatbotTogglerBtn = document.getElementById('chatbotTogglerBtn'); // Pega o novo botão
     const chatbotModal = document.getElementById('chatbotModal');
     const closeChatBtn = document.getElementById('closeChatBtn');
     const chatbox = document.getElementById('chatbox');
@@ -883,10 +884,19 @@ function initChatbot() {
     const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?";
 
     chatHistory = [{ role: "model", parts: [{ text: initialMessage }] }];
-    
+
+    // Nova lógica para o botão flutuante
+    if (chatbotTogglerBtn) {
+        chatbotTogglerBtn.addEventListener('click', () => {
+            chatbotModal.classList.add('visible');
+            document.body.classList.add('modal-open'); // Trava o scroll da página
+        });
+    }
+
     if (closeChatBtn) {
         closeChatBtn.addEventListener('click', () => {
             chatbotModal.classList.remove('visible');
+            document.body.classList.remove('modal-open'); // Libera o scroll da página
         });
     }
     
@@ -902,7 +912,8 @@ function initChatbot() {
         });
     }
     
-    appendMessage(initialMessage, 'ai');
+    // A linha abaixo foi removida para não duplicar a mensagem inicial
+    // appendMessage(initialMessage, 'ai'); 
 }
 
 async function handleUserMessage() {
