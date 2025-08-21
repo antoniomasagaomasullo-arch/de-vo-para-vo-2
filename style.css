@@ -1189,10 +1189,11 @@ body.modal-open {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    outline: 2px solid var(--brand-accent);
+    outline: none; /* Remove a borda padrão */
     border-color: var(--brand-primary);
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: none;
+    /* Adiciona o novo efeito de brilho */
+    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.4);
     transform: scale(1.01);
 }
 
