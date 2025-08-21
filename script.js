@@ -1111,30 +1111,34 @@ function initFooter() {
 }
 
 function initAgendamentoLigacao() {
-    const agendamentoLigacaoBtn = document.getElementById('agendamentoLigacaoBtn');
     const agendamentoLigacaoModal = document.getElementById('agendamentoLigacaoModal');
     const closeLigacaoModalBtn = document.getElementById('closeLigacaoModalBtn');
     const formAgendamentoLigacao = document.getElementById('formAgendamentoLigacao');
     const headerContactBtn = document.getElementById('header-contact-btn');
     const heroWhatsappBtn = document.getElementById('hero-whatsapp-btn');
 
+    const openModal = (e) => {
+        e.preventDefault();
+        agendamentoLigacaoModal.classList.add('visible');
+        document.body.classList.add('modal-open'); // Adiciona a classe para travar o scroll
+    };
+
+    const closeModal = () => {
+        agendamentoLigacaoModal.classList.remove('visible');
+        document.body.classList.remove('modal-open'); // Remove a classe para liberar o scroll
+    };
+
     if (headerContactBtn) {
-        headerContactBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            agendamentoLigacaoModal.classList.add('visible');
-        });
+        headerContactBtn.addEventListener('click', openModal);
     }
 
     if (heroWhatsappBtn) {
-        heroWhatsappBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            agendamentoLigacaoModal.classList.add('visible');
-        });
+        heroWhatsappBtn.addEventListener('click', openModal);
     }
     
     if (closeLigacaoModalBtn) {
         closeLigacaoModalBtn.addEventListener('click', () => {
-            agendamentoLigacaoModal.classList.remove('visible');
+            closeModal();
             formAgendamentoLigacao.reset();
         });
     }
@@ -1150,7 +1154,7 @@ function initAgendamentoLigacao() {
             const message = `Olá, gostaria de agendar uma ligação!\n\nNome: ${nome}\nTelefone: ${telefone}\nHorário de preferência: ${horario}`;
             openWhatsApp(message);
             
-            agendamentoLigacaoModal.classList.remove('visible');
+            closeModal();
             formAgendamentoLigacao.reset();
         });
     }
