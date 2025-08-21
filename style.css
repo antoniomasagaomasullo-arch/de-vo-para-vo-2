@@ -107,7 +107,7 @@ body.scrolled::before {
     background-position: -20px -20px;
 }
 
-body.large-font {
+html.large-font {
     font-size: 1.15rem;
 }
 
