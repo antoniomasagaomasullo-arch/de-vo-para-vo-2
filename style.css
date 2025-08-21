@@ -376,8 +376,9 @@ body.modal-open {
         box-shadow: var(--shadow-lg);
     }
     50% {
-        transform: scale(1.05);
-        box-shadow: var(--shadow-xl);
+        transform: scale(1.1); /* Aumentado de 1.05 para 1.1 */
+        /* Sombra mais forte para dar um efeito de "brilho" */
+        box-shadow: 0 20px 40px rgba(93, 47, 9, 0.2);
     }
     100% {
         transform: scale(1);
