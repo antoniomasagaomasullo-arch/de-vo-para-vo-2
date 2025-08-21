@@ -2193,6 +2193,21 @@ body.modal-open {
     transition: opacity 0.3s ease;
 }
 
+.modal-content {
+    background-color: var(--background-start);
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: var(--shadow-xl);
+    width: 90%;
+    max-width: 450px;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modal.visible .modal-content {
+    transform: scale(1);
+}
+
 /* --- Estilos do Conteúdo do Chatbot --- */
 .chatbot-content {
     background-color: var(--background-start);
