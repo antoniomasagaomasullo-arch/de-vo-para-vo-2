@@ -972,6 +972,52 @@ function appendMessage(text, sender) {
     return messageElement;
 }
 
+function initQuiz() {
+    const quizContainer = document.getElementById('quizContainer');
+    if (!quizContainer) return;
+
+    const quizSteps = quizContainer.querySelectorAll('.quiz-step');
+    const quizOptions = quizContainer.querySelectorAll('.quiz-option');
+    let userAnswers = {};
+
+    quizOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const currentStepElem = option.closest('.quiz-step');
+            const currentStep = currentStepElem.dataset.step;
+            const nextStep = option.dataset.next;
+            const value = option.dataset.value;
+            const action = option.dataset.action;
+
+            userAnswers[currentStep] = value;
+
+            if (action === 'finish') {
+                quizContainer.style.display = 'none';
+                // Chamar a função que atualiza a calculadora com as respostas
+                updateCalculatorFromQuiz(userAnswers);
+            } else {
+                currentStepElem.classList.remove('active');
+                quizContainer.querySelector(`.quiz-step[data-step="${nextStep}"]`).classList.add('active');
+            }
+        });
+    });
+}
+
+function updateCalculatorFromQuiz(answers) {
+    // Respostas: answers['1'], answers['2'], answers['3']
+    const tipoCuidado = document.querySelector(`.option-card[data-tipo="${answers['1']}"]`);
+    const horasCuidado = document.querySelector(`.option-card[data-horas="${answers['2']}"]`);
+    const diasCuidado = document.querySelector(`.option-card[data-dias="${answers['3']}"]`);
+
+    // Desmarca todas as opções antes de marcar as novas
+    document.querySelectorAll('#step1 .option-card, #step2 .option-card, #step3 .option-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+
+    if (tipoCuidado) tipoCuidado.click();
+    if (horasCuidado) horasCuidado.click();
+    if (diasCuidado) diasCuidado.click();
+}
+
 function initCalculadora() {
     class CalculadoraOrcamento {
         constructor() {
