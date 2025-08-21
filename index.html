@@ -1,663 +1,548 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>De Vó para Vó - Cuidando de quem você ama</title>
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Vó para Vó - Cuidando de quem você ama</title>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="loading-screen" id="loadingScreen">
-    <div class="loading-logo"></div>
-    <div class="loading-text">De Vó para Vó</div>
-    <div class="loading-progress">
-        <div class="loading-bar"></div>
-    </div>
-</div>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo"></div>
+        <div class="loading-text">De Vó para Vó</div>
+        <div class="loading-progress">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
 
-<div class="nav-overlay" id="navOverlay"></div>
-<button class="back-to-top" id="backToTopBtn" aria-label="Voltar ao topo">↑</button>
+    <header class="header reveal">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                </div>
+                <div>
+                    <a class="title" href="#">De Vó para Vó</a>
+                </div>
+            </div>
+            <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Toggle navigation menu">☰</button>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#about-us">Sobre Nós</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="cta-button" id="header-contact-btn">Falar conosco</button>
+        </div>
+    </header>
 
-<header class="header reveal">
-    <div class="nav-container">
-        <div class="logo">
-            <div>
-                <a class="title" href="#">De Vó para Vó</a>
-            </div>
-        </div>
-        <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Toggle navigation menu">☰</button>
-        <nav>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#about-us">Sobre Nós</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#calculadora">Orçamento</a></li>
-                <li><a href="#depoimentos">Depoimentos</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <button class="cta-button" id="header-contact-btn" data-modal="agendamento">Agendar uma Avaliação</button>
-            <button class="font-size-toggle-btn" id="fontSizeToggleBtn" aria-label="Ajustar tamanho da fonte">Aa</button>
-        </div>
-    </div>
-</header>
+    <section class="hero">
+        <div class="parallax-bg-1 parallax-element" data-speed="0.3"></div>
+        <div class="parallax-bg-2 parallax-element" data-speed="0.2"></div>
+        <div class="parallax-bg-3 parallax-element" data-speed="0.1"></div>
+        
+        <div class="hero-container">
+            <div class="hero-content reveal-left">
+                <h1>Cuidando de quem você ama</h1>
+                <p class="hero-subtitle">Serviços de cuidadores para idosos no Itaim</p>
+                <div class="hero-cta">
+                    <button class="whatsapp-btn" id="hero-whatsapp-btn">
+                        Fale conosco
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image reveal-right parallax-element">
+                <img src="https://images.unsplash.com/photo-1594738466657-3f3c834a36e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwxNXx8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Cuidador e idoso sorrindo" loading="lazy">
+            </div>
+        </div>
+    </section>
 
-<section class="hero">
-    <div class="hero-container">
-        <div class="hero-content reveal-left">
-            <h1>Cuidando de quem você ama</h1>
-            <p class="hero-subtitle">Tratamento 360º: cuidados médicos, mobilidade e estética para idosos no Itaim</p>
-            <div class="hero-cta">
-                <button class="whatsapp-btn" id="hero-whatsapp-btn" data-modal="agendamento">
-                    Agendar uma Avaliação
-                </button>
-            </div>
-        </div>
-        <div class="hero-image reveal-right parallax-element">
-            <img src="https://images.unsplash.com/photo-1594738466657-3f3c834a36e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwxNXx8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Cuidador e idoso sorrindo">
-    </div>
-</section>
+    <section class="our-story" id="about-us">
+        <div class="container">
+            <h2 class="section-title reveal">Sobre Nós</h2>
+            <div class="story-content">
+                <div class="story-text reveal-left">
+                    <h3>Uma história de família, cuidado e paixão</h3>
+                    <p>O <strong>De Vó para Vó</strong> nasceu de uma necessidade real e de um amor incondicional. Aos 94 anos, nossa querida avó, Dona Tereca, foi nossa primeira inspiração. Percebemos o quão desafiador é encontrar cuidadores que realmente tratem os idosos como parte da família. Foi então que decidimos criar uma empresa com um modelo único, onde a empatia e o carinho são a base de tudo.</p>
+                    <p>Nosso grande diferencial é que <strong>todos os nossos profissionais são treinados e trabalham em nossa própria casa</strong> antes de atender nossos clientes. Eles aprendem na prática o que significa cuidar com dedicação, respeito e, acima de tudo, amor. Isso garante que cada um de nossos cuidadores não apenas tenha as habilidades técnicas, mas a filosofia de cuidado que nos move.</p>
+                    <p class="highlight">O nosso lema é simples: "Porque quem cuidamos, cuidamos como família. 💛"</p>
+                </div>
+                <div class="story-image reveal-right parallax-element">
+                    <div class="story-badge">94 anos</div>
+                    <img src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Dona Tereca - Nossa primeira cliente" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="our-story" id="about-us">
-    <div class="container">
-        <h2 class="section-title reveal">Sobre Nós</h2>
-        <div class="story-content">
-            <div class="story-text reveal-left glassmorphism">
-                <h3>Uma história de família, cuidado e paixão</h3>
-                <p>O <strong>De Vó para Vó</strong> nasceu de uma necessidade real e de um amor incondicional. Aos 94 anos, nossa querida avó, Dona Tereca, foi nossa primeira inspiração. Percebemos o quão desafiador é encontrar cuidadores que realmente tratem os idosos como parte da família. Foi então que decidimos criar uma empresa com um modelo único, onde a empatia e o carinho são a base de tudo.</p>
-                <p>Nosso grande diferencial é que **todos os nossos profissionais são treinados e trabalham em nossa própria casa** antes de atender nossos clientes. Eles aprendem na prática o que significa cuidar com dedicação, respeito e, acima de tudo, amor. Isso garante que cada um de nossos cuidadores não apenas tenha as habilidades técnicas, mas a filosofia de cuidado que nos move.</p>
-                <p class="highlight">O nosso lema é simples: "Porque quem cuidamos, cuidamos como família. 💛"</p>
-            </div>
-            <div class="story-image reveal-right parallax-element">
-                <div class="story-badge">94 anos</div>
-                <img src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Dona Tereca - Nossa primeira cliente">
-            </div>
-        </div>
-    </div>
-</section>
+    <section class="services" id="servicos">
+        <div class="container">
+            <h2 class="section-title reveal">Nossos serviços</h2>
+            <div class="services-grid">
+                <div class="service-card reveal" style="animation-delay: 0.1s;">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Cuidadoras</h3>
+                    <p>Acompanhamento diário</p>
+                    <button class="open-whatsapp-service-btn" data-service="Cuidadora">Solicitar Orçamento</button>
+                </div>
+                <div class="service-card reveal" style="animation-delay: 0.2s;">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scissors"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg>
+                    </div>
+                    <h3>Manicure e cabeleireiro</h3>
+                    <p>Atendimento em casa</p>
+                    <button class="open-whatsapp-service-btn" data-service="Manicure e cabeleireiro">Solicitar Orçamento</button>
+                </div>
+                <div class="service-card reveal" style="animation-delay: 0.3s;">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.2 11.2h4.5l2-7.2 3.5 10.7L16 6l3 7H22"/></svg>
+                    </div>
+                    <h3>Apoio psicológico</h3>
+                    <p>Uma vez por semana</p>
+                    <button class="open-whatsapp-service-btn" data-service="Apoio psicológico">Solicitar Orçamento</button>
+                </div>
+                <div class="service-card reveal" style="animation-delay: 0.4s;">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car"><path d="M19 17h2c.5 0 1-.5 1-1v-3c0-.5-.5-1-1-1h-1V3c0-.5-.5-1-1-1H3c-.5 0-1 .5-1 1v14h2"/><path d="M14 17h-4"/><path d="M7 17v-4"/><path d="M17 5h-4"/><path d="M12 12v3"/><circle cx="17" cy="19" r="2"/><circle cx="7" cy="19" r="2"/></svg>
+                    </div>
+                    <h3>Motorista</h3>
+                    <p>1 a 2 vezes por semana</p>
+                    <button class="open-whatsapp-service-btn" data-service="Motorista">Solicitar Orçamento</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <h2 class="section-title reveal">Depoimentos</h2>
+            <div class="testimonial-container">
+                <button class="carousel-btn prev-btn" aria-label="Anterior">&lt;</button>
+                <div class="testimonial-carousel-wrapper">
+                    <div class="testimonial-carousel">
+                        <div class="testimonial-slide">
+                            <div class="testimonial-content reveal-left">
+                                <div class="testimonial-text">
+                                    Desde que minha mãe passou no programa, ela ficou muito mais animada e segura. Estou muito satisfeita com os cuidados que ela recebe.
+                                </div>
+                                <div class="testimonial-author">- Maria Silva, filha de Dona Antônia</div>
+                            </div>
+                            <div class="testimonial-image reveal-right parallax-element">
+                                <img src="https://images.unsplash.com/photo-1594738466657-3f3c834a36e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwxNXx8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Dona Antônia sorrindo" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="testimonial-slide">
+                            <div class="testimonial-content reveal-left">
+                                <div class="testimonial-text">
+                                    A equipe é extremamente atenciosa e profissional. Meu pai se sente muito bem cuidado e nós ficamos tranquilos sabendo que ele está em boas mãos. Recomendo muito!
+                                </div>
+                                <div class="testimonial-author">- João Pereira, filho de Sr. Carlos</div>
+                            </div>
+                            <div class="testimonial-image reveal-right parallax-element">
+                                <img src="https://images.unsplash.com/photo-1549725227-3a1372b73379?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyMHx8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Sr. Carlos" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="testimonial-slide">
+                            <div class="testimonial-content reveal-left">
+                                <div class="testimonial-text">
+                                    Ter um motorista para as consultas médicas e passeios fez uma diferença enorme na vida da minha avó. Ela se sente mais independente e feliz. O serviço é impecável.
+                                </div>
+                                <div class="testimonial-author">- Ana Clara, neta de D. Fátima</div>
+                            </div>
+                            <div class="testimonial-image reveal-right parallax-element">
+                                <img src="https://images.unsplash.com/photo-1594738466657-3f3c834a36e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyM3x8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="D. Fátima" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next-btn" aria-label="Próximo">&gt;</button>
+            </div>
+        </div>
+    </section>
 
-<section class="services" id="servicos">
-    <div class="container">
-        <h2 class="section-title reveal">Nossos serviços</h2>
-        <div class="services-grid">
-            <div class="service-card reveal glassmorphism" style="animation-delay: 0.1s;">
-                <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
-                <h3>Cuidadoras</h3>
-                <p>Acompanhamento diário</p>
-                <button class="open-whatsapp-service-btn cta-button" data-service="Cuidadora">Solicitar Orçamento</button>
-            </div>
-            <div class="service-card reveal glassmorphism" style="animation-delay: 0.2s;">
-                <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scissors"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg>
-            </div>
-            <h3>Manicure e cabeleireiro</h3>
-            <p>Atendimento em casa</p>
-            <button class="open-whatsapp-service-btn cta-button" data-service="Manicure e cabeleireiro">Solicitar Orçamento</button>
-        </div>
-        <div class="service-card reveal glassmorphism" style="animation-delay: 0.3s;">
-            <div class="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.2 11.2h4.5l2-7.2 3.5 10.7L16 6l3 7H22"/></svg>
-            </div>
-            <h3>Apoio psicológico</h3>
-            <p>Uma vez por semana</p>
-            <button class="open-whatsapp-service-btn cta-button" data-service="Apoio psicológico">Solicitar Orçamento</button>
-        </div>
-        <div class="service-card reveal glassmorphism" style="animation-delay: 0.4s;">
-            <div class="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car"><path d="M19 17h2c.5 0 1-.5 1-1v-3c0-.5-.5-1-1-1h-1V3c0-.5-.5-1-1-1H3c-.5 0-1 .5-1 1v14h2"/><path d="M14 17h-4"/><path d="M7 17v-4"/><path d="M17 5h-4"/><path d="M12 12v3"/><circle cx="17" cy="19" r="2"/><circle cx="7" cy="19" r="2"/></svg>
-            </div>
-            <h3>Motorista</h3>
-            <p>1 a 2 vezes por semana</p>
-            <button class="open-whatsapp-service-btn cta-button" data-service="Motorista">Solicitar Orçamento</button>
-        </div>
-        <div class="service-card reveal glassmorphism" style="animation-delay: 0.5s;">
-            <div class="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hand-heart"><path d="M11 14H7a2 2 0 0 1-2-2V5.5L6.5 3 11 7V14Z"/><path d="m14 17-5.15-5.15a1.6 1.6 0 0 1 0-2.26L14 4"/><path d="m20 12-3.26 3.26a1.6 1.6 0 0 0 0 2.27L20 20"/></svg>
-            </div>
-            <h3>Terapia Ocupacional</h3>
-            <p>Atividades para a autonomia</p>
-            <button class="open-whatsapp-service-btn cta-button" data-service="Terapia Ocupacional">Solicitar Orçamento</button>
-        </div>
-    </div>
-</section>
+    <section class="blog" id="blog">
+        <div class="container">
+            <h2 class="section-title reveal">Blog - Dicas de Cuidado</h2>
+            <div class="blog-carousel-wrapper">
+                <button class="carousel-btn prev-btn" id="blogPrevBtn" aria-label="Artigo anterior">&lt;</button>
+                <div class="blog-carousel" id="blogCarousel">
+                    <div class="blog-card reveal delay-1">
+                        <img src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso bebendo água" class="blog-card-image" loading="lazy">
+                        <div class="blog-card-content">
+                            <div class="article-header">
+                                <h3>A importância da hidratação para idosos</h3>
+                            </div>
+                            <p class="short-text">Manter-se hidratado é crucial na terceira idade. A sensação de sede diminui, o que pode levar à desidratação sem que a pessoa perceba. Entenda a importância da hidratação e como incentivá-la no dia a dia.</p>
+                            <div class="full-article-content">
+                                <div class="article-content">
+                                    <h4>Por que é tão importante?</h4>
+                                    <p>A hidratação adequada previne problemas renais, melhora a função cognitiva, ajuda na digestão e mantém a pele saudável. Com o avanço da idade, a composição corporal muda e a capacidade dos rins de reter água diminui. Portanto, a ingestão regular de líquidos se torna ainda mais vital.</p>
+                                    <h4>Tabela de Hidratação Diária</h4>
+                                    <div class="table-container">
+                                        <table class="hydration-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Idade</th>
+                                                    <th>Peso Corporal</th>
+                                                    <th>Recomendação Mínima de Água</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>60-70 anos</td>
+                                                    <td>70 kg</td>
+                                                    <td>2,1 L (aproximadamente 10 copos)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>70-80 anos</td>
+                                                    <td>65 kg</td>
+                                                    <td>1,95 L (aproximadamente 9 copos)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>80+ anos</td>
+                                                    <td>60 kg</td>
+                                                    <td>1,8 L (aproximadamente 8 copos)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <h4>Como incentivar?</h4>
+                                    <p>Ofereça água em copos pequenos e em horários fixos. Inclua alimentos ricos em água na dieta, como frutas (melancia, laranja) e sopas. Tenha sempre uma garrafa de fácil acesso e explore opções como chás, sucos naturais e água saborizada com frutas.</p>
+                                </div>
+                            </div>
+                            <div class="blog-card-actions">
+                                <a href="#" class="read-more-btn">Ler artigo</a>
+                                <button class="generate-tip-btn" data-topic="hidratação">Gerar dica de IA</button>
+                                <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
+                                    <span class="audio-icon">📢</span>
+                                </button>
+                            </div>
+                            <div class="ai-tip-container" style="display:none;">
+                                <div class="loading-skeleton">
+                                    <div class="skeleton-line skeleton-title"></div>
+                                    <div class="skeleton-line skeleton-text"></div>
+                                </div>
+                                <p class="ai-tip-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-card reveal delay-2">
+                        <img src="https://images.unsplash.com/photo-1602717140889-1384f67664c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyMHx8ZXhlcmNpc2VzfHNlYXJjaHwxNXx8Y3VpZGFkb3xlbnwwfHx8fDE3MTc1MzY2NDF8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso fazendo exercícios leves" class="blog-card-image" loading="lazy">
+                        <div class="blog-card-content">
+                            <div class="article-header">
+                                <h3>Exercícios leves para a mobilidade</h3>
+                            </div>
+                            <p class="short-text">A atividade física regular é fundamental para a saúde dos idosos. Ela ajuda a manter a força muscular, melhora o equilíbrio e a flexibilidade, reduzindo o risco de quedas. Conheça alguns exercícios simples e seguros que podem ser feitos em casa.</p>
+                            <div class="full-article-content">
+                                <div class="article-content">
+                                    <h4>Benefícios da atividade física</h4>
+                                    <p>Além de prevenir quedas, os exercícios melhoram a circulação sanguínea, fortalecem os ossos e promovem o bem-estar mental, combatendo o estresse e a ansiedade. Eles também contribuem para a autonomia e a independência do idoso no dia a dia.</p>
+                                    <h4>Ideias de exercícios</h4>
+                                    <p>É importante começar devagar e sempre consultar um médico ou fisioterapeuta antes de iniciar qualquer nova rotina de exercícios. Algumas atividades recomendadas incluem:</p>
+                                    <ul>
+                                        <li><strong>Caminhada:</strong> Comece com caminhadas curtas e aumente a duração e a intensidade gradualmente.</li>
+                                        <li><strong>Natação e Hidroginástica:</strong> A água reduz o impacto nas articulações, tornando esses exercícios ideais para manter a mobilidade e a força muscular.</li>
+                                        <li><strong>Yoga ou Pilates:</strong> Ajuda a melhorar o equilíbrio, a flexibilidade e a postura, além de promover relaxamento.</li>
+                                        <li><strong>Exercícios com faixas elásticas:</strong> Ótimos para fortalecer os músculos dos braços e pernas de forma segura.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="blog-card-actions">
+                                <a href="#" class="read-more-btn">Ler artigo</a>
+                                <button class="generate-tip-btn" data-topic="exercícios para mobilidade">Gerar dica de IA</button>
+                                <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
+                                    <span class="audio-icon">📢</span>
+                                </button>
+                            </div>
+                            <div class="ai-tip-container" style="display:none;">
+                                <div class="loading-skeleton">
+                                    <div class="skeleton-line skeleton-title"></div>
+                                    <div class="skeleton-line skeleton-text"></div>
+                                </div>
+                                <p class="ai-tip-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-card reveal delay-3">
+                        <img src="https://images.unsplash.com/photo-1599427303058-2996f022316e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwxNXx8c29ubyUyMGlkb3NvfHwxfHx8fHwxNzE3NTM2NzI1fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso dormindo tranquilamente" class="blog-card-image" loading="lazy">
+                        <div class="blog-card-content">
+                            <div class="article-header">
+                                <h3>Estratégias para uma boa noite de sono</h3>
+                            </div>
+                            <p class="short-text">O sono de qualidade é essencial para a saúde e o bem-estar em todas as idades, mas pode se tornar um desafio para os idosos. Saiba como criar uma rotina noturna que promova um descanso mais tranquilo e reparador.</p>
+                            <div class="full-article-content">
+                                <div class="article-content">
+                                    <h4>Por que o sono muda?</h4>
+                                    <p>Com a idade, a produção de melatonina (o hormônio do sono) diminui, e o padrão de sono tende a ser mais leve e fragmentado. Além disso, condições médicas e o uso de certos medicamentos podem afetar a qualidade do sono.</p>
+                                    <h4>Dicas para melhorar o sono</h4>
+                                    <p>Estabeleça horários regulares para dormir e acordar, mesmo nos fins de semana. Evite cafeína e refeições pesadas à noite. Crie um ambiente relaxante no quarto, com pouca luz e temperatura agradável. A leitura de um livro ou ouvir música calma antes de dormir pode ajudar a relaxar a mente.</p>
+                                </div>
+                            </div>
+                            <div class="blog-card-actions">
+                                <a href="#" class="read-more-btn">Ler artigo</a>
+                                <button class="generate-tip-btn" data-topic="rotina de sono para idosos">Gerar dica de IA</button>
+                                <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
+                                    <span class="audio-icon">📢</span>
+                                </button>
+                            </div>
+                            <div class="ai-tip-container" style="display:none;">
+                                <div class="loading-skeleton">
+                                    <div class="skeleton-line skeleton-title"></div>
+                                    <div class="skeleton-line skeleton-text"></div>
+                                </div>
+                                <p class="ai-tip-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-card reveal delay-4">
+                        <img src="https://images.unsplash.com/photo-1571772922119-913a826435c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwxMHx8ZGlldGElMjBhdm98ZW58MHx8fHwxNzE3NTM2Nzk1fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um avó preparando uma refeição" class="blog-card-image" loading="lazy">
+                        <div class="blog-card-content">
+                            <div class="article-header">
+                                <h3>Alimentação saudável na terceira idade</h3>
+                            </div>
+                            <p class="short-text">Uma dieta equilibrada é fundamental para manter a saúde e a vitalidade. Descubra quais são os nutrientes essenciais e como preparar refeições saborosas e nutritivas para os idosos.</p>
+                            <div class="full-article-content">
+                                <div class="article-content">
+                                    <h4>Nutrientes essenciais</h4>
+                                    <p>Com a idade, a absorção de certos nutrientes diminui. É importante incluir na dieta alimentos ricos em cálcio para a saúde dos ossos, vitamina D, fibras para a digestão, e proteínas para a manutenção da massa muscular.</p>
+                                    <h4>Dicas de refeições</h4>
+                                    <p>Priorize frutas, verduras, grãos integrais e proteínas magras. Ofereça refeições pequenas e frequentes ao longo do dia. Experimente receitas com texturas mais macias para facilitar a mastigação e a digestão. Adicione temperos naturais e ervas aromáticas para realçar o sabor sem excesso de sal.</p>
+                                </div>
+                            </div>
+                            <div class="blog-card-actions">
+                                <a href="#" class="read-more-btn">Ler artigo</a>
+                                <button class="generate-tip-btn" data-topic="alimentação para idosos">Gerar dica de IA</button>
+                                <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
+                                    <span class="audio-icon">📢</span>
+                                </button>
+                            </div>
+                            <div class="ai-tip-container" style="display:none;">
+                                <div class="loading-skeleton">
+                                    <div class="skeleton-line skeleton-title"></div>
+                                    <div class="skeleton-line skeleton-text"></div>
+                                </div>
+                                <p class="ai-tip-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next-btn" id="blogNextBtn" aria-label="Próximo artigo">&gt;</button>
+            </div>
+        </div>
+    </section>
 
-<section class="calculadora-section" id="calculadora">
-    <div class="calculadora-container reveal-scale glassmorphism">
-        <div class="calc-header">
-            <h2>Calcule seu orçamento personalizado</h2>
-            <p>Em 3 passos simples, descubra o investimento para o cuidado ideal</p>
-        </div>
-        <div class="calc-steps">
-            <div class="calc-step active" id="step1">
-                <div class="step-label">
-                    <div class="step-number"><span>1</span></div>
-                    <div>
-                        <div class="step-title">Tipo de Cuidado</div>
-                        <div class="step-subtitle">Qual o nível de cuidado necessário?</div>
-                    </div>
-                </div>
-                <div class="options-grid">
-                    <div class="option-card selected" data-tipo="basico" data-preco="30" data-label="Cuidado Básico">
-                        <div class="option-content">
-                            <div class="option-icon">👥</div>
-                            <div class="option-title">Cuidado Básico</div>
-                            <div class="option-description">Companhia, atividades e cuidados gerais</div>
-                            <div class="option-price">A partir de R$ 30/hora</div>
-                        </div>
-                    </div>
-                    <div class="option-card" data-tipo="medicacao" data-preco="40" data-label="Com Medicação">
-                        <div class="option-content">
-                            <div class="option-icon">💊</div>
-                            <div class="option-title">Com Medicação</div>
-                            <div class="option-description">Administração de medicamentos e controle</div>
-                        </div>
-                    </div>
-                    <div class="option-card" data-tipo="mobilidade" data-preco="45" data-label="Mobilidade Reduzida">
-                        <div class="option-content">
-                            <div class="option-icon">🦽</div>
-                            <div class="option-title">Mobilidade Reduzida</div>
-                            <div class="option-description">Auxílio para locomoção e transferências</div>
-                        </div>
-                    </div>
-                    <div class="option-card" data-tipo="intensivo" data-preco="55" data-label="Cuidado Intensivo">
-                        <div class="option-content">
-                            <div class="option-icon">🏥</div>
-                            <div class="option-title">Cuidado Intensivo</div>
-                            <div class="option-description">Acompanhamento especializado 24h</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="calc-step" id="step2">
-                <div class="step-label">
-                    <div class="step-number"><span>2</span></div>
-                    <div>
-                        <div class="step-title">Período de Cuidado</div>
-                        <div class="step-subtitle">Quantas horas por dia?</div>
-                    </div>
-                </div>
-                <div class="options-grid">
-                    <div class="option-card" data-horas="6" data-label="6 horas/dia">
-                        <div class="option-content">
-                            <div class="option-icon">☕</div>
-                            <div class="option-title">6 horas/dia</div>
-                            <div class="option-description">Cuidado parcial</div>
-                        </div>
-                    </div>
-                    <div class="option-card" data-horas="8" data-label="8 horas/dia">
-                        <div class="option-content">
-                            <div class="option-icon">🌅</div>
-                            <div class="option-title">8 horas/dia</div>
-                        </div>
-                    </div>
-                    <div class="option-card selected" data-horas="12" data-label="12 horas/dia">
-                        <div class="option-content">
-                            <div class="option-icon">☀️</div>
-                            <div class="option-title">12 horas/dia</div>
-                            <div class="option-description">Cobertura estendida</div>
-                    </div>
-                    <div class="option-card" data-horas="24" data-label="24 horas/dia">
-                        <div class="option-content">
-                            <div class="option-icon">🌙</div>
-                            <div class="option-title">24 horas/dia</div>
-                            <div class="option-description">Cuidado contínuo</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="calc-step" id="step3">
-                <div class="step-label">
-                    <div class="step-number"><span>3</span></div>
-                    <div>
-                        <div class="step-title">Frequência Semanal</div>
-                        <div class="step-subtitle">Quantos dias por semana?</div>
-                    </div>
-                </div>
-                <div class="options-grid">
-                    <div class="option-card" data-dias="5" data-label="5 dias/semana">
-                        <div class="option-content">
-                            <div class="option-icon">📅</div>
-                            <div class="option-title">Segunda a Sexta</div>
-                            <div class="option-description">5 dias por semana</div>
-                        </div>
-                    </div>
-                    <div class="option-card" data-dias="6" data-label="6 dias/semana">
-                        <div class="option-content">
-                            <div class="option-icon">📆</div>
-                            <div class="option-title">Segunda a Sábado</div>
-                    </div>
-                    <div class="option-card selected" data-dias="7" data-label="7 dias/semana">
-                        <div class="option-content">
-                            <div class="option-icon">🗓️</div>
-                            <div class="option-title">Todos os Dias</div>
-                            <div class="option-description">7 dias por semana</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="resultado-container visible" id="resultado">
-            <div class="resultado-content">
-                <div class="resultado-title">Seu orçamento personalizado</div>
-                <div class="preco-display">
-                    <div class="preco-valor">R$ <span id="valorFinal">10.320</span></div>
-                    <div class="preco-periodo">por mês</div>
-                </div>
-                <div class="preco-detalhes">
-                    <div class="detalhe-item">
-                        <span>Tipo de cuidado:</span>
-                        <span id="tipoSelecionado">Cuidado Básico</span>
-                    </div>
-                    <div class="detalhe-item">
-                        <span>Período diário:</span>
-                        <span id="periodoSelecionado">12 horas</span>
-                    </div>
-                    <div class="detalhe-item">
-                        <span>Frequência:</span>
-                        <span id="frequenciaSelecionada">7 dias/semana</span>
-                    </div>
-                    <div class="detalhe-item">
-                        <span>Valor por hora:</span>
-                        <span>R$ <span id="valorHora">30</span></span>
-                    </div>
-                    <div class="detalhe-item">
-                        <span><strong>Total mensal:</strong></span>
-                        <span><strong>R$ <span id="totalMensal">10.320</span></strong></span>
-                    </div>
-                </div>
-                <div class="cta-buttons">
-                    <a href="#contato" class="btn-primary" id="btnWhatsApp">
-                        📱 Solicitar via WhatsApp
-                    </a>
-                    <a href="#contato" class="btn-secondary">
-                        📋 Formulário Completo
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title reveal">Perguntas Frequentes</h2>
+            <div class="faq-container">
+                
+                <div class="faq-item reveal delay-1">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
+                        <span>Como vocês selecionam os cuidadores?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-1" aria-labelledby="faq-question-1" role="region">
+                        <p>Nosso processo de seleção é rigoroso e único. Todos os cuidadores passam por verificação de antecedentes, entrevistas detalhadas, testes práticos e, principalmente, um período de treinamento em nossa própria casa com nossa avó de 94 anos. Isso garante que eles não apenas tenham as habilidades técnicas, mas também o carinho e a paciência necessários.</p>
+                    </div>
+                </div>
 
-<section class="testimonials" id="depoimentos">
-    <div class="container">
-        <h2 class="section-title reveal">Depoimentos</h2>
-        <div class="testimonial-container">
-            <button class="carousel-btn prev-btn" aria-label="Depoimento Anterior">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <div class="testimonial-carousel-wrapper">
-                <div class="testimonial-carousel">
-                    <div class="testimonial-slide">
-                        <div class="testimonial-content reveal-left">
-                            <div class="testimonial-text">
-                                Desde que minha mãe passou no programa, ela ficou muito mais animada e segura. Estou muito satisfeita com os cuidados que ela recebe.
-                            </div>
-                            <div class="testimonial-author">- Maria Silva, filha de Dona Antônia</div>
-                        </div>
-                        <div class="testimonial-image reveal-right parallax-element">
-                            <img src="https://images.unsplash.com/photo-1594738466657-3f3c834a36e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwxNXx8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Dona Antônia sorrindo">
-                        </div>
-                    </div>
-                    <div class="testimonial-slide">
-                        <div class="testimonial-content reveal-left">
-                            <div class="testimonial-text">
-                                A equipe é extremamente atenciosa e profissional. Meu pai se sente muito bem cuidado e nós ficamos tranquilos sabendo que ele está em boas mãos. Recomendo muito!
-                        </div>
-                        <div class="testimonial-author">- João Pereira, filho de Sr. Carlos</div>
-                    </div>
-                    <div class="testimonial-image reveal-right parallax-element">
-                        <img src="https://images.unsplash.com/photo-1549725227-3a1372b73379?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyMHx8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Sr. Carlos">
-                    </div>
-                </div>
-                <div class="testimonial-slide">
-                    <div class="testimonial-content reveal-left">
-                        <div class="testimonial-text">
-                            Ter um motorista para as consultas médicas e passeios fez uma diferença enorme na vida da minha avó. Ela se sente mais independente e feliz. O serviço é impecável.
-                        </div>
-                        <div class="testimonial-author">- Ana Clara, neta de D. Fátima</div>
-                    </div>
-                    <div class="testimonial-image reveal-right parallax-element">
-                        <img src="https://images.unsplash.com/photo-1594738466657-3f3c834a36e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyM3x8Y3VpZGFkb3IlMjBlJTIwaWRvc298ZW58MHx8fHwxNzE3NTM2NjM0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="D. Fátima">
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-btn next-btn" aria-label="Próximo Depoimento">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-        </div>
-    </div>
-</section>
+                <div class="faq-item reveal delay-2">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
+                        <span>Qual é o diferencial do "De Vó para Vó"?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-2" aria-labelledby="faq-question-2" role="region">
+                        <p>Nosso grande diferencial é que todos os profissionais trabalham primeiro em nossa própria casa, cuidando da nossa avó Dona Tereca. Isso significa que quando chegam à sua casa, já sabem exatamente como tratar um idoso com amor, respeito e profissionalismo. Não é apenas um trabalho para eles, é uma filosofia de cuidado.</p>
+                    </div>
+                </div>
 
-<section class="blog" id="blog">
-    <div class="container">
-        <h2 class="section-title reveal">Blog - Dicas de Cuidado</h2>
-        <div class="blog-filters">
-            <button class="blog-filter-btn active" data-filter="all" aria-pressed="true">Todos os artigos</button>
-            <button class="blog-filter-btn" data-filter="hidratacao" aria-pressed="false">Hidratação</button>
-            <button class="blog-filter-btn" data-filter="exercicios" aria-pressed="false">Exercícios</button>
-            <button class="blog-filter-btn" data-filter="sono" aria-pressed="false">Sono</button>
-            <button class="blog-filter-btn" data-filter="alimentacao" aria-pressed="false">Alimentação</button>
-            <button class="blog-filter-btn" data-filter="saude-mental" aria-pressed="false">Saúde Mental</button>
-            <button class="blog-filter-btn" data-filter="apoio-ortopedico" aria-pressed="false">Apoio Ortopédico</button>
-        </div>
-        <div class="blog-grid">
-            <div class="blog-card reveal delay-1 glassmorphism" data-tag="hidratacao">
-                <img src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso bebendo água" class="blog-card-image">
-                <div class="blog-card-content">
-                    <div class="blog-card-header">
-                        <span class="blog-card-tag">Hidratação</span>
-                        <div class="blog-card-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            <span>5 min leitura</span>
-                        </div>
-                    </div>
-                    <h3>A importância da hidratação para idosos</h3>
-                    <p class="short-text">Manter-se hidratado é crucial na terceira idade. A sensação de sede diminui, o que pode levar à desidratação sem que a pessoa perceba. Entenda a importância da hidratação e como incentivá-la no dia a dia.</p>
-                    <div class="full-article-content">
-                        <div class="article-content">
-                            <h4>Por que é tão importante?</h4>
-                            <p>A hidratação adequada previne problemas renais, melhora a função cognitiva, ajuda na digestão e mantém a pele saudável. Com o avanço da idade, a composição corporal muda e a capacidade dos rins de reter água diminui. Portanto, a ingestão regular de líquidos se torna ainda mais vital.</p>
-                            <h4>Tabela de Hidratação Diária</h4>
-                            <div class="table-container">
-                                <table class="hydration-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Idade</th>
-                                            <th>Peso Corporal</th>
-                                            <th>Recomendação Mínima de Água</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>60-70 anos</td>
-                                            <td>70 kg</td>
-                                            <td>2,1 L (aproximadamente 10 copos)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>70-80 anos</td>
-                                            <td>65 kg</td>
-                                            <td>1,95 L (aproximadamente 9 copos)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>80+ anos</td>
-                                            <td>60 kg</td>
-                                            <td>1,8 L (aproximadamente 8 copos)</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <h4>Como incentivar?</h4>
-                            <p>Ofereça água em copos pequenos e em horários fixos. Inclua alimentos ricos em água na dieta, como frutas (melancia, laranja) e sopas. Tenha sempre uma garrafa de fácil acesso e explore opções como chás, sucos naturais e água saborizada com frutas.</p>
-                            <p>Compartilhe este artigo:</p>
-                            <div class="social-share-buttons">
-                                <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
-                                </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-card-actions">
-                            <button class="blog-action-btn read-more-btn" data-action="toggle-content">
-                                <span>Ler artigo</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                            </button>
-                            <button class="blog-action-btn generate-tip-btn" data-topic="alimentação para idosos">Gerar dica de IA</button>
-                            <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
-                                <span class="audio-icon">📢</span>
-                            </button>
-                        </div>
-                        <div class="ai-tip-container">
-                            <div class="loading-skeleton">
-                                <div class="skeleton-line"></div>
-                                <div class="skeleton-line"></div>
-                            </div>
-                            <p class="ai-tip-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-card reveal delay-6 glassmorphism" data-tag="apoio-ortopedico">
-                    <img src="https://images.unsplash.com/photo-1621216668749-3e0e7a25a40b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw3fHxlbGRlcmx5JTIwaWRvc28lMjBpbmRvb3JzfGVufDB8fHx8MTY5MDc3NDU1M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso em uma cadeira de rodas" class="blog-card-image">
-                    <div class="blog-card-content">
-                        <div class="blog-card-header">
-                            <span class="blog-card-tag">Apoio Ortopédico</span>
-                            <div class="blog-card-info">
-                                <svg xmlns="http://www.w3.org/24/24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                                <span>5 min leitura</span>
-                            </div>
-                        </div>
-                        <h3>Dicas para um ambiente seguro e confortável</h3>
-                        <p class="short-text">A prevenção de quedas é uma das maiores preocupações no cuidado de idosos. Um ambiente adaptado e seguro faz toda a diferença. Veja como simples mudanças podem transformar a casa em um local mais acolhedor.</p>
-                        <div class="full-article-content">
-                            <div class="article-content">
-                                <h4>Adaptando a casa</h4>
-                                <p>Remova tapetes soltos e obstáculos. Instale barras de apoio no banheiro e corrimãos em escadas. Garanta uma iluminação adequada, especialmente em corredores e escadas. Use pisos antiderrapantes para aumentar a segurança.</p>
-                                <h4>Equipamentos de auxílio</h4>
-                                <p>Andadores, bengalas e cadeiras de rodas podem ser grandes aliados para a mobilidade. A escolha do equipamento certo deve ser feita com orientação profissional. Nossos cuidadores podem auxiliar na utilização correta desses dispositivos.</p>
-                                <p>Compartilhe este artigo:</p>
-                                <div class="social-share-buttons">
-                                    <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
-                                </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
-                                </a>
-                            </div>
-                            </div>
-                        <div class="blog-card-actions">
-                            <button class="blog-action-btn read-more-btn" data-action="toggle-content">
-                                <span>Ler artigo</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                            </button>
-                            <button class="blog-action-btn generate-tip-btn" data-topic="prevenção de quedas para idosos">Gerar dica de IA</button>
-                            <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
-                                <span class="audio-icon">📢</span>
-                            </button>
-                        </div>
-                        <div class="ai-tip-container">
-                            <div class="loading-skeleton">
-                                <div class="skeleton-line"></div>
-                                <div class="skeleton-line"></div>
-                            </div>
-                            <p class="ai-tip-text"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</section>
+                <div class="faq-item reveal delay-3">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-question-3">
+                        <span>Quais serviços vocês oferecem?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-3" aria-labelledby="faq-question-3" role="region">
+                        <p>Oferecemos cuidadores especializados, enfermagem domiciliar, fisioterapia, apoio psicológico, serviços de manicure e cabeleireiro, e motorista para consultas e passeios. Todos os serviços são personalizados conforme a necessidade de cada família.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item reveal delay-4">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-question-4">
+                        <span>Vocês atendem em quais regiões?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-4" aria-labelledby="faq-question-4" role="region">
+                        <p>Atendemos principalmente na região do Itaim e bairros próximos em São Paulo. Para atendimentos em outras regiões, consulte-nos sobre disponibilidade e possíveis taxas de deslocamento.</p>
+                    </div>
+                </div>
 
-<section class="faq" id="faq">
-    <div class="container">
-        <h2 class="section-title reveal">Perguntas Frequentes</h2>
-        <div class="faq-container">
-            <div class="faq-item reveal delay-1">
-                <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
-                    <span>Como vocês selecionam os cuidadores?</span>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </button>
-                <div class="faq-answer" id="faq-answer-1" aria-labelledby="faq-question-1" role="region">
-                    <p>Nosso processo de seleção é rigoroso e único. Todos os cuidadores passam por verificação de antecedentes, entrevistas detalhadas, testes práticos e, principalmente, um período de treinamento em nossa própria casa com nossa avó de 94 anos. Isso garante que eles não apenas tenham as habilidades técnicas, mas também o carinho e a paciência necessários.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal delay-2">
-                <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
-                    <span>Qual é o diferencial do "De Vó para Vó"?</span>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </button>
-                <div class="faq-answer" id="faq-answer-2" aria-labelledby="faq-question-2" role="region">
-                    <p>Nosso grande diferencial é que todos os profissionais trabalham primeiro em nossa própria casa, cuidando da nossa avó Dona Tereca. Isso significa que quando chegam à sua casa, já sabem exatamente como tratar um idoso com amor, respeito e profissionalismo. Não é apenas um trabalho para eles, é uma filosofia de cuidado.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal delay-3">
-                <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-question-3">
-                    <span>Quais serviços vocês oferecem?</span>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </button>
-                <div class="faq-answer" id="faq-answer-3" aria-labelledby="faq-question-3" role="region">
-                    <p>Oferecemos cuidadores especializados, enfermagem domiciliar, fisioterapia, apoio psicológico, serviços de manicure e cabeleireiro, e motorista para consultas e passeios. Todos os serviços são personalizados conforme a necessidade de cada família.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal delay-4">
-                <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-question-4">
-                    <span>Vocês atendem em quais regiões?</span>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </button>
-                <div class="faq-answer" id="faq-answer-4" aria-labelledby="faq-question-4" role="region">
-                    <p>Atendemos principalmente na região do Itaim e bairros próximos em São Paulo. Para atendimentos em outras regiões, consulte-nos sobre disponibilidade e possíveis taxas de deslocamento.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                <div class="faq-item reveal delay-5">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-question-5">
+                        <span>Como é feito o acompanhamento dos cuidados?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-5" aria-labelledby="faq-question-5" role="region">
+                        <p>Mantemos contato regular com as famílias através de relatórios diários, chamadas de acompanhamento e visitas de supervisão. Nossos profissionais são treinados para documentar todas as atividades e comunicar qualquer mudança no estado de saúde ou humor do idoso.</p>
+                    </div>
+                </div>
 
-<section class="contact" id="contato">
-    <div class="container">
-        <h2 class="section-title reveal">Entre em contato</h2>
-        <form class="contact-form reveal-scale">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nome">Nome completo</label>
-                    <input type="text" id="nome" name="nome" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="telefone">Telefone/WhatsApp</label>
-                    <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required maxlength="15">
-                    <small>Entraremos em contato via WhatsApp</small>
-                </div>
-                <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required maxlength="14">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="servicos-interesse">Serviços que tenho interesse</label>
-                <div class="services-tags">
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Cuidadora" checked disabled>
-                        <span>Cuidadora</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Manicure e cabeleireiro">
-                        <span>Manicure e cabeleireiro</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Apoio psicológico">
-                        <span>Psicóloga</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Motorista">
-                        <span>Motorista</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Apoio Ortopédico">
-                        <span>Apoio Ortopédico</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Geriatra">
-                        <span>Geriatra</span>
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="cep">CEP</label>
-                <input type="text" id="cep" name="cep" placeholder="00000-000" required maxlength="9">
-                <small id="cep-status" class="validation-message"></small>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="endereco">Endereço</label>
-                    <input type="text" id="endereco" name="endereco" placeholder="Será preenchido automaticamente" readonly required>
-                </div>
-                <div class="form-group">
-                    <label for="bairro">Bairro</label>
-                    <input type="text" id="bairro" name="bairro" placeholder="Será preenchido automaticamente" readonly required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="cidade">Cidade</label>
-                <input type="text" id="cidade" name="cidade" placeholder="Será preenchido automaticamente" readonly required>
-            </div>
-            <button type="submit" class="submit-btn">
-                ✨ Solicitar contato
-            </button>
-        </form>
-    </div>
-</section>
+                <div class="faq-item reveal delay-6">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-question-6">
+                        <span>Qual o valor dos serviços?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-6" aria-labelledby="faq-question-6" role="region">
+                        <p>Os valores variam conforme o tipo de serviço, frequência e necessidades específicas. Oferecemos orçamentos personalizados após uma avaliação gratuita. Entre em contato conosco para receber uma proposta adequada à sua situação.</p>
+                    </div>
+                </div>
 
-<footer class="footer">
-    <div class="container">
-        <p>Cuidando com amor e carinho.</p>
-        <p>CNPJ: xxxx</p>
-        <p>© 2025 - De Vó para Vó</p>
-    </div>
-</footer>
+                <div class="faq-item reveal delay-7">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7" id="faq-question-7">
+                        <span>E se eu não ficar satisfeito com o cuidador?</span>
+                        <span class="faq-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-7" aria-labelledby="faq-question-7" role="region">
+                        <p>Sua satisfação é nossa prioridade. Se por qualquer motivo você não estiver satisfeito, substituímos o profissional imediatamente. Temos uma equipe diversificada para garantir que encontremos o cuidador ideal para sua família.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div id="successModal" class="modal">
-    <div class="modal-content">
-        <h3>Mensagem Enviada com Sucesso!</h3>
-        <p>Agradecemos o seu contato. Entraremos em contato via WhatsApp em breve para discutir as suas necessidades.</p>
-        <button class="close-btn" id="closeModalBtn">Fechar</button>
-    </div>
-</div>
+    <section class="contact" id="contato">
+        <div class="container">
+            <h2 class="section-title reveal">Entre em contato</h2>
+            <form class="contact-form reveal-scale">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome completo</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
 
-<div id="chatbotModal" class="modal">
-    <div class="chatbot-content">
-        <div class="chatbot-header">
-            <h3>Olá! Como posso te ajudar? 👋</h3>
-            <button class="close-btn-chat" id="closeChatBtn">✕</button>
-        </div>
-        <div class="chatbox" id="chatbox">
-            <div class="message ai">
-                Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?
-            </div>
-        </div>
-        <div class="chatbot-input">
-            <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
-            <button id="sendBtn" aria-label="Enviar mensagem">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
-            </button>
-        </div>
-    </div>
-</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefone">Telefone/WhatsApp</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required maxlength="15">
+                        <small>Entraremos em contato via WhatsApp</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required maxlength="14">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="servicos-interesse">Serviços que tenho interesse</label>
+                    <div class="services-tags">
+                        <label class="service-tag">
+                            <input type="checkbox" name="servicos[]" value="Cuidadora" checked disabled>
+                            <span>Cuidadora</span>
+                        </label>
+                        <label class="service-tag">
+                            <input type="checkbox" name="servicos[]" value="Manicure e cabeleireiro">
+                            <span>Manicure e cabeleireiro</span>
+                        </label>
+                        <label class="service-tag">
+                            <input type="checkbox" name="servicos[]" value="Apoio psicológico">
+                            <span>Psicóloga</span>
+                        </label>
+                        <label class="service-tag">
+                            <input type="checkbox" name="servicos[]" value="Motorista">
+                            <span>Motorista</span>
+                        </label>
+                        <label class="service-tag">
+                            <input type="checkbox" name="servicos[]" value="Apoio Ortopédico">
+                            <span>Apoio Ortopédico</span>
+                        </label>
+                        <label class="service-tag">
+                            <input type="checkbox" name="servicos[]" value="Geriatra">
+                            <span>Geriatra</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" name="cep" placeholder="00000-000" required maxlength="9">
+                    <small id="cep-status" class="validation-message"></small>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" id="endereco" name="endereco" placeholder="Será preenchido automaticamente" readonly required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" placeholder="Será preenchido automaticamente" readonly required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Será preenchido automaticamente" readonly required>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    ✨ Solicitar contato
+                </button>
+            </form>
+        </div>
+    </section>
 
-<div id="agendamentoLigacaoModal" class="modal">
-    <div class="modal-content">
-        <h3>Agendar Ligação</h3>
-        <p>Preencha seus dados e entraremos em contato no horário de sua preferência.</p>
-        <form id="formAgendamentoLigacao" class="modal-ligacao">
-            <div class="form-group">
-                <label for="nomeLigacao">Nome</label>
-                <input type="text" id="nomeLigacao" name="nome" required>
-            </div>
-            <div class="form-group">
-                <label for="telefoneLigacao">Telefone</label>
-                <input type="tel" id="telefoneLigacao" name="telefone" placeholder="(11) 99999-9999" required>
-            </div>
-            <div class="form-group">
-                <label for="horarioLigacao">Melhor horário</label>
-                <input type="datetime-local" id="horarioLigacao" name="horario" required>
-            </div>
-            <button type="submit" class="cta-button">Agendar Agora</button>
-        </form>
-        <button class="close-btn" id="closeLigacaoModalBtn">Fechar</button>
-    </div>
-</div>
+    <footer class="footer">
+        <div class="container">
+            <p>Cuidando com amor e carinho.</p>
+            <p>CNPJ: xxxx</p>
+            <p>© 2025 - De Vó para Vó</p>
+        </div>
+    </footer>
+    
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h3>Mensagem Enviada com Sucesso!</h3>
+            <p>Agradecemos o seu contato. Entraremos em contato via WhatsApp em breve para discutir as suas necessidades.</p>
+            <button class="close-btn" id="closeModalBtn">Fechar</button>
+        </div>
+    </div>
 
-<script src="script.js"></script>
+    <div id="chatbotModal" class="modal">
+        <div class="chatbot-content">
+            <div class="chatbot-header">
+                <h3>Olá! Como posso te ajudar? 👋</h3>
+                <button class="close-btn-chat" id="closeChatBtn">✕</button>
+            </div>
+            <div class="chatbox" id="chatbox">
+                <div class="message ai">
+                    Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+                <button id="sendBtn" aria-label="Enviar mensagem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
