@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initAITipGenerators();
     initFAQ();
     initChatbot();
+    initQuiz();
     initCalculadora();
     initBlogFilters();
     initFooter();
