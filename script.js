@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initBackToTopButton();
     initAgendamentoLigacao();
     initFontSizeToggle();
+    initContrastToggle(); 
     initSocialShare();
 });
 
