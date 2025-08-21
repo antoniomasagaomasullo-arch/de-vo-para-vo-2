@@ -862,48 +862,56 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// ==================== Lógica do Chatbot ====================
 
-let chatHistory = [];
-const CHATBOT_CONTEXT = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
-Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
-- A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico, motorista e terapia ocupacional para idosos.
-- O diferencial é o treinamento dos profissionais na casa da fundadora, Dona Tereca, que tem 94 anos.
-- Os serviços são personalizados.
-- A área de atuação é o Itaim e bairros próximos em São Paulo, como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena.
-- Para agendar um serviço ou obter um orçamento, o cliente deve preencher o formulário de contato. Não forneça preços diretamente.
-Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.`;
+// ==================== Lógica do Chatbot (Novo Layout) ====================
+
+// Respostas prontas para as perguntas rápidas
+const quickReplyAnswers = {
+    "Quais serviços vocês oferecem?": "Oferecemos um cuidado 360º! Nossos principais serviços são: Cuidadoras, Manicure e Cabeleireiro, Apoio Psicológico, Motorista e Terapia Ocupacional. Precisa de detalhes sobre algum deles?",
+    "Qual a área de atendimento?": "Atendemos principalmente no Itaim e em bairros próximos como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena. Para confirmar seu endereço, por favor, utilize o formulário de contato na página. 😉",
+    "Como agendo uma avaliação?": "É muito simples! O melhor caminho é preencher nosso formulário de contato na seção 'Contato' ou, se preferir, pode agendar uma ligação diretamente pelo botão 'Agendar uma Avaliação'.",
+    "Qual o diferencial da empresa?": "Nosso grande diferencial é o carinho! ❤️ Todos os nossos profissionais são treinados na prática em nossa própria casa, cuidando da nossa avó, Dona Tereca. Assim, garantimos que eles cuidem dos nossos clientes como se fossem da nossa própria família."
+};
 
 function initChatbot() {
-    const chatbotTogglerBtn = document.getElementById('chatbotTogglerBtn'); // Pega o novo botão
+    const chatbotTogglerBtn = document.getElementById('chatbotTogglerBtn');
     const chatbotModal = document.getElementById('chatbotModal');
     const closeChatBtn = document.getElementById('closeChatBtn');
     const chatbox = document.getElementById('chatbox');
     const chatInput = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
-    const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?";
+    const quickRepliesContainer = document.getElementById('quickReplies');
 
-    chatHistory = [{ role: "model", parts: [{ text: initialMessage }] }];
-
-    // Nova lógica para o botão flutuante
+    const initialMessage = "Olá! Como posso te ajudar? 👋";
+    
+    // Mostra a mensagem inicial e as opções rápidas
+    const showInitialState = () => {
+        chatbox.innerHTML = '';
+        appendMessage(initialMessage, 'ai');
+        quickRepliesContainer.style.display = 'block';
+    };
+    
+    // Lógica para abrir o chat
     if (chatbotTogglerBtn) {
         chatbotTogglerBtn.addEventListener('click', () => {
             chatbotModal.classList.add('visible');
-            document.body.classList.add('modal-open'); // Trava o scroll da página
+            document.body.classList.add('modal-open');
+            showInitialState();
         });
     }
 
+    // Lógica para fechar o chat
     if (closeChatBtn) {
         closeChatBtn.addEventListener('click', () => {
             chatbotModal.classList.remove('visible');
-            document.body.classList.remove('modal-open'); // Libera o scroll da página
+            document.body.classList.remove('modal-open');
         });
     }
     
+    // Lógica para enviar mensagem digitada
     if (sendBtn) {
         sendBtn.addEventListener('click', handleUserMessage);
     }
-
     if (chatInput) {
         chatInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
@@ -911,37 +919,42 @@ function initChatbot() {
             }
         });
     }
-    
-    // A linha abaixo foi removida para não duplicar a mensagem inicial
-    // appendMessage(initialMessage, 'ai'); 
+
+    // Lógica para os botões de resposta rápida
+    if (quickRepliesContainer) {
+        quickRepliesContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const question = e.target.dataset.question;
+                const answer = quickReplyAnswers[question];
+                
+                quickRepliesContainer.style.display = 'none'; // Esconde as opções
+                
+                appendMessage(question, 'user'); // Mostra a pergunta do usuário
+                
+                setTimeout(() => {
+                    appendMessage(answer, 'ai'); // Mostra a resposta do bot
+                }, 500);
+            }
+        });
+    }
 }
 
 async function handleUserMessage() {
     const chatInput = document.getElementById('chatInput');
+    const quickRepliesContainer = document.getElementById('quickReplies');
     const message = chatInput.value.trim();
     if (message === '') return;
 
     chatInput.value = '';
+    quickRepliesContainer.style.display = 'none'; // Esconde as opções ao digitar
     
     appendMessage(message, 'user');
-    chatHistory.push({ role: "user", parts: [{ text: message }] });
-
-    if (chatHistory.length > 10) {
-        chatHistory = chatHistory.slice(chatHistory.length - 10);
-    }
-
-    const typingIndicator = appendMessage('...', 'ai-typing');
+    // ... (A lógica de chamada para a IA Gemini continua aqui se você quiser manter a conversa aberta)
     
-    try {
-        const responseText = await getChatbotResponse(chatHistory);
-        typingIndicator.remove();
-        appendMessage(responseText, 'ai');
-        chatHistory.push({ role: "model", parts: [{ text: responseText }] });
-    } catch (error) {
-        console.error('Erro ao obter a resposta do chatbot:', error);
-        typingIndicator.remove();
-        appendMessage('Desculpe, não consegui processar sua solicitação no momento. Tente novamente mais tarde.', 'ai');
-    }
+    // Resposta padrão caso a IA não esteja configurada
+    setTimeout(() => {
+        appendMessage("Obrigado pela sua mensagem. Para continuar o atendimento, por favor, preencha o formulário de contato.", 'ai');
+    }, 1000);
 }
 
 function appendMessage(text, sender) {
@@ -953,11 +966,6 @@ function appendMessage(text, sender) {
     chatbox.scrollTop = chatbox.scrollHeight;
     return messageElement;
 }
-
-async function getChatbotResponse(history) {
-    if (!API_KEY_GEMINI) {
-        return "Olá! A funcionalidade do assistente virtual está temporariamente desativada. Por favor, entre em contato através do formulário para mais informações.";
-    }
     
     // MELHORIA: Apenas o histórico de conversa é enviado, com o contexto definido globalmente.
     const payload = { 
