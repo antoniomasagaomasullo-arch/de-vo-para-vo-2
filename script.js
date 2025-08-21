@@ -216,6 +216,15 @@ function validateTelefoneFormat(value) {
     return false;
 }
 
+function maskCEP(value) {
+    let sanitized = value.replace(/\D/g, '');
+    sanitized = sanitized.substring(0, 8);
+    if (sanitized.length > 5) {
+        sanitized = sanitized.replace(/^(\d{5})(\d)/, '$1-$2');
+    }
+    return sanitized;
+}
+
 function maskCPF(value) {
     let sanitized = value.replace(/\D/g, '');
     sanitized = sanitized.replace(/^(\d{3})(\d)/, '$1.$2');
@@ -394,16 +403,15 @@ async function searchCEP(cep) {
                 tagCorreta.setAttribute('aria-pressed', 'true');
             }
             updateValidationIcons(cepInput, true);
-      } else {
-    statusElement.textContent = `❌ Infelizmente ainda não atendemos a sua região.`;
-    statusElement.classList.remove('success');
-    statusElement.classList.add('error');
-    // As três linhas que apagavam os campos foram removidas daqui.
-    enderecoField.setAttribute('readonly', true);
-    bairroField.setAttribute('readonly', true);
-    cidadeField.setAttribute('readonly', true);
-    updateValidationIcons(cepInput, false);
-}
+        } else {
+            statusElement.textContent = `❌ Infelizmente ainda não atendemos a sua região.`;
+            statusElement.classList.remove('success');
+            statusElement.classList.add('error');
+            enderecoField.setAttribute('readonly', true);
+            bairroField.setAttribute('readonly', true);
+            cidadeField.setAttribute('readonly', true);
+            updateValidationIcons(cepInput, false);
+        }
 
     } catch (error) {
         statusElement.textContent = `❌ ${error.message}`;
@@ -1168,11 +1176,11 @@ function initFontSizeToggle() {
     const fontSizeToggleBtn = document.getElementById('fontSizeToggleBtn');
     if (!fontSizeToggleBtn) return;
 
-  fontSizeToggleBtn.addEventListener('click', () => {
-    document.documentElement.classList.toggle('large-font');
-    const isLargeFont = document.documentElement.classList.contains('large-font');
-    fontSizeToggleBtn.setAttribute('aria-pressed', isLargeFont);
-});
+    fontSizeToggleBtn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('large-font');
+        const isLargeFont = document.documentElement.classList.contains('large-font');
+        fontSizeToggleBtn.setAttribute('aria-pressed', isLargeFont);
+    });
 }
 
 // ==================== NOVAS FUNÇÕES ====================
