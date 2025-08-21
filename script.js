@@ -1,4 +1,7 @@
-const API_KEY = "SUA_API_KEY_AQUI"; // Substitua pela sua chave API do Google Generative AI
+// ==================== Scripts de Inicialização ====================
+// A chave de API do Google Gemini é necessária apenas para as funções de IA (chatbot e dicas do blog).
+// A função de busca de CEP não precisa desta chave.
+const API_KEY_GEMINI = "SUA_CHAVE_AQUI"; // Coloque a sua chave aqui para ativar o chatbot e as dicas de IA.
 
 document.addEventListener('DOMContentLoaded', function() {
     initLoadingScreen();
@@ -20,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFontSizeToggle();
 });
 
-// ==================== Scripts de Inicialização ====================
+// ==================== Funções de Efeitos Visuais ====================
 
 function initLoadingScreen() {
     setTimeout(function() {
@@ -318,6 +321,7 @@ function initFormHandlers() {
     }
 }
 
+// A função searchCEP original foi modificada para ser mais robusta e independente.
 async function searchCEP(cep) {
     const statusElement = document.getElementById('cep-status');
     const enderecoField = document.getElementById('endereco');
@@ -346,8 +350,9 @@ async function searchCEP(cep) {
 
     try {
         statusElement.innerHTML = `🔍 Buscando endereço...`;
-        statusElement.classList.add('success');
         statusElement.classList.remove('error');
+        statusElement.classList.add('success');
+        
         const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
         const data = await response.json();
 
@@ -358,6 +363,11 @@ async function searchCEP(cep) {
         enderecoField.value = `${data.logradouro}, ${data.complemento || ''}`.trim();
         bairroField.value = data.bairro;
         cidadeField.value = `${data.localidade} - ${data.uf}`;
+        
+        // Remove o readonly para permitir que o usuário edite o endereço se precisar
+        enderecoField.removeAttribute('readonly');
+        bairroField.removeAttribute('readonly');
+        cidadeField.removeAttribute('readonly');
 
         let isBairroAtendido = false;
         let bairroPrincipal = '';
@@ -374,7 +384,7 @@ async function searchCEP(cep) {
             statusElement.innerHTML = `✅ Endereço encontrado. Atendemos no bairro ${bairroPrincipal}!`;
             statusElement.classList.remove('error');
             statusElement.classList.add('success');
-            enderecoField.removeAttribute('readonly');
+            
             const tagCorreta = document.querySelector(`#bairros-atuacao .service-tag[data-bairro-principal="${bairroPrincipal}"]`);
             if (tagCorreta) {
                 tagCorreta.classList.add('selected');
@@ -389,6 +399,8 @@ async function searchCEP(cep) {
             bairroField.value = '';
             cidadeField.value = '';
             enderecoField.setAttribute('readonly', true);
+            bairroField.setAttribute('readonly', true);
+            cidadeField.setAttribute('readonly', true);
             updateValidationIcons(cepInput, false);
         }
 
@@ -400,6 +412,8 @@ async function searchCEP(cep) {
         bairroField.value = '';
         cidadeField.value = '';
         enderecoField.setAttribute('readonly', true);
+        bairroField.setAttribute('readonly', true);
+        cidadeField.setAttribute('readonly', true);
         updateValidationIcons(cepInput, false);
     }
 }
@@ -594,6 +608,11 @@ function initBlogLinks() {
 
 // ==================== Funções da API Gemini ====================
 async function fetchGeminiApi(url, payload) {
+    if (!API_KEY_GEMINI) {
+        console.error("Chave de API do Gemini não configurada. O chatbot e as dicas de IA não funcionarão.");
+        return { error: "API key not configured." };
+    }
+    
     let response = null;
     let retryDelay = 1000;
     const maxRetries = 5;
@@ -649,6 +668,9 @@ function initAITipGenerators() {
 
             try {
                 const tip = await generateNewTip(topic);
+                if (tip === 'Nenhuma dica gerada. Tente novamente.') {
+                    throw new Error(tip);
+                }
                 aiTipText.textContent = tip;
                 audioBtn.dataset.textForAudio = tip;
                 audioBtn.style.display = 'block';
@@ -683,11 +705,14 @@ function initAITipGenerators() {
 }
 
 async function generateNewTip(topic) {
+    if (!API_KEY_GEMINI) {
+        return 'Nenhuma dica gerada. A chave de API não está configurada.';
+    }
     const prompt = `Gere uma dica curta e útil (no máximo 50 palavras) para cuidadores de idosos, focada no tema de "${topic}". Formate a resposta como uma frase direta.`;
     let chatHistory = [];
     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
     const payload = { contents: chatHistory };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY_GEMINI}`;
     const result = await fetchGeminiApi(apiUrl, payload);
 
     if (result.candidates && result.candidates.length > 0 &&
@@ -700,6 +725,10 @@ async function generateNewTip(topic) {
 }
 
 async function playAudio(text) {
+    if (!API_KEY_GEMINI) {
+        alert("Função de áudio desativada. Chave de API não configurada.");
+        return;
+    }
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioContext.createBufferSource();
     const payload = {
@@ -716,19 +745,18 @@ async function playAudio(text) {
         },
         model: "gemini-2.5-flash-preview-tts"
     };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY_GEMINI}`;
     const result = await fetchGeminiApi(apiUrl, payload);
     const audioDataPart = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
 
     if (audioDataPart) {
-        const base64Audio = audioDataPart.inlineData.data;
-        const pcmData = base64ToArrayBuffer(base64Audio);
+        const base64Audio = base64ToArrayBuffer(audioDataPart.inlineData.data);
         
         const sampleRate = 24000;
         
-        const audioBuffer = audioContext.createBuffer(1, pcmData.byteLength / 2, sampleRate);
+        const audioBuffer = audioContext.createBuffer(1, base64Audio.byteLength / 2, sampleRate);
         const nowBuffering = audioBuffer.getChannelData(0);
-        const pcm16 = new Int16Array(pcmData);
+        const pcm16 = new Int16Array(base64Audio);
         for (let i = 0; i < pcm16.length; i++) {
             nowBuffering[i] = pcm16[i] / 32768;
         }
@@ -915,6 +943,10 @@ function appendMessage(text, sender) {
 }
 
 async function getChatbotResponse(history) {
+    if (!API_KEY_GEMINI) {
+        return "Olá! A funcionalidade do assistente virtual está temporariamente desativada. Por favor, entre em contato através do formulário para mais informações.";
+    }
+    
     const prompt = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
     Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
     - A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico, motorista e terapia ocupacional para idosos.
@@ -933,7 +965,7 @@ async function getChatbotResponse(history) {
     chatHistoryWithPrompt.push({ role: "user", parts: [{ text: prompt }] });
 
     const payload = { contents: chatHistoryWithPrompt };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY_GEMINI}`;
     
     const result = await fetchGeminiApi(apiUrl, payload);
     if (result.candidates && result.candidates.length > 0 &&
