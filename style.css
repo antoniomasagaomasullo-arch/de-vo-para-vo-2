@@ -110,6 +110,11 @@ html.large-font {
     font-size: 1.15rem;
 }
 
+/* Adicione o código novo para o alto contraste ABAIXO dele */
+body.high-contrast {
+    filter: contrast(175%);
+}
+
 body.high-contrast {
     filter: contrast(150%);
 }
