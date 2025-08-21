@@ -871,16 +871,26 @@
         </div>
     </div>
 
-    <div id="chatbotModal" class="modal">
+ <div id="chatbotModal" class="modal">
         <div class="chatbot-content">
             <div class="chatbot-header">
-                <h3>Olá! Como posso te ajudar? 👋</h3>
-                <button class="close-btn-chat" id="closeChatBtn">✕</button>
+                <div class="chatbot-header-info">
+                    <div class="chatbot-avatar">👵</div>
+                    <div>
+                        <h3>De Vó para Vó</h3>
+                        <p>Assistente Virtual</p>
+                    </div>
+                </div>
+                <button class="close-btn-chat" id="closeChatBtn" aria-label="Fechar chat">✕</button>
             </div>
             <div class="chatbox" id="chatbox">
-                <div class="message ai">
-                    Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?
                 </div>
+            <div class="quick-replies" id="quickReplies">
+                <p>Ou escolha um tópico abaixo:</p>
+                <button data-question="Quais serviços vocês oferecem?">Nossos Serviços</button>
+                <button data-question="Qual a área de atendimento?">Área de Atendimento</button>
+                <button data-question="Como agendo uma avaliação?">Agendar Avaliação</button>
+                <button data-question="Qual o diferencial da empresa?">Nosso Diferencial</button>
             </div>
             <div class="chatbot-input">
                 <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
