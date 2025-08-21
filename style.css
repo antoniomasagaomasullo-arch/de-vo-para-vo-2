@@ -118,7 +118,69 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
+/* ==================== Layouts Globais ==================== */
 
+.cta-button {
+    /* ... Código existente ... */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+    z-index: 0;
+}
+
+.cta-button:hover::before {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+}
+
+.whatsapp-btn {
+    /* ... Código existente ... */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.whatsapp-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+    z-index: 0;
+}
+
+.whatsapp-btn:hover::before {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+}
+
+/* Certifique-se de que o conteúdo do botão permaneça acima do pseudoelemento */
+.cta-button > *, .whatsapp-btn > * {
+    position: relative;
+    z-index: 1;
+}
 /* ==================== Animações ==================== */
 @keyframes subtleFloat {
     0%, 100% { transform: translateY(0); box-shadow: var(--shadow-sm); }
