@@ -2214,7 +2214,7 @@ body.modal-open {
 }
 
 .chatbot-header {
-    background: var(--brand-primary-light);
+    background: var(--brand-primary); /* Alterado para um tom mais escuro */
     color: var(--text-on-dark);
     padding: 1rem 1.5rem;
     display: flex;
@@ -2244,6 +2244,7 @@ body.modal-open {
     margin: 0;
     font-size: var(--font-lg);
     font-family: 'Playfair Display', serif;
+    color: #FFFFFF; /* Cor do título alterada para branco */
 }
 
 .chatbot-header p {
