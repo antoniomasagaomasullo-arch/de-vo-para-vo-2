@@ -394,18 +394,16 @@ async function searchCEP(cep) {
                 tagCorreta.setAttribute('aria-pressed', 'true');
             }
             updateValidationIcons(cepInput, true);
-        } else {
-            statusElement.textContent = `❌ Infelizmente ainda não atendemos a sua região.`;
-            statusElement.classList.remove('success');
-            statusElement.classList.add('error');
-            enderecoField.value = '';
-            bairroField.value = '';
-            cidadeField.value = '';
-            enderecoField.setAttribute('readonly', true);
-            bairroField.setAttribute('readonly', true);
-            cidadeField.setAttribute('readonly', true);
-            updateValidationIcons(cepInput, false);
-        }
+      } else {
+    statusElement.textContent = `❌ Infelizmente ainda não atendemos a sua região.`;
+    statusElement.classList.remove('success');
+    statusElement.classList.add('error');
+    // As três linhas que apagavam os campos foram removidas daqui.
+    enderecoField.setAttribute('readonly', true);
+    bairroField.setAttribute('readonly', true);
+    cidadeField.setAttribute('readonly', true);
+    updateValidationIcons(cepInput, false);
+}
 
     } catch (error) {
         statusElement.textContent = `❌ ${error.message}`;
