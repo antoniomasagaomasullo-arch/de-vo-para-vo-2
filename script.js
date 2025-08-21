@@ -1175,6 +1175,17 @@ function initFontSizeToggle() {
     });
 }
 
+function initContrastToggle() {
+    const contrastToggleBtn = document.getElementById('contrastToggleBtn');
+    if (!contrastToggleBtn) return;
+
+    contrastToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        contrastToggleBtn.setAttribute('aria-pressed', isHighContrast);
+    });
+}
+
 // ==================== NOVAS FUNÇÕES ====================
 
 // MELHORIA: Lógica para compartilhamento em redes sociais
