@@ -1749,10 +1749,25 @@ body.modal-open {
 
 .blog-action-btn.loading {
     cursor: not-allowed;
-    opacity: 0.7;
-    background: var(--text-tertiary);
-    border-color: var(--text-tertiary);
-    color: var(--text-on-dark);
+    opacity: 0.9;
+    color: transparent; /* Esconde o texto original */
+    pointer-events: none; /* Impede cliques repetidos */
+}
+
+.blog-action-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: var(--text-on-dark);
+    border-radius: 50%;
+    animation: spin 1s ease infinite;
 }
 
 .audio-btn {
