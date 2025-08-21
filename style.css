@@ -2948,3 +2948,45 @@ body.dark-mode .sun-icon {
 body.dark-mode .moon-icon {
     opacity: 1;
 }
+
+/* ==================== Ajustes e Melhorias para o Dark Mode ==================== */
+
+/* 1. Remove o padrão de fundo no modo escuro */
+body.dark-mode::before {
+    display: none;
+}
+
+/* 2. Corrige a cor dos links do menu no modo escuro */
+body.dark-mode .nav-menu a {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .nav-menu a:hover {
+    color: var(--text-primary);
+}
+
+body.dark-mode .nav-menu a.active {
+    color: var(--text-primary);
+}
+
+/* 3. Corrige o layout do Quiz na calculadora para o modo escuro */
+body.dark-mode .quiz-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .quiz-step h4 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .quiz-option {
+    background: var(--soft-gray);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .quiz-option:hover {
+    background-color: var(--brand-primary);
+    color: var(--text-on-dark);
+    border-color: var(--brand-primary);
+}
