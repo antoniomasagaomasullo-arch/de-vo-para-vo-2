@@ -2578,13 +2578,32 @@ body.modal-open {
     width: 32px;
     height: 32px;
 }
-/* ==================== Correção do Layout do Modal de Agendamento ==================== */
+
+/* ==================== Layout Aprimorado do Modal de Agendamento ==================== */
 #agendamentoLigacaoModal .modal-content {
+    background: linear-gradient(145deg, var(--background-start), var(--background-end));
+    border-radius: 40px; /* Curvas mais suaves, como no restante do site */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-xl);
     text-align: center;
+    padding: 3rem; /* Mais espaçamento interno */
+}
+
+#agendamentoLigacaoModal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--font-3xl);
+    color: var(--brand-primary-dark);
+    margin-bottom: 0.75rem;
+}
+
+#agendamentoLigacaoModal p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: var(--font-lg);
 }
 
 #agendamentoLigacaoModal .form-group {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     text-align: left;
 }
 
@@ -2595,36 +2614,57 @@ body.modal-open {
     color: var(--text-primary);
 }
 
+/* Estilo dos campos de preenchimento igual ao do formulário principal */
 #agendamentoLigacaoModal .form-group input {
     width: 100%;
     padding: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: none;
     border-radius: 20px;
     font-size: var(--font-base);
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.7);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
+#agendamentoLigacaoModal .form-group input:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.2);
+}
+
+/* Botão principal com mais destaque */
 #agendamentoLigacaoModal .cta-button {
     width: 100%;
-    margin-bottom: 0;
     padding: 1rem;
+    font-size: var(--font-lg);
+    border-radius: 40px;
+    transition: all 0.3s ease;
 }
 
+#agendamentoLigacaoModal .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Botão "Fechar" mais discreto */
 #agendamentoLigacaoModal .close-btn {
     background: transparent;
     border: none;
     color: var(--text-tertiary);
     font-weight: normal;
-    text-decoration: underline;
+    text-decoration: none;
     box-shadow: none;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #agendamentoLigacaoModal .close-btn:hover {
     color: var(--brand-primary);
-    background: transparent;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
     transform: none;
 }
