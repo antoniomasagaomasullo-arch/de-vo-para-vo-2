@@ -2949,15 +2949,32 @@ body.dark-mode .moon-icon {
     opacity: 1;
 }
 
-/* ==================== Ajustes Finais para o Dark Mode ==================== */
+/* ==================== Ajustes e Melhorias para o Dark Mode ==================== */
 
-/* 1. Deixa o cabeçalho com fundo escuro e texto legível */
+/* 1. Remove o padrão de fundo que não fica bom no escuro */
+body.dark-mode::before {
+    display: none;
+}
+
+/* 2. Deixa o cabeçalho com fundo escuro e texto legível */
 body.dark-mode .header {
     background: rgba(18, 18, 18, 0.85); /* Cor escura com transparência */
     border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
-/* 2. Deixa o rodapé com fundo escuro */
+body.dark-mode .nav-menu a {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .nav-menu a:hover {
+    color: var(--text-primary);
+}
+
+body.dark-mode .nav-menu a.active {
+    color: var(--text-primary);
+}
+
+/* 3. Deixa o rodapé com fundo escuro */
 body.dark-mode .footer {
     background-color: #121212; /* Um preto suave */
     border-top-color: rgba(255, 255, 255, 0.1);
@@ -2967,7 +2984,29 @@ body.dark-mode .footer p {
     color: var(--text-tertiary);
 }
 
-/* 3. Ajusta as cores da calculadora para melhor leitura */
+/* 4. Corrige o layout do Quiz na calculadora */
+body.dark-mode .quiz-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .quiz-step h4 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .quiz-option {
+    background: var(--soft-gray);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .quiz-option:hover {
+    background-color: var(--brand-primary);
+    color: var(--text-on-dark);
+    border-color: var(--brand-primary);
+}
+
+/* 5. Ajusta as cores da Calculadora principal */
 body.dark-mode .calculadora-container {
     background: rgba(0, 0, 0, 0.2);
     border-color: rgba(255, 255, 255, 0.1);
