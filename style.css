@@ -168,6 +168,10 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 /* ==================== Layouts Globais ==================== */
 
 .cta-button {
