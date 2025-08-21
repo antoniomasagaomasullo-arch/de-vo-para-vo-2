@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initAgendamentoLigacao();
     initFontSizeToggle();
     initContrastToggle(); 
+    initDarkMode(); 
     initSocialShare();
 });
 
@@ -1238,6 +1239,24 @@ function initContrastToggle() {
 }
 
 // ==================== NOVAS FUNÇÕES ====================
+
+function initDarkMode() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        let theme = 'light';
+        if (document.body.classList.contains('dark-mode')) {
+            theme = 'dark';
+        }
+        localStorage.setItem('theme', theme);
+    });
+}
 
 // MELHORIA: Lógica para compartilhamento em redes sociais
 function initSocialShare() {
