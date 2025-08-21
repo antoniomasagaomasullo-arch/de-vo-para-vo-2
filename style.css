@@ -4,7 +4,6 @@
     padding: 0;
     box-sizing: border-box;
     /* Melhoria 16: Adicionar will-change */
-    will-change: transform, opacity, box-shadow, background-color, border-color, color;
 }
 
 /* Melhoria 2: Variáveis agrupadas e refatoradas */
