@@ -875,8 +875,6 @@ Seu objetivo é responder a perguntas de forma amigável e profissional, com bas
 Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.`;
 
 function initChatbot() {
-    const headerContactBtn = document.getElementById('header-contact-btn');
-    const heroWhatsappBtn = document.getElementById('hero-whatsapp-btn');
     const chatbotModal = document.getElementById('chatbotModal');
     const closeChatBtn = document.getElementById('closeChatBtn');
     const chatbox = document.getElementById('chatbox');
@@ -885,20 +883,6 @@ function initChatbot() {
     const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?";
 
     chatHistory = [{ role: "model", parts: [{ text: initialMessage }] }];
-
-    if (headerContactBtn) {
-        headerContactBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatbotModal.classList.add('visible');
-        });
-    }
-
-    if (heroWhatsappBtn) {
-        heroWhatsappBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatbotModal.classList.add('visible');
-        });
-    }
     
     if (closeChatBtn) {
         closeChatBtn.addEventListener('click', () => {
