@@ -2563,3 +2563,53 @@ body.modal-open {
     width: 32px;
     height: 32px;
 }
+/* ==================== Correção do Layout do Modal de Agendamento ==================== */
+#agendamentoLigacaoModal .modal-content {
+    text-align: center;
+}
+
+#agendamentoLigacaoModal .form-group {
+    margin-bottom: 1.2rem;
+    text-align: left; /* Alinha os labels (Nome, Telefone) à esquerda */
+}
+
+#agendamentoLigacaoModal .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+#agendamentoLigacaoModal .form-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-size: var(--font-base);
+    background: rgba(255, 255, 255, 0.9);
+    box-sizing: border-box; /* Garante que o padding não quebre o layout */
+}
+
+#agendamentoLigacaoModal .cta-button {
+    width: 100%;
+    margin-bottom: 0;
+    padding: 1rem; /* Aumenta um pouco o botão principal */
+}
+
+/* Bônus: Deixei o botão "Fechar" mais discreto para melhorar a usabilidade */
+#agendamentoLigacaoModal .close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    font-weight: normal;
+    text-decoration: underline;
+    box-shadow: none;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+}
+
+#agendamentoLigacaoModal .close-btn:hover {
+    color: var(--brand-primary);
+    background: transparent;
+    transform: none;
+}
