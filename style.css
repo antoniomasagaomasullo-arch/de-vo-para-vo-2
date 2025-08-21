@@ -526,6 +526,7 @@ body.modal-open {
     transition: all 0.3s ease;
     position: relative;
     font-size: var(--font-lg);
+    padding-bottom: 5px; /* Adiciona um espaço para o sublinhado */
 }
 
 .nav-menu a:hover {
@@ -535,13 +536,12 @@ body.modal-open {
 .nav-menu a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 50%;
+    bottom: 0;
+    left: 0;
     width: 0%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--brand-primary-light), var(--brand-secondary));
-    transform: translateX(-50%);
-    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    height: 2px;
+    background: var(--brand-primary);
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .nav-menu a:hover::after {
