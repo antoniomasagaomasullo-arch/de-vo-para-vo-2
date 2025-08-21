@@ -920,30 +920,27 @@ function initChatbot() {
     }
 
     // Lógica para os botões de resposta rápida
- if (quickRepliesContainer) {
+if (quickRepliesContainer) {
         quickRepliesContainer.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON') {
                 const question = e.target.dataset.question;
                 const answer = quickReplyAnswers[question];
                 
-                quickRepliesContainer.style.display = 'none'; // Esconde as opções temporariamente
+                quickRepliesContainer.style.display = 'none';
                 
-                appendMessage(question, 'user'); // Mostra a pergunta do usuário
+                appendMessage(question, 'user');
                 
-                // Atraso para o bot responder
                 setTimeout(() => {
-                    appendMessage(answer, 'ai'); // Mostra a resposta do bot
-
-                    // Atraso para mostrar as opções novamente
+                    appendMessage(answer, 'ai');
                     setTimeout(() => {
                         appendMessage("Posso ajudar com algo mais?", 'ai');
-                        quickRepliesContainer.style.display = 'block'; // Reexibe as opções
+                        quickRepliesContainer.style.display = 'block';
                     }, 1200);
-
                 }, 500);
             }
         });
     }
+}
 
 async function handleUserMessage() {
     const chatInput = document.getElementById('chatInput');
