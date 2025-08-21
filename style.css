@@ -38,20 +38,10 @@
     --text-4xl: 2.5rem;
     --text-5xl: 3.5rem;
 }
-/* Estilo de Foco Visível para Acessibilidade */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 3px;
-    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.4);
-    border-radius: 4px; /* Adiciona um leve arredondamento ao foco */
-}
+
 body {
     font-family: 'Inter', sans-serif;
-    line-height: 1.8; /* Aumentado de 1.7 para 1.8 */
+    line-height: 1.7;
     letter-spacing: 0.01em;
     color: var(--text-primary);
     background: var(--background-start);
@@ -86,15 +76,6 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     line-height: 1.7;
     letter-spacing: 0.01em;
 }
-.story-text p, .article-content p, .faq-answer p {
-    max-width: 70ch; /* Limita a largura da linha para leitura ideal */
-}
-/* Se o texto não centralizar automaticamente, adicione: */
-.story-text, .faq-answer {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* ou flex-start se preferir alinhado à esquerda */
-}
 
 /* Classes de utilidade para efeitos visuais repetidos */
 .glassmorphism-base {
@@ -104,7 +85,9 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 .glassmorphism {
     background: rgba(255, 255, 255, 0.3);
-    @extend .glassmorphism-base;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .glassmorphism-light {
@@ -112,7 +95,9 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    @extend .glassmorphism-base;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* ==================== Animações ==================== */
@@ -330,7 +315,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     background-color: var(--primary-dark);
 }
 
-/* ==================== Header Inteligente e Navegação ==================== */
+/* ==================== Header ==================== */
 .header {
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(15px);
@@ -342,11 +327,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: transform 0.4s ease-in-out, padding 0.4s ease, box-shadow 0.4s ease;
-}
-/* Novo estado para o header escondido */
-.header--hidden {
-    transform: translateY(-100%);
+    transition: all 0.4s ease;
 }
 .nav-container {
     max-width: 1200px;
@@ -441,62 +422,6 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     padding-right: 2rem; /* Adicionamos o padding aqui */
 }
 @media (max-width: 768px) {
-    .nav-menu {
-        display: flex; /* Mantenha como flex para o JS controlar */
-        flex-direction: column;
-        justify-content: center; /* Centraliza verticalmente */
-        align-items: center; /* Centraliza horizontalmente */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(248, 244, 239, 0.95); /* Fundo com leve transparência */
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        
-        /* Animação de entrada/saída */
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(0.98);
-        transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
-        
-        z-index: 1000; /* Abaixo do botão de fechar */
-        gap: 2.5rem;
-    }
-
-    .nav-menu.active {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1);
-    }
-
-    .nav-menu a {
-        font-size: var(--text-2xl); /* Fontes maiores para impacto */
-        opacity: 0;
-        transform: translateY(10px);
-        animation: fadeInMenuItem 0.5s ease forwards;
-    }
-
-    /* Animação escalonada para os itens do menu */
-    .nav-menu.active li:nth-child(1) a { animation-delay: 0.2s; }
-    .nav-menu.active li:nth-child(2) a { animation-delay: 0.25s; }
-    .nav-menu.active li:nth-child(3) a { animation-delay: 0.3s; }
-    .nav-menu.active li:nth-child(4) a { animation-delay: 0.35s; }
-    .nav-menu.active li:nth-child(5) a { animation-delay: 0.4s; }
-    .nav-menu.active li:nth-child(6) a { animation-delay: 0.45s; }
-    .nav-menu.active li:nth-child(7) a { animation-delay: 0.5s; }
-
-    @keyframes fadeInMenuItem {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .nav-toggle-btn {
-        z-index: 1001; /* Garante que o botão fique sobre o menu */
-    }
     .header-actions {
         margin-left: auto;
         padding-right: 2rem;
@@ -506,11 +431,1702 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
         margin-right: 0;
     }
 }
+
+/* ==================== Hero Section ==================== */
+.hero {
+    padding: 120px 0 60px;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+.hero-content h1 {
+    font-size: var(--text-5xl);
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+.hero-subtitle {
+    font-size: var(--text-xl);
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    max-width: 80%;
+}
+.whatsapp-btn {
+    background-color: var(--primary-color);
+    color: var(--text-on-dark);
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    font-size: var(--text-base);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(93, 47, 9, 0.4);
+    background-color: var(--primary-dark);
+}
+.whatsapp-btn .icon {
+    transition: transform 0.3s ease;
+}
+.whatsapp-btn:hover .icon {
+    animation: subtleWiggle 0.5s infinite alternate;
+}
+.hero-image {
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hero-image:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+.hero-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ==================== Nossa História ==================== */
+.our-story {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+.story-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+.story-text {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 3rem;
+    border-radius: 40px;
+    box-shadow: var(--shadow-md);
+}
+.story-text h2 {
+    font-size: var(--text-4xl);
+}
+.story-text h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+.story-text p {
+    font-size: var(--text-lg);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+}
+.story-text .highlight {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--secondary-color);
+    font-style: italic;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+}
+.story-image {
+    position: relative;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.story-image:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+.story-image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: center;
+}
+.story-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background-color: var(--secondary-color);
+    color: var(--text-on-dark);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: var(--text-xs);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ==================== Serviços ==================== */
+.services {
+    padding: 80px 0;
+    position: relative;
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+}
+.service-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.service-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-on-dark);
+    font-size: var(--text-xl);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+    background-color: var(--secondary-color);
+    animation: subtleWiggle 1s infinite alternate;
+}
+.service-card:hover .service-icon svg {
+    transform: scale(1.1);
+}
+.service-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.service-card:hover h3 {
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+.service-card p {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    transition: all 0.3s ease;
+}
+.service-card:hover p {
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+.service-card .open-whatsapp-service-btn {
+    background-color: var(--primary-color);
+    color: var(--text-on-dark);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    font-size: var(--text-sm);
+    animation: none !important;
+}
+.service-card .open-whatsapp-service-btn:hover {
+    background-color: var(--primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* ==================== Depoimentos ==================== */
+.testimonials {
+    padding: 40px 0;
+    position: relative;
+    overflow: hidden;
+}
+.testimonial-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    min-height: 450px;
+}
+.testimonial-carousel-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.testimonial-carousel {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%;
+}
+.testimonial-slide {
+    flex-shrink: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+.testimonial-content {
+    background: var(--background-start);
+    padding: 4rem;
+    border-radius: 25px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    overflow: hidden;
+    margin: 0;
+}
+.testimonial-content:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+.testimonial-content::before {
+    content: '“';
+    font-family: 'Playfair Display', serif;
+    font-size: var(--text-5xl);
+    color: var(--primary-color);
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+.testimonial-content:hover::before {
+    opacity: 0.6;
+    transform: scale(1.1);
+}
+.testimonial-text {
+    font-size: var(--text-2xl);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    transition: all 0.3s ease;
+}
+.testimonial-content:hover .testimonial-text {
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+.testimonial-author {
+    font-weight: bold;
+    color: var(--secondary-color);
+    transition: all 0.3s ease;
+}
+.testimonial-content:hover .testimonial-author {
+    transform: translateY(-2px);
+}
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: var(--primary-dark);
+    font-size: var(--text-3xl);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+.carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--secondary-color);
+}
+.prev-btn {
+    left: 1rem;
+}
+.next-btn {
+    right: 1rem;
+}
+
+/* ==================== Formulário de Contato ==================== */
+.contact {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 3rem;
+    border-radius: 40px;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.contact-form:hover {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.form-row .form-group {
+    flex: 1;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-size: var(--text-base);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+}
+.form-group input:valid {
+    border-color: var(--validation-success);
+}
+.form-group input:invalid:not(:placeholder-shown) {
+    border-color: var(--validation-error);
+}
+.form-group input:valid:not([readonly]):focus {
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2);
+}
+.form-group input:invalid:not([readonly]):focus {
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.2);
+}
+.form-group input[readonly] {
+    background: rgba(240, 235, 228, 0.8);
+    color: var(--text-tertiary);
+    cursor: not-allowed;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+    transform: scale(1.01);
+}
+.form-group .validation-message {
+    font-size: var(--text-sm);
+    color: var(--validation-error);
+    margin-top: 0.25rem;
+    height: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.form-group input:invalid:not(:placeholder-shown) + .validation-message {
+    opacity: 1;
+}
+.form-group .validation-message.valid {
+    color: var(--validation-success);
+    opacity: 1;
+}
+/* Adicionando estilos para os ícones de validação */
+.form-group input:valid:not(:placeholder-shown) + .validation-icon.success-icon {
+    display: inline;
+}
+.form-group input:invalid:not([readonly]):not(:placeholder-shown) + .validation-icon.error-icon {
+    display: inline;
+}
+.form-group > div {
+    position: relative;
+}
+
+
+/* Container de tags de serviços (check-boxes) */
+.services-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    justify-content: flex-start;
+}
+.services-tags label.service-tag {
+    position: relative;
+    user-select: none;
+    text-align: center;
+    flex-grow: 1;
+    flex-basis: auto;
+}
+.services-tags input[type="checkbox"]:disabled + span {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.services-tags input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.services-tags label.service-tag span {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: rgba(245, 245, 245, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.services-tags label.service-tag span::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.services-tags label.service-tag:hover span::after {
+    animation: splash 0.6s ease-out;
+}
+
+.services-tags label.service-tag:hover span {
+    border-color: var(--primary-color);
+    background: rgba(249, 247, 244, 0.9);
+    transform: translateY(-2px);
+}
+.services-tags input[type="checkbox"]:checked+span {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-on-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+}
+
+/* Tags de Bairros (radio buttons) */
+#bairros-atuacao.services-tags {
+    justify-content: flex-start;
+    gap: 0.75rem;
+}
+#bairros-atuacao .service-tag {
+    background: rgba(245, 245, 245, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    text-align: center;
+    outline: none;
+    white-space: nowrap;
+}
+#bairros-atuacao .service-tag:focus,
+#bairros-atuacao .service-tag.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-on-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+}
+#bairros-atuacao .service-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--text-on-dark);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 40px;
+    font-size: var(--text-lg);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    background-color: var(--primary-dark);
+}
+
+/* Adicionado para o mapa de cobertura */
+.map-container {
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.map-label {
+    margin-bottom: 1rem;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+/* ==================== Footer ==================== */
+.footer {
+    background-color: var(--primary-dark);
+    color: var(--text-on-dark);
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.footer p {
+    opacity: 0.8;
+    margin: 0.5rem 0;
+}
+
+/* ==================== Blog Section ==================== */
+.blog {
+    padding: 80px 0;
+    position: relative;
+}
+.blog-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+.blog-filter-btn {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    padding: 0.75rem 1.5rem;
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.blog-filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--primary-light);
+}
+.blog-filter-btn.active {
+    background: var(--primary-color);
+    color: var(--text-on-dark);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.blog-card {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 40px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.blog-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+.blog-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: var(--shadow-lg);
+}
+.blog-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.blog-card-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.blog-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.blog-card-tag {
+    background-color: var(--secondary-color);
+    color: var(--text-on-dark);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+.blog-card-info {
+    display: flex;
+    align-items: center;
+    color: var(--text-tertiary);
+    font-size: var(--text-sm);
+    gap: 0.5rem;
+}
+.blog-card-content h3 {
+    font-size: var(--text-2xl);
+    margin-bottom: 0.5rem;
+    color: var(--primary-dark);
+    cursor: pointer;
+}
+.blog-card-content p {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+.blog-card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.blog-action-btn {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.blog-action-btn:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-on-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.blog-action-btn svg {
+    transition: transform 0.3s ease;
+    stroke: var(--primary-color);
+}
+.blog-action-btn:hover svg {
+    stroke: var(--text-on-dark);
+}
+.blog-action-btn.expanded svg {
+    transform: rotate(180deg);
+}
+.blog-action-btn::after {
+    display: none;
+}
+
+.full-article-content {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.full-article-content.visible {
+    max-height: 2000px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+.blog-card-content .short-text.hidden {
+    display: none;
+}
+.blog-card-content .read-more-btn.hidden {
+    display: none;
+}
+.article-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--text-lg);
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-dark);
+}
+.article-content p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+.article-content ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+.article-content ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 0.75rem;
+}
+.article-content ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.social-share-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+.social-share-buttons a {
+    background-color: var(--primary-color);
+    color: var(--text-on-dark);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.social-share-buttons a:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1) rotate(5deg);
+}
+.social-share-buttons a svg {
+    width: 20px;
+    height: 20px;
+}
+
+.ai-tip-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: left;
+    position: relative;
+    min-height: 50px;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+}
+.ai-tip-container.visible {
+    opacity: 1;
+    transform: scaleY(1);
+}
+.loading-skeleton {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    animation: pulse-skeleton 1.5s infinite ease-in-out;
+}
+.skeleton-line {
+    height: 15px;
+    background-color: var(--background-end);
+    border-radius: 5px;
+}
+.ai-tip-container.loaded .loading-skeleton {
+    display: none;
+}
+.ai-tip-container p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+}
+.blog-action-btn.loading {
+    cursor: not-allowed;
+    opacity: 0.7;
+    background: var(--text-tertiary);
+    border-color: var(--text-tertiary);
+    color: var(--text-on-dark);
+}
+.audio-btn {
+    background: var(--accent-color);
+    color: var(--primary-dark);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+    font-size: var(--text-lg);
+    font-weight: bold;
+}
+.audio-btn:hover {
+    transform: scale(1.1);
+    background: var(--primary-dark);
+    color: var(--accent-color);
+}
+@keyframes audio-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.audio-btn.loading-audio .audio-icon {
+    animation: audio-pulse 1.2s infinite ease-in-out;
+}
+
+/* ==================== FAQ ==================== */
+.faq {
+    padding: 80px 0;
+    position: relative;
+}
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+.faq-item {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.faq-item:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+}
+.faq-item.active {
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.faq-item:focus-within {
+    box-shadow: 0 0 0 3px var(--accent-color), var(--shadow-lg);
+}
+.faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--primary-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.faq-question:hover {
+    background: rgba(245, 245, 245, 0.8);
+    color: var(--primary-color);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.4s ease;
+    background: rgba(255, 255, 255, 0.5);
+}
+.faq-item.active .faq-answer {
+    max-height: 400px;
+    padding: 0 1.5rem 1.5rem;
+}
+.faq-answer p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: var(--text-base);
+    margin: 0;
+    padding-top: 0.5rem;
+}
+
+/* ==================== Calculadora de Orçamento ==================== */
+.calculadora-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--background-end) 0%, var(--background-start) 100%);
+}
+.calculadora-container {
+    max-width: 800px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 40px;
+    padding: 3rem;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.calc-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+.calc-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+.calc-header p {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+.calc-steps {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+.calc-step {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+.calc-step:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.calc-step.completed {
+    border-color: var(--primary-color);
+    background: rgba(93, 47, 9, 0.05);
+}
+.calc-step.completed .step-title {
+    color: var(--secondary-color);
+}
+.step-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+}
+.step-number {
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: var(--text-on-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.step-number.completed {
+    background: var(--validation-success);
+}
+.step-number.completed::before {
+    content: '✔';
+    font-size: 0.9rem;
+    color: var(--text-on-dark);
+    position: absolute;
+}
+.step-number.completed span { /* Esconde o número quando completo */
+    display: none;
+}
+
+.step-number.active {
+    animation: pulse-dots 1s infinite alternate;
+}
+.step-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.step-subtitle {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    transition: all 0.5s ease;
+    max-height: 1000px;
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: top;
+}
+.calc-step:not(.active) .options-grid {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+.calc-step.active .options-grid {
+    max-height: 1000px;
+    opacity: 1;
+    transition: max-height 0.7s ease-in, opacity 0.5s ease-in;
+}
+.option-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.option-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+.option-card.selected {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--text-on-dark);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    animation: bounceIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.option-card .option-content {
+    position: relative;
+    z-index: 1;
+}
+.option-card.selected .option-content > * {
+    color: var(--text-on-dark) !important;
+    transition: color 0.3s ease;
+}
+.option-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+.option-card:hover .option-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+.option-title {
+    font-weight: 600;
+    font-size: var(--text-lg);
+    margin-bottom: 0.5rem;
+}
+.option-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+.option-price {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    opacity: 0.7;
+}
+.resultado-container {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    padding: 3rem;
+    border-radius: 40px;
+    text-align: center;
+    color: var(--text-on-dark);
+    position: relative;
+    overflow: hidden;
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.resultado-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.resultado-content {
+    position: relative;
+    z-index: 1;
+}
+.resultado-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+.preco-display {
+    margin: 2rem 0;
+}
+.preco-valor {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.preco-periodo {
+    font-size: var(--text-lg);
+    opacity: 0.8;
+}
+.preco-detalhes {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin: 2rem 0;
+    backdrop-filter: blur(10px);
+}
+.detalhe-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: var(--text-base);
+}
+.detalhe-item:last-child {
+    margin-bottom: 0;
+    font-weight: 600;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+.btn-primary {
+    background: var(--text-on-dark);
+    color: var(--primary-dark);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: var(--text-base);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+}
+.btn-secondary {
+    background: transparent;
+    color: var(--text-on-dark);
+    border: 2px solid var(--text-on-dark);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: var(--text-base);
+    text-decoration: none;
+}
+.btn-secondary:hover {
+    background: var(--text-on-dark);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* ==================== Modal e Chatbot ==================== */
+.modal {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.modal.visible {
+    display: flex;
+    opacity: 1;
+}
+.modal-content {
+    background-color: var(--background-start);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-xl);
+    max-width: 90%;
+    width: 450px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.modal.visible .modal-content {
+    transform: scale(1);
+}
+.modal-content h3 {
+    color: var(--primary-dark);
+    font-size: var(--text-2xl);
+    margin-bottom: 1rem;
+}
+.modal-content p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+.close-btn {
+    background-color: var(--primary-color);
+    color: var(--text-on-dark);
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+.close-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background-color: var(--primary-dark);
+}
+.chatbot-content {
+    background-color: var(--background-start);
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: var(--shadow-xl);
+    max-width: 90%;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.chatbot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.chatbot-header h3 {
+    margin: 0;
+    color: var(--primary-dark);
+}
+.chatbot-header .close-btn-chat {
+    background: none;
+    border: none;
+    font-size: var(--text-3xl);
+    font-weight: 300;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.chatbot-header .close-btn-chat:hover {
+    color: var(--secondary-color);
+}
+.chatbox {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--chat-bg);
+    border-radius: 15px;
+    overflow-y: auto;
+    max-height: 400px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    -webkit-overflow-scrolling: touch;
+}
+.message {
+    max-width: 80%;
+    padding: 0.8rem 1.2rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    line-height: 1.5;
+    word-wrap: break-word;
+    animation: fadeIn 0.5s ease-out;
+}
+.message.user {
+    background-color: var(--user-message-bg);
+    color: var(--text-primary);
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+.message.ai {
+    background-color: var(--ai-message-bg);
+    color: var(--text-secondary);
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+.message.ai-typing {
+    font-style: italic;
+    color: var(--text-tertiary);
+    animation: pulse-dots 1s infinite;
+}
+.chatbot-input {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.chatbot-input input {
+    flex-grow: 1;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    font-size: var(--text-base);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+}
+.chatbot-input button {
+    background-color: var(--primary-color);
+    color: var(--text-on-dark);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+.chatbot-input button:hover {
+    background-color: var(--primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.05);
+}
+
+/* ==================== Acordeão para a Calculadora ==================== */
+.calc-step {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.calc-step .step-title {
+    position: relative;
+}
+.calc-step .step-label::after {
+    content: '▼';
+    margin-left: auto;
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+    color: var(--primary-color);
+}
+.calc-step.active .step-label::after {
+    transform: rotate(180deg);
+}
+.calc-step:not(.active) .options-grid {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+.calc-step.active .options-grid {
+    max-height: 1000px;
+    opacity: 1;
+    transition: max-height 0.7s ease-in, opacity 0.5s ease-in;
+}
+.calc-step.completed .step-number {
+    background-color: var(--secondary-color);
+}
+.calc-step.active .step-number {
+    background-color: var(--primary-color);
+}
+
+/* ==================== Tabela do Blog (Visualização Aprimorada) ==================== */
+.article-content .hydration-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.article-content .hydration-table th,
+.article-content .hydration-table td {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 12px;
+    text-align: left;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+}
+.article-content .hydration-table thead {
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+.article-content .hydration-table th {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+.article-content .hydration-table tr:nth-child(even) {
+    background-color: rgba(245, 245, 245, 0.5);
+}
+
+/* Melhoria: Aprimorando as listras de esqueleto do carregamento */
+.loading-skeleton .skeleton-line {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 1rem;
+    border-radius: 5px;
+}
+.loading-skeleton .skeleton-line:nth-child(2) {
+    width: 80%;
+}
+.loading-skeleton .skeleton-line:nth-child(3) {
+    width: 60%;
+}
+.loading-skeleton .skeleton-line:nth-child(4) {
+    width: 90%;
+}
+
+/* Animação para digitação do GPT */
+.typing-effect {
+    animation: typing 2s steps(40, end) forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* ==================== Responsividade (Media Queries) ==================== */
 @media (min-width: 769px) {
     .nav-toggle-btn {
         display: none;
     }
 }
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 4rem 2rem;
+        box-shadow: 0 0 30px rgba(0,0,0,0.2);
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        align-items: flex-start;
+        gap: 2rem;
+    }
+    .nav-menu.active {
+        display: flex;
+        transform: translateX(0);
+    }
+    .nav-toggle-btn {
+        display: block;
+        background: none;
+        border: none;
+        font-size: var(--text-4xl);
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1001;
+        position: relative;
+    }
+    .nav-container {
+        padding: 0 1rem;
+    }
+    .hero {
+        padding: 120px 0 60px;
+    }
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    .hero-content h1 {
+        font-size: var(--text-4xl);
+    }
+    .story-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    .story-text h2 {
+        font-size: var(--text-3xl);
+    }
+    .testimonial-slide {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .testimonial-image {
+        display: none;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-form {
+        margin: 0 1rem;
+        padding: 2rem;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .carousel-btn {
+        display: none;
+    }
+    .faq-container {
+        padding: 0 1rem;
+    }
+    .faq-question {
+        padding: 1rem;
+        font-size: var(--text-base);
+    }
+    .faq-item.active .faq-answer {
+        padding: 0 1rem 1rem;
+    }
+    .calculadora-container {
+        padding: 2rem;
+        margin: 1rem;
+    }
+    .calc-header h2 {
+        font-size: var(--text-2xl);
+    }
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Posição do botão de acessibilidade para mobile */
+    .font-size-toggle-btn {
+        top: 1.2rem;
+        right: 4rem;
+    }
+}
+
 /* --- Estilos Adicionados --- */
 /* Back-to-top button e overlay para mobile */
 .nav-overlay {
@@ -647,56 +2263,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-weight: bold;
     color: var(--primary-color);
 }
-.step-number.completed::before {
-    content: '✔';
-    font-size: 0.9rem;
-    color: var(--text-on-dark);
-    position: absolute;
-}
-.step-number.completed {
-    background-color: var(--validation-success); /* Cor de sucesso */
-}
-.step-number.completed span { /* Esconde o número quando completo */
-    display: none;
-}
-/* Blog modal CSS */
-.blog-modal .modal-content-blog {
-    background-color: var(--background-start);
-    padding: 3rem;
-    border-radius: 25px;
-    box-shadow: var(--shadow-xl);
-    max-width: 90%;
-    width: 800px;
-    max-height: 90vh;
-    overflow-y: auto;
-    text-align: left;
-    position: relative;
-    transform: scale(0.95);
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.blog-modal.visible .modal-content-blog {
-    transform: scale(1);
-}
-.close-btn-blog {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: var(--text-tertiary);
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-.close-btn-blog:hover {
-    color: var(--primary-color);
-    transform: rotate(90deg);
-}
-#blogModalContent h3 {
-    font-size: var(--text-4xl);
-    margin-bottom: 1.5rem;
-}
+
 </style>
 </head>
 <body>
@@ -1028,7 +2595,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
                     </div>
                 </div>
             </div>
-            <button class="carousel-btn next-btn" aria-label="Próximo Depoimento">
+            <button class="carousel-btn next-btn" aria-label="Próximo">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
             </button>
         </div>
@@ -1099,1642 +2666,143 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
                             <div class="social-share-buttons">
                                 <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
-                                </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
-                                </a>
+                                    </a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="blog-card-actions">
-                        <button class="blog-action-btn read-more-btn" data-action="toggle-content">
-                            <span>Ler artigo</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </button>
-                        <button class="blog-action-btn generate-tip-btn" data-topic="hidratação">Gerar dica de IA</button>
-                        <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
-                            <span class="audio-icon">📢</span>
-                        </button>
-                    </div>
-                    <div class="ai-tip-container">
-                        <div class="loading-skeleton">
-                            <div class="skeleton-line"></div>
-                            <div class="skeleton-line"></div>
+                        <div class="blog-card-actions">
+                            <button class="blog-action-btn read-more-btn" data-action="toggle-content">
+                                <span>Ler artigo</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                            <button class="blog-action-btn generate-tip-btn" data-topic="saúde mental para idosos">Gerar dica de IA</button>
+                            <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
+                                <span class="audio-icon">📢</span>
+                            </button>
                         </div>
-                        <p class="ai-tip-text"></p>
+                        <div class="ai-tip-container">
+                            <div class="loading-skeleton">
+                                <div class="skeleton-line"></div>
+                                <div class="skeleton-line"></div>
+                            </div>
+                            <p class="ai-tip-text"></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="blog-card reveal delay-2 glassmorphism" data-tag="exercicios">
-                <img src="https://images.unsplash.com/photo-1602717140889-1384f67664c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyMHx8ZXhlcmNpc2VzfHNlYXJjaHwxNXx8Y3VpZGFkb3J8ZW58MHx8fHwxNzE3NTM2NjQxfDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso fazendo exercícios leves" class="blog-card-image">
-                <div class="blog-card-content">
-                    <div class="blog-card-header">
-                        <span class="blog-card-tag">Exercícios</span>
-                        <div class="blog-card-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            <span>5 min leitura</span>
-                        </div>
-                    </div>
-                    <h3>Exercícios leves para a mobilidade</h3>
-                    <p class="short-text">A atividade física regular é fundamental para a saúde dos idosos. Ela ajuda a manter a força muscular, melhora o equilíbrio e a flexibilidade, reduzindo significativamente o risco de quedas.</p>
-                    <div class="full-article-content">
-                        <div class="article-content">
-                            <h4>Benefícios da atividade física</h4>
-                            <p>Além de prevenir quedas, os exercícios melhoram a circulação sanguínea, fortalecem os ossos e promovem o bem-estar mental, combatendo o estresse e a ansiedade. Eles também contribuem para a autonomia e a independência do idoso no dia a dia.</p>
-                            <h4>Ideias de exercícios</h4>
-                            <p>É importante começar devagar e sempre consultar um médico ou fisioterapeuta antes de iniciar qualquer nova rotina de exercícios. Algumas atividades recomendadas incluem:</p>
-                            <ul>
-                                <li><strong>Caminhada:</strong> Comece com caminhadas curtas e aumente a duração e a intensidade gradualmente.</li>
-                                <li><strong>Natação e Hidroginástica:</strong> A água reduz o impacto nas articulações, tornando esses exercícios ideais para manter a mobilidade e a força muscular.</li>
-                                <li><strong>Yoga ou Pilates:</strong> Ajuda a melhorar o equilíbrio, a flexibilidade e a postura, além de promover relaxamento.</li>
-                                <li><strong>Exercícios com faixas elásticas:</strong> Ótimos para fortalecer os músculos dos braços e pernas de forma segura.</li>
-                            </ul>
-                            <p>Compartilhe este artigo:</p>
-                            <div class="social-share-buttons">
-                                <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
-                                </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
-                                </a>
+                <div class="blog-card reveal delay-6 glassmorphism" data-tag="apoio-ortopedico">
+                    <img src="https://images.unsplash.com/photo-1621216668749-3e0e7a25a40b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw3fHxlbGRlcmx5JTIwaWRvc28lMjBpbmRvb3JzfGVufDB8fHx8MTY5MDc3NDU1M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso em uma cadeira de rodas" class="blog-card-image">
+                    <div class="blog-card-content">
+                        <div class="blog-card-header">
+                            <span class="blog-card-tag">Apoio Ortopédico</span>
+                            <div class="blog-card-info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                <span>5 min leitura</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="blog-card-actions">
-                        <button class="blog-action-btn read-more-btn" data-action="toggle-content">
-                            <span>Ler artigo</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </button>
-                        <button class="blog-action-btn generate-tip-btn" data-topic="exercícios para mobilidade">Gerar dica de IA</button>
-                        <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
-                            <span class="audio-icon">📢</span>
-                        </button>
-                    </div>
-                    <div class="ai-tip-container">
-                        <div class="loading-skeleton">
-                            <div class="skeleton-line"></div>
-                            <div class="skeleton-line"></div>
-                        </div>
-                        <p class="ai-tip-text"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-card reveal delay-3 glassmorphism" data-tag="sono">
-                <img src="https://images.unsplash.com/photo-1599427303058-2996f022316e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwxNXx8c29ubyUyMGlkb3NvfHwxfHx8fHwxNzE3NTM2NzI1fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso dormindo tranquilamente" class="blog-card-image">
-                <div class="blog-card-content">
-                    <div class="blog-card-header">
-                        <span class="blog-card-tag">Sono</span>
-                        <div class="blog-card-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            <span>5 min leitura</span>
-                        </div>
-                    </div>
-                    <h3>Estratégias para uma boa noite de sono</h3>
-                    <p class="short-text">O sono de qualidade é essencial para a saúde e o bem-estar em todas as idades, mas pode se tornar um desafio para os idosos. Saiba como criar uma rotina noturna que promova um descanso mais tranquilo e reparador.</p>
-                    <div class="full-article-content">
-                        <div class="article-content">
-                            <h4>Por que o sono muda?</h4>
-                            <p>Com a idade, a produção de melatonina (o hormônio do sono) diminui, e o padrão de sono tende a ser mais leve e fragmentado. Além disso, condições médicas e o uso de certos medicamentos podem afetar a qualidade do sono.</p>
-                            <h4>Dicas para melhorar o sono</h4>
-                            <p>Estabeleça horários regulares para dormir e acordar, mesmo nos fins de semana. Evite cafeína e refeições pesadas à noite. Crie um ambiente relaxante no quarto, com pouca luz e temperatura agradável. A leitura de um livro ou ouvir música calma antes de dormir pode ajudar a relaxar a mente.</p>
-                            <p>Compartilhe este artigo:</p>
-                            <div class="social-share-buttons">
-                                <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
-                                </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
-                                </a>
+                        <h3>Dicas para um ambiente seguro e confortável</h3>
+                        <p class="short-text">A prevenção de quedas é uma das maiores preocupações no cuidado de idosos. Um ambiente adaptado e seguro faz toda a diferença. Veja como simples mudanças podem transformar a casa em um local mais acolhedor.</p>
+                        <div class="full-article-content">
+                            <div class="article-content">
+                                <h4>Adaptando a casa</h4>
+                                <p>Remova tapetes soltos e obstáculos. Instale barras de apoio no banheiro e corrimãos em escadas. Garanta uma iluminação adequada, especialmente em corredores e escadas. Use pisos antiderrapantes para aumentar a segurança.</p>
+                                <h4>Equipamentos de auxílio</h4>
+                                <p>Andadores, bengalas e cadeiras de rodas podem ser grandes aliados para a mobilidade. A escolha do equipamento certo deve ser feita com orientação profissional. Nossos cuidadores podem auxiliar na utilização correta desses dispositivos.</p>
+                                <p>Compartilhe este artigo:</p>
+                                <div class="social-share-buttons">
+                                    <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
+                                    </a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="blog-card-actions">
-                        <button class="blog-action-btn read-more-btn" data-action="toggle-content">
-                            <span>Ler artigo</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </button>
-                        <button class="blog-action-btn generate-tip-btn" data-topic="alimentação para idosos">Gerar dica de IA</button>
-                        <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
-                            <span class="audio-icon">📢</span>
-                        </button>
-                    </div>
-                    <div class="ai-tip-container">
-                        <div class="loading-skeleton">
-                            <div class="skeleton-line"></div>
-                            <div class="skeleton-line"></div>
+                        <div class="blog-card-actions">
+                            <button class="blog-action-btn read-more-btn" data-action="toggle-content">
+                                <span>Ler artigo</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                            <button class="blog-action-btn generate-tip-btn" data-topic="prevenção de quedas para idosos">Gerar dica de IA</button>
+                            <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
+                                <span class="audio-icon">📢</span>
+                            </button>
                         </div>
-                        <p class="ai-tip-text"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-card reveal delay-5 glassmorphism" data-tag="saude-mental">
-                <img src="https://images.unsplash.com/photo-1516246415277-3310069b76c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw3fHxlbGRlcmx5JTIwaWRvc28lMjBpbmRvb3JzfGVufDB8fHx8MTY5MDc3NDU1M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso e cuidador conversando" class="blog-card-image">
-                <div class="blog-card-content">
-                    <div class="blog-card-header">
-                        <span class="blog-card-tag">Saúde Mental</span>
-                        <div class="blog-card-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            <span>5 min leitura</span>
-                        </div>
-                    </div>
-                    <h3>Mantendo a mente ativa e o bem-estar</h3>
-                    <p class="short-text">O bem-estar mental é tão importante quanto o físico. O isolamento social e a solidão podem afetar gravemente a saúde dos idosos. Conheça estratégias simples para promover a felicidade e a saúde emocional.</p>
-                    <div class="full-article-content">
-                        <div class="article-content">
-                            <h4>Combatendo o isolamento</h4>
-                            <p>Incentive a participação em atividades de grupo, como aulas de dança ou jogos de tabuleiro. O contato com a família e amigos, mesmo que por videochamada, é fundamental. Nossos cuidadores são treinados para serem companheiros atenciosos, estimulando a conversa e o convívio social.</p>
-                            <h4>Atividades para a mente</h4>
-                            <p>Manter o cérebro em atividade é crucial. Sugira a leitura de livros, a resolução de palavras cruzadas, quebra-cabeças ou aprender uma nova habilidade. A música, em particular, pode evocar memórias e melhorar o humor.</p>
-                            <p>Compartilhe este artigo:</p>
-                            <div class="social-share-buttons">
-                                <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
-                                </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
-                                </a>
+                        <div class="ai-tip-container">
+                            <div class="loading-skeleton">
+                                <div class="skeleton-line"></div>
+                                <div class="skeleton-line"></div>
                             </div>
+                            <p class="ai-tip-text"></p>
                         </div>
-                    </div>
-                    <div class="blog-card-actions">
-                        <button class="blog-action-btn read-more-btn" data-action="toggle-content">
-                            <span>Ler artigo</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </button>
-                        <button class="blog-action-btn generate-tip-btn" data-topic="saúde mental para idosos">Gerar dica de IA</button>
-                        <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
-                            <span class="audio-icon">📢</span>
-                        </button>
-                    </div>
-                    <div class="ai-tip-container">
-                        <div class="loading-skeleton">
-                            <div class="skeleton-line"></div>
-                            <div class="skeleton-line"></div>
-                        </div>
-                        <p class="ai-tip-text"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-card reveal delay-6 glassmorphism" data-tag="apoio-ortopedico">
-                <img src="https://images.unsplash.com/photo-1621216668749-3e0e7a25a40b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw3fHxlbGRlcmx5JTIwaWRvc28lMjBpbmRvb3JzfGVufDB8fHx8MTY5MDc3NDU1M3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso em uma cadeira de rodas" class="blog-card-image">
-                <div class="blog-card-content">
-                    <div class="blog-card-header">
-                        <span class="blog-card-tag">Apoio Ortopédico</span>
-                        <div class="blog-card-info">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            <span>5 min leitura</span>
-                        </div>
-                    </div>
-                    <h3>Dicas para um ambiente seguro e confortável</h3>
-                    <p class="short-text">A prevenção de quedas é uma das maiores preocupações no cuidado de idosos. Um ambiente adaptado e seguro faz toda a diferença. Veja como simples mudanças podem transformar a casa em um local mais acolhedor.</p>
-                    <div class="full-article-content">
-                        <div class="article-content">
-                            <h4>Adaptando a casa</h4>
-                            <p>Remova tapetes soltos e obstáculos. Instale barras de apoio no banheiro e corrimãos em escadas. Garanta uma iluminação adequada, especialmente em corredores e escadas. Use pisos antiderrapantes para aumentar a segurança.</p>
-                            <h4>Equipamentos de auxílio</h4>
-                            <p>Andadores, bengalas e cadeiras de rodas podem ser grandes aliados para a mobilidade. A escolha do equipamento certo deve ser feita com orientação profissional. Nossos cuidadores podem auxiliar na utilização correta desses dispositivos.</p>
-                            <p>Compartilhe este artigo:</p>
-                            <div class="social-share-buttons">
-                                <a href="https://api.whatsapp.com/send?text=Confira este artigo incrível sobre a importância da hidratação para idosos: LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no WhatsApp">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12.04 2.162c-5.46 0-9.914 4.453-9.914 9.913 0 1.947.575 3.82 1.63 5.432l-1.127 4.12 4.218-1.096a9.927 9.927 0 0 0 4.2 1.025c5.46 0 9.914-4.452 9.914-9.913 0-5.46-4.454-9.913-9.914-9.913zM17.433 14.5c.243-.09.528-.184.62-.218.09-.033.2-.04.28-.04.09 0 .185.014.237.04.14.077.34.29.39.46.04.167.04.308.024.46a2.82 2.82 0 0 1-.5 1.14c-.31.32-.69.45-1.06.49-.37.042-.78.026-1.18-.088-.4-.112-2.38-.99-2.75-.958-3.31-1.378-4.43-5.32-4.44-5.35-.013-.03-.1-.137-.1-.318s.07-.46.1-.59.2-.19.3-.23.1-.06.2-.062c.1-.002.2-.002.28.006.18.017.37.037.49.12.12.08.19.2.27.31.08.11.16.2.22.3.06.1.15.2.25.33.1.13.16.2.2.23.05.03.11-.003.22-.058.11-.055.38-.14.65-.25.26-.11.43-.19.5-.23.06-.04.15-.09.2-.125.047-.035.1-.09.18-.21.08-.12.16-.32.22-.44.06-.12.12-.2.17-.22.05-.02.13-.02.2-.02.06 0 .15.016.22.03.07.015.15.023.2.06.05.038.16.14.3.36.14.22.3.4.4.47.1.066.2.066.3.048.1-.02.32-.08.47-.14s.24-.11.33-.17.15-.1.2-.15.11-.09.2-.14c.09-.05.2-.1.3-.13.1-.03.2-.06.28-.07.09-.01.2-.02.27-.02.08 0 .17.006.2.01.034.004.1.01.24.03.14.022.32.04.53.056.2.02.34.03.45.05.11.02.24.04.37.07.125.03.26.06.39.09.13.03.22.05.28.06.07.01.12.01.19-.007.06-.017.16-.07.3-.24.13-.17.3-.43.34-.51.05-.08.09-.13.13-.16.035-.03.07-.06.07-.06s.02-.03.02-.03c0-.02-.01-.06-.03-.1-.02-.04-.04-.07-.07-.1z"/></svg>
-                                </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=LINK_DO_ARTIGO" target="_blank" aria-label="Compartilhar no Facebook">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F9FAFB" stroke="none"><path d="M12 2.163c-5.32 0-9.682 4.363-9.682 9.682 0 4.846 3.524 8.878 8.145 9.539V15.54h-2.17V12h2.17V9.752c0-2.147 1.312-3.35 3.102-3.35 0.887 0 1.65.066 1.874.095V8.9l-1.285 0.006c-1.267 0-1.512 0.603-1.512 1.488V12h2.82l-0.46 3.54h-2.36V21.385c4.62-0.66 8.145-4.693 8.145-9.539C21.682 6.526 17.32 2.163 12 2.163z"/></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-card-actions">
-                        <button class="blog-action-btn read-more-btn" data-action="toggle-content">
-                            <span>Ler artigo</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </button>
-                        <button class="blog-action-btn generate-tip-btn" data-topic="prevenção de quedas para idosos">Gerar dica de IA</button>
-                        <button class="audio-btn" style="display: none;" aria-label="Ouvir a dica de áudio">
-                            <span class="audio-icon">📢</span>
-                        </button>
-                    </div>
-                    <div class="ai-tip-container">
-                        <div class="loading-skeleton">
-                            <div class="skeleton-line"></div>
-                            <div class="skeleton-line"></div>
-                        </div>
-                        <p class="ai-tip-text"></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="faq" id="faq">
-    <div class="container">
-        <h2 class="section-title reveal">Perguntas Frequentes</h2>
-        <div class="faq-container">
-            <div class="faq-item reveal glassmorphism">
-                <button class="faq-question" aria-expanded="false">
-                    <span>Qual é a área de atuação da De Vó para Vó?</span>
-                </button>
-                <div class="faq-answer">
-                    <p>Nossa área de cobertura atual é o Itaim e bairros próximos em São Paulo, como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena. Você pode verificar a disponibilidade para o seu endereço em nosso formulário de contato.</p>
+    <footer class="footer">
+        <div class="container">
+            <p>Cuidando com amor e carinho.</p>
+            <p>CNPJ: xxxx</p>
+            <p>© 2025 - De Vó para Vó</p>
+        </div>
+    </footer>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h3>Mensagem Enviada com Sucesso!</h3>
+            <p>Agradecemos o seu contato. Entraremos em contato via WhatsApp em breve para discutir as suas necessidades.</p>
+            <button class="close-btn" id="closeModalBtn">Fechar</button>
+        </div>
+    </div>
+
+    <div id="chatbotModal" class="modal">
+        <div class="chatbot-content">
+            <div class="chatbot-header">
+                <h3>Olá! Como posso te ajudar? 👋</h3>
+                <button class="close-btn-chat" id="closeChatBtn">✕</button>
+            </div>
+            <div class="chatbox" id="chatbox">
+                <div class="message ai">
+                    Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?
                 </div>
             </div>
-            <div class="faq-item reveal glassmorphism" style="animation-delay: 0.2s;">
-                <button class="faq-question" aria-expanded="false">
-                    <span>Como posso agendar um serviço?</span>
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+                <button id="sendBtn" aria-label="Enviar mensagem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
                 </button>
-                <div class="faq-answer">
-                    <p>Para agendar um serviço ou obter um orçamento personalizado, a melhor forma é preencher o nosso formulário de contato. Nossa equipe entrará em contato com você via WhatsApp para entender suas necessidades e apresentar a melhor solução.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal glassmorphism" style="animation-delay: 0.4s;">
-                <button class="faq-question" aria-expanded="false">
-                    <span>Os cuidadores são treinados para quais tipos de cuidados?</span>
-                </button>
-                <div class="faq-answer">
-                    <p>Todos os nossos profissionais são treinados em nossa própria casa, com base na experiência real de cuidado com nossa avó. Eles estão aptos a fornecer companhia, auxílio com a higiene, administração de medicamentos, preparação de refeições e suporte para mobilidade reduzida.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal glassmorphism" style="animation-delay: 0.6s;">
-                <button class="faq-question" aria-expanded="false">
-                    <span>Vocês oferecem outros serviços além de cuidadores?</span>
-                </button>
-                <div class="faq-answer">
-                    <p>Sim! Além dos nossos cuidadores, oferecemos uma gama de serviços complementares, como manicure e cabeleireiro, apoio psicológico, motorista e terapia ocupacional. Esses serviços podem ser contratados de forma avulsa ou em pacotes personalizados.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal glassmorphism" style="animation-delay: 0.8s;">
-                <button class="faq-question" aria-expanded="false">
-                    <span>Qual a diferença do cuidado da De Vó para Vó para outras empresas?</span>
-                </button>
-                <div class="faq-answer">
-                    <p>O nosso maior diferencial é o nosso modelo de treinamento. Todos os nossos cuidadores são treinados na prática, em nossa própria casa, sob a orientação e supervisão constante, garantindo não apenas a competência técnica, mas também a empatia e o carinho que tratamos os idosos como se fossem da nossa família.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal glassmorphism" style="animation-delay: 1s;">
-                <button class="faq-question" aria-expanded="false">
-                    <span>A De Vó para Vó atende casos de emergência?</span>
-                </button>
-                <div class="faq-answer">
-                    <p>Para casos de emergência e agendamentos de última hora, recomendamos o contato direto por telefone ou WhatsApp, pois o formulário pode levar algumas horas para ser processado. Nossa equipe de plantão fará o possível para te atender prontamente.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal glassmorphism" style="animation-delay: 1.2s;">
-                <button class="faq-question" aria-expanded="false">
-                    <span>Os serviços podem ser personalizados?</span>
-                </button>
-                <div class="faq-answer">
-                    <p>Sim, todos os nossos serviços são totalmente personalizáveis. Após o contato inicial, nossa equipe fará uma avaliação completa para entender as necessidades específicas do idoso e da família, criando um plano de cuidados que se encaixe perfeitamente em sua rotina e orçamento.</p>
-                </div>
-            </div>
-            <div class="faq-item reveal glassmorphism" style="animation-delay: 1.4s;">
-                <button class="faq-question" aria-expanded="false">
-                    <span>Os cuidadores são fixos ou rotativos?</span>
-                </button>
-                <div class="faq-answer">
-                    <p>Nossa prioridade é garantir a estabilidade e a criação de laços afetivos. Por isso, procuramos manter o mesmo cuidador para cada família o máximo de tempo possível. Em casos de substituição, por férias ou folgas, garantimos que o novo profissional passe por um período de adaptação com o cuidador habitual, para garantir a continuidade e a qualidade do serviço.</p>
-                </div>
             </div>
         </div>
     </div>
-</section>
 
-<section class="contact" id="contato">
-    <div class="container">
-        <h2 class="section-title reveal">Entre em contato</h2>
-        <form class="contact-form reveal-scale glassmorphism">
-            <div class="form-row">
+    <div id="agendamentoLigacaoModal" class="modal">
+        <div class="modal-content">
+            <h3>Agendar Ligação</h3>
+            <p>Preencha seus dados e entraremos em contato no horário de sua preferência.</p>
+            <form id="formAgendamentoLigacao" class="modal-ligacao">
                 <div class="form-group">
-                    <label for="nome">Nome completo</label>
-                    <input type="text" id="nome" name="nome" required>
+                    <label for="nomeLigacao">Nome</label>
+                    <input type="text" id="nomeLigacao" name="nome" required>
                 </div>
-                
                 <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                    <label for="telefoneLigacao">Telefone</label>
+                    <input type="tel" id="telefoneLigacao" name="telefone" placeholder="(11) 99999-9999" required>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-group">
-                    <label for="telefone">Telefone/WhatsApp</label>
-                    <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required maxlength="15">
-                    <small>Entraremos em contato via WhatsApp</small>
+                    <label for="horarioLigacao">Melhor horário</label>
+                    <input type="datetime-local" id="horarioLigacao" name="horario" required>
                 </div>
-                
-                <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required maxlength="14">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="servicos-interesse">Serviços que tenho interesse</label>
-                <div class="services-tags">
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Cuidadora" checked disabled>
-                        <span>Cuidadora</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Manicure e cabeleireiro">
-                        <span>Manicure e cabeleireiro</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Apoio psicológico">
-                        <span>Psicóloga</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Motorista">
-                        <span>Motorista</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Apoio Ortopédico">
-                        <span>Apoio Ortopédico</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Geriatra">
-                        <span>Geriatra</span>
-                    </label>
-                    <label class="service-tag">
-                        <input type="checkbox" name="servicos[]" value="Terapia Ocupacional">
-                        <span>Terapia Ocupacional</span>
-                    </label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="bairros-atuacao">Nossa área de cobertura:</label>
-                <div class="services-tags" id="bairros-atuacao">
-                    <button type="button" class="service-tag" data-bairro-principal="Itaim" aria-pressed="false">
-                        Itaim
-                    </button>
-                    <button type="button" class="service-tag" data-bairro-principal="Jardins" aria-pressed="false">
-                        Jardins
-                    </button>
-                    <button type="button" class="service-tag" data-bairro-principal="Panamby" aria-pressed="false">
-                        Panamby
-                    </button>
-                    <button type="button" class="service-tag" data-bairro-principal="Morumbi" aria-pressed="false">
-                        Morumbi
-                    </button>
-                    <button type="button" class="service-tag" data-bairro-principal="Moema" aria-pressed="false">
-                        Moema
-                    </button>
-                    <button type="button" class="service-tag" data-bairro-principal="Pinheiros" aria-pressed="false">
-                        Pinheiros
-                    </button>
-                    <button type="button" class="service-tag" data-bairro-principal="Vila Madalena" aria-pressed="false">
-                        Vila Madalena
-                    </button>
-                    <button type="button" class="service-tag" data-bairro-principal="Higienópolis" aria-pressed="false">
-                        Higienópolis
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="cep">CEP</label>
-                <div style="position: relative;">
-                    <input type="text" id="cep" name="cep" placeholder="00000-000" required maxlength="9">
-                    <span class="validation-icon success-icon" style="display: none; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">✅</span>
-                    <span class="validation-icon error-icon" style="display: none; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">❌</span>
-                </div>
-                <span id="cep-status" class="validation-feedback"></span>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="endereco">Endereço</label>
-                    <input type="text" id="endereco" name="endereco" placeholder="Será preenchido automaticamente" readonly required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="bairro">Bairro</label>
-                    <input type="text" id="bairro" name="bairro" placeholder="Será preenchido automaticamente" readonly required>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                    <label for="cidade">Cidade</label>
-                    <input type="text" id="cidade" name="cidade" placeholder="Será preenchido automaticamente" readonly required>
-            </div>
-            
-            <button type="submit" class="submit-btn">
-                ✨ Solicitar contato
-            </button>
-        </form>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="container">
-        <p>Cuidando com amor e carinho.</p>
-        <p>CNPJ: xxxx</p>
-        <p>© 2025 - De Vó para Vó</p>
-    </div>
-</footer>
-
-<div id="successModal" class="modal">
-    <div class="modal-content">
-        <h3>Mensagem Enviada com Sucesso!</h3>
-        <p>Agradecemos o seu contato. Entraremos em contato via WhatsApp em breve para discutir as suas necessidades.</p>
-        <button class="close-btn" id="closeModalBtn">Fechar</button>
-    </div>
-</div>
-
-<div id="chatbotModal" class="modal">
-    <div class="chatbot-content">
-        <div class="chatbot-header">
-            <h3>Olá! Como posso te ajudar? 👋</h3>
-            <button class="close-btn-chat" id="closeChatBtn">✕</button>
-        </div>
-        <div class="chatbox" id="chatbox">
-            <div class="message ai">
-                Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?
-            </div>
-        </div>
-        <div class="chatbot-input">
-            <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
-            <button id="sendBtn" aria-label="Enviar mensagem">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="send-icon"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
-            </button>
+                <button type="submit" class="cta-button">Agendar Agora</button>
+            </form>
+            <button class="close-btn" id="closeLigacaoModalBtn">Fechar</button>
         </div>
     </div>
-</div>
-
-<div id="agendamentoLigacaoModal" class="modal">
-    <div class="modal-content">
-        <h3>Agendar Ligação</h3>
-        <p>Preencha seus dados e entraremos em contato no horário de sua preferência.</p>
-        <form id="formAgendamentoLigacao" class="modal-ligacao">
-            <div class="form-group">
-                <label for="nomeLigacao">Nome</label>
-                <input type="text" id="nomeLigacao" name="nome" required>
-            </div>
-            <div class="form-group">
-                <label for="telefoneLigacao">Telefone</label>
-                <input type="tel" id="telefoneLigacao" name="telefone" placeholder="(11) 99999-9999" required>
-            </div>
-            <div class="form-group">
-                <label for="horarioLigacao">Melhor horário</label>
-                <input type="datetime-local" id="horarioLigacao" name="horario" required>
-            </div>
-            <button type="submit" class="cta-button">Agendar Agora</button>
-        </form>
-        <button class="close-btn" id="closeLigacaoModalBtn">Fechar</button>
-    </div>
-</div>
-
-<script>
-    const API_KEY = "SUA_API_KEY_AQUI"; // Substitua pela sua chave API do Google Generative AI
-
-    document.addEventListener('DOMContentLoaded', function() {
-        initLoadingScreen();
-        initScrollReveal();
-        initParallax();
-        initFormHandlers();
-        initServiceButtonHandlers();
-        initCarousel();
-        initBlogLinks();
-        initNavToggle();
-        initAITipGenerators();
-        initFAQ();
-        initChatbot();
-        initCalculadora();
-        initBlogFilters();
-        initFooter();
-        initBackToTopButton();
-        initAgendamentoLigacao();
-        initFontSizeToggle();
-    });
-
-    // ==================== Scripts de Inicialização ====================
-
-    function initLoadingScreen() {
-        setTimeout(function() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            if (loadingScreen) {
-                loadingScreen.classList.add('hidden');
-            }
-        }, 2500);
-    }
-
-    function initScrollReveal() {
-        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-        if (revealElements.length === 0) return;
-        
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && entry.target) {
-                    entry.target.classList.add('revealed');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            if (element) {
-                revealObserver.observe(element);
-            }
-        });
-    }
-
-    function initParallax() {
-        const parallaxElements = document.querySelectorAll('.parallax-element');
-        if (parallaxElements.length === 0) return;
-        
-        let lastScrollY = window.pageYOffset;
-        let tick = false;
-
-        function updateParallax() {
-            const scrolled = lastScrollY;
-            parallaxElements.forEach((element) => {
-                const speed = parseFloat(element.dataset.speed || 0.1);
-                const yPos = scrolled * speed;
-                element.style.transform = `translate3d(0, ${yPos}px, 0)`;
-            });
-            tick = false;
-        }
-
-        window.addEventListener('scroll', () => {
-            lastScrollY = window.pageYOffset;
-            if (!tick) {
-                window.requestAnimationFrame(updateParallax);
-                tick = true;
-            }
-        });
-    }
-
-    function initBackToTopButton() {
-        const backToTopBtn = document.getElementById('backToTopBtn');
-        if (!backToTopBtn) return;
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 200) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-    // ==================== Funções de Navegação e Interatividade ====================
-
-    function initNavToggle() {
-        const navToggleBtn = document.getElementById('navToggleBtn');
-        const navMenu = document.getElementById('navMenu');
-        const navOverlay = document.getElementById('navOverlay');
-        
-        if (!navToggleBtn || !navMenu || !navOverlay) return;
-        
-        navToggleBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            navOverlay.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
-            if (navMenu.classList.contains('active')) {
-                navToggleBtn.textContent = '✕';
-            } else {
-                navToggleBtn.textContent = '☰';
-            }
-        });
-
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                navOverlay.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-                navToggleBtn.textContent = '☰';
-            });
-        });
-
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            let current = '';
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - 150) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    }
-
-    function openWhatsApp(message) {
-        const phoneNumber = '5511999999999';
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-
-        const form = event.target;
-        const cepInput = form.querySelector('#cep');
-        const cpfInput = form.querySelector('#cpf');
-        const telefoneInput = form.querySelector('#telefone');
-
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
-
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        
-        const selectedServices = Array.from(document.querySelectorAll('input[name="servicos[]"]:checked'))
-                                     .map(checkbox => checkbox.value)
-                                     .join(', ');
-
-        let message = "Olá, gostaria de um orçamento!\n\n";
-        message += `Nome: ${data.nome}\n`;
-        message += `E-mail: ${data.email}\n`;
-        message += `Telefone: ${data.telefone}\n`;
-        message += `CPF: ${data.cpf}\n`;
-        message += `Serviços de interesse: ${selectedServices || 'Nenhum'}\n`;
-        message += `Endereço: ${data.endereco} - ${data.bairro}, ${data.cidade}\n`;
-        message += `CEP: ${data.cep}\n`;
-        
-        openWhatsApp(message);
-        
-        const modal = document.getElementById('successModal');
-        if (modal) {
-            modal.classList.add('visible');
-        }
-    }
     
-    function validateCepFormat(value) {
-        const cepRegex = /^\d{5}-\d{3}$/;
-        return cepRegex.test(value);
-    }
-
-    function validateCpfFormat(value) {
-        const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-        return cpfRegex.test(value);
-    }
-
-    function validateTelefoneFormat(value) {
-        const sanitized = value.replace(/\D/g, '');
-        if (sanitized.length === 11) {
-            const telefoneRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
-            return telefoneRegex.test(value);
-        } else if (sanitized.length === 10) {
-            const telefoneRegex = /^\(\d{2}\)\s\d{4}-\d{4}$/;
-            return telefoneRegex.test(value);
-        }
-        return false;
-    }
-
-    function maskCPF(value) {
-        let sanitized = value.replace(/\D/g, '');
-        sanitized = sanitized.replace(/^(\d{3})(\d)/, '$1.$2');
-        sanitized = sanitized.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-        sanitized = sanitized.replace(/\.(\d{3})(\d)/, '.$1-$2');
-        return sanitized.substring(0, 14);
-    }
-
-    function maskTelefone(value) {
-        let sanitized = value.replace(/\D/g, '');
-        let masked = '';
-        if (sanitized.length > 0) {
-            masked = '(' + sanitized.substring(0, 2);
-        }
-        if (sanitized.length > 2) {
-            masked += ') ' + sanitized.substring(2, 7);
-        }
-        if (sanitized.length > 7) {
-            masked += '-' + sanitized.substring(7, 11);
-        }
-        return masked;
-    }
-    
-    function updateValidationIcons(inputElement, isValid) {
-        const parent = inputElement.closest('.form-group');
-        if (!parent) return;
-
-        const successIcon = parent.querySelector('.success-icon');
-        const errorIcon = parent.querySelector('.error-icon');
-
-        if (successIcon) successIcon.style.display = isValid ? 'inline' : 'none';
-        if (errorIcon) errorIcon.style.display = isValid === false ? 'inline' : 'none';
-    }
-
-    function initFormHandlers() {
-        const form = document.querySelector('.contact-form');
-        const cepInput = document.getElementById('cep');
-        const cpfInput = document.getElementById('cpf');
-        const telefoneInput = document.getElementById('telefone');
-        const cepStatus = document.getElementById('cep-status');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const modal = document.getElementById('successModal');
-        const bairroTags = document.querySelectorAll('#bairros-atuacao .service-tag');
-
-        bairroTags.forEach(tag => {
-            tag.addEventListener('click', () => {
-                bairroTags.forEach(t => {
-                    t.classList.remove('selected');
-                    t.setAttribute('aria-pressed', 'false');
-                });
-                tag.classList.add('selected');
-                tag.setAttribute('aria-pressed', 'true');
-            });
-        });
-
-        if (cepInput) {
-            cepInput.addEventListener('input', function(e) {
-                const value = e.target.value.replace(/\D/g, '');
-                e.target.value = maskCEP(value);
-                if (value.length === 8) {
-                    searchCEP(value);
-                } else {
-                    if (cepStatus) {
-                        cepStatus.textContent = '';
-                        cepStatus.classList.remove('success', 'error');
-                    }
-                    updateValidationIcons(cepInput, null);
-                    document.getElementById('endereco').value = '';
-                    document.getElementById('bairro').value = '';
-                    document.getElementById('cidade').value = '';
-                }
-            });
-        }
-
-        if (cpfInput) {
-            cpfInput.addEventListener('input', function(e) {
-                e.target.value = maskCPF(e.target.value);
-                updateValidationIcons(e.target, validateCpfFormat(e.target.value));
-            });
-        }
-
-        if (telefoneInput) {
-            telefoneInput.addEventListener('input', function(e) {
-                e.target.value = maskTelefone(e.target.value);
-                updateValidationIcons(e.target, validateTelefoneFormat(e.target.value));
-            });
-        }
-        
-        document.getElementById('email').addEventListener('input', function(e) {
-            updateValidationIcons(e.target, e.target.validity.valid);
-        });
-        
-        if (form) {
-            form.addEventListener('submit', handleSubmit);
-        }
-        
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', () => {
-                if (modal) {
-                    modal.classList.remove('visible');
-                    form.reset();
-                }
-            });
-        }
-    }
-    
-    async function searchCEP(cep) {
-        const statusElement = document.getElementById('cep-status');
-        const enderecoField = document.getElementById('endereco');
-        const bairroField = document.getElementById('bairro');
-        const cidadeField = document.getElementById('cidade');
-        const cepInput = document.getElementById('cep');
-        const bairroTags = document.querySelectorAll('#bairros-atuacao .service-tag');
-
-        if (!statusElement || !enderecoField || !bairroField || !cidadeField) return;
-        
-        const bairrosAtendidos = {
-            'Itaim': ['Itaim Bibi'],
-            'Jardins': ['Jardim América', 'Jardim Paulista', 'Jardim Europa', 'Jardim Paulistano', 'Jardins'],
-            'Panamby': ['Panamby', 'Paraíso do Morumbi', 'Vila Andrade'],
-            'Morumbi': ['Morumbi'],
-            'Moema': ['Moema', 'Indianópolis'],
-            'Pinheiros': ['Pinheiros'],
-            'Vila Madalena': ['Vila Madalena'],
-            'Higienópolis': ['Higienópolis']
-        };
-
-        bairroTags.forEach(tag => {
-            tag.classList.remove('selected');
-            tag.setAttribute('aria-pressed', 'false');
-        });
-
-        try {
-            statusElement.innerHTML = `🔍 Buscando endereço...`;
-            statusElement.classList.add('success');
-            statusElement.classList.remove('error');
-            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const data = await response.json();
-
-            if (data.erro) {
-                throw new Error('CEP não encontrado.');
-            }
-            
-            enderecoField.value = `${data.logradouro}, ${data.complemento || ''}`.trim();
-            bairroField.value = data.bairro;
-            cidadeField.value = `${data.localidade} - ${data.uf}`;
-
-            let isBairroAtendido = false;
-            let bairroPrincipal = '';
-
-            for (const [key, value] of Object.entries(bairrosAtendidos)) {
-                if (value.includes(data.bairro)) {
-                    isBairroAtendido = true;
-                    bairroPrincipal = key;
-                    break;
-                }
-            }
-
-            if (isBairroAtendido) {
-                statusElement.innerHTML = `✅ Endereço encontrado. Atendemos no bairro ${bairroPrincipal}!`;
-                statusElement.classList.remove('error');
-                statusElement.classList.add('success');
-                enderecoField.removeAttribute('readonly');
-                const tagCorreta = document.querySelector(`#bairros-atuacao .service-tag[data-bairro-principal="${bairroPrincipal}"]`);
-                if (tagCorreta) {
-                    tagCorreta.classList.add('selected');
-                    tagCorreta.setAttribute('aria-pressed', 'true');
-                }
-                updateValidationIcons(cepInput, true);
-            } else {
-                statusElement.innerHTML = `❌ Infelizmente ainda não atendemos a sua região.`;
-                statusElement.classList.remove('success');
-                statusElement.classList.add('error');
-                enderecoField.value = '';
-                bairroField.value = '';
-                cidadeField.value = '';
-                enderecoField.setAttribute('readonly', true);
-                updateValidationIcons(cepInput, false);
-            }
-
-        } catch (error) {
-            statusElement.innerHTML = `❌ ${error.message}`;
-            statusElement.classList.remove('success');
-            statusElement.classList.add('error');
-            enderecoField.value = '';
-            bairroField.value = '';
-            cidadeField.value = '';
-            enderecoField.setAttribute('readonly', true);
-            updateValidationIcons(cepInput, false);
-        }
-    }
-
-    function initServiceButtonHandlers() {
-        const serviceButtons = document.querySelectorAll('.open-whatsapp-service-btn');
-        
-        serviceButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const serviceName = button.getAttribute('data-service');
-                
-                const contactSection = document.getElementById('contato');
-                if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-                
-                const checkboxes = document.querySelectorAll('input[name="servicos[]"]');
-                checkboxes.forEach(cb => {
-                    if (cb.value !== 'Cuidadora') {
-                        cb.checked = false;
-                    }
-                });
-                
-                const selectedCheckbox = document.querySelector(`input[name="servicos[]"][value="${serviceName}"]`);
-                if (selectedCheckbox) {
-                    selectedCheckbox.checked = true;
-                }
-            });
-        });
-    }
-    
-    function initCarousel() {
-        const carousel = document.querySelector('.testimonial-carousel');
-        const slides = document.querySelectorAll('.testimonial-slide');
-        const prevBtn = document.querySelector('.carousel-btn.prev-btn');
-        const nextBtn = document.querySelector('.carousel-btn.next-btn');
-        const wrapper = document.querySelector('.testimonial-carousel-wrapper');
-        if (!carousel || !slides.length || !prevBtn || !nextBtn || !wrapper) return;
-        
-        let currentIndex = 0;
-        let autoSlideInterval;
-        let isDragging = false;
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let slideWidth = 0;
-
-        function setCarouselHeight() {
-            const maxSlideHeight = Math.max(...Array.from(slides).map(s => s.offsetHeight));
-            wrapper.style.height = `${maxSlideHeight}px`;
-        }
-
-        function updateCarousel() {
-            if (slides.length > 0) {
-                currentTranslate = -currentIndex * slideWidth;
-                carousel.style.transform = `translateX(${currentTranslate}px)`;
-            }
-        }
-        
-        function startAutoSlide() {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                updateCarousel();
-            }, 5000);
-        }
-        
-        window.addEventListener('resize', () => {
-            setCarouselHeight();
-            if (slides.length > 0) {
-                slideWidth = slides[0].offsetWidth;
-            }
-            updateCarousel(); 
-        });
-        
-        setCarouselHeight();
-        if (slides.length > 0) {
-            slideWidth = slides[0].offsetWidth;
-        }
-
-        prevBtn.addEventListener('click', () => {
-            clearInterval(autoSlideInterval);
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
-            updateCarousel();
-            startAutoSlide();
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            clearInterval(autoSlideInterval);
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateCarousel();
-            startAutoSlide();
-        });
-
-        wrapper.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startPos = e.touches[0].clientX;
-            prevTranslate = currentTranslate;
-            clearInterval(autoSlideInterval);
-        });
-
-        wrapper.addEventListener('touchend', () => {
-            isDragging = false;
-            const movedBy = currentTranslate - prevTranslate;
-            if (movedBy < -100) {
-                currentIndex = (currentIndex + 1) % slides.length;
-            }
-            if (movedBy > 100) {
-                currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
-            }
-            updateCarousel();
-            startAutoSlide();
-        });
-
-        wrapper.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const currentPosition = e.touches[0].clientX;
-            currentTranslate = prevTranslate + currentPosition - startPos;
-            carousel.style.transform = `translateX(${currentTranslate}px)`;
-        });
-
-        startAutoSlide();
-    }
-
-    function initBlogFilters() {
-        const filterButtons = document.querySelectorAll('.blog-filter-btn');
-        const blogCards = document.querySelectorAll('.blog-card');
-        
-        if (!filterButtons.length || !blogCards.length) return;
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
-                
-                filterButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                    btn.setAttribute('aria-pressed', 'false');
-                });
-                button.classList.add('active');
-                button.setAttribute('aria-pressed', 'true');
-
-                blogCards.forEach(card => {
-                    const cardTag = card.getAttribute('data-tag');
-                    if (filter === 'all' || filter === cardTag) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-    }
-    
-    function initBlogLinks() {
-        const blogCards = document.querySelectorAll('.blog-card');
-        
-        blogCards.forEach(card => {
-            const readMoreBtn = card.querySelector('.read-more-btn');
-            const readMoreText = readMoreBtn.querySelector('span');
-            const readMoreIcon = readMoreBtn.querySelector('svg');
-            const fullContent = card.querySelector('.full-article-content');
-            const shortText = card.querySelector('.short-text');
-            const aiTipContainer = card.querySelector('.ai-tip-container');
-
-            const toggleContent = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if (fullContent.classList.contains('visible')) {
-                    fullContent.classList.remove('visible');
-                    readMoreText.textContent = 'Ler artigo';
-                    readMoreIcon.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
-                    readMoreBtn.classList.remove('expanded');
-                    shortText.classList.remove('hidden');
-                    aiTipContainer.classList.remove('visible');
-                } else {
-                    fullContent.classList.add('visible');
-                    readMoreText.textContent = 'Diminuir';
-                    readMoreIcon.innerHTML = `<path d="m18 15-6-6-6 6"/></svg>`;
-                    readMoreBtn.classList.add('expanded');
-                    shortText.classList.add('hidden');
-                    aiTipContainer.classList.add('visible');
-                }
-            };
-            
-            if (readMoreBtn) {
-                readMoreBtn.addEventListener('click', toggleContent);
-            }
-        });
-    }
-    
-    // ==================== Funções da API Gemini ====================
-    async function fetchGeminiApi(url, payload) {
-        let response = null;
-        let retryDelay = 1000;
-        const maxRetries = 5;
-
-        for (let i = 0; i < maxRetries; i++) {
-            try {
-                response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (response.ok) {
-                    return await response.json();
-                } else if (response.status === 429) {
-                    console.warn(`Tentativa ${i + 1}: Rate limit excedido. Tentando novamente em ${retryDelay / 1000}s.`);
-                    await new Promise(resolve => setTimeout(resolve, retryDelay));
-                    retryDelay *= 2;
-                } else {
-                    throw new Error(`Erro na API: ${response.statusText}`);
-                }
-            } catch (error) {
-                if (i === maxRetries - 1) {
-                    throw error;
-                }
-                console.warn(`Tentativa ${i + 1}: Erro de rede. Tentando novamente em ${retryDelay / 1000}s.`, error);
-                await new Promise(resolve => setTimeout(resolve, retryDelay));
-                retryDelay *= 2;
-            }
-        }
-
-        throw new Error("Não foi possível obter uma resposta da API após várias tentativas.");
-    }
-
-    function initAITipGenerators() {
-        const generateButtons = document.querySelectorAll('.generate-tip-btn');
-        
-        generateButtons.forEach(button => {
-            const card = button.closest('.blog-card-content');
-            const aiTipContainer = card.querySelector('.ai-tip-container');
-            const aiTipText = card.querySelector('.ai-tip-text');
-            const loadingSkeleton = card.querySelector('.loading-skeleton');
-            const audioBtn = card.querySelector('.audio-btn');
-
-            button.addEventListener('click', async () => {
-                const topic = button.getAttribute('data-topic');
-                aiTipText.textContent = '';
-                aiTipContainer.style.display = 'block';
-                loadingSkeleton.style.display = 'flex';
-                aiTipContainer.classList.remove('loaded');
-                button.classList.add('loading');
-                button.disabled = true;
-                audioBtn.style.display = 'none';
-
-                try {
-                    const tip = await generateNewTip(topic);
-                    aiTipText.textContent = tip;
-                    audioBtn.dataset.textForAudio = tip;
-                    audioBtn.style.display = 'block';
-                } catch (error) {
-                    aiTipText.textContent = 'Ocorreu um erro ao gerar a dica. Tente novamente.';
-                    console.error('Erro ao gerar a dica:', error);
-                } finally {
-                    loadingSkeleton.style.display = 'none';
-                    aiTipContainer.classList.add('loaded');
-                    button.classList.remove('loading');
-                    button.disabled = false;
-                }
-            });
-        });
-
-        const audioButtons = document.querySelectorAll('.audio-btn');
-        audioButtons.forEach(button => {
-            const card = button.closest('.blog-card-content');
-            const aiTipTextElement = card.querySelector('.ai-tip-text');
-            button.addEventListener('click', async () => {
-                const text = aiTipTextElement.textContent;
-                if (text && text.length > 0) {
-                    const audioIcon = button.querySelector('.audio-icon');
-                    audioIcon.textContent = '...';
-                    audioIcon.classList.add('loading-audio');
-                    await playAudio(text, button);
-                    audioIcon.textContent = '📢';
-                    audioIcon.classList.remove('loading-audio');
-                }
-            });
-        });
-    }
-    
-    async function generateNewTip(topic) {
-        const prompt = `Gere uma dica curta e útil (no máximo 50 palavras) para cuidadores de idosos, focada no tema de "${topic}". Formate a resposta como uma frase direta.`;
-        let chatHistory = [];
-        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-        const payload = { contents: chatHistory };
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-        const result = await fetchGeminiApi(apiUrl, payload);
-
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-            return result.candidates[0].content.parts[0].text;
-        } else {
-            return 'Nenhuma dica gerada. Tente novamente.';
-        }
-    }
-    
-    async function playAudio(text) {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const source = audioContext.createBufferSource();
-        const payload = {
-            contents: [{
-                parts: [{ text: text }]
-            }],
-            generationConfig: {
-                responseModalities: ["AUDIO"],
-                speechConfig: {
-                    voiceConfig: {
-                        prebuiltVoiceConfig: { voiceName: "Puck" }
-                    }
-                }
-            },
-            model: "gemini-2.5-flash-preview-tts"
-        };
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
-        const result = await fetchGeminiApi(apiUrl, payload);
-        const audioDataPart = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-
-        if (audioDataPart) {
-            const base64Audio = audioDataPart.inlineData.data;
-            const pcmData = base64ToArrayBuffer(base64Audio);
-            
-            const sampleRate = 24000;
-            
-            const audioBuffer = audioContext.createBuffer(1, pcmData.byteLength / 2, sampleRate);
-            const nowBuffering = audioBuffer.getChannelData(0);
-            const pcm16 = new Int16Array(pcmData);
-            for (let i = 0; i < pcm16.length; i++) {
-                nowBuffering[i] = pcm16[i] / 32768;
-            }
-            
-            source.buffer = audioBuffer;
-            source.connect(audioContext.destination);
-            source.start();
-        }
-    }
-
-    function base64ToArrayBuffer(base64) {
-        const binaryString = window.atob(base64);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes.buffer;
-    }
-
-    function initFAQ() {
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            
-            question.addEventListener('click', () => {
-                toggleFAQItem(item, faqItems);
-            });
-            
-            question.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleFAQItem(item, faqItems);
-                }
-                
-                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    navigateFAQ(e.key, item, faqItems);
-                }
-            });
-        });
-    }
-    
-    function toggleFAQItem(currentItem, allItems) {
-        const question = currentItem.querySelector('.faq-question');
-        const isActive = currentItem.classList.contains('active');
-        
-        allItems.forEach(item => {
-            if (item !== currentItem) {
-                item.classList.remove('active');
-                const otherQuestion = item.querySelector('.faq-question');
-                otherQuestion.setAttribute('aria-expanded', 'false');
-            }
-        });
-        
-        if (isActive) {
-            currentItem.classList.remove('active');
-            question.setAttribute('aria-expanded', 'false');
-        } else {
-            currentItem.classList.add('active');
-            question.setAttribute('aria-expanded', 'true');
-            
-            setTimeout(() => {
-                currentItem.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                });
-            }, 100);
-        }
-    }
-    
-    function navigateFAQ(direction, currentItem, allItems) {
-        const currentIndex = Array.from(allItems).indexOf(currentItem);
-        let nextIndex;
-        
-        if (direction === 'ArrowDown') {
-            nextIndex = (currentIndex + 1) % allItems.length;
-        } else {
-            nextIndex = currentIndex === 0 ? allItems.length - 1 : currentIndex - 1;
-        }
-        
-        const nextQuestion = allItems[nextIndex].querySelector('.faq-question');
-        nextQuestion.focus();
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            const activeItems = document.querySelectorAll('.faq-item.active');
-            activeItems.forEach(item => {
-                item.classList.remove('active');
-                const question = item.querySelector('.faq-question');
-                question.setAttribute('aria-expanded', 'false');
-            });
-        }
-    });
-    
-    // ==================== Lógica do Chatbot ====================
-
-    let chatHistory = [];
-    
-    function initChatbot() {
-        const headerContactBtn = document.getElementById('header-contact-btn');
-        const heroWhatsappBtn = document.getElementById('hero-whatsapp-btn');
-        const chatbotModal = document.getElementById('chatbotModal');
-        const closeChatBtn = document.getElementById('closeChatBtn');
-        const chatbox = document.getElementById('chatbox');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?";
-
-        chatHistory.push({ role: "model", parts: [{ text: initialMessage }] });
-
-        if (headerContactBtn) {
-            headerContactBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                chatbotModal.classList.add('visible');
-            });
-        }
-
-        if (heroWhatsappBtn) {
-            heroWhatsappBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                chatbotModal.classList.add('visible');
-            });
-        }
-
-        if (closeChatBtn) {
-            closeChatBtn.addEventListener('click', () => {
-                chatbotModal.classList.remove('visible');
-            });
-        }
-        
-        if (sendBtn) {
-            sendBtn.addEventListener('click', handleUserMessage);
-        }
-
-        if (chatInput) {
-            chatInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    handleUserMessage();
-                }
-            });
-        }
-        
-        appendMessage(initialMessage, 'ai');
-    }
-
-    async function handleUserMessage() {
-        const chatInput = document.getElementById('chatInput');
-        const message = chatInput.value.trim();
-        if (message === '') return;
-
-        chatInput.value = '';
-        
-        appendMessage(message, 'user');
-        chatHistory.push({ role: "user", parts: [{ text: message }] });
-
-        // Limita o histórico da conversa a 10 mensagens
-        if (chatHistory.length > 10) {
-            chatHistory = chatHistory.slice(chatHistory.length - 10);
-        }
-
-        const typingIndicator = appendMessage('...', 'ai-typing');
-        
-        try {
-            const responseText = await getChatbotResponse(chatHistory);
-            typingIndicator.remove();
-            appendMessage(responseText, 'ai');
-            chatHistory.push({ role: "model", parts: [{ text: responseText }] });
-        } catch (error) {
-            console.error('Erro ao obter a resposta do chatbot:', error);
-            typingIndicator.remove();
-            appendMessage('Desculpe, não consegui processar sua solicitação no momento. Tente novamente mais tarde.', 'ai');
-        }
-    }
-    
-    function appendMessage(text, sender) {
-        const chatbox = document.getElementById('chatbox');
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', sender);
-        messageElement.textContent = text;
-        chatbox.appendChild(messageElement);
-        chatbox.scrollTop = chatbox.scrollHeight;
-        return messageElement;
-    }
-
-    async function getChatbotResponse(history) {
-        const prompt = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
-        Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
-        - A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico, motorista e terapia ocupacional para idosos.
-        - O diferencial é o treinamento dos profissionais na casa da fundadora, Dona Tereca, que tem 94 anos.
-        - Os serviços são personalizados.
-        - A área de atuação é o Itaim e bairros próximos em São Paulo, como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena.
-        - Para agendar um serviço ou obter um orçamento, o cliente deve preencher o formulário de contato. Não forneça preços diretamente.
-
-        Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.
-
-        Histórico da conversa: ${JSON.stringify(history)}
-        
-        Responda à última pergunta do usuário.`;
-
-        let chatHistoryWithPrompt = [];
-        chatHistoryWithPrompt.push({ role: "user", parts: [{ text: prompt }] });
-
-        const payload = { contents: chatHistoryWithPrompt };
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-        
-        const result = await fetchGeminiApi(apiUrl, payload);
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-            return result.candidates[0].content.parts[0].text;
-        } else {
-            return 'Desculpe, não consegui entender. Poderia reformular a pergunta?';
-        }
-    }
-    
-    function initCalculadora() {
-        class CalculadoraOrcamento {
-            constructor() {
-                this.dados = {
-                    tipo: 'basico',
-                    preco: 30,
-                    horas: 12,
-                    dias: 7,
-                    tipoLabel: 'Cuidado Básico',
-                    horasLabel: '12 horas/dia',
-                    diasLabel: '7 dias/semana'
-                };
-                this.init();
-            }
-            init() {
-                // Para ativar a persistência de dados, descomente a linha abaixo.
-                // this.loadState();
-                this.bindEvents();
-                this.calcular();
-                this.updateStepIndicator();
-            }
-            bindEvents() {
-                document.querySelectorAll('.calculadora-container .option-card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        const step = card.closest('.calc-step');
-                        const stepOptions = step.querySelectorAll('.option-card');
-                        stepOptions.forEach(c => c.classList.remove('selected'));
-                        card.classList.add('selected');
-                        this.updateData(card);
-                        this.calcular();
-                        this.updateStepIndicator();
-                        
-                        const nextStep = document.getElementById(`step${parseInt(step.id.slice(4)) + 1}`);
-                        if(nextStep) {
-                            document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
-                            nextStep.classList.add('active');
-                            nextStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                    });
-                });
-                
-                document.querySelectorAll('.calculadora-container .step-label').forEach(label => {
-                    label.addEventListener('click', (e) => {
-                        const step = label.closest('.calc-step');
-                        document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
-                        step.classList.add('active');
-                    });
-                });
-                
-                document.getElementById('btnWhatsApp').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.enviarWhatsApp();
-                });
-            }
-            updateData(card) {
-                if (card.dataset.tipo) {
-                    this.dados.tipo = card.dataset.tipo;
-                    this.dados.preco = parseInt(card.dataset.preco);
-                    this.dados.tipoLabel = card.dataset.label;
-                }
-                if (card.dataset.horas) {
-                    this.dados.horas = parseInt(card.dataset.horas);
-                    this.dados.horasLabel = card.dataset.label;
-                }
-                if (card.dataset.dias) {
-                    this.dados.dias = parseInt(card.dataset.dias);
-                    this.dados.diasLabel = card.dataset.label;
-                }
-                // Para ativar a persistência, descomente a linha abaixo
-                // this.saveState();
-            }
-            calcular() {
-                const valorMensal = this.dados.preco * this.dados.horas * this.dados.dias * 4.3;
-                document.getElementById('valorFinal').textContent = valorMensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-                document.getElementById('totalMensal').textContent = valorMensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-                document.getElementById('valorHora').textContent = this.dados.preco;
-                document.getElementById('tipoSelecionado').textContent = this.dados.tipoLabel;
-                document.getElementById('periodoSelecionado').textContent = this.dados.horasLabel;
-                document.getElementById('frequenciaSelecionada').textContent = this.dados.diasLabel;
-                const resultado = document.getElementById('resultado');
-                if (!resultado.classList.contains('visible')) {
-                    setTimeout(() => {
-                        resultado.classList.add('visible');
-                    }, 300);
-                }
-            }
-            updateStepIndicator() {
-                const steps = document.querySelectorAll('.calc-step');
-                steps.forEach((step, index) => {
-                    const allOptionsSelected = Array.from(step.querySelectorAll('.option-card')).some(c => c.classList.contains('selected'));
-                    if (allOptionsSelected) {
-                        step.classList.add('completed');
-                    } else {
-                        step.classList.remove('completed');
-                    }
-                });
-            }
-            enviarWhatsApp() {
-                const mensagem = `Olá! Usei a calculadora do site e gostaria de agendar uma avaliação com base no meu orçamento:
-                🏥 Tipo: ${this.dados.tipoLabel}
-                ⏰ Período: ${this.dados.horasLabel}
-                📅 Frequência: ${this.dados.diasLabel}
-                💰 Estimativa: R$ ${document.getElementById('totalMensal').textContent}/mês`;
-                const telefone = '5511999999999';
-                const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-                window.open(url, '_blank');
-            }
-            // Métodos para persistência (descomentar para usar)
-            // saveState() {
-            //     localStorage.setItem('calculadoraData', JSON.stringify(this.dados));
-            // }
-            // loadState() {
-            //     const savedData = localStorage.getItem('calculadoraData');
-            //     if (savedData) {
-            //         this.dados = JSON.parse(savedData);
-            //         this.restoreUIFromState();
-            //     }
-            // }
-            // restoreUIFromState() {
-            //     const step1 = document.getElementById('step1');
-            //     const step2 = document.getElementById('step2');
-            //     const step3 = document.getElementById('step3');
-            //
-            //     const selectCard = (stepElement, dataKey, dataValue) => {
-            //         const card = stepElement.querySelector(`[data-${dataKey}="${dataValue}"]`);
-            //         if (card) {
-            //             card.classList.add('selected');
-            //         }
-            //     };
-            //
-            //     selectCard(step1, 'tipo', this.dados.tipo);
-            //     selectCard(step2, 'horas', this.dados.horas);
-            //     selectCard(step3, 'dias', this.dados.dias);
-            // }
-        }
-        new CalculadoraOrcamento();
-    }
-
-    function initFooter() {
-        const footerYear = document.querySelector('.footer p:last-child');
-        if (footerYear) {
-            footerYear.textContent = `© ${new Date().getFullYear()} - De Vó para Vó`;
-        }
-    }
-    
-    function initAgendamentoLigacao() {
-        const agendamentoLigacaoBtn = document.getElementById('agendamentoLigacaoBtn');
-        const agendamentoLigacaoModal = document.getElementById('agendamentoLigacaoModal');
-        const closeLigacaoModalBtn = document.getElementById('closeLigacaoModalBtn');
-        const formAgendamentoLigacao = document.getElementById('formAgendamentoLigacao');
-        const headerContactBtn = document.getElementById('header-contact-btn');
-        const heroWhatsappBtn = document.getElementById('hero-whatsapp-btn');
-
-        if (headerContactBtn) {
-            headerContactBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                agendamentoLigacaoModal.classList.add('visible');
-            });
-        }
-
-        if (heroWhatsappBtn) {
-            heroWhatsappBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                agendamentoLigacaoModal.classList.add('visible');
-            });
-        }
-        
-        if (closeLigacaoModalBtn) {
-            closeLigacaoModalBtn.addEventListener('click', () => {
-                agendamentoLigacaoModal.classList.remove('visible');
-                formAgendamentoLigacao.reset();
-            });
-        }
-
-        if (formAgendamentoLigacao) {
-            formAgendamentoLigacao.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const formData = new FormData(formAgendamentoLigacao);
-                const nome = formData.get('nome');
-                const telefone = formData.get('telefone');
-                const horario = new Date(formData.get('horario')).toLocaleString('pt-BR');
-
-                const message = `Olá, gostaria de agendar uma ligação!\n\nNome: ${nome}\nTelefone: ${telefone}\nHorário de preferência: ${horario}`;
-                openWhatsApp(message);
-                
-                agendamentoLigacaoModal.classList.remove('visible');
-                formAgendamentoLigacao.reset();
-            });
-        }
-    }
-    
-    function initFontSizeToggle() {
-        const fontSizeToggleBtn = document.getElementById('fontSizeToggleBtn');
-        if (!fontSizeToggleBtn) return;
-
-        fontSizeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('large-font');
-            const isLargeFont = document.body.classList.contains('large-font');
-            fontSizeToggleBtn.setAttribute('aria-pressed', isLargeFont);
-        });
-    }
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
