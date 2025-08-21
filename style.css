@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    will-change: transform, opacity, box-shadow; /* Adicionado box-shadow para otimizar animações */
+    will-change: transform, opacity, box-shadow;
 }
 
 :root {
@@ -24,10 +24,11 @@
     --ai-message-bg: #EAE3D4;
     --validation-error: #EF4444;
     --validation-success: #10B981;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 5px 10px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 15px 30px rgba(0, 0, 0, 0.12);
+    /* --- Melhoria 1: Refinamento do box-shadow com a paleta de cores --- */
+    --shadow-sm: 0 2px 4px rgba(93, 47, 9, 0.05);
+    --shadow-md: 0 5px 10px rgba(93, 47, 9, 0.08);
+    --shadow-lg: 0 10px 20px rgba(93, 47, 9, 0.12);
+    --shadow-xl: 0 15px 30px rgba(93, 47, 9, 0.15);
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
     --text-base: 1rem;
@@ -37,7 +38,7 @@
     --text-3xl: 1.875rem;
     --text-4xl: 2.5rem;
     --text-5xl: 3.5rem;
-    --text-dark-subtle: #2D3748; /* Nova cor para subtítulos e legendas */
+    --text-dark-subtle: #2D3748;
 }
 
 body {
@@ -53,7 +54,7 @@ body {
     transition: font-size 0.3s ease;
 }
 
-/* Melhoria 2: Parallax Aprimorado no Fundo */
+/* --- Melhoria 2: Transição de Fundo com Movimento Sutil --- */
 body::before {
     content: '';
     position: fixed;
@@ -62,27 +63,27 @@ body::before {
     width: 100%;
     height: 100%;
     background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23efebe4" fill-opacity="0.4"%3E%3Cpath d="M36 34.542V13.84L54.764 24.288l-5.32 3.07a2 2 0 0 1-1.92-1.28L44 20v24L24 34.542V13.84L5.236 24.288l5.32 3.07a2 2 0 0 1 1.92-1.28L16 20v24l20-10.458z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    background-size: 60px 60px;
     opacity: 0.2;
     pointer-events: none;
     z-index: -1;
-    transform: translateY(0);
-    transition: transform 0.2s ease-out;
+    background-position: 0 0;
+    transition: background-position 0.2s ease-out;
 }
 
 body.scrolled::before {
-    transform: translateY(-20px); /* Movimento sutil para o efeito parallax */
+    background-position: 0 -20px;
 }
 
 body.large-font {
     font-size: 1.15rem;
 }
 
-/* Melhoria 3: Tipografia com hierarquia e estilos aprimorados */
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     line-height: 1.2;
-    letter-spacing: -0.01em; /* Ajuste para melhor leitura */
+    letter-spacing: -0.01em;
     color: var(--text-primary);
 }
 
@@ -91,7 +92,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     line-height: 1.7;
     letter-spacing: 0.01em;
 }
-.highlight { /* Novo estilo para parágrafos de destaque */
+
+.highlight {
     font-style: italic;
     font-weight: 500;
     color: var(--secondary-color);
@@ -100,29 +102,29 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 0;
 }
 
-/* Melhoria 5: Glassmorphism Mais Subtil */
 .glassmorphism-base {
-    backdrop-filter: blur(15px); /* Aumentado o blur */
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .glassmorphism {
-    background: rgba(255, 255, 255, 0.15); /* Reduzida a opacidade */
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .glassmorphism-light {
-    background: rgba(255, 255, 255, 0.3); /* Ajustado para ser mais leve */
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* ==================== Animações ==================== */
-/* Melhoria 1: Animações mais sutis */
 @keyframes subtleFloat {
     0%, 100% { transform: translateY(0); box-shadow: var(--shadow-sm); }
     50% { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 }
+
 @keyframes subtleHover {
     0%, 100% { transform: translateY(0); box-shadow: var(--shadow-sm); }
     50% { transform: translateY(-2px); box-shadow: var(--shadow-md); }
@@ -160,9 +162,6 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     100% { transform: scale(1); }
 }
 
-/* Animações removidas e substituídas pela nova abordagem */
-/* @keyframes subtlePulse, @keyframes subtleWiggle, @keyframes subtlePress */
-
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -174,31 +173,27 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     100% { transform: scale(1); }
 }
 
-/* Melhoria 6: Animação para tags */
 @keyframes popClick {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
 }
 
-/* Animação de splash para botões de tags e filtro */
 @keyframes splash {
     0% { transform: scale(0); opacity: 1; }
     100% { transform: scale(1); opacity: 0; }
 }
 
-/* Microinteração para botões de ação */
-/* Melhoria 1: Substituído por animações mais suaves */
 .cta-button:active, .whatsapp-btn:active, .blog-action-btn:active {
-    animation: none; /* Remove a animação anterior para prevenir conflitos */
+    animation: none;
     transform: translateY(1px);
     box-shadow: var(--shadow-sm);
 }
+
 .cta-button:hover, .whatsapp-btn:hover {
     animation: subtleFloat 1.5s infinite ease-in-out;
 }
 
-/* Para o botão de filtro do blog */
 .blog-filter-btn::after {
     content: '';
     position: absolute;
@@ -217,10 +212,10 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     animation: splash 0.5s ease-out;
 }
 
-/* Transição do ícone no botão "Ler Artigo" */
 .blog-action-btn.read-more-btn svg {
     transition: transform 0.3s ease;
 }
+
 .blog-action-btn.read-more-btn.expanded svg {
     transform: rotate(180deg);
 }
@@ -240,10 +235,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     z-index: 9999;
     transition: opacity 1s ease, visibility 1s ease;
 }
+
 .loading-screen.hidden {
     opacity: 0;
     visibility: hidden;
 }
+
 .loading-logo {
     width: 100px;
     height: 100px;
@@ -257,11 +254,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 2rem;
     animation: logoFloat 2.5s ease-in-out infinite, logoGlow 3.5s ease-in-out infinite;
 }
+
 .loading-logo::before {
     content: '👵💛';
     font-size: 2.5rem;
     animation: spin 5s linear infinite;
 }
+
 .loading-text {
     color: var(--text-on-dark);
     font-size: var(--text-2xl);
@@ -269,6 +268,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 0.5rem;
     opacity: 0.9;
 }
+
 .loading-progress {
     width: 180px;
     height: 3px;
@@ -282,6 +282,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .reveal { transform: translateY(20px); }
 .reveal-left { transform: translateX(-30px); }
 .reveal-right { transform: translateX(30px); }
@@ -291,13 +292,17 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 1;
     transform: translate(0);
 }
+
 .reveal-scale.revealed {
     transform: scale(1);
 }
 
+/* --- Melhoria 5: Efeito Parallax para Imagens Principais --- */
 .parallax-element {
     will-change: transform;
+    transition: transform 0.5s ease-out;
 }
+
 .header.scrolled {
     padding: 0.5rem 0;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -311,6 +316,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     z-index: 1;
 }
+
 .section-title {
     font-size: var(--text-4xl);
     font-weight: bold;
@@ -318,24 +324,25 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 3rem;
     color: var(--primary-dark);
 }
-/* Melhoria 7: Estilo de botão refinado */
+
 .cta-button {
     background-color: var(--primary-color);
     color: var(--text-on-dark);
     padding: 0.8rem 1.5rem;
     border: none;
     border-radius: 40px;
-    font-weight: 600; /* Alterado para 600 */
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
     font-size: var(--text-sm);
-    text-transform: none; /* Alterado para none */
+    text-transform: none;
     letter-spacing: 1px;
     z-index: 1;
 }
+
 .cta-button:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
@@ -356,6 +363,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     transition: all 0.4s ease;
 }
+
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -364,6 +372,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     align-items: center;
     padding: 0;
 }
+
 .logo .title {
     font-family: 'Playfair Display', serif;
     font-size: var(--text-3xl);
@@ -372,16 +381,19 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease;
 }
+
 .logo .title:hover {
     color: var(--secondary-color);
     transform: scale(1.05);
 }
+
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 2rem;
     padding: 0 2rem;
 }
+
 .nav-menu a {
     text-decoration: none;
     color: var(--text-secondary);
@@ -390,33 +402,40 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     font-size: var(--text-lg);
 }
+
 .nav-menu a:hover {
     color: var(--primary-color);
 }
+
+/* --- Melhoria 3: Melhoria na Transição da Navegação --- */
 .nav-menu a::after {
     content: '';
     position: absolute;
     bottom: -5px;
-    left: 0;
-    width: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
     height: 1px;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    transition: width 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .nav-menu a:hover::after {
-    width: 100%;
+    transform: translateX(-50%) scaleX(1);
 }
+
 .nav-menu a.active {
     color: var(--primary-color);
     font-weight: 700;
 }
+
 .nav-menu a.active::after {
-    width: 100%;
+    transform: translateX(-50%) scaleX(1);
 }
-/* Melhoria 1: Botão do header com nova animação */
+
 #header-contact-btn:hover {
     animation: subtleFloat 1.5s infinite ease-in-out;
 }
+
 .font-size-toggle-btn {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
@@ -436,10 +455,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     justify-content: center;
     color: var(--primary-dark);
 }
+
 .font-size-toggle-btn:hover {
     transform: scale(1.1);
     background-color: var(--accent-color);
 }
+
 .header-actions {
     display: flex;
     align-items: center;
@@ -447,16 +468,19 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-left: auto;
     padding-right: 2rem;
 }
+
 @media (max-width: 768px) {
     .header-actions {
         margin-left: auto;
         padding-right: 2rem;
     }
+
     .font-size-toggle-btn {
         position: static;
         margin-right: 0;
     }
 }
+
 .nav-overlay {
     position: fixed;
     top: 0;
@@ -469,10 +493,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     visibility: hidden;
     transition: opacity 0.4s ease;
 }
+
 .nav-overlay.active {
     opacity: 1;
     visibility: visible;
 }
+
 .back-to-top {
     position: fixed;
     bottom: 2rem;
@@ -491,11 +517,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     visibility: hidden;
 }
+
 .back-to-top.visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
+
 .back-to-top:hover {
     background-color: var(--primary-dark);
     transform: translateY(-5px);
@@ -510,6 +538,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     display: flex;
     align-items: center;
 }
+
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -521,6 +550,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     z-index: 1;
 }
+
 .hero-content h1 {
     font-size: var(--text-5xl);
     font-weight: 700;
@@ -528,6 +558,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 1.5rem;
     line-height: 1.1;
 }
+
 .hero-subtitle {
     font-size: var(--text-xl);
     color: var(--text-secondary);
@@ -535,6 +566,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-weight: 400;
     max-width: 80%;
 }
+
 .whatsapp-btn {
     background-color: var(--primary-color);
     color: var(--text-on-dark);
@@ -553,32 +585,37 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     overflow: hidden;
     z-index: 1;
 }
+
 .whatsapp-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(93, 47, 9, 0.4);
     background-color: var(--primary-dark);
 }
+
 .whatsapp-btn .icon {
     transition: transform 0.3s ease;
 }
+
 .whatsapp-btn:hover .icon {
-    animation: none; /* Removida animação anterior */
+    animation: none;
     transform: rotate(5deg);
 }
-/* Melhoria 10: Imagem dinâmica na Hero Section */
+
 .hero-image {
     position: relative;
     border-radius: 25px;
     overflow: hidden;
     box-shadow: var(--shadow-xl);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    height: 450px; /* Altura fixa para o carrossel */
+    height: 450px;
     width: 100%;
 }
+
 .hero-image:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
+
 .hero-image img {
     width: 100%;
     height: 100%;
@@ -587,6 +624,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     transition: opacity 1s ease-in-out;
 }
+
 .hero-image img.active {
     opacity: 1;
 }
@@ -597,6 +635,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
 }
+
 .story-content {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -607,6 +646,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     z-index: 1;
 }
+
 .story-text {
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(8px);
@@ -616,9 +656,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border-radius: 40px;
     box-shadow: var(--shadow-md);
 }
+
 .story-text h2 {
     font-size: var(--text-4xl);
 }
+
 .story-text h3 {
     font-size: var(--text-xl);
     font-weight: 700;
@@ -626,21 +668,23 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-top: -1rem;
     margin-bottom: 1rem;
 }
+
 .story-text p {
     font-size: var(--text-lg);
     line-height: 1.7;
     color: var(--text-secondary);
     margin-bottom: 1.25rem;
 }
-/* Melhoria 3: Estilo para parágrafos de destaque */
+
 .story-text .highlight {
     font-size: var(--text-lg);
     font-weight: 500;
-    color: var(--text-dark-subtle); /* Utilizando a nova cor */
+    color: var(--text-dark-subtle);
     font-style: italic;
     margin-top: 1.5rem;
     margin-bottom: 0;
 }
+
 .story-image {
     position: relative;
     border-radius: 40px;
@@ -648,16 +692,19 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     box-shadow: var(--shadow-xl);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .story-image:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
+
 .story-image img {
     width: 100%;
     height: 350px;
     object-fit: cover;
     object-position: center;
 }
+
 .story-badge {
     position: absolute;
     top: 1.5rem;
@@ -676,13 +723,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     padding: 80px 0;
     position: relative;
 }
+
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     align-items: stretch;
 }
-/* Melhoria 1: Animação sutil para cards */
+
 .service-card {
     text-align: center;
     padding: 2.5rem 2rem;
@@ -699,13 +747,16 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     flex-direction: column;
     justify-content: space-between;
 }
+
+/* --- Melhoria 7: Transição Suave para a Seção de Serviços --- */
 .service-card:hover {
-    animation: subtleFloat 1.5s infinite ease-in-out;
-    transform: translateY(-8px) scale(1.02); /* Mantido para ser mais dramático */
+    animation: none;
+    transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-xl);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
     border-color: rgba(0, 0, 0, 0.1);
 }
+
 .service-icon {
     width: 60px;
     height: 60px;
@@ -720,14 +771,17 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     box-shadow: var(--shadow-sm);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .service-card:hover .service-icon {
     transform: scale(1.1) rotate(5deg);
     background-color: var(--secondary-color);
-    animation: none; /* Removida animação redundante */
+    animation: none;
 }
+
 .service-card:hover .service-icon svg {
     transform: scale(1.1);
 }
+
 .service-card h3 {
     font-size: var(--text-lg);
     margin-bottom: 0.5rem;
@@ -735,19 +789,23 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-weight: 600;
     transition: all 0.3s ease;
 }
+
 .service-card:hover h3 {
     color: var(--primary-dark);
     transform: translateY(-2px);
 }
+
 .service-card p {
     color: var(--text-secondary);
     font-size: var(--text-sm);
     transition: all 0.3s ease;
 }
+
 .service-card:hover p {
     color: var(--text-primary);
     transform: translateY(-2px);
 }
+
 .service-card .open-whatsapp-service-btn {
     background-color: var(--primary-color);
     color: var(--text-on-dark);
@@ -764,6 +822,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-size: var(--text-sm);
     animation: none !important;
 }
+
 .service-card .open-whatsapp-service-btn:hover {
     background-color: var(--primary-dark);
     box-shadow: var(--shadow-md);
@@ -776,6 +835,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
 }
+
 .testimonial-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -788,18 +848,21 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     overflow: hidden;
     min-height: 450px;
 }
+
 .testimonial-carousel-wrapper {
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: relative;
 }
+
 .testimonial-carousel {
     display: flex;
     height: 100%;
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     width: 100%;
 }
+
 .testimonial-slide {
     flex-shrink: 0;
     width: 100%;
@@ -808,6 +871,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     gap: 3rem;
     align-items: center;
 }
+
 .testimonial-content {
     background: var(--background-start);
     padding: 4rem;
@@ -820,10 +884,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     overflow: hidden;
     margin: 0;
 }
+
 .testimonial-content:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-md);
 }
+
 .testimonial-content::before {
     content: '“';
     font-family: 'Playfair Display', serif;
@@ -835,10 +901,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0.4;
     transition: all 0.3s ease;
 }
+
 .testimonial-content:hover::before {
     opacity: 0.6;
     transform: scale(1.1);
 }
+
 .testimonial-text {
     font-size: var(--text-2xl);
     line-height: 1.8;
@@ -847,18 +915,22 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-style: italic;
     transition: all 0.3s ease;
 }
+
 .testimonial-content:hover .testimonial-text {
     color: var(--text-primary);
     transform: translateY(-2px);
 }
+
 .testimonial-author {
     font-weight: bold;
     color: var(--secondary-color);
     transition: all 0.3s ease;
 }
+
 .testimonial-content:hover .testimonial-author {
     transform: translateY(-2px);
 }
+
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -876,17 +948,21 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: translateY(-50%) scale(0.9);
     transition: opacity 0.3s, transform 0.3s;
 }
+
 .testimonial-carousel-wrapper:hover .carousel-btn {
     opacity: 1;
     transform: translateY(-50%) scale(1);
 }
+
 .carousel-btn:hover {
     background: rgba(255, 255, 255, 0.8);
     color: var(--secondary-color);
 }
+
 .prev-btn {
     left: 1rem;
 }
+
 .next-btn {
     right: 1rem;
 }
@@ -897,6 +973,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
 }
+
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
@@ -911,34 +988,39 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     z-index: 1;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .contact-form:hover {
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
     transform: translateY(-5px);
 }
+
 .form-row {
     display: flex;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
 }
+
 .form-row .form-group {
     flex: 1;
 }
+
 .form-group {
     margin-bottom: 1.5rem;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: var(--text-primary);
 }
-/* Melhoria 7: Estilo de input refinado */
+
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    border: none; /* Removida a borda para usar a de baixo */
+    border: none;
     border-radius: 20px;
     font-size: var(--text-base);
     transition: all 0.3s ease;
@@ -946,25 +1028,32 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     backdrop-filter: blur(5px);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
+
+/* --- Melhoria 6: Validação de Formulário mais Intuitiva --- */
 .form-group input:valid {
     border-color: var(--validation-success);
 }
+
 .form-group input:invalid:not(:placeholder-shown) {
     border-color: var(--validation-error);
 }
+
 .form-group input:valid:not([readonly]):focus {
     box-shadow: none;
     border-color: var(--validation-success);
 }
+
 .form-group input:invalid:not([readonly]):focus {
     box-shadow: none;
     border-color: var(--validation-error);
 }
+
 .form-group input[readonly] {
     background: rgba(240, 235, 228, 0.8);
     color: var(--text-tertiary);
     cursor: not-allowed;
 }
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -974,6 +1063,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     box-shadow: none;
     transform: scale(1.01);
 }
+
 .form-group .validation-message {
     font-size: var(--text-sm);
     color: var(--validation-error);
@@ -982,40 +1072,47 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 .form-group input:invalid:not(:placeholder-shown) + .validation-message {
     opacity: 1;
 }
+
 .form-group .validation-message.valid {
     color: var(--validation-success);
     opacity: 1;
 }
 
-/* Adicionando ícones de validação no formulário */
 .form-group .validation-feedback {
     display: none;
 }
+
 .form-group input:invalid:not([readonly]):not(:placeholder-shown) ~ .validation-feedback.error {
     display: flex;
 }
+
 .form-group input:valid:not([readonly]):not(:placeholder-shown) ~ .validation-feedback.success {
     display: flex;
 }
+
 .form-group input:invalid:not([readonly]):not(:placeholder-shown) ~ .validation-icon.error-icon,
 .form-group input:valid:not([readonly]):not(:placeholder-shown) ~ .validation-icon.success-icon {
     display: inline;
 }
+
 .form-group .validation-feedback.success {
     color: var(--validation-success);
 }
+
 .form-group .validation-feedback.error {
     color: var(--validation-error);
 }
+
 .form-group .validation-feedback svg {
     width: 16px;
     height: 16px;
     stroke-width: 2.5;
 }
-/* Melhoria 6: Tags do formulário */
+
 .services-tags {
     display: flex;
     flex-wrap: wrap;
@@ -1023,6 +1120,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-top: 0.5rem;
     justify-content: flex-start;
 }
+
 .services-tags label.service-tag {
     position: relative;
     user-select: none;
@@ -1030,16 +1128,19 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     flex-grow: 1;
     flex-basis: auto;
 }
+
 .services-tags input[type="checkbox"]:disabled + span {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
 .services-tags input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
 }
+
 .services-tags label.service-tag span {
     display: inline-block;
     padding: 0.6rem 1.2rem;
@@ -1057,6 +1158,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
 }
+
 .services-tags label.service-tag span::after {
     content: '';
     position: absolute;
@@ -1070,19 +1172,22 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     pointer-events: none;
 }
+
 .services-tags label.service-tag:hover span {
     border-color: var(--primary-color);
     background: rgba(249, 247, 244, 0.9);
     transform: translateY(-2px);
 }
+
 .services-tags input[type="checkbox"]:checked+span {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: var(--text-on-dark);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
-    animation: popClick 0.3s ease-in-out; /* Nova animação de pop */
+    animation: popClick 0.3s ease-in-out;
 }
+
 .services-tags input[type="checkbox"]:checked + span::before {
     content: '';
     position: absolute;
@@ -1090,7 +1195,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, var(--secondary-color), var(--accent-color)); /* Novo gradiente */
+    background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
     opacity: 0.8;
     z-index: -1;
 }
@@ -1099,6 +1204,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     justify-content: flex-start;
     gap: 0.75rem;
 }
+
 #bairros-atuacao .service-tag {
     background: rgba(245, 245, 245, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -1113,6 +1219,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     outline: none;
     white-space: nowrap;
 }
+
 #bairros-atuacao .service-tag:focus,
 #bairros-atuacao .service-tag.selected {
     background: var(--primary-color);
@@ -1121,6 +1228,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
 }
+
 #bairros-atuacao .service-tag:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
@@ -1141,6 +1249,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
 }
+
 .submit-btn:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
@@ -1155,6 +1264,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .footer p {
     opacity: 0.8;
     margin: 0.5rem 0;
@@ -1165,6 +1275,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     padding: 80px 0;
     position: relative;
 }
+
 .blog-filters {
     display: flex;
     justify-content: center;
@@ -1172,7 +1283,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     gap: 1rem;
     margin-bottom: 2.5rem;
 }
-/* Melhoria 6: Botão de filtro aprimorado */
+
 .blog-filter-btn {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(245, 245, 245, 0.6));
     backdrop-filter: blur(5px);
@@ -1189,11 +1300,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
 }
+
 .blog-filter-btn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
     border-color: var(--primary-light);
 }
+
 .blog-filter-btn.active {
     background: var(--primary-color);
     color: var(--text-on-dark);
@@ -1201,6 +1314,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     box-shadow: var(--shadow-md);
     animation: popClick 0.3s ease-in-out;
 }
+
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1209,7 +1323,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin: 0 auto;
     padding: 0 2rem;
 }
-/* Melhoria 1: Cartões do blog com nova animação */
+
 .blog-card {
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(8px);
@@ -1225,31 +1339,38 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: translateY(20px);
     transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .blog-card.revealed {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* --- Melhoria 8: Cards do Blog com melhor animação --- */
 .blog-card:hover {
     animation: subtleFloat 1.5s infinite ease-in-out;
 }
+
 .blog-card-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .blog-card-content {
     padding: 2rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
+
 .blog-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
+
 .blog-card-tag {
     background-color: var(--secondary-color);
     color: var(--text-on-dark);
@@ -1258,6 +1379,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-size: var(--text-sm);
     font-weight: 600;
 }
+
 .blog-card-info {
     display: flex;
     align-items: center;
@@ -1265,17 +1387,20 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-size: var(--text-sm);
     gap: 0.5rem;
 }
+
 .blog-card-content h3 {
     font-size: var(--text-2xl);
     margin-bottom: 0.5rem;
     color: var(--primary-dark);
     cursor: pointer;
 }
+
 .blog-card-content p {
     font-size: var(--text-base);
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
 }
+
 .blog-card-actions {
     display: flex;
     justify-content: space-between;
@@ -1284,6 +1409,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     flex-wrap: wrap;
     gap: 1rem;
 }
+
 .blog-action-btn {
     background-color: transparent;
     border: 1px solid var(--primary-color);
@@ -1300,6 +1426,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     align-items: center;
     gap: 0.5rem;
 }
+
 .blog-action-btn:hover {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
@@ -1307,36 +1434,45 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
+
 .blog-action-btn svg {
     transition: transform 0.3s ease;
     stroke: var(--primary-color);
 }
+
 .blog-action-btn:hover svg {
     stroke: var(--text-on-dark);
 }
+
 .blog-action-btn.expanded svg {
     transform: rotate(180deg);
 }
+
 .blog-action-btn::after {
     display: none;
 }
+
 .full-article-content {
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     transition: max-height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .full-article-content.visible {
     max-height: 2000px;
     opacity: 1;
     margin-top: 1rem;
 }
+
 .blog-card-content .short-text.hidden {
     display: none;
 }
+
 .blog-card-content .read-more-btn.hidden {
     display: none;
 }
+
 .article-content h4 {
     font-family: 'Playfair Display', serif;
     font-size: var(--text-lg);
@@ -1345,10 +1481,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 0.75rem;
     color: var(--primary-dark);
 }
+
 .article-content p {
     margin-bottom: 1rem;
     color: var(--text-secondary);
 }
+
 .article-content ul {
     list-style-type: none;
     padding-left: 0;
@@ -1356,11 +1494,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 1rem;
     color: var(--text-secondary);
 }
+
 .article-content ul li {
     position: relative;
     padding-left: 20px;
     margin-bottom: 0.75rem;
 }
+
 .article-content ul li::before {
     content: '•';
     position: absolute;
@@ -1368,12 +1508,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     color: var(--secondary-color);
     font-weight: bold;
 }
+
 .social-share-buttons {
     display: flex;
     gap: 0.5rem;
     margin-top: 1rem;
     justify-content: center;
 }
+
 .social-share-buttons a {
     background-color: var(--primary-color);
     color: var(--text-on-dark);
@@ -1385,14 +1527,17 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     justify-content: center;
     transition: all 0.3s ease;
 }
+
 .social-share-buttons a:hover {
     background-color: var(--secondary-color);
     transform: scale(1.1) rotate(5deg);
 }
+
 .social-share-buttons a svg {
     width: 20px;
     height: 20px;
 }
+
 .ai-tip-container {
     margin-top: 1rem;
     padding: 1rem;
@@ -1407,11 +1552,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform-origin: top;
     transition: opacity 0.5s ease-in, transform 0.5s ease-in;
 }
+
 .ai-tip-container.visible {
     opacity: 1;
     transform: scaleY(1);
 }
-/* Melhoria 8: Skeletons Personalizados */
+
 .loading-skeleton {
     width: 100%;
     display: none;
@@ -1419,33 +1565,41 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     gap: 0.75rem;
     animation: pulse-skeleton 1.5s infinite ease-in-out;
 }
+
 .skeleton-line {
     height: 15px;
     background-color: var(--background-end);
     border-radius: 5px;
 }
+
 .loading-skeleton .skeleton-line {
     background-color: rgba(0, 0, 0, 0.1);
     height: 1rem;
     border-radius: 5px;
 }
+
 .loading-skeleton .skeleton-line:nth-child(2) {
     width: 80%;
 }
+
 .loading-skeleton .skeleton-line:nth-child(3) {
     width: 60%;
 }
+
 .loading-skeleton .skeleton-line:nth-child(4) {
     width: 90%;
 }
+
 .ai-tip-container.loaded .loading-skeleton {
     display: none;
 }
+
 .ai-tip-container p {
     margin: 0;
     font-size: var(--text-sm);
     color: var(--text-primary);
 }
+
 .blog-action-btn.loading {
     cursor: not-allowed;
     opacity: 0.7;
@@ -1453,6 +1607,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border-color: var(--text-tertiary);
     color: var(--text-on-dark);
 }
+
 .audio-btn {
     background: var(--accent-color);
     color: var(--primary-dark);
@@ -1469,16 +1624,19 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-size: var(--text-lg);
     font-weight: bold;
 }
+
 .audio-btn:hover {
     transform: scale(1.1);
     background: var(--primary-dark);
     color: var(--accent-color);
 }
+
 @keyframes audio-pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
+
 .audio-btn.loading-audio .audio-icon {
     animation: audio-pulse 1.2s infinite ease-in-out;
 }
@@ -1488,6 +1646,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     padding: 80px 0;
     position: relative;
 }
+
 .faq-container {
     max-width: 800px;
     margin: 0 auto;
@@ -1495,7 +1654,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     z-index: 1;
 }
-/* Melhoria 9: Acordeão com transição e cor de fundo */
+
 .faq-item {
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(8px);
@@ -1508,18 +1667,23 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transition: all 0.5s ease;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
+/* --- Melhoria 9: Efeito de Hover nas FAQs --- */
 .faq-item:hover {
     box-shadow: var(--shadow-lg);
     transform: translateY(-3px);
 }
+
 .faq-item.active {
     box-shadow: var(--shadow-xl);
     border-color: var(--primary-color);
-    background: linear-gradient(to right, var(--background-start), var(--background-end)); /* Novo gradiente de fundo */
+    background: linear-gradient(to right, var(--background-start), var(--background-end));
 }
+
 .faq-item:focus-within {
     box-shadow: 0 0 0 3px var(--accent-color), var(--shadow-lg);
 }
+
 .faq-question {
     width: 100%;
     padding: 1.5rem;
@@ -1535,20 +1699,24 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     align-items: center;
     transition: all 0.3s ease;
 }
+
 .faq-question:hover {
     background: rgba(245, 245, 245, 0.8);
     color: var(--primary-color);
 }
+
 .faq-answer {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.5s ease;
     background: rgba(255, 255, 255, 0.5);
 }
+
 .faq-item.active .faq-answer {
     max-height: 400px;
     padding: 0 1.5rem 1.5rem;
 }
+
 .faq-answer p {
     color: var(--text-secondary);
     line-height: 1.7;
@@ -1562,6 +1730,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     padding: 80px 0;
     background: linear-gradient(135deg, var(--background-end) 0%, var(--background-start) 100%);
 }
+
 .calculadora-container {
     max-width: 800px;
     width: 100%;
@@ -1576,12 +1745,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     overflow: hidden;
     margin: 0 auto;
 }
+
 .calc-header {
     text-align: center;
     margin-bottom: 3rem;
     position: relative;
     z-index: 1;
 }
+
 .calc-header h2 {
     font-family: 'Playfair Display', serif;
     font-size: var(--text-3xl);
@@ -1589,11 +1760,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     color: var(--primary-dark);
     margin-bottom: 0.5rem;
 }
+
 .calc-header p {
     font-size: var(--text-lg);
     color: var(--text-secondary);
     opacity: 0.8;
 }
+
 .calc-steps {
     display: grid;
     gap: 2rem;
@@ -1601,7 +1774,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     z-index: 1;
 }
-/* Melhoria 9: Acordeão com transição e cor de fundo */
+
 .calc-step {
     background: rgba(255, 255, 255, 0.8);
     padding: 2rem;
@@ -1610,17 +1783,21 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     overflow: hidden;
 }
+
 .calc-step:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
+
 .calc-step.completed {
     border-color: var(--primary-color);
     background: rgba(93, 47, 9, 0.05);
 }
+
 .calc-step.completed .step-title {
     color: var(--secondary-color);
 }
+
 .step-label {
     display: flex;
     align-items: center;
@@ -1628,6 +1805,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin-bottom: 1.5rem;
     cursor: pointer;
 }
+
 .step-number {
     width: 32px;
     height: 32px;
@@ -1640,22 +1818,27 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-weight: bold;
     font-size: 0.9rem;
 }
+
 .step-number.completed {
     background: var(--secondary-color);
 }
+
 .step-number.active {
     animation: pulse-dots 1s infinite alternate;
 }
+
 .step-title {
     font-size: var(--text-xl);
     font-weight: 600;
     color: var(--text-primary);
 }
+
 .step-subtitle {
     font-size: var(--text-base);
     color: var(--text-secondary);
     margin-top: 0.25rem;
 }
+
 .options-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1666,6 +1849,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: scale(1);
     transform-origin: top;
 }
+
 .calc-step:not(.active) .options-grid {
     max-height: 0;
     padding-top: 0;
@@ -1673,11 +1857,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     pointer-events: none;
 }
+
 .calc-step.active .options-grid {
     max-height: 1000px;
     opacity: 1;
     transition: max-height 0.7s ease-in, opacity 0.5s ease-in;
 }
+
 .option-card {
     background: rgba(255, 255, 255, 0.9);
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -1689,11 +1875,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
 }
+
 .option-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
     border-color: var(--primary-light);
 }
+
 .option-card.selected {
     border-color: var(--primary-color);
     background: var(--primary-color);
@@ -1702,37 +1890,45 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     box-shadow: var(--shadow-lg);
     animation: bounceIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .option-card .option-content {
     position: relative;
     z-index: 1;
 }
+
 .option-card.selected .option-content > * {
     color: var(--text-on-dark) !important;
     transition: color 0.3s ease;
 }
+
 .option-icon {
     font-size: 2rem;
     margin-bottom: 1rem;
     transition: transform 0.3s ease;
 }
+
 .option-card:hover .option-icon {
     transform: scale(1.1) rotate(-5deg);
 }
+
 .option-title {
     font-weight: 600;
     font-size: var(--text-lg);
     margin-bottom: 0.5rem;
 }
+
 .option-description {
     font-size: 0.9rem;
     opacity: 0.8;
 }
+
 .option-price {
     font-size: 0.85rem;
     margin-top: 0.5rem;
     font-weight: 500;
     opacity: 0.7;
 }
+
 .resultado-container {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     padding: 3rem;
@@ -1746,33 +1942,40 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: translateY(20px);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .resultado-container.visible {
     opacity: 1;
     transform: translateY(0);
 }
+
 .resultado-content {
     position: relative;
     z-index: 1;
 }
+
 .resultado-title {
     font-size: var(--text-2xl);
     font-weight: 700;
     margin-bottom: 1rem;
     opacity: 0.9;
 }
+
 .preco-display {
     margin: 2rem 0;
 }
+
 .preco-valor {
     font-family: 'Playfair Display', serif;
     font-size: var(--text-4xl);
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
+
 .preco-periodo {
     font-size: var(--text-lg);
     opacity: 0.8;
 }
+
 .preco-detalhes {
     background: rgba(255, 255, 255, 0.1);
     padding: 1.5rem;
@@ -1780,18 +1983,21 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     margin: 2rem 0;
     backdrop-filter: blur(10px);
 }
+
 .detalhe-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
     font-size: var(--text-base);
 }
+
 .detalhe-item:last-child {
     margin-bottom: 0;
     font-weight: 600;
     padding-top: 0.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .cta-buttons {
     display: flex;
     gap: 1rem;
@@ -1799,6 +2005,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     flex-wrap: wrap;
     margin-top: 2rem;
 }
+
 .btn-primary {
     background: var(--text-on-dark);
     color: var(--primary-dark);
@@ -1814,11 +2021,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     gap: 0.5rem;
     text-decoration: none;
 }
+
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     background: rgba(255, 255, 255, 0.95);
 }
+
 .btn-secondary {
     background: transparent;
     color: var(--text-on-dark);
@@ -1831,6 +2040,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-size: var(--text-base);
     text-decoration: none;
 }
+
 .btn-secondary:hover {
     background: var(--text-on-dark);
     color: var(--primary-dark);
@@ -1854,10 +2064,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 .modal.visible {
     display: flex;
     opacity: 1;
 }
+
 .modal-content {
     background-color: var(--background-start);
     padding: 2.5rem;
@@ -1870,18 +2082,22 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .modal.visible .modal-content {
     transform: scale(1);
 }
+
 .modal-content h3 {
     color: var(--primary-dark);
     font-size: var(--text-2xl);
     margin-bottom: 1rem;
 }
+
 .modal-content p {
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
 }
+
 .close-btn {
     background-color: var(--primary-color);
     color: var(--text-on-dark);
@@ -1893,11 +2109,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
 }
+
 .close-btn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
     background-color: var(--primary-dark);
 }
+
 .chatbot-content {
     background-color: var(--background-start);
     padding: 2.5rem;
@@ -1911,16 +2129,19 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .chatbot-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
 }
+
 .chatbot-header h3 {
     margin: 0;
     color: var(--primary-dark);
 }
+
 .chatbot-header .close-btn-chat {
     background: none;
     border: none;
@@ -1930,9 +2151,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     cursor: pointer;
     transition: color 0.3s ease;
 }
+
 .chatbot-header .close-btn-chat:hover {
     color: var(--secondary-color);
 }
+
 .chatbox {
     flex-grow: 1;
     display: flex;
@@ -1947,6 +2170,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border: 1px solid rgba(0, 0, 0, 0.05);
     -webkit-overflow-scrolling: touch;
 }
+
 .message {
     max-width: 80%;
     padding: 0.8rem 1.2rem;
@@ -1956,28 +2180,33 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     word-wrap: break-word;
     animation: fadeIn 0.5s ease-out;
 }
+
 .message.user {
     background-color: var(--user-message-bg);
     color: var(--text-primary);
     align-self: flex-end;
     border-bottom-right-radius: 5px;
 }
+
 .message.ai {
     background-color: var(--ai-message-bg);
     color: var(--text-secondary);
     align-self: flex-start;
     border-bottom-left-radius: 5px;
 }
+
 .message.ai-typing {
     font-style: italic;
     color: var(--text-tertiary);
     animation: pulse-dots 1s infinite;
 }
+
 .chatbot-input {
     display: flex;
     gap: 1rem;
     align-items: center;
 }
+
 .chatbot-input input {
     flex-grow: 1;
     padding: 1rem 1.5rem;
@@ -1987,6 +2216,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
 }
+
 .chatbot-input button {
     background-color: var(--primary-color);
     color: var(--text-on-dark);
@@ -2001,6 +2231,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
 }
+
 .chatbot-input button:hover {
     background-color: var(--primary-dark);
     box-shadow: var(--shadow-md);
@@ -2011,9 +2242,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .calc-step {
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .calc-step .step-title {
     position: relative;
 }
+
 .calc-step .step-label::after {
     content: '▼';
     margin-left: auto;
@@ -2022,9 +2255,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transition: transform 0.3s ease;
     color: var(--primary-color);
 }
+
 .calc-step.active .step-label::after {
     transform: rotate(180deg);
 }
+
 .calc-step:not(.active) .options-grid {
     max-height: 0;
     padding-top: 0;
@@ -2032,19 +2267,23 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     opacity: 0;
     pointer-events: none;
 }
+
 .calc-step.active .options-grid {
     max-height: 1000px;
     opacity: 1;
     transition: max-height 0.7s ease-in, opacity 0.5s ease-in;
 }
+
 .calc-step.completed .step-number {
     background-color: var(--secondary-color);
 }
+
 .calc-step.active .step-number {
     background-color: var(--primary-color);
 }
 
 /* ==================== Tabela do Blog (Visualização Aprimorada) ==================== */
+/* --- Melhoria 10: Tabela do Blog mais Profissional --- */
 .article-content .hydration-table {
     width: 100%;
     border-collapse: collapse;
@@ -2054,6 +2293,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border-radius: 10px;
     overflow: hidden;
 }
+
 .article-content .hydration-table th,
 .article-content .hydration-table td {
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -2062,53 +2302,64 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-size: var(--text-base);
     color: var(--text-secondary);
 }
+
 .article-content .hydration-table thead {
     background-color: var(--accent-color);
     color: var(--primary-dark);
     font-weight: 600;
 }
+
 .article-content .hydration-table th {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
 }
+
 .article-content .hydration-table tr:nth-child(even) {
     background-color: rgba(245, 245, 245, 0.5);
 }
 
-/* Melhoria: Aprimorando as listras de esqueleto do carregamento */
 .loading-skeleton .skeleton-line {
     background-color: rgba(0, 0, 0, 0.1);
     height: 1rem;
     border-radius: 5px;
 }
+
 .loading-skeleton .skeleton-line:nth-child(2) {
     width: 80%;
 }
+
 .loading-skeleton .skeleton-line:nth-child(3) {
     width: 60%;
 }
+
 .loading-skeleton .skeleton-line:nth-child(4) {
     width: 90%;
 }
 
-/* Animação para digitação do GPT */
 .typing-effect {
     animation: typing 2s steps(40, end) forwards;
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
 }
+
 @keyframes typing {
     from { width: 0 }
     to { width: 100% }
 }
 
 /* ==================== Responsividade (Media Queries) ==================== */
+/* --- Melhoria 4: Botão de Acessibilidade com High-Contrast-Mode (Classe CSS) --- */
+body.high-contrast {
+    filter: grayscale(100%) contrast(150%);
+}
+
 @media (min-width: 769px) {
     .nav-toggle-btn {
         display: none;
     }
-    .text-to-speech-btn { /* Melhoria 4: Botão de texto para voz no desktop */
+
+    .text-to-speech-btn {
         position: absolute;
         right: 1.5rem;
         top: 1rem;
@@ -2127,15 +2378,18 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
         z-index: 10;
         opacity: 0.8;
     }
+
     .text-to-speech-btn:hover {
         transform: scale(1.1);
         opacity: 1;
         box-shadow: var(--shadow-md);
     }
+
     .text-to-speech-btn svg {
         fill: var(--primary-dark);
     }
 }
+
 @media (max-width: 768px) {
     .nav-menu {
         display: none;
@@ -2149,16 +2403,18 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         padding: 4rem 2rem;
-        box-shadow: 0 0 30px rgba(0,0,0,0.2);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
         transform: translateX(-100%);
         transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         align-items: flex-start;
         gap: 2rem;
     }
+
     .nav-menu.active {
         display: flex;
         transform: translateX(0);
     }
+
     .nav-toggle-btn {
         display: block;
         background: none;
@@ -2169,77 +2425,98 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
         z-index: 1001;
         position: relative;
     }
+
     .nav-container {
         padding: 0 1rem;
     }
+
     .hero {
         padding: 120px 0 60px;
     }
+
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 2rem;
     }
+
     .hero-content h1 {
         font-size: var(--text-4xl);
     }
+
     .story-content {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 2rem;
     }
+
     .story-text h2 {
         font-size: var(--text-3xl);
     }
+
     .testimonial-slide {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
+
     .testimonial-image {
         display: none;
     }
+
     .services-grid {
         grid-template-columns: 1fr;
     }
+
     .contact-form {
         margin: 0 1rem;
         padding: 2rem;
     }
+
     .form-row {
         flex-direction: column;
         gap: 0;
     }
+
     .carousel-btn {
         display: none;
     }
+
     .faq-container {
         padding: 0 1rem;
     }
+
     .faq-question {
         padding: 1rem;
         font-size: var(--text-base);
     }
+
     .faq-item.active .faq-answer {
         padding: 0 1rem 1rem;
     }
+
     .calculadora-container {
         padding: 2rem;
         margin: 1rem;
     }
+
     .calc-header h2 {
         font-size: var(--text-2xl);
     }
+
     .options-grid {
         grid-template-columns: 1fr;
     }
+
     .cta-buttons {
         flex-direction: column;
         align-items: center;
     }
+
     .btn-primary, .btn-secondary {
         width: 100%;
         justify-content: center;
     }
+
     .font-size-toggle-btn {
         top: 1.2rem;
         right: 4rem;
