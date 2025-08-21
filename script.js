@@ -865,7 +865,6 @@ document.addEventListener('keydown', function(e) {
 
 // ==================== Lógica do Chatbot (Novo Layout) ====================
 
-// Respostas prontas para as perguntas rápidas
 const quickReplyAnswers = {
     "Quais serviços vocês oferecem?": "Oferecemos um cuidado 360º! Nossos principais serviços são: Cuidadoras, Manicure e Cabeleireiro, Apoio Psicológico, Motorista e Terapia Ocupacional. Precisa de detalhes sobre algum deles?",
     "Qual a área de atendimento?": "Atendemos principalmente no Itaim e em bairros próximos como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena. Para confirmar seu endereço, por favor, utilize o formulário de contato na página. 😉",
@@ -949,7 +948,6 @@ async function handleUserMessage() {
     quickRepliesContainer.style.display = 'none'; // Esconde as opções ao digitar
     
     appendMessage(message, 'user');
-    // ... (A lógica de chamada para a IA Gemini continua aqui se você quiser manter a conversa aberta)
     
     // Resposta padrão caso a IA não esteja configurada
     setTimeout(() => {
@@ -965,23 +963,6 @@ function appendMessage(text, sender) {
     chatbox.appendChild(messageElement);
     chatbox.scrollTop = chatbox.scrollHeight;
     return messageElement;
-}
-    
-    // MELHORIA: Apenas o histórico de conversa é enviado, com o contexto definido globalmente.
-    const payload = { 
-        contents: [...history, { role: "user", parts: [{ text: CHATBOT_CONTEXT }] }]
-    };
-
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY_GEMINI}`;
-    
-    const result = await fetchGeminiApi(apiUrl, payload);
-    if (result.candidates && result.candidates.length > 0 &&
-        result.candidates[0].content && result.candidates[0].content.parts &&
-        result.candidates[0].content.parts.length > 0) {
-        return result.candidates[0].content.parts[0].text;
-    } else {
-        return 'Desculpe, não consegui entender. Poderia reformular a pergunta?';
-    }
 }
 
 function initCalculadora() {
