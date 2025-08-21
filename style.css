@@ -78,7 +78,8 @@ body {
     line-height: 1.7;
     letter-spacing: 0.01em;
     color: var(--text-primary);
-    background: var(--background-start);
+    /* A linha abaixo será alterada */
+    background: linear-gradient(to bottom, var(--background-start), var(--background-end));
     min-height: 100vh;
     overflow-x: hidden;
     font-size: var(--font-base);
