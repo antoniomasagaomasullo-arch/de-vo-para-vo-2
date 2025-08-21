@@ -758,6 +758,11 @@ body.modal-open {
     opacity: 1;
 }
 
+.hero-highlight {
+    color: var(--brand-secondary);
+    font-style: italic;
+}
+
 /* ==================== Nossa História ==================== */
 .our-story {
     padding: 80px 0;
