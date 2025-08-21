@@ -800,7 +800,7 @@ function initFAQ() {
 
 function toggleFAQItem(currentItem, allItems) {
     const question = currentItem.querySelector('.faq-question');
-    const isActive = current.classList.contains('active');
+    const isActive = currentItem.classList.contains('active');
     
     allItems.forEach(item => {
         if (item !== currentItem) {
