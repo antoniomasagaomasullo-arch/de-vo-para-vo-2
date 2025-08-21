@@ -1,7 +1,12 @@
-const API_KEY = "SUA_API_KEY_AQUI"; // Substitua pela sua chave API do Google Generative AI
+// ==================== Scripts de Inicialização ====================
 
 document.addEventListener('DOMContentLoaded', function() {
-    initLoadingScreen();
+    // Verifica a preferência do usuário por movimento reduzido e aplica a classe no HTML
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches) {
+        document.documentElement.classList.add('prefers-reduced-motion');
+    }
+
     initScrollReveal();
     initParallax();
     initFormHandlers();
@@ -11,28 +16,41 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavToggle();
     initAITipGenerators();
     initFAQ();
-    initCalculadora();
-    initBlogFilters();
-    initFooter();
-    initBackToTopButton();
-    initAgendamentoLigacao();
-    initFontSizeToggle();
-});
-
-// ==================== Funções de Efeitos Visuais ====================
-
-function initLoadingScreen() {
+    initChatbot(); // Inicializa o chatbot
+    initBlogCarousel(); // Novo: Inicializa o carrossel do blog
+    
+    // Oculta a tela de carregamento após um tempo
     setTimeout(function() {
         const loadingScreen = document.getElementById('loadingScreen');
         if (loadingScreen) {
             loadingScreen.classList.add('hidden');
         }
     }, 2500);
-}
+    
+    // Adiciona a classe 'scrolled' ao header ao rolar a página
+    let isThrottled = false;
+    window.addEventListener('scroll', function() {
+        if (!isThrottled) {
+            window.requestAnimationFrame(() => {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                isThrottled = false;
+            });
+            isThrottled = true;
+        }
+    });
+});
+
+// ==================== Funções de Efeitos Visuais ====================
 
 function initScrollReveal() {
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     if (revealElements.length === 0) return;
+    
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && entry.target) {
@@ -44,6 +62,7 @@ function initScrollReveal() {
         threshold: 0.15,
         rootMargin: '0px 0px -50px 0px'
     });
+
     revealElements.forEach(element => {
         if (element) {
             revealObserver.observe(element);
@@ -54,8 +73,10 @@ function initScrollReveal() {
 function initParallax() {
     const parallaxElements = document.querySelectorAll('.parallax-element');
     if (parallaxElements.length === 0) return;
+    
     let lastScrollY = window.pageYOffset;
     let tick = false;
+
     function updateParallax() {
         const scrolled = lastScrollY;
         parallaxElements.forEach((element) => {
@@ -65,6 +86,7 @@ function initParallax() {
         });
         tick = false;
     }
+
     window.addEventListener('scroll', () => {
         lastScrollY = window.pageYOffset;
         if (!tick) {
@@ -74,61 +96,36 @@ function initParallax() {
     });
 }
 
-function initBackToTopButton() {
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    if (!backToTopBtn) return;
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
-        }
-    });
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
 // ==================== Funções de Navegação e Interatividade ====================
+
+function scrollToContact() {
+    const contactElement = document.getElementById('contato');
+    if (contactElement) {
+        contactElement.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+}
 
 function initNavToggle() {
     const navToggleBtn = document.getElementById('navToggleBtn');
     const navMenu = document.getElementById('navMenu');
-    const navOverlay = document.getElementById('navOverlay');
-    if (!navToggleBtn || !navMenu || !navOverlay) return;
+    
+    if (!navToggleBtn || !navMenu) return;
+    
     navToggleBtn.addEventListener('click', () => {
         navMenu.classList.toggle('active');
-        navOverlay.classList.toggle('active');
-        document.body.classList.toggle('no-scroll');
         if (navMenu.classList.contains('active')) {
             navToggleBtn.textContent = '✕';
         } else {
             navToggleBtn.textContent = '☰';
         }
     });
+
     navMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             navMenu.classList.remove('active');
-            navOverlay.classList.remove('active');
-            document.body.classList.remove('no-scroll');
             navToggleBtn.textContent = '☰';
-        });
-    });
-    window.addEventListener('scroll', () => {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (window.scrollY >= sectionTop - 150) {
-                current = section.getAttribute('id');
-            }
-        });
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
-            }
         });
     });
 }
@@ -141,16 +138,48 @@ function openWhatsApp(message) {
 
 function handleSubmit(event) {
     event.preventDefault();
+
+    // Validação final dos campos antes de enviar
     const form = event.target;
-    if (!form.checkValidity()) {
+    const cepInput = form.querySelector('#cep');
+    const cpfInput = form.querySelector('#cpf');
+    const telefoneInput = form.querySelector('#telefone');
+
+    let isValid = true;
+    if (!validateCepFormat(cepInput.value)) {
+        cepInput.setCustomValidity('CEP inválido.');
+        isValid = false;
+    } else {
+        cepInput.setCustomValidity('');
+    }
+
+    if (!validateCpfFormat(cpfInput.value)) {
+        cpfInput.setCustomValidity('CPF inválido.');
+        isValid = false;
+    } else {
+        cpfInput.setCustomValidity('');
+    }
+
+    if (!validateTelefoneFormat(telefoneInput.value)) {
+        telefoneInput.setCustomValidity('Telefone inválido.');
+        isValid = false;
+    } else {
+        telefoneInput.setCustomValidity('');
+    }
+    
+    if (!isValid) {
+        // Se algum campo for inválido, exibe a mensagem de validação do browser
         form.reportValidity();
         return;
     }
+
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+    
     const selectedServices = Array.from(document.querySelectorAll('input[name="servicos[]"]:checked'))
-        .map(checkbox => checkbox.value)
-        .join(', ');
+                                     .map(checkbox => checkbox.value)
+                                     .join(', ');
+
     let message = "Olá, gostaria de um orçamento!\n\n";
     message += `Nome: ${data.nome}\n`;
     message += `E-mail: ${data.email}\n`;
@@ -159,35 +188,35 @@ function handleSubmit(event) {
     message += `Serviços de interesse: ${selectedServices || 'Nenhum'}\n`;
     message += `Endereço: ${data.endereco} - ${data.bairro}, ${data.cidade}\n`;
     message += `CEP: ${data.cep}\n`;
+    
     openWhatsApp(message);
+    
+    // Exibe o modal de sucesso
     const modal = document.getElementById('successModal');
     if (modal) {
         modal.classList.add('visible');
     }
 }
 
+// Função para validar o formato do CEP
 function validateCepFormat(value) {
     const cepRegex = /^\d{5}-\d{3}$/;
     return cepRegex.test(value);
 }
 
+// Função para validar o formato do CPF (simples)
 function validateCpfFormat(value) {
     const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
     return cpfRegex.test(value);
 }
 
+// Função para validar o formato do telefone (simples)
 function validateTelefoneFormat(value) {
-    const sanitized = value.replace(/\D/g, '');
-    if (sanitized.length === 11) {
-        const telefoneRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
-        return telefoneRegex.test(value);
-    } else if (sanitized.length === 10) {
-        const telefoneRegex = /^\(\d{2}\)\s\d{4}-\d{4}$/;
-        return telefoneRegex.test(value);
-    }
-    return false;
+    const telefoneRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+    return telefoneRegex.test(value);
 }
 
+// Função para aplicar a máscara no CEP
 function maskCEP(value) {
     let sanitized = value.replace(/\D/g, '');
     if (sanitized.length > 5) {
@@ -196,6 +225,7 @@ function maskCEP(value) {
     return sanitized;
 }
 
+// Função para aplicar a máscara no CPF
 function maskCPF(value) {
     let sanitized = value.replace(/\D/g, '');
     sanitized = sanitized.replace(/^(\d{3})(\d)/, '$1.$2');
@@ -204,6 +234,7 @@ function maskCPF(value) {
     return sanitized.substring(0, 14);
 }
 
+// Função para aplicar a máscara no Telefone
 function maskTelefone(value) {
     let sanitized = value.replace(/\D/g, '');
     let masked = '';
@@ -219,15 +250,6 @@ function maskTelefone(value) {
     return masked;
 }
 
-function updateValidationIcons(inputElement, isValid) {
-    const parent = inputElement.closest('.form-group');
-    if (!parent) return;
-    const successIcon = parent.querySelector('.success-icon');
-    const errorIcon = parent.querySelector('.error-icon');
-    if (successIcon) successIcon.style.display = isValid ? 'inline' : 'none';
-    if (errorIcon) errorIcon.style.display = isValid === false ? 'inline' : 'none';
-}
-
 function initFormHandlers() {
     const form = document.querySelector('.contact-form');
     const cepInput = document.getElementById('cep');
@@ -236,11 +258,7 @@ function initFormHandlers() {
     const cepStatus = document.getElementById('cep-status');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const modal = document.getElementById('successModal');
-    const bairroTags = document.querySelectorAll('#bairros-atuacao .service-tag');
 
-    if (form) {
-        form.addEventListener('submit', handleSubmit);
-    }
     if (cepInput) {
         cepInput.addEventListener('input', function(e) {
             const value = e.target.value.replace(/\D/g, '');
@@ -248,32 +266,30 @@ function initFormHandlers() {
             if (value.length === 8) {
                 searchCEP(value);
             } else {
-                if (cepStatus) {
-                    cepStatus.textContent = '';
-                    cepStatus.classList.remove('success', 'error');
-                }
-                updateValidationIcons(cepInput, null);
+                if (cepStatus) cepStatus.textContent = '';
                 document.getElementById('endereco').value = '';
                 document.getElementById('bairro').value = '';
                 document.getElementById('cidade').value = '';
             }
         });
     }
+
     if (cpfInput) {
         cpfInput.addEventListener('input', function(e) {
             e.target.value = maskCPF(e.target.value);
-            updateValidationIcons(e.target, validateCpfFormat(e.target.value));
         });
     }
+
     if (telefoneInput) {
         telefoneInput.addEventListener('input', function(e) {
             e.target.value = maskTelefone(e.target.value);
-            updateValidationIcons(e.target, validateTelefoneFormat(e.target.value));
         });
     }
-    document.getElementById('email').addEventListener('input', function(e) {
-        updateValidationIcons(e.target, e.target.validity.valid);
-    });
+    
+    if (form) {
+        form.addEventListener('submit', handleSubmit);
+    }
+    
     if (closeModalBtn) {
         closeModalBtn.addEventListener('click', () => {
             if (modal) {
@@ -286,96 +302,60 @@ function initFormHandlers() {
 
 async function searchCEP(cep) {
     const statusElement = document.getElementById('cep-status');
-    const enderecoField = document.getElementById('endereco');
-    const bairroField = document.getElementById('bairro');
-    const cidadeField = document.getElementById('cidade');
-    const cepInput = document.getElementById('cep');
-    const bairroTags = document.querySelectorAll('#bairros-atuacao .service-tag');
-    if (!statusElement || !enderecoField || !bairroField || !cidadeField) return;
-    const bairrosAtendidos = {
-        'Itaim': ['Itaim Bibi'],
-        'Jardins': ['Jardim América', 'Jardim Paulista', 'Jardim Europa', 'Jardim Paulistano', 'Jardins'],
-        'Panamby': ['Panamby', 'Paraíso do Morumbi', 'Vila Andrade'],
-        'Morumbi': ['Morumbi'],
-        'Moema': ['Moema', 'Indianópolis'],
-        'Pinheiros': ['Pinheiros'],
-        'Vila Madalena': ['Vila Madalena'],
-        'Higienópolis': ['Higienópolis']
-    };
-    bairroTags.forEach(tag => {
-        tag.classList.remove('selected');
-        tag.setAttribute('aria-pressed', 'false');
-    });
+    if (!statusElement) return;
     try {
-        statusElement.innerHTML = `🔍 Buscando endereço...`;
-        statusElement.classList.add('success');
-        statusElement.classList.remove('error');
+        statusElement.textContent = '🔍 Buscando endereço...';
+        statusElement.style.color = 'var(--primary-color)';
         const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
         const data = await response.json();
         if (data.erro) {
-            throw new Error('CEP não encontrado.');
+            throw new Error('CEP não encontrado');
         }
-        enderecoField.value = `${data.logradouro}, ${data.complemento || ''}`.trim();
-        bairroField.value = data.bairro;
-        cidadeField.value = `${data.localidade} - ${data.uf}`;
-        let isBairroAtendido = false;
-        let bairroPrincipal = '';
-        for (const [key, value] of Object.entries(bairrosAtendidos)) {
-            if (value.includes(data.bairro)) {
-                isBairroAtendido = true;
-                bairroPrincipal = key;
-                break;
-            }
-        }
-        if (isBairroAtendido) {
-            statusElement.innerHTML = `✅ Endereço encontrado. Atendemos no bairro ${bairroPrincipal}!`;
-            statusElement.classList.remove('error');
-            statusElement.classList.add('success');
+        const enderecoField = document.getElementById('endereco');
+        const bairroField = document.getElementById('bairro');
+        const cidadeField = document.getElementById('cidade');
+        if (enderecoField) {
+            enderecoField.value = `${data.logradouro}, ${data.complemento || ''}`.trim();
             enderecoField.removeAttribute('readonly');
-            const tagCorreta = document.querySelector(`#bairros-atuacao .service-tag[data-bairro-principal="${bairroPrincipal}"]`);
-            if (tagCorreta) {
-                tagCorreta.classList.add('selected');
-                tagCorreta.setAttribute('aria-pressed', 'true');
-            }
-            updateValidationIcons(cepInput, true);
-        } else {
-            statusElement.innerHTML = `❌ Infelizmente ainda não atendemos a sua região.`;
-            statusElement.classList.remove('success');
-            statusElement.classList.add('error');
-            enderecoField.value = '';
-            bairroField.value = '';
-            cidadeField.value = '';
-            enderecoField.setAttribute('readonly', true);
-            updateValidationIcons(cepInput, false);
         }
+        if (bairroField) bairroField.value = data.bairro;
+        if (cidadeField) cidadeField.value = `${data.localidade} - ${data.uf}`;
+        statusElement.textContent = '✅ Endereço encontrado!';
+        statusElement.style.color = '#10B981'; /* Usando o valor diretamente para não depender de uma var CSS */
     } catch (error) {
-        statusElement.innerHTML = `❌ ${error.message}`;
-        statusElement.classList.remove('success');
-        statusElement.classList.add('error');
-        enderecoField.value = '';
-        bairroField.value = '';
-        cidadeField.value = '';
-        enderecoField.setAttribute('readonly', true);
-        updateValidationIcons(cepInput, false);
+        statusElement.textContent = '❌ CEP não encontrado. Verifique o número.';
+        statusElement.style.color = '#EF4444'; /* Usando o valor diretamente para não depender de uma var CSS */
+        const enderecoField = document.getElementById('endereco');
+        const bairroField = document.getElementById('bairro');
+        const cidadeField = document.getElementById('cidade');
+        if (enderecoField) enderecoField.value = '';
+        if (bairroField) bairroField.value = '';
+        if (cidadeField) cidadeField.value = '';
     }
 }
 
 function initServiceButtonHandlers() {
     const serviceButtons = document.querySelectorAll('.open-whatsapp-service-btn');
+    
     serviceButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const serviceName = button.getAttribute('data-service');
+            
             const contactSection = document.getElementById('contato');
             if (contactSection) {
                 contactSection.scrollIntoView({ behavior: 'smooth' });
             }
+            
             const checkboxes = document.querySelectorAll('input[name="servicos[]"]');
             checkboxes.forEach(cb => {
+                // Limpa todas as seleções, exceto a de "Cuidadora" que é obrigatória
                 if (cb.value !== 'Cuidadora') {
                     cb.checked = false;
                 }
             });
+            
+            // Encontra e marca o checkbox correspondente ao serviço clicado
             const selectedCheckbox = document.querySelector(`input[name="servicos[]"][value="${serviceName}"]`);
             if (selectedCheckbox) {
                 selectedCheckbox.checked = true;
@@ -391,23 +371,24 @@ function initCarousel() {
     const nextBtn = document.querySelector('.carousel-btn.next-btn');
     const wrapper = document.querySelector('.testimonial-carousel-wrapper');
     if (!carousel || !slides.length || !prevBtn || !nextBtn || !wrapper) return;
+    
     let currentIndex = 0;
     let autoSlideInterval;
     let isDragging = false;
     let startPos = 0;
     let currentTranslate = 0;
     let prevTranslate = 0;
-    let slideWidth = 0;
+
     function setCarouselHeight() {
         const maxSlideHeight = Math.max(...Array.from(slides).map(s => s.offsetHeight));
         wrapper.style.height = `${maxSlideHeight}px`;
     }
+
     function updateCarousel() {
-        if (slides.length > 0) {
-            currentTranslate = -currentIndex * slideWidth;
-            carousel.style.transform = `translateX(${currentTranslate}px)`;
-        }
+        currentTranslate = -currentIndex * slides[0].offsetWidth;
+        carousel.style.transform = `translateX(${currentTranslate}px)`;
     }
+
     function startAutoSlide() {
         clearInterval(autoSlideInterval);
         autoSlideInterval = setInterval(() => {
@@ -415,35 +396,32 @@ function initCarousel() {
             updateCarousel();
         }, 5000);
     }
-    window.addEventListener('resize', () => {
-        setCarouselHeight();
-        if (slides.length > 0) {
-            slideWidth = slides[0].offsetWidth;
-        }
-        updateCarousel(); 
-    });
+    
+    window.addEventListener('resize', setCarouselHeight);
     setCarouselHeight();
-    if (slides.length > 0) {
-        slideWidth = slides[0].offsetWidth;
-    }
+    
     prevBtn.addEventListener('click', () => {
         clearInterval(autoSlideInterval);
         currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
         updateCarousel();
         startAutoSlide();
     });
+    
     nextBtn.addEventListener('click', () => {
         clearInterval(autoSlideInterval);
         currentIndex = (currentIndex + 1) % slides.length;
         updateCarousel();
         startAutoSlide();
     });
+
+    // Touch events for swipe functionality
     wrapper.addEventListener('touchstart', (e) => {
         isDragging = true;
         startPos = e.touches[0].clientX;
         prevTranslate = currentTranslate;
         clearInterval(autoSlideInterval);
     });
+
     wrapper.addEventListener('touchend', () => {
         isDragging = false;
         const movedBy = currentTranslate - prevTranslate;
@@ -456,125 +434,106 @@ function initCarousel() {
         updateCarousel();
         startAutoSlide();
     });
+
     wrapper.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         const currentPosition = e.touches[0].clientX;
         currentTranslate = prevTranslate + currentPosition - startPos;
         carousel.style.transform = `translateX(${currentTranslate}px)`;
     });
+
     startAutoSlide();
 }
 
-function initBlogFilters() {
-    const filterButtons = document.querySelectorAll('.blog-filter-btn');
-    const blogCards = document.querySelectorAll('.blog-card');
-    if (!filterButtons.length || !blogCards.length) return;
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const filter = button.getAttribute('data-filter');
-            filterButtons.forEach(btn => {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-pressed', 'false');
-            });
-            button.classList.add('active');
-            button.setAttribute('aria-pressed', 'true');
-            blogCards.forEach(card => {
-                const cardTag = card.getAttribute('data-tag');
-                if (filter === 'all' || filter === cardTag) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+// Nova função para o carrossel de blog
+function initBlogCarousel() {
+    const blogCarousel = document.getElementById('blogCarousel');
+    const blogCards = document.querySelectorAll('#blogCarousel .blog-card');
+    const prevBtn = document.getElementById('blogPrevBtn');
+    const nextBtn = document.getElementById('blogNextBtn');
+    
+    if (!blogCarousel || !blogCards.length || !prevBtn || !nextBtn) return;
+    
+    let currentIndex = 0;
+    const scrollAmount = blogCards[0].offsetWidth + 32; // Largura do card + gap (2rem = 32px)
+    
+    // Adiciona a classe 'revealed' nos cards do blog para a animação
+    const blogObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
         });
+    }, {
+        threshold: 0.5
+    });
+
+    blogCards.forEach(card => blogObserver.observe(card));
+
+    prevBtn.addEventListener('click', () => {
+        blogCarousel.scrollLeft -= scrollAmount;
+    });
+
+    nextBtn.addEventListener('click', () => {
+        blogCarousel.scrollLeft += scrollAmount;
     });
 }
 
 function initBlogLinks() {
     const blogCards = document.querySelectorAll('.blog-card');
+    
     blogCards.forEach(card => {
-        const readMoreBtn = card.querySelector('.read-more-btn');
-        const readMoreText = readMoreBtn.querySelector('span');
-        const readMoreIcon = readMoreBtn.querySelector('svg');
+        const readMoreBtn = card.querySelector('.blog-card-actions .read-more-btn');
         const fullContent = card.querySelector('.full-article-content');
         const shortText = card.querySelector('.short-text');
-        const aiTipContainer = card.querySelector('.ai-tip-container');
+        const title = card.querySelector('.article-header h3');
+
         const toggleContent = (e) => {
             e.preventDefault();
             e.stopPropagation();
+
             if (fullContent.classList.contains('visible')) {
                 fullContent.classList.remove('visible');
-                readMoreText.textContent = 'Ler artigo';
-                readMoreIcon.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
-                readMoreBtn.classList.remove('expanded');
+                readMoreBtn.textContent = 'Ler artigo';
                 shortText.classList.remove('hidden');
-                aiTipContainer.classList.remove('visible');
             } else {
                 fullContent.classList.add('visible');
-                readMoreText.textContent = 'Diminuir';
-                readMoreIcon.innerHTML = `<path d="m18 15-6-6-6 6"/></svg>`;
-                readMoreBtn.classList.add('expanded');
+                readMoreBtn.textContent = 'Diminuir';
                 shortText.classList.add('hidden');
-                aiTipContainer.classList.add('visible');
             }
         };
+        
         if (readMoreBtn) {
             readMoreBtn.addEventListener('click', toggleContent);
+        }
+        if (title) {
+            title.addEventListener('click', toggleContent);
         }
     });
 }
 
 // ==================== Funções da API Gemini ====================
 
-async function fetchGeminiApi(url, payload) {
-    let response = null;
-    let retryDelay = 1000;
-    const maxRetries = 5;
-    for (let i = 0; i < maxRetries; i++) {
-        try {
-            response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            if (response.ok) {
-                return await response.json();
-            } else if (response.status === 429) {
-                console.warn(`Tentativa ${i + 1}: Rate limit excedido. Tentando novamente em ${retryDelay / 1000}s.`);
-                await new Promise(resolve => setTimeout(resolve, retryDelay));
-                retryDelay *= 2;
-            } else {
-                throw new Error(`Erro na API: ${response.statusText}`);
-            }
-        } catch (error) {
-            if (i === maxRetries - 1) {
-                throw error;
-            }
-            console.warn(`Tentativa ${i + 1}: Erro de rede. Tentando novamente em ${retryDelay / 1000}s.`, error);
-            await new Promise(resolve => setTimeout(resolve, retryDelay));
-            retryDelay *= 2;
-        }
-    }
-    throw new Error("Não foi possível obter uma resposta da API após várias tentativas.");
-}
-
 function initAITipGenerators() {
     const generateButtons = document.querySelectorAll('.generate-tip-btn');
+    
     generateButtons.forEach(button => {
         const card = button.closest('.blog-card-content');
         const aiTipContainer = card.querySelector('.ai-tip-container');
         const aiTipText = card.querySelector('.ai-tip-text');
         const loadingSkeleton = card.querySelector('.loading-skeleton');
         const audioBtn = card.querySelector('.audio-btn');
+
         button.addEventListener('click', async () => {
             const topic = button.getAttribute('data-topic');
             aiTipText.textContent = '';
-            aiTipContainer.classList.add('visible');
+            aiTipContainer.style.display = 'block';
             loadingSkeleton.style.display = 'flex';
             aiTipContainer.classList.remove('loaded');
             button.classList.add('loading');
             button.disabled = true;
             audioBtn.style.display = 'none';
+
             try {
                 const tip = await generateNewTip(topic);
                 aiTipText.textContent = tip;
@@ -591,6 +550,7 @@ function initAITipGenerators() {
             }
         });
     });
+
     const audioButtons = document.querySelectorAll('.audio-btn');
     audioButtons.forEach(button => {
         const card = button.closest('.blog-card-content');
@@ -611,13 +571,51 @@ function initAITipGenerators() {
 
 async function generateNewTip(topic) {
     const prompt = `Gere uma dica curta e útil (no máximo 50 palavras) para cuidadores de idosos, focada no tema de "${topic}". Formate a resposta como uma frase direta.`;
-    const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-    const result = await fetchGeminiApi(apiUrl, payload);
+    let chatHistory = [];
+    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+    const payload = { contents: chatHistory };
+    const apiKey = ""; // <-- COLOQUE SUA API KEY AQUI
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+    let response = null;
+    let retryDelay = 1000;
+    const maxRetries = 5;
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+                break;
+            } else if (response.status === 429) {
+                console.warn(`Tentativa ${i + 1}: Rate limit excedido. Tentando novamente em ${retryDelay / 1000}s.`);
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
+                retryDelay *= 2;
+            } else {
+                throw new Error(`Erro na API: ${response.statusText}`);
+            }
+        } catch (error) {
+            if (i === maxRetries - 1) {
+                throw error;
+            }
+            console.warn(`Tentativa ${i + 1}: Erro de rede. Tentando novamente em ${retryDelay / 1000}s.`, error);
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
+            retryDelay *= 2;
+        }
+    }
+
+    if (!response || !response.ok) {
+        throw new Error("Não foi possível obter uma resposta da API após várias tentativas.");
+    }
+
+    const result = await response.json();
     if (result.candidates && result.candidates.length > 0 &&
         result.candidates[0].content && result.candidates[0].content.parts &&
         result.candidates[0].content.parts.length > 0) {
-        return result.candidates[0].content.parts[0].text;
+        const text = result.candidates[0].content.parts[0].text;
+        return text;
     } else {
         return 'Nenhuma dica gerada. Tente novamente.';
     }
@@ -640,19 +638,60 @@ async function playAudio(text) {
         },
         model: "gemini-2.5-flash-preview-tts"
     };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
-    const result = await fetchGeminiApi(apiUrl, payload);
+    const apiKey = ""; // <-- COLOQUE SUA API KEY AQUI
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+    let response = null;
+    let retryDelay = 1000;
+    const maxRetries = 5;
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+                break;
+            } else if (response.status === 429) {
+                console.warn(`Tentativa ${i + 1}: Rate limit excedido. Tentando novamente em ${retryDelay / 1000}s.`);
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
+                retryDelay *= 2;
+            } else {
+                throw new Error(`Erro na API: ${response.statusText}`);
+            }
+        } catch (error) {
+            if (i === maxRetries - 1) {
+                throw error;
+            }
+            console.warn(`Tentativa ${i + 1}: Erro de rede. Tentando novamente em ${retryDelay / 1000}s.`, error);
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
+            retryDelay *= 2;
+        }
+    }
+
+    if (!response || !response.ok) {
+        console.error("Não foi possível obter uma resposta de áudio da API após várias tentativas.");
+        return;
+    }
+
+    const result = await response.json();
     const audioDataPart = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+
     if (audioDataPart) {
         const base64Audio = audioDataPart.inlineData.data;
         const pcmData = base64ToArrayBuffer(base64Audio);
+        
+        // MimeType is 'audio/L16; rate=24000'
         const sampleRate = 24000;
+        
         const audioBuffer = audioContext.createBuffer(1, pcmData.byteLength / 2, sampleRate);
         const nowBuffering = audioBuffer.getChannelData(0);
         const pcm16 = new Int16Array(pcmData);
         for (let i = 0; i < pcm16.length; i++) {
             nowBuffering[i] = pcm16[i] / 32768;
         }
+        
         source.buffer = audioBuffer;
         source.connect(audioContext.destination);
         source.start();
@@ -669,18 +708,22 @@ function base64ToArrayBuffer(base64) {
     return bytes.buffer;
 }
 
+// Código do FAQ
 function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
+        
         question.addEventListener('click', () => {
             toggleFAQItem(item, faqItems);
         });
+        
         question.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 toggleFAQItem(item, faqItems);
             }
+            
             if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
                 e.preventDefault();
                 navigateFAQ(e.key, item, faqItems);
@@ -692,6 +735,7 @@ function initFAQ() {
 function toggleFAQItem(currentItem, allItems) {
     const question = currentItem.querySelector('.faq-question');
     const isActive = currentItem.classList.contains('active');
+    
     allItems.forEach(item => {
         if (item !== currentItem) {
             item.classList.remove('active');
@@ -699,12 +743,14 @@ function toggleFAQItem(currentItem, allItems) {
             otherQuestion.setAttribute('aria-expanded', 'false');
         }
     });
+    
     if (isActive) {
         currentItem.classList.remove('active');
         question.setAttribute('aria-expanded', 'false');
     } else {
         currentItem.classList.add('active');
         question.setAttribute('aria-expanded', 'true');
+        
         setTimeout(() => {
             currentItem.scrollIntoView({
                 behavior: 'smooth',
@@ -717,11 +763,13 @@ function toggleFAQItem(currentItem, allItems) {
 function navigateFAQ(direction, currentItem, allItems) {
     const currentIndex = Array.from(allItems).indexOf(currentItem);
     let nextIndex;
+    
     if (direction === 'ArrowDown') {
         nextIndex = (currentIndex + 1) % allItems.length;
     } else {
         nextIndex = currentIndex === 0 ? allItems.length - 1 : currentIndex - 1;
     }
+    
     const nextQuestion = allItems[nextIndex].querySelector('.faq-question');
     nextQuestion.focus();
 }
@@ -737,129 +785,157 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// ==================== Calculadora de Orçamento ====================
+// ==================== Lógica do Chatbot ====================
 
-function initCalculadora() {
-    const calculadoraContainer = document.querySelector('.calculadora-section');
-    if (!calculadoraContainer) return;
-    const steps = calculadoraContainer.querySelectorAll('.calc-step');
-    const options = calculadoraContainer.querySelectorAll('.option-card');
-    const valorFinalElement = document.getElementById('valorFinal');
-    const tipoSelecionadoElement = document.getElementById('tipoSelecionado');
-    const periodoSelecionadoElement = document.getElementById('periodoSelecionado');
-    const frequenciaSelecionadaElement = document.getElementById('frequenciaSelecionada');
-    const valorHoraElement = document.getElementById('valorHora');
-    const totalMensalElement = document.getElementById('totalMensal');
-    const resultadoContainer = document.getElementById('resultado');
-    let precoHora = 30;
-    let horasDia = 12;
-    let diasSemana = 7;
-    function updateResult() {
-        const diasNoMes = (diasSemana * 30) / 7;
-        const totalMensal = precoHora * horasDia * diasNoMes;
-        if (valorFinalElement) valorFinalElement.textContent = Math.round(totalMensal).toLocaleString('pt-BR');
-        if (totalMensalElement) totalMensalElement.textContent = Math.round(totalMensal).toLocaleString('pt-BR');
-        if (valorHoraElement) valorHoraElement.textContent = precoHora.toLocaleString('pt-BR');
-        const tipoCard = calculadoraContainer.querySelector('.calc-step[id="step1"] .option-card.selected');
-        const periodoCard = calculadoraContainer.querySelector('.calc-step[id="step2"] .option-card.selected');
-        const frequenciaCard = calculadoraContainer.querySelector('.calc-step[id="step3"] .option-card.selected');
-        if (tipoCard && tipoSelecionadoElement) tipoSelecionadoElement.textContent = tipoCard.getAttribute('data-label');
-        if (periodoCard && periodoSelecionadoElement) periodoSelecionadoElement.textContent = periodoCard.getAttribute('data-label');
-        if (frequenciaCard && frequenciaSelecionadaElement) frequenciaSelecionadaElement.textContent = frequenciaCard.getAttribute('data-label');
+let chatHistory = [];
+
+// Função principal para inicializar o chatbot
+function initChatbot() {
+    const headerContactBtn = document.getElementById('header-contact-btn');
+    const heroWhatsappBtn = document.getElementById('hero-whatsapp-btn');
+    const chatbotModal = document.getElementById('chatbotModal');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatbox = document.getElementById('chatbox');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?";
+
+    // Adiciona a mensagem inicial ao histórico do chat
+    chatHistory.push({ role: "model", parts: [{ text: initialMessage }] });
+
+    // Eventos para abrir o modal do chatbot
+    headerContactBtn.addEventListener('click', () => {
+        chatbotModal.classList.add('visible');
+    });
+    heroWhatsappBtn.addEventListener('click', () => {
+        chatbotModal.classList.add('visible');
+    });
+
+    // Evento para fechar o modal
+    closeChatBtn.addEventListener('click', () => {
+        chatbotModal.classList.remove('visible');
+    });
+    
+    // Eventos para enviar mensagem
+    sendBtn.addEventListener('click', handleUserMessage);
+    chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            handleUserMessage();
+        }
+    });
+    
+    // Adiciona a mensagem inicial ao chatbox
+    appendMessage(initialMessage, 'ai');
+}
+
+// Função para lidar com a mensagem do usuário
+async function handleUserMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const message = chatInput.value.trim();
+    if (message === '') return;
+
+    // Limpa o input
+    chatInput.value = '';
+    
+    // Adiciona a mensagem do usuário ao chatbox e ao histórico
+    appendMessage(message, 'user');
+    chatHistory.push({ role: "user", parts: [{ text: message }] });
+
+    // Mostra o indicador de digitação da IA
+    const typingIndicator = appendMessage('...', 'ai-typing');
+    
+    try {
+        // Chama a API para obter a resposta do chatbot
+        const responseText = await getChatbotResponse(chatHistory);
+        
+        // Remove o indicador de digitação
+        typingIndicator.remove();
+        
+        // Adiciona a resposta da IA ao chatbox e ao histórico
+        appendMessage(responseText, 'ai');
+        chatHistory.push({ role: "model", parts: [{ text: responseText }] });
+    } catch (error) {
+        console.error('Erro ao obter a resposta do chatbot:', error);
+        typingIndicator.remove();
+        appendMessage('Desculpe, não consegui processar sua solicitação no momento. Tente novamente mais tarde.', 'ai');
     }
-    function handleOptionClick(event) {
-        const clickedCard = event.currentTarget;
-        const step = clickedCard.closest('.calc-step');
-        const optionsInStep = step.querySelectorAll('.option-card');
-        optionsInStep.forEach(card => card.classList.remove('selected'));
-        clickedCard.classList.add('selected');
-        if (step.id === 'step1') {
-            precoHora = parseFloat(clickedCard.dataset.preco);
-            document.getElementById('step1').classList.add('completed');
-            document.getElementById('step2').classList.add('active');
-            document.getElementById('step1').classList.remove('active');
-        } else if (step.id === 'step2') {
-            horasDia = parseInt(clickedCard.dataset.horas);
-            document.getElementById('step2').classList.add('completed');
-            document.getElementById('step3').classList.add('active');
-            document.getElementById('step2').classList.remove('active');
-        } else if (step.id === 'step3') {
-            diasSemana = parseInt(clickedCard.dataset.dias);
-            document.getElementById('step3').classList.add('completed');
-            document.getElementById('step3').classList.remove('active');
-            resultadoContainer.classList.add('visible');
+}
+
+// Função para adicionar uma nova mensagem ao chatbox
+function appendMessage(text, sender) {
+    const chatbox = document.getElementById('chatbox');
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', sender);
+    messageElement.textContent = text;
+    chatbox.appendChild(messageElement);
+    // Rola para o final para mostrar a nova mensagem
+    chatbox.scrollTop = chatbox.scrollHeight;
+    return messageElement;
+}
+
+// Função para chamar a API do Gemini e obter a resposta
+async function getChatbotResponse(history) {
+    const prompt = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
+    Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
+    - A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico e motorista para idosos.
+    - O diferencial é o treinamento dos profissionais na casa da fundadora, Dona Tereca, que tem 94 anos.
+    - Os serviços são personalizados.
+    - A área de atuação é o Itaim e bairros próximos em São Paulo.
+    - Para agendar um serviço ou obter um orçamento, o cliente deve preencher o formulário de contato. Não forneça preços diretamente.
+
+    Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.
+
+    Histórico da conversa: ${JSON.stringify(history)}
+    
+    Responda à última pergunta do usuário.`;
+
+    let chatHistoryWithPrompt = [];
+    chatHistoryWithPrompt.push({ role: "user", parts: [{ text: prompt }] });
+
+    const payload = { contents: chatHistoryWithPrompt };
+    const apiKey = ""; // <-- COLOQUE SUA API KEY AQUI
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+    
+    let response = null;
+    let retryDelay = 1000;
+    const maxRetries = 5;
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+                break;
+            } else if (response.status === 429) {
+                console.warn(`Tentativa ${i + 1}: Rate limit excedido. Tentando novamente em ${retryDelay / 1000}s.`);
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
+                retryDelay *= 2;
+            } else {
+                throw new Error(`Erro na API: ${response.statusText}`);
+            }
+        } catch (error) {
+            if (i === maxRetries - 1) {
+                throw error;
+            }
+            console.warn(`Tentativa ${i + 1}: Erro de rede. Tentando novamente em ${retryDelay / 1000}s.`, error);
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
+            retryDelay *= 2;
         }
-        updateResult();
     }
-    options.forEach(option => option.addEventListener('click', handleOptionClick));
-    steps.forEach(step => {
-        const stepLabel = step.querySelector('.step-label');
-        if (step.id === 'step1') {
-            stepLabel.addEventListener('click', () => {
-                steps.forEach(s => s.classList.remove('active'));
-                step.classList.add('active');
-            });
-        } else if (step.id === 'step2' || step.id === 'step3') {
-            stepLabel.addEventListener('click', () => {
-                const prevStepId = parseInt(step.id.replace('step', '')) - 1;
-                const prevStep = document.getElementById(`step${prevStepId}`);
-                if (prevStep && prevStep.classList.contains('completed')) {
-                    steps.forEach(s => s.classList.remove('active'));
-                    step.classList.add('active');
-                }
-            });
-        }
-    });
-    updateResult();
-}
+    
+    if (!response || !response.ok) {
+        throw new Error("Não foi possível obter uma resposta da API após várias tentativas.");
+    }
 
-// ==================== Modais e Formulários ====================
-
-function initAgendamentoLigacao() {
-    const formAgendamento = document.getElementById('formAgendamentoLigacao');
-    const agendamentoModal = document.getElementById('agendamentoLigacaoModal');
-    const closeModalBtn = document.getElementById('closeLigacaoModalBtn');
-    const openModalBtns = document.querySelectorAll('[data-modal="agendamento"]');
-    if (!formAgendamento || !agendamentoModal || !closeModalBtn || !openModalBtns.length) return;
-    openModalBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            agendamentoModal.classList.add('visible');
-        });
-    });
-    closeModalBtn.addEventListener('click', () => {
-        agendamentoModal.classList.remove('visible');
-    });
-    formAgendamento.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (!this.checkValidity()) {
-            this.reportValidity();
-            return;
-        }
-        const nome = document.getElementById('nomeLigacao').value;
-        const telefone = document.getElementById('telefoneLigacao').value;
-        const horario = document.getElementById('horarioLigacao').value;
-        const message = `Olá, gostaria de agendar uma ligação!\nNome: ${nome}\nTelefone: ${telefone}\nMelhor horário: ${horario}`;
-        openWhatsApp(message);
-        agendamentoModal.classList.remove('visible');
-        this.reset();
-    });
-}
-
-// ==================== Acessibilidade ====================
-
-function initFontSizeToggle() {
-    const toggleBtn = document.getElementById('fontSizeToggleBtn');
-    if (!toggleBtn) return;
-    const sizes = ['base', 'lg', 'xl'];
-    let currentSizeIndex = 0;
-    toggleBtn.addEventListener('click', () => {
-        currentSizeIndex = (currentSizeIndex + 1) % sizes.length;
-        const newSize = sizes[currentSizeIndex];
-        document.body.style.fontSize = `var(--text-${newSize})`;
-    });
-}
-
-function initFooter() {
-    const footer = document.querySelector('.footer');
-    if (!footer) return;
+    const result = await response.json();
+    if (result.candidates && result.candidates.length > 0 &&
+        result.candidates[0].content && result.candidates[0].content.parts &&
+        result.candidates[0].content.parts.length > 0) {
+        const text = result.candidates[0].content.parts[0].text;
+        return text;
+    } else {
+        return 'Desculpe, não consegui entender. Poderia reformular a pergunta?';
+    }
 }
