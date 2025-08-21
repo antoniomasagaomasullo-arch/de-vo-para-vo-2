@@ -2169,6 +2169,7 @@ body.modal-open {
 }
 
 /* ==================== Modal e Chatbot ==================== */
+/* ==================== Modal e Chatbot ==================== */
 .modal {
     position: fixed;
     z-index: 10000;
@@ -2177,18 +2178,22 @@ body.modal-open {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    display: none;
+    display: flex; /* Mantenha o display flex para o alinhamento */
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    
+    /* Controle a aparição com visibility e opacity */
     opacity: 0;
-    transition: opacity 0.3s ease;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* Esconde o modal apenas DEPOIS que a animação de fade-out termina */
 }
 
 .modal.visible {
-    display: flex;
     opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease; /* Animação de fade-in */
 }
 
 .modal-content {
@@ -2204,7 +2209,8 @@ body.modal-open {
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.modal.visible .modal-content {
+.modal.visible .modal-content,
+.modal.visible .chatbot-content { /* Regra para animar o conteúdo quando o modal está visível */
     transform: scale(1);
 }
 
@@ -2249,114 +2255,6 @@ body.modal-open {
     border: 1px solid rgba(255, 255, 255, 0.3);
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.chatbot-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.chatbot-header h3 {
-    margin: 0;
-    color: var(--brand-primary-dark);
-}
-
-.chatbot-header .close-btn-chat {
-    background: none;
-    border: none;
-    font-size: var(--font-3xl);
-    font-weight: 300;
-    color: var(--text-primary);
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.chatbot-header .close-btn-chat:hover {
-    color: var(--brand-secondary);
-}
-
-.chatbox {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--chat-bg);
-    border-radius: 15px;
-    overflow-y: auto;
-    max-height: 400px;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    -webkit-overflow-scrolling: touch;
-}
-
-.message {
-    max-width: 80%;
-    padding: 0.8rem 1.2rem;
-    border-radius: 20px;
-    box-shadow: var(--shadow-sm);
-    line-height: 1.5;
-    word-wrap: break-word;
-    animation: fadeIn 0.5s ease-out;
-}
-
-.message.user {
-    background-color: var(--user-message-bg);
-    color: var(--text-primary);
-    align-self: flex-end;
-    border-bottom-right-radius: 5px;
-}
-
-.message.ai {
-    background-color: var(--ai-message-bg);
-    color: var(--text-secondary);
-    align-self: flex-start;
-    border-bottom-left-radius: 5px;
-}
-
-.message.ai-typing {
-    font-style: italic;
-    color: var(--text-tertiary);
-    animation: pulse-dots 1s infinite;
-}
-
-.chatbot-input {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.chatbot-input input {
-    flex-grow: 1;
-    padding: 1rem 1.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 25px;
-    font-size: var(--font-base);
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(5px);
-}
-
-.chatbot-input button {
-    background-color: var(--brand-primary);
-    color: var(--text-on-dark);
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-}
-
-.chatbot-input button:hover {
-    background-color: var(--brand-primary-dark);
-    box-shadow: var(--shadow-md);
-    transform: scale(1.05);
 }
 
 /* ==================== Acordeão para a Calculadora ==================== */
