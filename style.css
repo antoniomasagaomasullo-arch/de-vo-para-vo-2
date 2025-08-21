@@ -944,22 +944,31 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     color: var(--validation-success);
     opacity: 1;
 }
+
+/* Adicionando ícones de validação no formulário */
 .form-group .validation-feedback {
     display: none;
 }
-.form-group input:invalid:not([readonly]):not(:placeholder-shown) + .validation-icon.error-icon {
-    display: inline;
+.form-group input:invalid:not([readonly]):not(:placeholder-shown) ~ .validation-feedback.error {
+    display: flex;
 }
-.form-group input:valid:not([readonly]):not(:placeholder-shown) + .validation-icon.success-icon {
+.form-group input:valid:not([readonly]):not(:placeholder-shown) ~ .validation-feedback.success {
+    display: flex;
+}
+.form-group input:invalid:not([readonly]):not(:placeholder-shown) ~ .validation-icon.error-icon,
+.form-group input:valid:not([readonly]):not(:placeholder-shown) ~ .validation-icon.success-icon {
     display: inline;
 }
 .form-group .validation-feedback.success {
     color: var(--validation-success);
-    display: flex;
 }
 .form-group .validation-feedback.error {
     color: var(--validation-error);
-    display: flex;
+}
+.form-group .validation-feedback svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.5;
 }
 
 .services-tags {
@@ -1085,33 +1094,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     background-color: var(--primary-dark);
 }
 
-/* Adicionado para o mapa de cobertura */
-.map-container {
-    width: 100%;
-    height: 300px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    margin-bottom: 2rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.map-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-.map-label {
-    margin-bottom: 1rem;
-    font-size: var(--text-lg);
-    font-weight: 600;
-    color: var(--primary-dark);
-}
-
-/* ==================== Footer ==================== */
+/* ==================== Rodapé (Footer) ==================== */
 .footer {
     background-color: var(--primary-dark);
     color: var(--text-on-dark);
@@ -1615,9 +1598,15 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 .calc-step:not(.active) .options-grid {
     max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
     opacity: 0;
-    transform: scale(0.95);
     pointer-events: none;
+}
+.calc-step.active .options-grid {
+    max-height: 1000px;
+    opacity: 1;
+    transition: max-height 0.7s ease-in, opacity 0.5s ease-in;
 }
 .option-card {
     background: rgba(255, 255, 255, 0.9);
