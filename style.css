@@ -54,17 +54,18 @@
 /* Melhoria 1: Dark Mode */
 body.dark-mode {
     --brand-primary: #C6A470;
-    --brand-primary-light: #C6A470;
+    --brand-primary-light: #E0C49A;
     --brand-primary-dark: #F8F4EF;
-    --brand-secondary: #B56557;
-    --brand-accent: #5D2F09;
     --text-primary: #F9FAFB;
     --text-secondary: #E5E7EB;
     --text-tertiary: #9CA3AF;
-    --text-on-dark: #3A1F05;
-    --background-start: #1D1D1D;
-    --background-end: #222222;
+    --text-on-dark: #1F1F1F;
+    --background-start: #1F1F1F;
+    --background-end: #121212;
     --chat-bg: #2B2B2B;
+    --user-message-bg: #4A4A4A;
+    --ai-message-bg: #383838;
+    --soft-gray: #374151;
     --user-message-bg: #4A4A4A;
     --ai-message-bg: #383838;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -2888,4 +2889,62 @@ body.modal-open {
     color: var(--text-on-dark);
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
+}
+
+/* ==================== Estilos do Interruptor de Modo Escuro ==================== */
+.dark-mode-toggle {
+    background-color: var(--soft-gray);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.4s ease;
+}
+
+.dark-mode-toggle::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    left: 3px;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+body.dark-mode .dark-mode-toggle {
+    background-color: var(--brand-primary);
+}
+
+body.dark-mode .dark-mode-toggle::before {
+    transform: translateX(30px);
+}
+
+.dark-mode-toggle .sun-icon,
+.dark-mode-toggle .moon-icon {
+    font-size: 14px;
+    position: absolute;
+    transition: opacity 0.4s ease;
+}
+
+.dark-mode-toggle .sun-icon {
+    left: 6px;
+    opacity: 1;
+}
+
+.dark-mode-toggle .moon-icon {
+    right: 6px;
+    opacity: 0;
+}
+
+body.dark-mode .sun-icon {
+    opacity: 0;
+}
+
+body.dark-mode .moon-icon {
+    opacity: 1;
 }
