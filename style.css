@@ -2234,6 +2234,7 @@ body.modal-open {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
+    margin-top: 0.75rem; /* <-- Adicione esta linha */
 }
 
 .close-btn:hover {
