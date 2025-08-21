@@ -160,6 +160,7 @@ function openWhatsApp(message) {
 
 function handleSubmit(event) {
     event.preventDefault();
+    triggerVibration();
 
     const form = event.target;
     const cepInput = form.querySelector('#cep');
@@ -894,6 +895,7 @@ function initChatbot() {
     // Lógica para abrir o chat
     if (chatbotTogglerBtn) {
         chatbotTogglerBtn.addEventListener('click', () => {
+            triggerVibration(); 
             chatbotModal.classList.add('visible');
             document.body.classList.add('modal-open');
             showInitialState();
@@ -1124,6 +1126,7 @@ function initAgendamentoLigacao() {
 
     const openModal = (e) => {
         e.preventDefault();
+        triggerVibration();
         agendamentoLigacaoModal.classList.add('visible');
         document.body.classList.add('modal-open'); // Adiciona a classe para travar o scroll
     };
@@ -1217,4 +1220,12 @@ function initSocialShare() {
             window.open(shareUrl, '_blank', 'noopener,noreferrer');
         });
     });
+}
+
+function triggerVibration() {
+    // Verifica se a API de Vibração é suportada pelo navegador
+    if ('vibrate' in navigator) {
+        // Vibração curta de 50 milissegundos
+        navigator.vibrate(50);
+    }
 }
