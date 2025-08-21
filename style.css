@@ -3046,3 +3046,31 @@ body.dark-mode .option-card.selected {
 body.dark-mode .option-card.selected .option-content > * {
     color: var(--text-on-dark);
 }
+
+/* ==================== Ajuste Final: Tags do Formulário no Dark Mode ==================== */
+
+/* Estilo base das tags de serviço e bairro no dark mode */
+body.dark-mode .services-tags label.service-tag span,
+body.dark-mode #bairros-atuacao .service-tag {
+    background: var(--soft-gray);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Estilo das tags selecionadas no dark mode */
+body.dark-mode .services-tags input[type="checkbox"]:checked+span,
+body.dark-mode #bairros-atuacao .service-tag.selected {
+    background-color: var(--brand-primary);
+    color: var(--text-on-dark);
+    border-color: var(--brand-primary);
+}
+
+/* Efeito hover para as tags no dark mode */
+body.dark-mode .services-tags label.service-tag:hover span {
+    border-color: var(--brand-primary);
+    background: #4A4A4A; /* um cinza um pouco mais escuro para o hover */
+}
+
+body.dark-mode #bairros-atuacao .service-tag:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
