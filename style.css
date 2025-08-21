@@ -3,52 +3,62 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    will-change: transform, opacity, box-shadow;
+    /* Melhoria 16: Adicionar will-change */
+    will-change: transform, opacity, box-shadow, background-color, border-color, color;
 }
 
+/* Melhoria 2: Variáveis agrupadas e refatoradas */
 :root {
     /* Paleta de Cores (Quiet Luxury) */
-    --primary-color: #5D2F09;
-    --primary-light: #A0522D;
-    --primary-dark: #3A1F05;
-    --secondary-color: #B56557;
-    --accent-color: #C6A470;
-    --text-primary: var(--primary-dark);
+    --brand-primary: #5D2F09;
+    --brand-primary-light: #A0522D;
+    --brand-primary-dark: #3A1F05;
+    --brand-secondary: #B56557;
+    --brand-accent: #C6A470;
+    
+    /* Cores de Texto e Fundo */
+    --text-primary: var(--brand-primary-dark);
     --text-secondary: #374151;
     --text-tertiary: #6B7280;
     --text-on-dark: #F9FAFB;
     --background-start: #F8F4EF;
     --background-end: #EFEBE4;
+    
+    /* Cores de Componentes */
     --chat-bg: #F0EADF;
     --user-message-bg: #D4B996;
     --ai-message-bg: #EAE3D4;
+    --soft-gray: #E5E7EB;
+    
+    /* Cores de Validação */
     --validation-error: #EF4444;
     --validation-success: #10B981;
-    --soft-gray: #E5E7EB;
-    /* Melhoria 3: Refinamento do box-shadow com a paleta de cores */
-    --shadow-sm: 0 2px 4px rgba(93, 47, 9, calc(0.05 * 0.8));
-    --shadow-md: 0 5px 10px rgba(93, 47, 9, calc(0.08 * 0.8));
-    --shadow-lg: 0 10px 20px rgba(93, 47, 9, calc(0.12 * 0.8));
-    --shadow-xl: 0 15px 30px rgba(93, 47, 9, calc(0.15 * 0.8));
-    --text-xs: 0.75rem;
-    --text-sm: 0.875rem;
-    --text-base: 1rem;
-    --text-lg: 1.125rem;
-    --text-xl: 1.25rem;
-    --text-2xl: 1.5rem;
-    --text-3xl: 1.875rem;
-    --text-4xl: 2.5rem;
-    --text-5xl: 3.5rem;
-    --text-dark-subtle: #2D3748;
+    
+    /* Sombras (Melhoria 3: Opacidade refinada) */
+    --shadow-sm: 0 2px 4px rgba(93, 47, 9, 0.04);
+    --shadow-md: 0 5px 10px rgba(93, 47, 9, 0.06);
+    --shadow-lg: 0 10px 20px rgba(93, 47, 9, 0.08);
+    --shadow-xl: 0 15px 30px rgba(93, 47, 9, 0.1);
+
+    /* Tipografia (Melhoria 13: Otimizar line-height) */
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-base: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.5rem;
+    --font-3xl: 1.875rem;
+    --font-4xl: 2.5rem;
+    --font-5xl: 3.5rem;
 }
 
 /* Melhoria 1: Dark Mode */
 body.dark-mode {
-    --primary-color: #C6A470;
-    --primary-light: #C6A470;
-    --primary-dark: #F8F4EF;
-    --secondary-color: #B56557;
-    --accent-color: #5D2F09;
+    --brand-primary: #C6A470;
+    --brand-primary-light: #C6A470;
+    --brand-primary-dark: #F8F4EF;
+    --brand-secondary: #B56557;
+    --brand-accent: #5D2F09;
     --text-primary: #F9FAFB;
     --text-secondary: #E5E7EB;
     --text-tertiary: #9CA3AF;
@@ -58,8 +68,6 @@ body.dark-mode {
     --chat-bg: #2B2B2B;
     --user-message-bg: #4A4A4A;
     --ai-message-bg: #383838;
-    --validation-error: #EF4444;
-    --validation-success: #10B981;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 5px 10px rgba(0, 0, 0, 0.6);
     --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.8);
@@ -74,12 +82,11 @@ body {
     background: var(--background-start);
     min-height: 100vh;
     overflow-x: hidden;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     position: relative;
     transition: font-size 0.3s ease;
 }
 
-/* Melhoria 1: Refinamento do Padrão de Fundo */
 body::before {
     content: '';
     position: fixed;
@@ -113,7 +120,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: var(--primary-light);
+    background-color: var(--brand-primary-light);
     border-radius: 4px;
 }
 
@@ -138,8 +145,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .highlight {
     font-style: italic;
     font-weight: 500;
-    color: var(--secondary-color);
-    font-size: var(--text-lg);
+    color: var(--brand-secondary);
+    font-size: var(--font-lg);
     margin-top: 1.5rem;
     margin-bottom: 0;
 }
@@ -164,8 +171,20 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 /* ==================== Layouts Globais ==================== */
 
 .cta-button {
+    background-color: var(--brand-primary);
+    color: var(--text-on-dark);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
+    font-size: var(--font-sm);
+    text-transform: none;
+    letter-spacing: 1px;
     z-index: 1;
 }
 
@@ -222,12 +241,33 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     z-index: 1;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-size: var(--font-4xl);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--brand-primary-dark);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background-color: var(--brand-primary-dark);
+}
+
 /* ==================== Animações ==================== */
-/* Melhoria 3: Animação de "sopro" para o logo */
 @keyframes logoPulse {
-    0% { transform: scale(1); box-shadow: 0 0 10px var(--accent-color); }
-    50% { transform: scale(1.1); box-shadow: 0 0 20px var(--accent-color); }
-    100% { transform: scale(1); box-shadow: 0 0 10px var(--accent-color); }
+    0% { transform: scale(1); box-shadow: 0 0 10px var(--brand-accent); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px var(--brand-accent); }
+    100% { transform: scale(1); box-shadow: 0 0 10px var(--brand-accent); }
 }
 
 @keyframes subtleFloat {
@@ -334,7 +374,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-light) 50%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-primary-light) 50%, var(--brand-primary-dark) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -359,7 +399,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     align-items: center;
     justify-content: center;
     margin-bottom: 2rem;
-    animation: logoPulse 2.5s ease-in-out infinite; /* Melhoria 3: Aplicando a nova animação */
+    animation: logoPulse 2.5s ease-in-out infinite;
 }
 
 .loading-logo::before {
@@ -370,7 +410,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .loading-text {
     color: var(--text-on-dark);
-    font-size: var(--text-2xl);
+    font-size: var(--font-2xl);
     font-weight: bold;
     margin-bottom: 0.5rem;
     opacity: 0.9;
@@ -384,10 +424,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     animation: loadingProgress 3s ease-in-out;
 }
 
-/* ==================== Efeitos Visuais (Scroll Reveal, Parallax) ==================== */
+/* ==================== Efeitos Visuais ==================== */
 .reveal, .reveal-left, .reveal-right, .reveal-scale {
     opacity: 0;
-    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Melhoria 17: Refinar cubic-bezier */
+    transition: all 1.2s cubic-bezier(0.25, 0.7, 0.4, 1);
 }
 
 .reveal { transform: translateY(20px); }
@@ -412,47 +453,6 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .header.scrolled {
     padding: 0.5rem 0;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
-
-/* ==================== Layouts Globais ==================== */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    z-index: 1;
-}
-
-.section-title {
-    font-size: var(--text-4xl);
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 3rem;
-    color: var(--primary-dark);
-}
-
-.cta-button {
-    background-color: var(--primary-color);
-    color: var(--text-on-dark);
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 40px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
-    font-size: var(--text-sm);
-    text-transform: none;
-    letter-spacing: 1px;
-    z-index: 1;
-}
-
-.cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    background-color: var(--primary-dark);
 }
 
 /* ==================== Header ==================== */
@@ -481,15 +481,15 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .logo .title {
     font-family: 'Playfair Display', serif;
-    font-size: var(--text-3xl);
+    font-size: var(--font-3xl);
     font-weight: 700;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .logo .title:hover {
-    color: var(--secondary-color);
+    color: var(--brand-secondary);
     transform: scale(1.05);
 }
 
@@ -506,11 +506,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
 }
 
 .nav-menu a:hover {
-    color: var(--primary-color);
+    color: var(--brand-primary);
 }
 
 .nav-menu a::after {
@@ -520,7 +520,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     left: 50%;
     width: 0%;
     height: 1px;
-    background: linear-gradient(90deg, var(--primary-light), var(--secondary-color));
+    background: linear-gradient(90deg, var(--brand-primary-light), var(--brand-secondary));
     transform: translateX(-50%);
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -530,7 +530,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .nav-menu a.active {
-    color: var(--primary-color);
+    color: var(--brand-primary);
     font-weight: 700;
 }
 
@@ -552,19 +552,19 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     height: 40px;
     font-weight: bold;
     font-family: 'Inter', sans-serif;
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 1001;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
 }
 
 .font-size-toggle-btn:hover {
     transform: scale(1.1);
-    background-color: var(--accent-color);
+    background-color: var(--brand-accent);
 }
 
 .header-actions {
@@ -611,7 +611,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     right: 2rem;
     width: 50px;
     height: 50px;
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
     color: var(--text-on-dark);
     border: none;
     border-radius: 50%;
@@ -631,7 +631,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .back-to-top:hover {
-    background-color: var(--primary-dark);
+    background-color: var(--brand-primary-dark);
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
@@ -658,15 +658,15 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .hero-content h1 {
-    font-size: var(--text-5xl);
+    font-size: var(--font-5xl);
     font-weight: 700;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     margin-bottom: 1.5rem;
     line-height: 1.1;
 }
 
 .hero-subtitle {
-    font-size: var(--text-xl);
+    font-size: var(--font-xl);
     color: var(--text-secondary);
     margin-bottom: 2rem;
     font-weight: 400;
@@ -674,7 +674,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .whatsapp-btn {
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
     color: var(--text-on-dark);
     padding: 1rem 2.5rem;
     border: none;
@@ -686,7 +686,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     gap: 0.75rem;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-md);
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -695,7 +695,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .whatsapp-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(93, 47, 9, 0.4);
-    background-color: var(--primary-dark);
+    background-color: var(--brand-primary-dark);
 }
 
 .whatsapp-btn .icon {
@@ -707,7 +707,6 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: rotate(5deg);
 }
 
-/* Melhoria 6: Galeria de Imagens com Zoom Sutil */
 .hero-image {
     position: relative;
     border-radius: 25px;
@@ -733,7 +732,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .hero-image img:hover {
-    transform: scale(1.03); /* Zoom sutil no hover */
+    transform: scale(1.03);
 }
 
 .hero-image img.active {
@@ -769,34 +768,33 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .story-text h2 {
-    font-size: var(--text-4xl);
+    font-size: var(--font-4xl);
 }
 
 .story-text h3 {
-    font-size: var(--text-xl);
+    font-size: var(--font-xl);
     font-weight: 700;
-    color: var(--secondary-color);
+    color: var(--brand-secondary);
     margin-top: -1rem;
     margin-bottom: 1rem;
 }
 
 .story-text p {
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     line-height: 1.7;
     color: var(--text-secondary);
     margin-bottom: 1.25rem;
 }
 
 .story-text .highlight {
-    font-size: var(--text-lg);
+    font-style: italic;
     font-weight: 500;
     color: var(--text-dark-subtle);
-    font-style: italic;
+    font-size: var(--font-lg);
     margin-top: 1.5rem;
     margin-bottom: 0;
 }
 
-/* Melhoria 6: Galeria de Imagens com Zoom Sutil */
 .story-image {
     position: relative;
     border-radius: 40px;
@@ -814,7 +812,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .story-image img:hover {
-    transform: scale(1.03); /* Zoom sutil no hover */
+    transform: scale(1.03);
 }
 
 .story-image:hover {
@@ -826,12 +824,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background-color: var(--secondary-color);
+    background-color: var(--brand-secondary);
     color: var(--text-on-dark);
     padding: 0.5rem 1rem;
     border-radius: 30px;
     font-weight: bold;
-    font-size: var(--text-xs);
+    font-size: var(--font-xs);
     box-shadow: var(--shadow-sm);
 }
 
@@ -865,7 +863,6 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     justify-content: space-between;
 }
 
-/* Melhoria 2: Transição de Cor na Seção de Serviços */
 .service-card:hover {
     animation: none;
     transform: translateY(-8px) scale(1.02);
@@ -874,24 +871,25 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border-color: rgba(0, 0, 0, 0.1);
 }
 
+/* Melhoria 2: Transição de Cor em Serviços */
 .service-icon {
     width: 60px;
     height: 60px;
-    background: var(--primary-color);
+    background: var(--brand-primary);
     border-radius: 50%;
     margin: 0 auto 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-on-dark);
-    font-size: var(--text-xl);
+    font-size: var(--font-xl);
     box-shadow: var(--shadow-sm);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .service-card:hover .service-icon {
     transform: scale(1.1) rotate(5deg);
-    background-color: var(--secondary-color);
+    background-color: var(--brand-secondary);
     animation: none;
 }
 
@@ -900,7 +898,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .service-card h3 {
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     margin-bottom: 0.5rem;
     color: var(--text-primary);
     font-weight: 600;
@@ -908,13 +906,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .service-card:hover h3 {
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     transform: translateY(-2px);
 }
 
 .service-card p {
     color: var(--text-secondary);
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     transition: all 0.3s ease;
 }
 
@@ -924,7 +922,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .service-card .open-whatsapp-service-btn {
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
     color: var(--text-on-dark);
     padding: 0.8rem 1.5rem;
     border: none;
@@ -936,12 +934,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     position: relative;
     overflow: hidden;
     margin-top: 1.5rem;
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     animation: none !important;
 }
 
 .service-card .open-whatsapp-service-btn:hover {
-    background-color: var(--primary-dark);
+    background-color: var(--brand-primary-dark);
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
 }
@@ -1010,8 +1008,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .testimonial-content::before {
     content: '“';
     font-family: 'Playfair Display', serif;
-    font-size: var(--text-5xl);
-    color: var(--primary-color);
+    font-size: var(--font-5xl);
+    color: var(--brand-primary);
     position: absolute;
     top: 1rem;
     left: 2rem;
@@ -1025,7 +1023,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .testimonial-text {
-    font-size: var(--text-2xl);
+    font-size: var(--font-2xl);
     line-height: 1.8;
     margin-bottom: 1.5rem;
     color: var(--text-secondary);
@@ -1040,7 +1038,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .testimonial-author {
     font-weight: bold;
-    color: var(--secondary-color);
+    color: var(--brand-secondary);
     transition: all 0.3s ease;
 }
 
@@ -1054,8 +1052,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.5);
     border: none;
-    color: var(--primary-dark);
-    font-size: var(--text-3xl);
+    color: var(--brand-primary-dark);
+    font-size: var(--font-3xl);
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 50%;
@@ -1073,7 +1071,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .carousel-btn:hover {
     background: rgba(255, 255, 255, 0.8);
-    color: var(--secondary-color);
+    color: var(--brand-secondary);
 }
 
 .prev-btn {
@@ -1139,7 +1137,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     padding: 1rem;
     border: none;
     border-radius: 20px;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     transition: all 0.4s ease;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
@@ -1167,15 +1165,15 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    outline: 2px solid var(--accent-color);
-    border-color: var(--primary-color);
+    outline: 2px solid var(--brand-accent);
+    border-color: var(--brand-primary);
     background: rgba(255, 255, 255, 0.9);
     box-shadow: none;
     transform: scale(1.01);
 }
 
 .form-group .validation-message {
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     color: var(--validation-error);
     margin-top: 0.25rem;
     height: 1.2rem;
@@ -1258,7 +1256,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     backdrop-filter: blur(5px);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 25px;
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     font-weight: 500;
     color: var(--text-secondary);
     transition: all 0.3s ease;
@@ -1276,7 +1274,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     left: 50%;
     width: 100%;
     height: 100%;
-    background-color: var(--primary-light);
+    background-color: var(--brand-primary-light);
     border-radius: 50%;
     transform: scale(0);
     opacity: 0;
@@ -1284,14 +1282,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .services-tags label.service-tag:hover span {
-    border-color: var(--primary-color);
+    border-color: var(--brand-primary);
     background: rgba(249, 247, 244, 0.9);
     transform: translateY(-2px);
 }
 
 .services-tags input[type="checkbox"]:checked+span {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
     color: var(--text-on-dark);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
@@ -1305,7 +1303,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+    background: linear-gradient(45deg, var(--brand-secondary), var(--brand-accent));
     opacity: 0.8;
     z-index: -1;
 }
@@ -1319,7 +1317,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     background: rgba(245, 245, 245, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 25px;
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     font-weight: 500;
     color: var(--text-secondary);
     transition: all 0.3s ease;
@@ -1332,8 +1330,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 #bairros-atuacao .service-tag:focus,
 #bairros-atuacao .service-tag.selected {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--brand-primary);
+    border-color: var(--brand-primary);
     color: var(--text-on-dark);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
@@ -1347,12 +1345,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 /* Melhoria 4: Botões de Ação com Efeito Inset */
 .submit-btn {
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
     color: var(--text-on-dark);
     padding: 1rem 2rem;
     border: none;
     border-radius: 40px;
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1364,7 +1362,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .submit-btn:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
-    background-color: var(--primary-dark);
+    background-color: var(--brand-primary-dark);
 }
 
 .submit-btn:active {
@@ -1374,7 +1372,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 /* ==================== Rodapé (Footer) ==================== */
 .footer {
-    background-color: var(--primary-dark);
+    background-color: var(--brand-primary-dark);
     color: var(--text-on-dark);
     padding: 4rem 0;
     text-align: center;
@@ -1407,7 +1405,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 30px;
     padding: 0.75rem 1.5rem;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     font-weight: 500;
     color: var(--text-secondary);
     cursor: pointer;
@@ -1420,13 +1418,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .blog-filter-btn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
-    border-color: var(--primary-light);
+    border-color: var(--brand-primary-light);
 }
 
 .blog-filter-btn.active {
-    background: var(--primary-color);
+    background: var(--brand-primary);
     color: var(--text-on-dark);
-    border-color: var(--primary-color);
+    border-color: var(--brand-primary);
     box-shadow: 0 5px 15px rgba(93, 47, 9, 0.3);
     animation: popClick 0.3s ease-in-out;
 }
@@ -1489,11 +1487,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .blog-card-tag {
-    background-color: var(--secondary-color);
+    background-color: var(--brand-secondary);
     color: var(--text-on-dark);
     padding: 0.4rem 0.8rem;
     border-radius: 20px;
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     font-weight: 600;
 }
 
@@ -1501,22 +1499,21 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     display: flex;
     align-items: center;
     color: var(--text-tertiary);
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     gap: 0.5rem;
 }
 
-/* Melhoria 5: Ajuste na Tipografia para o Blog */
 .blog-card-content h3 {
-    font-size: calc(var(--text-2xl) * 1.1); /* Título ligeiramente maior */
-    line-height: 1.3; /* Espaçamento menor para impacto */
+    font-size: var(--font-2xl);
+    line-height: 1.3;
     margin-bottom: 0.5rem;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     cursor: pointer;
 }
 
 .blog-card-content p {
-    font-size: var(--text-base);
-    font-weight: 400; /* Peso da fonte ajustado */
+    font-size: var(--font-base);
+    font-weight: 400;
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
 }
@@ -1532,12 +1529,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .blog-action-btn {
     background-color: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
+    border: 1px solid var(--brand-primary);
+    color: var(--brand-primary);
     padding: 0.6rem 1.2rem;
     border-radius: 40px;
     font-weight: 500;
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
@@ -1548,8 +1545,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .blog-action-btn:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
     color: var(--text-on-dark);
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
@@ -1557,7 +1554,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .blog-action-btn svg {
     transition: transform 0.3s ease, stroke 0.3s ease;
-    stroke: var(--primary-color);
+    stroke: var(--brand-primary);
 }
 
 .blog-action-btn:hover svg {
@@ -1595,11 +1592,11 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .article-content h4 {
     font-family: 'Playfair Display', serif;
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     font-weight: 700;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
 }
 
 .article-content p {
@@ -1625,7 +1622,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     content: '•';
     position: absolute;
     left: 0;
-    color: var(--secondary-color);
+    color: var(--brand-secondary);
     font-weight: bold;
 }
 
@@ -1637,7 +1634,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .social-share-buttons a {
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
     color: var(--text-on-dark);
     width: 40px;
     height: 40px;
@@ -1649,7 +1646,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .social-share-buttons a:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--brand-secondary);
     transform: scale(1.1) rotate(5deg);
 }
 
@@ -1716,7 +1713,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .ai-tip-container p {
     margin: 0;
-    font-size: var(--text-sm);
+    font-size: var(--font-sm);
     color: var(--text-primary);
 }
 
@@ -1729,8 +1726,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .audio-btn {
-    background: var(--accent-color);
-    color: var(--primary-dark);
+    background: var(--brand-accent);
+    color: var(--brand-primary-dark);
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -1741,14 +1738,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     font-weight: bold;
 }
 
 .audio-btn:hover {
     transform: scale(1.1);
-    background: var(--primary-dark);
-    color: var(--accent-color);
+    background: var(--brand-primary-dark);
+    color: var(--brand-accent);
 }
 
 @keyframes audio-pulse {
@@ -1795,12 +1792,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .faq-item.active {
     box-shadow: var(--shadow-xl);
-    border-color: var(--primary-color);
+    border-color: var(--brand-primary);
     background: linear-gradient(to right, var(--background-start), var(--background-end));
 }
 
+/* Melhoria 56: Melhoria de Foco */
 .faq-item:focus-within {
-    box-shadow: 0 0 0 3px var(--accent-color), var(--shadow-lg);
+    box-shadow: 0 0 0 3px var(--brand-accent), var(--shadow-lg);
 }
 
 .faq-question {
@@ -1809,9 +1807,9 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     background: none;
     border: none;
     text-align: left;
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     font-weight: 600;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -1821,7 +1819,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .faq-question:hover {
     background: rgba(245, 245, 245, 0.8);
-    color: var(--primary-color);
+    color: var(--brand-primary);
 }
 
 .faq-answer {
@@ -1839,7 +1837,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .faq-answer p {
     color: var(--text-secondary);
     line-height: 1.7;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     margin: 0;
     padding-top: 0.5rem;
 }
@@ -1874,14 +1872,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .calc-header h2 {
     font-family: 'Playfair Display', serif;
-    font-size: var(--text-3xl);
+    font-size: var(--font-3xl);
     font-weight: 700;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     margin-bottom: 0.5rem;
 }
 
 .calc-header p {
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     color: var(--text-secondary);
     opacity: 0.8;
 }
@@ -1909,12 +1907,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .calc-step.completed {
-    border-color: var(--primary-color);
+    border-color: var(--brand-primary);
     background: rgba(93, 47, 9, 0.05);
 }
 
 .calc-step.completed .step-title {
-    color: var(--secondary-color);
+    color: var(--brand-secondary);
 }
 
 .step-label {
@@ -1928,7 +1926,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .step-number {
     width: 32px;
     height: 32px;
-    background: var(--primary-color);
+    background: var(--brand-primary);
     color: var(--text-on-dark);
     border-radius: 50%;
     display: flex;
@@ -1939,7 +1937,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .step-number.completed {
-    background: var(--secondary-color);
+    background: var(--brand-secondary);
 }
 
 .step-number.active {
@@ -1947,13 +1945,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .step-title {
-    font-size: var(--text-xl);
+    font-size: var(--font-xl);
     font-weight: 600;
     color: var(--text-primary);
 }
 
 .step-subtitle {
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     color: var(--text-secondary);
     margin-top: 0.25rem;
 }
@@ -1998,12 +1996,12 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .option-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
-    border-color: var(--primary-light);
+    border-color: var(--brand-primary-light);
 }
 
 .option-card.selected {
-    border-color: var(--primary-color);
-    background: var(--primary-color);
+    border-color: var(--brand-primary);
+    background: var(--brand-primary);
     color: var(--text-on-dark);
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
@@ -2032,7 +2030,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .option-title {
     font-weight: 600;
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     margin-bottom: 0.5rem;
 }
 
@@ -2049,7 +2047,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .resultado-container {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
     padding: 3rem;
     border-radius: 40px;
     text-align: center;
@@ -2073,7 +2071,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .resultado-title {
-    font-size: var(--text-2xl);
+    font-size: var(--font-2xl);
     font-weight: 700;
     margin-bottom: 1rem;
     opacity: 0.9;
@@ -2085,13 +2083,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .preco-valor {
     font-family: 'Playfair Display', serif;
-    font-size: var(--text-4xl);
+    font-size: var(--font-4xl);
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .preco-periodo {
-    font-size: var(--text-lg);
+    font-size: var(--font-lg);
     opacity: 0.8;
 }
 
@@ -2107,7 +2105,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
 }
 
 .detalhe-item:last-child {
@@ -2127,14 +2125,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .btn-primary {
     background: var(--text-on-dark);
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     padding: 1rem 2rem;
     border: none;
     border-radius: 50px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -2156,13 +2154,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     text-decoration: none;
 }
 
 .btn-secondary:hover {
     background: var(--text-on-dark);
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
     transform: translateY(-2px);
 }
 
@@ -2207,8 +2205,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .modal-content h3 {
-    color: var(--primary-dark);
-    font-size: var(--text-2xl);
+    color: var(--brand-primary-dark);
+    font-size: var(--font-2xl);
     margin-bottom: 1rem;
 }
 
@@ -2218,7 +2216,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .close-btn {
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
     color: var(--text-on-dark);
     padding: 0.8rem 2rem;
     border: none;
@@ -2232,7 +2230,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 .close-btn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
-    background-color: var(--primary-dark);
+    background-color: var(--brand-primary-dark);
 }
 
 .chatbot-content {
@@ -2258,13 +2256,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 
 .chatbot-header h3 {
     margin: 0;
-    color: var(--primary-dark);
+    color: var(--brand-primary-dark);
 }
 
 .chatbot-header .close-btn-chat {
     background: none;
     border: none;
-    font-size: var(--text-3xl);
+    font-size: var(--font-3xl);
     font-weight: 300;
     color: var(--text-primary);
     cursor: pointer;
@@ -2272,7 +2270,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .chatbot-header .close-btn-chat:hover {
-    color: var(--secondary-color);
+    color: var(--brand-secondary);
 }
 
 .chatbox {
@@ -2331,13 +2329,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     padding: 1rem 1.5rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 25px;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
 }
 
 .chatbot-input button {
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
     color: var(--text-on-dark);
     border: none;
     border-radius: 50%;
@@ -2352,7 +2350,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .chatbot-input button:hover {
-    background-color: var(--primary-dark);
+    background-color: var(--brand-primary-dark);
     box-shadow: var(--shadow-md);
     transform: scale(1.05);
 }
@@ -2372,7 +2370,7 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     font-size: 1.5rem;
     line-height: 1;
     transition: transform 0.3s ease;
-    color: var(--primary-color);
+    color: var(--brand-primary);
 }
 
 .calc-step.active .step-label::after {
@@ -2394,14 +2392,14 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
 }
 
 .calc-step.completed .step-number {
-    background-color: var(--secondary-color);
+    background-color: var(--brand-secondary);
 }
 
 .calc-step.active .step-number {
-    background-color: var(--primary-color);
+    background-color: var(--brand-primary);
 }
 
-/* ==================== Tabela do Blog (Visualização Aprimorada) ==================== */
+/* ==================== Tabela do Blog ==================== */
 .article-content .hydration-table {
     width: 100%;
     border-collapse: collapse;
@@ -2417,13 +2415,13 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     border: 1px solid rgba(0, 0, 0, 0.05);
     padding: 12px;
     text-align: left;
-    font-size: var(--text-base);
+    font-size: var(--font-base);
     color: var(--text-secondary);
 }
 
 .article-content .hydration-table thead {
-    background-color: var(--accent-color);
-    color: var(--primary-dark);
+    background-color: var(--brand-accent);
+    color: var(--brand-primary-dark);
     font-weight: 600;
 }
 
@@ -2476,8 +2474,8 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
         position: absolute;
         right: 1.5rem;
         top: 1rem;
-        background: var(--accent-color);
-        color: var(--primary-dark);
+        background: var(--brand-accent);
+        color: var(--brand-primary-dark);
         border: none;
         border-radius: 50%;
         width: 40px;
@@ -2499,139 +2497,18 @@ p, .blog-card-content, .article-content, .cta-button, .whatsapp-btn, .blog-filte
     }
 
     .text-to-speech-btn svg {
-        fill: var(--primary-dark);
+        fill: var(--brand-primary-dark);
     }
 }
 
 @media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 70%;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        padding: 4rem 2rem;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-        transform: translateX(-100%);
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        align-items: flex-start;
-        gap: 2rem;
-    }
-
-    .nav-menu.active {
-        display: flex;
-        transform: translateX(0);
-    }
-
-    .nav-toggle-btn {
-        display: block;
-        background: none;
-        border: none;
-        font-size: var(--text-4xl);
-        color: var(--primary-color);
-        cursor: pointer;
-        z-index: 1001;
-        position: relative;
-    }
-
-    .nav-container {
-        padding: 0 1rem;
-    }
-
-    .hero {
-        padding: 120px 0 60px;
-    }
-
-    .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
-
-    .hero-content h1 {
-        font-size: var(--text-4xl);
-    }
-
-    .story-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
-
-    .story-text h2 {
-        font-size: var(--text-3xl);
-    }
-
-    .testimonial-slide {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .testimonial-image {
-        display: none;
-    }
-
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-form {
-        margin: 0 1rem;
-        padding: 2rem;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .carousel-btn {
-        display: none;
-    }
-
-    .faq-container {
-        padding: 0 1rem;
-    }
-
-    .faq-question {
-        padding: 1rem;
-        font-size: var(--text-base);
-    }
-
-    .faq-item.active .faq-answer {
-        padding: 0 1rem 1rem;
-    }
-
-    .calculadora-container {
-        padding: 2rem;
-        margin: 1rem;
-    }
-
-    .calc-header h2 {
-        font-size: var(--text-2xl);
-    }
-
-    .options-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .btn-primary, .btn-secondary {
-        width: 100%;
-        justify-content: center;
+    .header-actions {
+        margin-left: auto;
+        padding-right: 2rem;
     }
 
     .font-size-toggle-btn {
-        top: 1.2rem;
-        right: 4rem;
+        position: static;
+        margin-right: 0;
     }
 }
