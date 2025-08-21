@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initBackToTopButton();
     initAgendamentoLigacao();
     initFontSizeToggle();
+    initSocialShare();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -173,8 +174,8 @@ function handleSubmit(event) {
     const data = Object.fromEntries(formData.entries());
     
     const selectedServices = Array.from(document.querySelectorAll('input[name="servicos[]"]:checked'))
-                                         .map(checkbox => checkbox.value)
-                                         .join(', ');
+                                             .map(checkbox => checkbox.value)
+                                             .join(', ');
 
     let message = "Olá, gostaria de um orçamento!\n\n";
     message += `Nome: ${data.nome}\n`;
@@ -254,6 +255,7 @@ function initFormHandlers() {
     const cepInput = document.getElementById('cep');
     const cpfInput = document.getElementById('cpf');
     const telefoneInput = document.getElementById('telefone');
+    const emailInput = document.getElementById('email');
     const cepStatus = document.getElementById('cep-status');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const modal = document.getElementById('successModal');
@@ -303,9 +305,12 @@ function initFormHandlers() {
         });
     }
     
-    document.getElementById('email').addEventListener('input', function(e) {
-        updateValidationIcons(e.target, e.target.validity.valid);
-    });
+    // MELHORIA: Validação em tempo real para o e-mail
+    if (emailInput) {
+        emailInput.addEventListener('input', function(e) {
+            updateValidationIcons(e.target, e.target.validity.valid);
+        });
+    }
     
     if (form) {
         form.addEventListener('submit', handleSubmit);
@@ -854,6 +859,14 @@ document.addEventListener('keydown', function(e) {
 // ==================== Lógica do Chatbot ====================
 
 let chatHistory = [];
+const CHATBOT_CONTEXT = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
+Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
+- A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico, motorista e terapia ocupacional para idosos.
+- O diferencial é o treinamento dos profissionais na casa da fundadora, Dona Tereca, que tem 94 anos.
+- Os serviços são personalizados.
+- A área de atuação é o Itaim e bairros próximos em São Paulo, como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena.
+- Para agendar um serviço ou obter um orçamento, o cliente deve preencher o formulário de contato. Não forneça preços diretamente.
+Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.`;
 
 function initChatbot() {
     const headerContactBtn = document.getElementById('header-contact-btn');
@@ -865,7 +878,7 @@ function initChatbot() {
     const sendBtn = document.getElementById('sendBtn');
     const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje?";
 
-    chatHistory.push({ role: "model", parts: [{ text: initialMessage }] });
+    chatHistory = [{ role: "model", parts: [{ text: initialMessage }] }];
 
     if (headerContactBtn) {
         headerContactBtn.addEventListener('click', (e) => {
@@ -945,24 +958,11 @@ async function getChatbotResponse(history) {
         return "Olá! A funcionalidade do assistente virtual está temporariamente desativada. Por favor, entre em contato através do formulário para mais informações.";
     }
     
-    const prompt = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
-    Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
-    - A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico, motorista e terapia ocupacional para idosos.
-    - O diferencial é o treinamento dos profissionais na casa da fundadora, Dona Tereca, que tem 94 anos.
-    - Os serviços são personalizados.
-    - A área de atuação é o Itaim e bairros próximos em São Paulo, como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena.
-    - Para agendar um serviço ou obter um orçamento, o cliente deve preencher o formulário de contato. Não forneça preços diretamente.
+    // MELHORIA: Apenas o histórico de conversa é enviado, com o contexto definido globalmente.
+    const payload = { 
+        contents: [...history, { role: "user", parts: [{ text: CHATBOT_CONTEXT }] }]
+    };
 
-    Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.
-
-    Histórico da conversa: ${JSON.stringify(history)}
-    
-    Responda à última pergunta do usuário.`;
-
-    let chatHistoryWithPrompt = [];
-    chatHistoryWithPrompt.push({ role: "user", parts: [{ text: prompt }] });
-
-    const payload = { contents: chatHistoryWithPrompt };
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY_GEMINI}`;
     
     const result = await fetchGeminiApi(apiUrl, payload);
@@ -1084,30 +1084,30 @@ function initCalculadora() {
         }
         // Métodos para persistência (descomentar para usar)
         // saveState() {
-        //     localStorage.setItem('calculadoraData', JSON.stringify(this.dados));
+        //    localStorage.setItem('calculadoraData', JSON.stringify(this.dados));
         // }
         // loadState() {
-        //     const savedData = localStorage.getItem('calculadoraData');
-        //     if (savedData) {
-        //         this.dados = JSON.parse(savedData);
-        //         this.restoreUIFromState();
-        //     }
+        //    const savedData = localStorage.getItem('calculadoraData');
+        //    if (savedData) {
+        //        this.dados = JSON.parse(savedData);
+        //        this.restoreUIFromState();
+        //    }
         // }
         // restoreUIFromState() {
-        //     const step1 = document.getElementById('step1');
-        //     const step2 = document.getElementById('step2');
-        //     const step3 = document.getElementById('step3');
+        //    const step1 = document.getElementById('step1');
+        //    const step2 = document.getElementById('step2');
+        //    const step3 = document.getElementById('step3');
         //
-        //     const selectCard = (stepElement, dataKey, dataValue) => {
-        //         const card = stepElement.querySelector(`[data-${dataKey}="${dataValue}"]`);
-        //         if (card) {
-        //             card.classList.add('selected');
-        //         }
-        //     };
+        //    const selectCard = (stepElement, dataKey, dataValue) => {
+        //        const card = stepElement.querySelector(`[data-${dataKey}="${dataValue}"]`);
+        //        if (card) {
+        //            card.classList.add('selected');
+        //        }
+        //    };
         //
-        //     selectCard(step1, 'tipo', this.dados.tipo);
-        //     selectCard(step2, 'horas', this.dados.horas);
-        //     selectCard(step3, 'dias', this.dados.dias);
+        //    selectCard(step1, 'tipo', this.dados.tipo);
+        //    selectCard(step2, 'horas', this.dados.horas);
+        //    selectCard(step3, 'dias', this.dados.dias);
         // }
     }
     new CalculadoraOrcamento();
@@ -1174,5 +1174,37 @@ function initFontSizeToggle() {
         document.body.classList.toggle('large-font');
         const isLargeFont = document.body.classList.contains('large-font');
         fontSizeToggleBtn.setAttribute('aria-pressed', isLargeFont);
+    });
+}
+
+// ==================== NOVAS FUNÇÕES ====================
+
+// MELHORIA: Lógica para compartilhamento em redes sociais
+function initSocialShare() {
+    const socialShareButtons = document.querySelectorAll('.social-share-btn');
+    socialShareButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const platform = button.dataset.platform;
+            const articleUrl = window.location.href;
+            const articleTitle = document.title;
+            let shareUrl = '';
+
+            switch (platform) {
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(articleTitle + ' ' + articleUrl)}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+                    break;
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`;
+                    break;
+                default:
+                    return;
+            }
+
+            window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        });
     });
 }
