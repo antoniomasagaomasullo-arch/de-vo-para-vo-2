@@ -2570,7 +2570,7 @@ body.modal-open {
 
 #agendamentoLigacaoModal .form-group {
     margin-bottom: 1.2rem;
-    text-align: left; /* Alinha os labels (Nome, Telefone) à esquerda */
+    text-align: left;
 }
 
 #agendamentoLigacaoModal .form-group label {
@@ -2587,16 +2587,15 @@ body.modal-open {
     border-radius: 20px;
     font-size: var(--font-base);
     background: rgba(255, 255, 255, 0.9);
-    box-sizing: border-box; /* Garante que o padding não quebre o layout */
+    box-sizing: border-box;
 }
 
 #agendamentoLigacaoModal .cta-button {
     width: 100%;
     margin-bottom: 0;
-    padding: 1rem; /* Aumenta um pouco o botão principal */
+    padding: 1rem;
 }
 
-/* Bônus: Deixei o botão "Fechar" mais discreto para melhorar a usabilidade */
 #agendamentoLigacaoModal .close-btn {
     background: transparent;
     border: none;
@@ -2606,6 +2605,7 @@ body.modal-open {
     box-shadow: none;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 #agendamentoLigacaoModal .close-btn:hover {
