@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavToggle();
     initAITipGenerators();
     initFAQ();
-    initCalculadora(); // Inicializa a calculadora
-    initBlogFilters(); // Inicializa os filtros do blog
-    initFooter(); // Inicializa o footer
+    initCalculadora();
+    initBlogFilters();
+    initFooter();
     initBackToTopButton();
-    initAgendamentoLigacao(); // Inicializa o agendamento de ligação
-    initFontSizeToggle(); // Inicializa o seletor de fonte
+    initAgendamentoLigacao();
+    initFontSizeToggle();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -611,9 +611,7 @@ function initAITipGenerators() {
 
 async function generateNewTip(topic) {
     const prompt = `Gere uma dica curta e útil (no máximo 50 palavras) para cuidadores de idosos, focada no tema de "${topic}". Formate a resposta como uma frase direta.`;
-    let chatHistory = [];
-    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-    const payload = { contents: chatHistory };
+    const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
     const result = await fetchGeminiApi(apiUrl, payload);
     if (result.candidates && result.candidates.length > 0 &&
@@ -738,147 +736,6 @@ document.addEventListener('keydown', function(e) {
         });
     }
 });
-
-// ==================== Lógica do Chatbot ====================
-let chatHistory = [];
-function initChatbot() {
-    const headerContactBtn = document.getElementById('header-contact-btn');
-    const heroWhatsappBtn = document.getElementById('hero-whatsapp-btn');
-    const chatbotModal = document.getElementById('chatbotModal');
-    const closeChatBtn = document.getElementById('closeChatBtn');
-    const chatbox = document.getElementById('chatbox');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje? (Para começar, digite sua pergunta)";
-    chatHistory.push({ role: "model", parts: [{ text: initialMessage }] });
-    if (headerContactBtn) {
-        headerContactBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatbotModal.classList.add('visible');
-        });
-    }
-    if (heroWhatsappBtn) {
-        heroWhatsappBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatbotModal.classList.add('visible');
-        });
-    }
-    if (closeChatBtn) {
-        closeChatBtn.addEventListener('click', () => {
-            chatbotModal.classList.remove('visible');
-        });
-    }
-    if (sendBtn) {
-        sendBtn.addEventListener('click', handleUserMessage);
-    }
-    if (chatInput) {
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                handleUserMessage();
-            }
-        });
-    }
-    appendMessage(initialMessage, 'ai');
-}
-async function handleUserMessage() {
-    const chatInput = document.getElementById('chatInput');
-    const message = chatInput.value.trim();
-    if (message === '') return;
-    chatInput.value = '';
-    appendMessage(message, 'user');
-    chatHistory.push({ role: "user", parts: [{ text: message }] });
-    if (chatHistory.length > 10) {
-        chatHistory = chatHistory.slice(chatHistory.length - 10);
-    }
-    const typingIndicator = appendMessage('...', 'ai-typing');
-    try {
-        const responseText = await getChatbotResponse(chatHistory);
-        typingIndicator.remove();
-        appendMessage(responseText, 'ai');
-        chatHistory.push({ role: "model", parts: [{ text: responseText }] });
-    } catch (error) {
-        console.error('Erro ao obter a resposta do chatbot:', error);
-        typingIndicator.remove();
-        appendMessage('Desculpe, não consegui processar sua solicitação no momento. Tente novamente mais tarde.', 'ai');
-    }
-}
-function appendMessage(text, sender) {
-    const chatbox = document.getElementById('chatbox');
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message', sender);
-    messageElement.textContent = text;
-    chatbox.appendChild(messageElement);
-    chatbox.scrollTop = chatbox.scrollHeight;
-    return messageElement;
-}
-async function getChatbotResponse(history) {
-    const prompt = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
-    Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
-    - A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico, motorista e terapia ocupacional para idosos.
-    - O diferencial é o treinamento dos profissionais na casa da fundadora, Dona Tereca, que tem 94 anos.
-    - Os serviços são personalizados.
-    - A área de atuação é o Itaim e bairros próximos em São Paulo, como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena.
-    - Para agendar um serviço ou obter um orçamento, o cliente deve preencher o formulário de contato. Não forneça preços diretamente.
-    Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.
-    Histórico da conversa: ${JSON.stringify(history)}
-    Responda à última pergunta do usuário.`;
-    let chatHistoryWithPrompt = [];
-    chatHistoryWithPrompt.push({ role: "user", parts: [{ text: prompt }] });
-    const payload = { contents: chatHistoryWithPrompt };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-    const result = await fetchGeminiApi(apiUrl, payload);
-    if (result.candidates && result.candidates.length > 0 &&
-        result.candidates[0].content && result.candidates[0].content.parts &&
-        result.candidates[0].content.parts.length > 0) {
-        return result.candidates[0].content.parts[0].text;
-    } else {
-        return 'Desculpe, não consegui entender. Poderia reformular a pergunta?';
-    }
-}
-async function playAudio(text) {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const source = audioContext.createBufferSource();
-    const payload = {
-        contents: [{
-            parts: [{ text: text }]
-        }],
-        generationConfig: {
-            responseModalities: ["AUDIO"],
-            speechConfig: {
-                voiceConfig: {
-                    prebuiltVoiceConfig: { voiceName: "Puck" }
-                }
-            }
-        },
-        model: "gemini-2.5-flash-preview-tts"
-    };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
-    const result = await fetchGeminiApi(apiUrl, payload);
-    const audioDataPart = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
-    if (audioDataPart) {
-        const base64Audio = audioDataPart.inlineData.data;
-        const pcmData = base64ToArrayBuffer(base64Audio);
-        const sampleRate = 24000;
-        const audioBuffer = audioContext.createBuffer(1, pcmData.byteLength / 2, sampleRate);
-        const nowBuffering = audioBuffer.getChannelData(0);
-        const pcm16 = new Int16Array(pcmData);
-        for (let i = 0; i < pcm16.length; i++) {
-            nowBuffering[i] = pcm16[i] / 32768;
-        }
-        source.buffer = audioBuffer;
-        source.connect(audioContext.destination);
-        source.start();
-    }
-}
-function base64ToArrayBuffer(base64) {
-    const binaryString = window.atob(base64);
-    const len = binaryString.length;
-    const bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-    }
-    return bytes.buffer;
-}
 
 // ==================== Calculadora de Orçamento ====================
 
@@ -1005,102 +862,4 @@ function initFontSizeToggle() {
 function initFooter() {
     const footer = document.querySelector('.footer');
     if (!footer) return;
-}
-
-// ==================== Lógica do Chatbot ====================
-
-let chatHistory = [];
-function initChatbot() {
-    const headerContactBtn = document.getElementById('header-contact-btn');
-    const heroWhatsappBtn = document.getElementById('hero-whatsapp-btn');
-    const chatbotModal = document.getElementById('chatbotModal');
-    const closeChatBtn = document.getElementById('closeChatBtn');
-    const chatbox = document.getElementById('chatbox');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const initialMessage = "Olá! Sou o assistente virtual do De Vó para Vó. Posso te ajudar com dúvidas sobre os nossos serviços, agendamentos e informações sobre a empresa. Como posso te ajudar hoje? (Para começar, digite sua pergunta)";
-    chatHistory.push({ role: "model", parts: [{ text: initialMessage }] });
-    if (headerContactBtn) {
-        headerContactBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatbotModal.classList.add('visible');
-        });
-    }
-    if (heroWhatsappBtn) {
-        heroWhatsappBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            chatbotModal.classList.add('visible');
-        });
-    }
-    if (closeChatBtn) {
-        closeChatBtn.addEventListener('click', () => {
-            chatbotModal.classList.remove('visible');
-        });
-    }
-    if (sendBtn) {
-        sendBtn.addEventListener('click', handleUserMessage);
-    }
-    if (chatInput) {
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                handleUserMessage();
-            }
-        });
-    }
-    appendMessage(initialMessage, 'ai');
-}
-async function handleUserMessage() {
-    const chatInput = document.getElementById('chatInput');
-    const message = chatInput.value.trim();
-    if (message === '') return;
-    chatInput.value = '';
-    appendMessage(message, 'user');
-    chatHistory.push({ role: "user", parts: [{ text: message }] });
-    if (chatHistory.length > 10) {
-        chatHistory = chatHistory.slice(chatHistory.length - 10);
-    }
-    const typingIndicator = appendMessage('...', 'ai-typing');
-    try {
-        const responseText = await getChatbotResponse(chatHistory);
-        typingIndicator.remove();
-        appendMessage(responseText, 'ai');
-        chatHistory.push({ role: "model", parts: [{ text: responseText }] });
-    } catch (error) {
-        console.error('Erro ao obter a resposta do chatbot:', error);
-        typingIndicator.remove();
-        appendMessage('Desculpe, não consegui processar sua solicitação no momento. Tente novamente mais tarde.', 'ai');
-    }
-}
-function appendMessage(text, sender) {
-    const chatbox = document.getElementById('chatbox');
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message', sender);
-    messageElement.textContent = text;
-    chatbox.appendChild(messageElement);
-    chatbox.scrollTop = chatbox.scrollHeight;
-    return messageElement;
-}
-async function getChatbotResponse(history) {
-    const prompt = `Você é um assistente virtual para a empresa "De Vó para Vó", especializada em serviços de cuidado para idosos no Itaim, São Paulo.
-    Seu objetivo é responder a perguntas de forma amigável e profissional, com base nas seguintes informações:
-    - A empresa oferece cuidadores, manicure/cabeleireiro, apoio psicológico, motorista e terapia ocupacional para idosos.
-    - O diferencial é o treinamento dos profissionais na casa da fundadora, Dona Tereca, que tem 94 anos.
-    - Os serviços são personalizados.
-    - A área de atuação é o Itaim e bairros próximos em São Paulo, como Jardins, Panamby, Morumbi, Moema, Pinheiros e Vila Madalena.
-    - Para agendar um serviço ou obter um orçamento, o cliente deve preencher o formulário de contato. Não forneça preços diretamente.
-    Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.
-    Histórico da conversa: ${JSON.stringify(history)}
-    Responda à última pergunta do usuário.`;
-    let chatHistoryWithPrompt = [];
-    chatHistoryWithPrompt.push({ role: "user", parts: [{ text: prompt }] });
-    const payload = { contents: chatHistoryWithPrompt };
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-    const result = await fetchGeminiApi(apiUrl, payload);
-    if (result.candidates && result.candidates.length > 0 &&
-        result.candidates[0].content && result.candidates[0].content.parts &&
-        result.candidates[0].content.parts.length > 0) {
-        return result.candidates[0].content.parts[0].text;
-    } else {
-        return 'Desculpe, não consegui entender. Poderia reformular a pergunta?';
-    }
 }
