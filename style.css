@@ -370,6 +370,21 @@ body.modal-open {
     transform: rotate(180deg);
 }
 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: var(--shadow-lg);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-xl);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: var(--shadow-lg);
+    }
+}
+
 /* ==================== Tela de Carregamento (Loading Screen) ==================== */
 .loading-screen {
     position: fixed;
@@ -2552,8 +2567,8 @@ body.modal-open {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    width: 60px;
-    height: 60px;
+    width: 65px; /* Aumentado de 60px para 65px */
+    height: 65px; /* Aumentado de 60px para 65px */
     background-color: var(--brand-primary);
     color: var(--text-on-dark);
     border: none;
@@ -2566,6 +2581,8 @@ body.modal-open {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Nova linha para adicionar a animação */
+    animation: pulse 2.5s infinite ease-in-out;
 }
 
 .chatbot-toggler:hover {
