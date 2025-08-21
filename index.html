@@ -155,9 +155,29 @@
 
         <section class="calculadora-section" id="calculadora">
             <div class="calculadora-container reveal-scale glassmorphism">
-                <div class="calc-header">
+               <div class="calc-header">
                     <h2>Calcule seu orçamento personalizado</h2>
                     <p>Em 3 passos simples, descubra o investimento para o cuidado ideal</p>
+                </div>
+
+                <div class="quiz-container" id="quizContainer">
+                    <div class="quiz-step active" data-step="1">
+                        <h4>Qual é o principal foco do cuidado necessário?</h4>
+                        <button class="quiz-option" data-next="2" data-value="basico">Companhia e atividades do dia a dia</button>
+                        <button class="quiz-option" data-next="2" data-value="medicacao">Apoio com administração de remédios</button>
+                        <button class="quiz-option" data-next="2" data-value="mobilidade">Ajuda para se locomover e transferências</button>
+                    </div>
+                    <div class="quiz-step" data-step="2">
+                        <h4>Com que frequência o cuidado será necessário durante o dia?</h4>
+                        <button class="quiz-option" data-next="3" data-value="6">Meio período (até 6 horas)</button>
+                        <button class="quiz-option" data-next="3" data-value="12">Período integral (até 12 horas)</button>
+                        <button class="quiz-option" data-next="3" data-value="24">Cuidado contínuo (24 horas)</button>
+                    </div>
+                    <div class="quiz-step" data-step="3">
+                        <h4>O cuidado é necessário durante os fins de semana?</h4>
+                        <button class="quiz-option" data-action="finish" data-value="5">Não, apenas de segunda a sexta</button>
+                        <button class="quiz-option" data-action="finish" data-value="7">Sim, todos os dias da semana</button>
+                    </div>
                 </div>
                 <div class="calc-steps">
                     <div class="calc-step active" id="step1">
