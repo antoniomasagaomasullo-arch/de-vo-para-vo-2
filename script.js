@@ -1170,11 +1170,11 @@ function initFontSizeToggle() {
     const fontSizeToggleBtn = document.getElementById('fontSizeToggleBtn');
     if (!fontSizeToggleBtn) return;
 
-    fontSizeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('large-font');
-        const isLargeFont = document.body.classList.contains('large-font');
-        fontSizeToggleBtn.setAttribute('aria-pressed', isLargeFont);
-    });
+  fontSizeToggleBtn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('large-font');
+    const isLargeFont = document.documentElement.classList.contains('large-font');
+    fontSizeToggleBtn.setAttribute('aria-pressed', isLargeFont);
+});
 }
 
 // ==================== NOVAS FUNÇÕES ====================
