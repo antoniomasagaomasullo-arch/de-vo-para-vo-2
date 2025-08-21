@@ -2837,3 +2837,55 @@ body.modal-open {
         text-align: center;
     }
 }
+
+/* ==================== Estilos do Quiz Interativo ==================== */
+.quiz-container {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 2rem;
+    border-radius: 20px;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.quiz-step {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.quiz-step.active {
+    display: block;
+}
+
+.quiz-step h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--font-xl);
+    color: var(--brand-primary-dark);
+    margin-bottom: 1.5rem;
+}
+
+.quiz-option {
+    display: block;
+    width: 100%;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 20px;
+    font-size: var(--font-base);
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quiz-option:last-child {
+    margin-bottom: 0;
+}
+
+.quiz-option:hover {
+    background-color: var(--brand-primary);
+    color: var(--text-on-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
