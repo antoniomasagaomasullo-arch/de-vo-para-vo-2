@@ -1,7 +1,7 @@
 // ==================== Scripts de Inicialização ====================
 // A chave de API do Google Gemini é necessária apenas para as funções de IA (chatbot e dicas do blog).
 // A função de busca de CEP não precisa desta chave.
-const API_KEY_GEMINI = "SUA_CHAVE_AQUI"; // Coloque a sua chave aqui para ativar o chatbot e as dicas de IA.
+const API_KEY_GEMINI = ""; // Coloque a sua chave aqui para ativar o chatbot e as dicas de IA.
 
 document.addEventListener('DOMContentLoaded', function() {
     initLoadingScreen();
@@ -321,7 +321,6 @@ function initFormHandlers() {
     }
 }
 
-// A função searchCEP original foi modificada para ser mais robusta e independente.
 async function searchCEP(cep) {
     const statusElement = document.getElementById('cep-status');
     const enderecoField = document.getElementById('endereco');
@@ -349,7 +348,7 @@ async function searchCEP(cep) {
     });
 
     try {
-        statusElement.innerHTML = `🔍 Buscando endereço...`;
+        statusElement.textContent = '🔍 Buscando endereço...';
         statusElement.classList.remove('error');
         statusElement.classList.add('success');
         
@@ -364,7 +363,6 @@ async function searchCEP(cep) {
         bairroField.value = data.bairro;
         cidadeField.value = `${data.localidade} - ${data.uf}`;
         
-        // Remove o readonly para permitir que o usuário edite o endereço se precisar
         enderecoField.removeAttribute('readonly');
         bairroField.removeAttribute('readonly');
         cidadeField.removeAttribute('readonly');
@@ -381,7 +379,7 @@ async function searchCEP(cep) {
         }
 
         if (isBairroAtendido) {
-            statusElement.innerHTML = `✅ Endereço encontrado. Atendemos no bairro ${bairroPrincipal}!`;
+            statusElement.textContent = `✅ Endereço encontrado. Atendemos no bairro ${bairroPrincipal}!`;
             statusElement.classList.remove('error');
             statusElement.classList.add('success');
             
@@ -392,7 +390,7 @@ async function searchCEP(cep) {
             }
             updateValidationIcons(cepInput, true);
         } else {
-            statusElement.innerHTML = `❌ Infelizmente ainda não atendemos a sua região.`;
+            statusElement.textContent = `❌ Infelizmente ainda não atendemos a sua região.`;
             statusElement.classList.remove('success');
             statusElement.classList.add('error');
             enderecoField.value = '';
@@ -405,7 +403,7 @@ async function searchCEP(cep) {
         }
 
     } catch (error) {
-        statusElement.innerHTML = `❌ ${error.message}`;
+        statusElement.textContent = `❌ ${error.message}`;
         statusElement.classList.remove('success');
         statusElement.classList.add('error');
         enderecoField.value = '';
