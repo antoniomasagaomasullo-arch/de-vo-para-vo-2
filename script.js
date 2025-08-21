@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFAQ();
     initChatbot(); // Inicializa o chatbot
     initBlogCarousel(); // Novo: Inicializa o carrossel do blog
-    
+
     // Oculta a tela de carregamento após um tempo
     setTimeout(function() {
         const loadingScreen = document.getElementById('loadingScreen');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingScreen.classList.add('hidden');
         }
     }, 2500);
-    
+
     // Adiciona a classe 'scrolled' ao header ao rolar a página
     let isThrottled = false;
     window.addEventListener('scroll', function() {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function initScrollReveal() {
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     if (revealElements.length === 0) return;
-    
+
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && entry.target) {
@@ -73,7 +73,7 @@ function initScrollReveal() {
 function initParallax() {
     const parallaxElements = document.querySelectorAll('.parallax-element');
     if (parallaxElements.length === 0) return;
-    
+
     let lastScrollY = window.pageYOffset;
     let tick = false;
 
@@ -110,9 +110,9 @@ function scrollToContact() {
 function initNavToggle() {
     const navToggleBtn = document.getElementById('navToggleBtn');
     const navMenu = document.getElementById('navMenu');
-    
+
     if (!navToggleBtn || !navMenu) return;
-    
+
     navToggleBtn.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         if (navMenu.classList.contains('active')) {
@@ -166,7 +166,7 @@ function handleSubmit(event) {
     } else {
         telefoneInput.setCustomValidity('');
     }
-    
+
     if (!isValid) {
         // Se algum campo for inválido, exibe a mensagem de validação do browser
         form.reportValidity();
@@ -175,10 +175,10 @@ function handleSubmit(event) {
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    
+
     const selectedServices = Array.from(document.querySelectorAll('input[name="servicos[]"]:checked'))
-                                     .map(checkbox => checkbox.value)
-                                     .join(', ');
+                                         .map(checkbox => checkbox.value)
+                                         .join(', ');
 
     let message = "Olá, gostaria de um orçamento!\n\n";
     message += `Nome: ${data.nome}\n`;
@@ -188,9 +188,9 @@ function handleSubmit(event) {
     message += `Serviços de interesse: ${selectedServices || 'Nenhum'}\n`;
     message += `Endereço: ${data.endereco} - ${data.bairro}, ${data.cidade}\n`;
     message += `CEP: ${data.cep}\n`;
-    
+
     openWhatsApp(message);
-    
+
     // Exibe o modal de sucesso
     const modal = document.getElementById('successModal');
     if (modal) {
@@ -285,11 +285,11 @@ function initFormHandlers() {
             e.target.value = maskTelefone(e.target.value);
         });
     }
-    
+
     if (form) {
         form.addEventListener('submit', handleSubmit);
     }
-    
+
     if (closeModalBtn) {
         closeModalBtn.addEventListener('click', () => {
             if (modal) {
@@ -336,17 +336,17 @@ async function searchCEP(cep) {
 
 function initServiceButtonHandlers() {
     const serviceButtons = document.querySelectorAll('.open-whatsapp-service-btn');
-    
+
     serviceButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const serviceName = button.getAttribute('data-service');
-            
+
             const contactSection = document.getElementById('contato');
             if (contactSection) {
                 contactSection.scrollIntoView({ behavior: 'smooth' });
             }
-            
+
             const checkboxes = document.querySelectorAll('input[name="servicos[]"]');
             checkboxes.forEach(cb => {
                 // Limpa todas as seleções, exceto a de "Cuidadora" que é obrigatória
@@ -354,7 +354,7 @@ function initServiceButtonHandlers() {
                     cb.checked = false;
                 }
             });
-            
+
             // Encontra e marca o checkbox correspondente ao serviço clicado
             const selectedCheckbox = document.querySelector(`input[name="servicos[]"][value="${serviceName}"]`);
             if (selectedCheckbox) {
@@ -371,7 +371,7 @@ function initCarousel() {
     const nextBtn = document.querySelector('.carousel-btn.next-btn');
     const wrapper = document.querySelector('.testimonial-carousel-wrapper');
     if (!carousel || !slides.length || !prevBtn || !nextBtn || !wrapper) return;
-    
+
     let currentIndex = 0;
     let autoSlideInterval;
     let isDragging = false;
@@ -396,17 +396,17 @@ function initCarousel() {
             updateCarousel();
         }, 5000);
     }
-    
+
     window.addEventListener('resize', setCarouselHeight);
     setCarouselHeight();
-    
+
     prevBtn.addEventListener('click', () => {
         clearInterval(autoSlideInterval);
         currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
         updateCarousel();
         startAutoSlide();
     });
-    
+
     nextBtn.addEventListener('click', () => {
         clearInterval(autoSlideInterval);
         currentIndex = (currentIndex + 1) % slides.length;
@@ -451,12 +451,12 @@ function initBlogCarousel() {
     const blogCards = document.querySelectorAll('#blogCarousel .blog-card');
     const prevBtn = document.getElementById('blogPrevBtn');
     const nextBtn = document.getElementById('blogNextBtn');
-    
+
     if (!blogCarousel || !blogCards.length || !prevBtn || !nextBtn) return;
-    
+
     let currentIndex = 0;
     const scrollAmount = blogCards[0].offsetWidth + 32; // Largura do card + gap (2rem = 32px)
-    
+
     // Adiciona a classe 'revealed' nos cards do blog para a animação
     const blogObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -481,7 +481,7 @@ function initBlogCarousel() {
 
 function initBlogLinks() {
     const blogCards = document.querySelectorAll('.blog-card');
-    
+
     blogCards.forEach(card => {
         const readMoreBtn = card.querySelector('.blog-card-actions .read-more-btn');
         const fullContent = card.querySelector('.full-article-content');
@@ -502,7 +502,7 @@ function initBlogLinks() {
                 shortText.classList.add('hidden');
             }
         };
-        
+
         if (readMoreBtn) {
             readMoreBtn.addEventListener('click', toggleContent);
         }
@@ -516,7 +516,7 @@ function initBlogLinks() {
 
 function initAITipGenerators() {
     const generateButtons = document.querySelectorAll('.generate-tip-btn');
-    
+
     generateButtons.forEach(button => {
         const card = button.closest('.blog-card-content');
         const aiTipContainer = card.querySelector('.ai-tip-container');
@@ -574,7 +574,7 @@ async function generateNewTip(topic) {
     let chatHistory = [];
     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
     const payload = { contents: chatHistory };
-    const apiKey = ""; // <-- COLOQUE SUA API KEY AQUI
+    const apiKey = ""; // Substitua por sua chave de API
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
     let response = null;
@@ -638,7 +638,7 @@ async function playAudio(text) {
         },
         model: "gemini-2.5-flash-preview-tts"
     };
-    const apiKey = ""; // <-- COLOQUE SUA API KEY AQUI
+    const apiKey = ""; // Substitua por sua chave de API
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
 
     let response = null;
@@ -681,17 +681,17 @@ async function playAudio(text) {
     if (audioDataPart) {
         const base64Audio = audioDataPart.inlineData.data;
         const pcmData = base64ToArrayBuffer(base64Audio);
-        
+
         // MimeType is 'audio/L16; rate=24000'
         const sampleRate = 24000;
-        
+
         const audioBuffer = audioContext.createBuffer(1, pcmData.byteLength / 2, sampleRate);
         const nowBuffering = audioBuffer.getChannelData(0);
         const pcm16 = new Int16Array(pcmData);
         for (let i = 0; i < pcm16.length; i++) {
             nowBuffering[i] = pcm16[i] / 32768;
         }
-        
+
         source.buffer = audioBuffer;
         source.connect(audioContext.destination);
         source.start();
@@ -713,17 +713,17 @@ function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        
+
         question.addEventListener('click', () => {
             toggleFAQItem(item, faqItems);
         });
-        
+
         question.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 toggleFAQItem(item, faqItems);
             }
-            
+
             if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
                 e.preventDefault();
                 navigateFAQ(e.key, item, faqItems);
@@ -735,7 +735,7 @@ function initFAQ() {
 function toggleFAQItem(currentItem, allItems) {
     const question = currentItem.querySelector('.faq-question');
     const isActive = currentItem.classList.contains('active');
-    
+
     allItems.forEach(item => {
         if (item !== currentItem) {
             item.classList.remove('active');
@@ -743,14 +743,14 @@ function toggleFAQItem(currentItem, allItems) {
             otherQuestion.setAttribute('aria-expanded', 'false');
         }
     });
-    
+
     if (isActive) {
         currentItem.classList.remove('active');
         question.setAttribute('aria-expanded', 'false');
     } else {
         currentItem.classList.add('active');
         question.setAttribute('aria-expanded', 'true');
-        
+
         setTimeout(() => {
             currentItem.scrollIntoView({
                 behavior: 'smooth',
@@ -763,13 +763,13 @@ function toggleFAQItem(currentItem, allItems) {
 function navigateFAQ(direction, currentItem, allItems) {
     const currentIndex = Array.from(allItems).indexOf(currentItem);
     let nextIndex;
-    
+
     if (direction === 'ArrowDown') {
         nextIndex = (currentIndex + 1) % allItems.length;
     } else {
         nextIndex = currentIndex === 0 ? allItems.length - 1 : currentIndex - 1;
     }
-    
+
     const nextQuestion = allItems[nextIndex].querySelector('.faq-question');
     nextQuestion.focus();
 }
@@ -815,7 +815,7 @@ function initChatbot() {
     closeChatBtn.addEventListener('click', () => {
         chatbotModal.classList.remove('visible');
     });
-    
+
     // Eventos para enviar mensagem
     sendBtn.addEventListener('click', handleUserMessage);
     chatInput.addEventListener('keydown', (e) => {
@@ -823,7 +823,7 @@ function initChatbot() {
             handleUserMessage();
         }
     });
-    
+
     // Adiciona a mensagem inicial ao chatbox
     appendMessage(initialMessage, 'ai');
 }
@@ -836,21 +836,21 @@ async function handleUserMessage() {
 
     // Limpa o input
     chatInput.value = '';
-    
+
     // Adiciona a mensagem do usuário ao chatbox e ao histórico
     appendMessage(message, 'user');
     chatHistory.push({ role: "user", parts: [{ text: message }] });
 
     // Mostra o indicador de digitação da IA
     const typingIndicator = appendMessage('...', 'ai-typing');
-    
+
     try {
         // Chama a API para obter a resposta do chatbot
         const responseText = await getChatbotResponse(chatHistory);
-        
+
         // Remove o indicador de digitação
         typingIndicator.remove();
-        
+
         // Adiciona a resposta da IA ao chatbox e ao histórico
         appendMessage(responseText, 'ai');
         chatHistory.push({ role: "model", parts: [{ text: responseText }] });
@@ -886,16 +886,16 @@ async function getChatbotResponse(history) {
     Responda de forma concisa. Se a pergunta for sobre preços ou agendamentos, oriente o usuário a preencher o formulário na seção 'Contato'. Mantenha a conversa focada nos serviços e na filosofia da empresa.
 
     Histórico da conversa: ${JSON.stringify(history)}
-    
+
     Responda à última pergunta do usuário.`;
 
     let chatHistoryWithPrompt = [];
     chatHistoryWithPrompt.push({ role: "user", parts: [{ text: prompt }] });
 
     const payload = { contents: chatHistoryWithPrompt };
-    const apiKey = ""; // <-- COLOQUE SUA API KEY AQUI
+    const apiKey = ""; // Substitua por sua chave de API
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-    
+
     let response = null;
     let retryDelay = 1000;
     const maxRetries = 5;
@@ -924,7 +924,7 @@ async function getChatbotResponse(history) {
             retryDelay *= 2;
         }
     }
-    
+
     if (!response || !response.ok) {
         throw new Error("Não foi possível obter uma resposta da API após várias tentativas.");
     }
