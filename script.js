@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initReadingProgress();
     initChecklist();
     initConselhoVoForm();
+    initHighlightToShare();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -1503,6 +1504,61 @@ function initConselhoVoForm() {
         // const formData = new FormData(form);
         // const data = Object.fromEntries(formData.entries());
         // console.log("Dados a serem enviados:", data);
+    });
+}
+
+function initHighlightToShare() {
+    const sharePopup = document.getElementById('share-popup');
+    if (!sharePopup) return;
+
+    let selectedText = '';
+
+    document.addEventListener('mouseup', (e) => {
+        // Atraso para garantir que a seleção foi registrada
+        setTimeout(() => {
+            const selection = window.getSelection();
+            selectedText = selection.toString().trim();
+            const articleContent = e.target.closest('.article-content');
+
+            if (selectedText && articleContent) {
+                const range = selection.getRangeAt(0);
+                const rect = range.getBoundingClientRect();
+                
+                // Posiciona o pop-up acima da seleção
+                const top = window.scrollY + rect.top - sharePopup.offsetHeight - 10;
+                const left = window.scrollX + rect.left + (rect.width / 2) - (sharePopup.offsetWidth / 2);
+
+                sharePopup.style.top = `${top}px`;
+                sharePopup.style.left = `${left}px`;
+                sharePopup.classList.add('visible');
+            } else {
+                // Esconde se o clique for fora ou a seleção for limpa
+                sharePopup.classList.remove('visible');
+            }
+        }, 10);
+    });
+
+    sharePopup.addEventListener('click', (e) => {
+        const button = e.target.closest('button');
+        if (!button) return;
+
+        const platform = button.dataset.platform;
+        const articleUrl = window.location.href;
+        const quote = `"${selectedText}" - De Vó para Vó`;
+        let shareUrl = '';
+
+        switch (platform) {
+            case 'whatsapp':
+                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
+                break;
+            case 'linkedin':
+                 shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+                break;
+        }
+
+        if (shareUrl) {
+            window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        }
     });
 }
 
