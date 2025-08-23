@@ -2555,7 +2555,24 @@ body.modal-open {
     from { width: 0 }
     to { width: 100% }
 }
+/* ==================== Barra de Progresso de Leitura ==================== */
+.reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%; /* Começa com 0 */
+    height: 4px; /* Altura da barra */
+    background-color: var(--brand-action); /* Usando a nova cor de destaque */
+    z-index: 1001; /* Fica acima do header */
+    transition: width 0.1s ease-out;
+    opacity: 0;
+    visibility: hidden;
+}
 
+.reading-progress-bar.visible {
+    opacity: 1;
+    visibility: visible;
+}
 /* ==================== Responsividade (Media Queries) ==================== */
 @media (min-width: 769px) {
     .nav-toggle-btn {
