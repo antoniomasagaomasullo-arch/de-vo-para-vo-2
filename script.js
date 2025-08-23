@@ -374,6 +374,28 @@ function initFormHandlers() {
             }
         });
     }
+const formInputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
+
+    formInputs.forEach(input => {
+        const parent = input.closest('.form-group');
+        if (!parent) return;
+
+        // Ativa o efeito se o input já tiver um valor (ex: preenchimento automático)
+        if (input.value) {
+            parent.classList.add('active');
+        }
+
+        input.addEventListener('focus', () => {
+            parent.classList.add('active');
+        });
+
+        input.addEventListener('blur', () => {
+            if (input.value === '') {
+                parent.classList.remove('active');
+            }
+        });
+    });
+    // FIM DO NOVO BLOCO
 }
 
 async function searchCEP(cep) {
