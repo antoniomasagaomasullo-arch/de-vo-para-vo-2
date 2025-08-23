@@ -57,8 +57,12 @@ function initScrollReveal() {
         rootMargin: '0px 0px -50px 0px'
     });
 
-    revealElements.forEach(element => {
+    revealElements.forEach((element, index) => {
         if (element) {
+            // Calcula um atraso crescente, mas que reseta a cada 5 elementos
+            // para não ficar muito longo em seções com muitos itens.
+            const delay = (index % 5) * 150; // Atraso de 150ms por item
+            element.style.transitionDelay = `${delay}ms`;
             revealObserver.observe(element);
         }
     });
