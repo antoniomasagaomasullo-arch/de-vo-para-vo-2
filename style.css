@@ -507,7 +507,7 @@ body.modal-open {
 
 .logo .title {
     font-family: 'Playfair Display', serif;
-    font-size: var(--font-3xl);
+    font-size: var(--font-2xl);
     font-weight: 700;
     color: var(--brand-primary-dark);
     text-decoration: none;
