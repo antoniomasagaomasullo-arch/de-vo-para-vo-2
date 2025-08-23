@@ -2770,6 +2770,43 @@ textarea:focus-visible {
     margin-bottom: 0;
 }
 
+/* ==================== Animação de Desenho para Ícones SVG ==================== */
+
+/* Define a animação que "desenha" a linha */
+@keyframes draw-icon {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Prepara os ícones para a animação */
+.icon-drawable path,
+.icon-drawable circle,
+.icon-drawable line,
+.icon-drawable polyline,
+.icon-drawable rect {
+    /* Define o comprimento do tracejado. 1000 é um valor alto que cobre a maioria dos ícones simples. */
+    stroke-dasharray: 1000;
+    /* Esconde a linha deslocando o início do tracejado */
+    stroke-dashoffset: 1000;
+}
+
+/* Aciona a animação quando o card de serviço for revelado na tela */
+.service-card.revealed .icon-drawable path,
+.service-card.revealed .icon-drawable circle,
+.service-card.revealed .icon-drawable line,
+.service-card.revealed .icon-drawable polyline,
+.service-card.revealed .icon-drawable rect {
+    animation: draw-icon 1.5s ease-in-out forwards;
+}
+
+/* Opcional: Adiciona um pequeno atraso entre o desenho de cada parte do ícone */
+.service-card.revealed .icon-drawable path:nth-child(2),
+.service-card.revealed .icon-drawable circle:nth-child(2) { animation-delay: 0.2s; }
+.service-card.revealed .icon-drawable path:nth-child(3) { animation-delay: 0.4s; }
+.service-card.revealed .icon-drawable path:nth-child(4) { animation-delay: 0.6s; }
+.service-card.revealed .icon-drawable path:nth-child(5) { animation-delay: 0.8s; }
+
 /* ==================== Responsividade (Media Queries) ==================== */
 @media (min-width: 769px) {
     .nav-toggle-btn {
