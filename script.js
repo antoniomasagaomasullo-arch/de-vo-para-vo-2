@@ -1115,10 +1115,15 @@ function initCalculadora() {
                     if(nextStep) {
                         document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
                         nextStep.classList.add('active');
-                        nextStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
+                        const nextStep = document.getElementById(`step${parseInt(step.id.slice(4)) + 1}`);
+if(nextStep) {
+    document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
+    nextStep.classList.add('active');
+    // Adicione um pequeno atraso para a animação ser mais agradável
+    setTimeout(() => {
+        nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); // 🆕 NOVA LINHA (dentro de um setTimeout)
+    }, 300); // 300ms de atraso
+}
             
             document.querySelectorAll('.calculadora-container .step-label').forEach(label => {
                 label.addEventListener('click', (e) => {
