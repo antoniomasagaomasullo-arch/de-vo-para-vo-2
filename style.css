@@ -1166,24 +1166,24 @@ body.modal-open {
 .form-group {
     margin-bottom: 1.5rem;
     position: relative;
+    padding-top: 0.8rem; 
 }
 
-/* ✅ ALTERAÇÃO: O rótulo agora se posiciona sobre o input */
+/* ✅ CORREÇÃO: Posição inicial do rótulo agora é fixa, não mais relativa */
 .form-group label {
     position: absolute;
-    top: 50%;
+    top: 1.7rem; 
     left: 1rem;
-    transform: translateY(-50%);
+    transform: none; /* Removemos o transform que causava o problema de alinhamento */
     font-weight: 500;
-    color: var(--text-tertiary); /* Cor mais suave para o estado inicial */
+    color: var(--text-tertiary);
     background: none;
     padding: 0 0.25rem;
     margin: 0;
     transition: all 0.3s ease;
-    pointer-events: none; /* Permite clicar através do rótulo no input */
+    pointer-events: none;
 }
 
-/* ✅ ALTERAÇÃO: Ajustamos o padding para dar espaço ao rótulo */
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -1196,28 +1196,25 @@ body.modal-open {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    /* Garante que o texto do input não sobreponha o rótulo inicial */
-    color: var(--text-primary); 
+    color: var(--text-primary);
 }
 
-/* 🆕 NOVO CÓDIGO: Estilo do rótulo flutuante quando o campo está ativo */
+/* ✅ CORREÇÃO: Posição final do rótulo ajustada para o novo padding */
 .form-group.active label {
-    top: 0;
+    top: 0; 
     left: 0.75rem;
     font-size: var(--font-sm);
     color: var(--brand-primary);
-    /* Pequeno truque para o fundo do rótulo "cortar" a borda do input no futuro */
     background: var(--background-start);
 }
 
+/* Correção para o texto de ajuda (mantém a anterior) */
 .form-group small {
     display: block;
     padding-top: 0.25rem;
 }
 
-/* ✅ ALTERAÇÃO: Regras de validação mais inteligentes */
-
-/* Estilo padrão para o foco, sem cor de validação */
+/* Regras de validação (mantém a correção anterior) */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -1228,17 +1225,16 @@ body.modal-open {
     transform: scale(1.01);
 }
 
-/* Mostra a cor de campo VÁLIDO (verde) apenas se o campo estiver ativo E válido */
 .form-group.active input:valid {
     border-color: var(--validation-success);
     box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
 }
 
-/* Mostra a cor de campo INVÁLIDO (vermelho) apenas se o campo estiver ativo E inválido */
 .form-group.active input:invalid {
     border-color: var(--validation-error);
     box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
 }
+
 
 .form-group input:focus,
 .form-group select:focus,
