@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initLoadingScreen();
     initScrollReveal();
     initParallax();
+    initStoryParticles();
     initFormHandlers();
     initServiceButtonHandlers();
     initCarousel();
