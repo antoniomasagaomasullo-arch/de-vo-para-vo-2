@@ -620,7 +620,8 @@ function initBlogFilters() {
 
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const filter = button.getAttribute('data-filter');
+    triggerVibration(); // 🆕 NOVA LINHA
+    const filter = button.getAttribute('data-filter');
             
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
@@ -1138,6 +1139,7 @@ function initCalculadora() {
     bindEvents() {
     document.querySelectorAll('.calculadora-container .option-card').forEach(card => {
         card.addEventListener('click', (e) => {
+    triggerVibration(); // 🆕 NOVA LINHA
             const step = card.closest('.calc-step');
             const stepOptions = step.querySelectorAll('.option-card');
             stepOptions.forEach(c => c.classList.remove('selected'));
