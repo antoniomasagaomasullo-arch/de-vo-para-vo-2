@@ -1100,44 +1100,42 @@ function initCalculadora() {
             this.calcular();
             this.updateStepIndicator();
         }
-        bindEvents() {
-            document.querySelectorAll('.calculadora-container .option-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    const step = card.closest('.calc-step');
-                    const stepOptions = step.querySelectorAll('.option-card');
-                    stepOptions.forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    this.updateData(card);
-                    this.calcular();
-                    this.updateStepIndicator();
-                    
-                    const nextStep = document.getElementById(`step${parseInt(step.id.slice(4)) + 1}`);
-                    if(nextStep) {
-                        document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
-                        nextStep.classList.add('active');
-                        const nextStep = document.getElementById(`step${parseInt(step.id.slice(4)) + 1}`);
-if(nextStep) {
-    document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
-    nextStep.classList.add('active');
-    // Adicione um pequeno atraso para a animação ser mais agradável
-    setTimeout(() => {
-        nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); // 🆕 NOVA LINHA (dentro de um setTimeout)
-    }, 300); // 300ms de atraso
+    bindEvents() {
+    document.querySelectorAll('.calculadora-container .option-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const step = card.closest('.calc-step');
+            const stepOptions = step.querySelectorAll('.option-card');
+            stepOptions.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            this.updateData(card);
+            this.calcular();
+            this.updateStepIndicator();
+
+            const nextStep = document.getElementById(`step${parseInt(step.id.slice(4)) + 1}`);
+            if(nextStep) {
+                document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
+                nextStep.classList.add('active');
+                // Adiciona um pequeno atraso para a animação ser mais agradável
+                setTimeout(() => {
+                    nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        });
+    });
+
+    document.querySelectorAll('.calculadora-container .step-label').forEach(label => {
+        label.addEventListener('click', (e) => {
+            const step = label.closest('.calc-step');
+            document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
+            step.classList.add('active');
+        });
+    });
+
+    document.getElementById('btnWhatsApp').addEventListener('click', (e) => {
+        e.preventDefault();
+        this.enviarWhatsApp();
+    });
 }
-            
-            document.querySelectorAll('.calculadora-container .step-label').forEach(label => {
-                label.addEventListener('click', (e) => {
-                    const step = label.closest('.calc-step');
-                    document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
-                    step.classList.add('active');
-                });
-            });
-            
-            document.getElementById('btnWhatsApp').addEventListener('click', (e) => {
-                e.preventDefault();
-                this.enviarWhatsApp();
-            });
-        }
         updateData(card) {
             if (card.dataset.tipo) {
                 this.dados.tipo = card.dataset.tipo;
