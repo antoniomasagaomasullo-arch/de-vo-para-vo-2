@@ -532,7 +532,7 @@ body.modal-open {
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
-    font-size: var(--font-lg);
+    font-size: var(--font-base);
     padding-bottom: 5px; /* Adiciona um espaço para o sublinhado */
 }
 
