@@ -2573,6 +2573,25 @@ body.modal-open {
     opacity: 1;
     visibility: visible;
 }
+
+/* ==================== Acessibilidade Aprimorada ==================== */
+
+/* Remove o contorno padrão do navegador e aplica um efeito de sombra personalizado 
+   quando um elemento interativo é focado através do teclado. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.6); /* Sombra na cor --brand-accent com opacidade */
+    transition: box-shadow 0.2s ease;
+}
+
+/* Garante que a sombra não interfira com os estilos de hover dos botões */
+.cta-button:focus-visible {
+    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.6), var(--shadow-md);
+}
+
 /* ==================== Responsividade (Media Queries) ==================== */
 @media (min-width: 769px) {
     .nav-toggle-btn {
