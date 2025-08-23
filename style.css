@@ -14,7 +14,8 @@
     --brand-primary-dark: #3A1F05;
     --brand-secondary: #B56557;
     --brand-accent: #C6A470;
-    
+    --brand-action: #B85C49; /* 🆕 NOVA LINHA */
+
     /* Cores de Texto e Fundo */
     --text-primary: var(--brand-primary-dark);
     --text-secondary: #374151;
@@ -181,7 +182,7 @@ body.modal-open {
 /* ==================== Layouts Globais ==================== */
 
 .cta-button {
-    background-color: var(--brand-primary);
+    background-color: var(--brand-action); /* Linha alterada */
     color: var(--text-on-dark);
     padding: 0.8rem 1.5rem;
     border: none;
@@ -706,7 +707,7 @@ body.modal-open {
 }
 
 .whatsapp-btn {
-    background-color: var(--brand-primary);
+    background-color: var(--brand-action); /* Linha alterada */
     color: var(--text-on-dark);
     padding: 1rem 2.5rem;
     border: none;
@@ -1388,7 +1389,7 @@ body.modal-open {
 /* Melhoria 4: Botões de Ação com Efeito Inset */
 .submit-btn {
     width: 100%;
-    background-color: var(--brand-primary);
+    background-color: var(--brand-action); /* Linha alterada */
     color: var(--text-on-dark);
     padding: 1rem 2rem;
     border: none;
