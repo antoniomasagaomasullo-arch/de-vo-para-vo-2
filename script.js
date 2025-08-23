@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSocialShare();
     initReadingProgress();
     initChecklist();
+    initConselhoVoForm();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -1481,5 +1482,27 @@ function initChecklist() {
 
     // Inicia o contador no estado inicial
     updateProgress();
+}
+
+// ==================== Lógica do Formulário "Conselho de Vó" ====================
+function initConselhoVoForm() {
+    const form = document.getElementById('formConselhoVo');
+    const successMessage = document.getElementById('submissionSuccessMessage');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Impede o envio real do formulário
+        triggerVibration();
+
+        // Esconde o formulário e mostra a mensagem de sucesso
+        form.style.display = 'none';
+        successMessage.style.display = 'block';
+
+        // Opcional: em um projeto real, aqui você enviaria os dados para um servidor.
+        // const formData = new FormData(form);
+        // const data = Object.fromEntries(formData.entries());
+        // console.log("Dados a serem enviados:", data);
+    });
 }
 
