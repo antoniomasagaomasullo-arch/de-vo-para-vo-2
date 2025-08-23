@@ -501,7 +501,7 @@ body.modal-open {
 /* 🆕 NOVO CÓDIGO: Adicione esta classe para o estado "escondido" */
 .header--hidden {
     transform: translateY(-100%);
-    box-shadow: none;
+    /* box-shadow: none; */ /* REMOVA OU COMENTE ESTA LINHA */
 }
 .nav-container {
     max-width: 1200px;
