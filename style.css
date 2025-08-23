@@ -1162,26 +1162,15 @@ body.modal-open {
     flex: 1;
 }
 
-/* ✅ ALTERAÇÃO: Adicionamos position: relative para o rótulo flutuante */
 .form-group {
     margin-bottom: 1.5rem;
-    position: relative;
-    padding-top: 0.8rem; 
 }
 
-/* ✅ CORREÇÃO: Posição inicial do rótulo agora é fixa, não mais relativa */
 .form-group label {
-    position: absolute;
-    top: 1.7rem; 
-    left: 1rem;
-    transform: none; /* Removemos o transform que causava o problema de alinhamento */
+    display: block;
+    margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--text-tertiary);
-    background: none;
-    padding: 0 0.25rem;
-    margin: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
+    color: var(--text-primary);
 }
 
 .form-group input,
@@ -1196,45 +1185,25 @@ body.modal-open {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    color: var(--text-primary);
 }
 
-/* ✅ CORREÇÃO: Posição final do rótulo ajustada para o novo padding */
-.form-group.active label {
-    top: 0; 
-    left: 0.75rem;
-    font-size: var(--font-sm);
-    color: var(--brand-primary);
-    background: var(--background-start);
-}
-
-/* Correção para o texto de ajuda (mantém a anterior) */
-.form-group small {
-    display: block;
-    padding-top: 0.25rem;
-}
-
-/* Regras de validação (mantém a correção anterior) */
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--brand-primary);
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.4);
-    transform: scale(1.01);
-}
-
-.form-group.active input:valid {
+.form-group input:valid {
     border-color: var(--validation-success);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
 }
 
-.form-group.active input:invalid {
+.form-group input:invalid:not(:placeholder-shown) {
     border-color: var(--validation-error);
-    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
 }
 
+.form-group input:valid:not([readonly]):focus {
+    box-shadow: none;
+    border-color: var(--validation-success);
+}
+
+.form-group input:invalid:not([readonly]):focus {
+    box-shadow: none;
+    border-color: var(--validation-error);
+}
 
 .form-group input:focus,
 .form-group select:focus,
@@ -3122,3 +3091,4 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     left: 0;
     z-index: 0; /* Ficará atrás do conteúdo */
 }
+
