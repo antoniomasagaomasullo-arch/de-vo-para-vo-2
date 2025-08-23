@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initDarkMode(); 
     initSocialShare();
     initReadingProgress();
+    initChecklist();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -1438,5 +1439,43 @@ function initReadingProgress() {
 
         progressBar.style.width = `${progress}%`;
     });
+}
+
+function initChecklist() {
+    const checklist = document.getElementById('interactiveChecklist');
+    if (!checklist) return;
+
+    const checkboxes = checklist.querySelectorAll('input[type="checkbox"]');
+    const progressBar = document.getElementById('checklistProgressBar');
+    const counter = document.getElementById('checklistCounter');
+    const totalItems = checkboxes.length;
+
+    const updateProgress = () => {
+        const checkedItems = checklist.querySelectorAll('input[type="checkbox"]:checked').length;
+
+        // Atualiza a barra de progresso
+        const progressPercentage = (checkedItems / totalItems) * 100;
+        progressBar.style.width = `${progressPercentage}%`;
+
+        // Atualiza o contador de texto
+        counter.textContent = `${checkedItems} de ${totalItems} itens concluídos`;
+
+        // Adiciona ou remove a classe para o efeito visual
+        checkboxes.forEach(cb => {
+            const item = cb.closest('.check-item');
+            if (cb.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+        });
+    };
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateProgress);
+    });
+
+    // Inicia o contador no estado inicial
+    updateProgress();
 }
 
