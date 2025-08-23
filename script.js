@@ -1,6 +1,22 @@
 // ==================== Scripts de Inicialização ====================
 // A chave de API do Google Gemini é necessária apenas para as funções de IA (chatbot e dicas do blog).
 // A função de busca de CEP não precisa desta chave.
+document.addEventListener('DOMContentLoaded', function() {
+    initLoadingScreen();
+    initScrollReveal();
+    initParallax();
+    
+    // ADICIONE DUAS BARRAS AQUI PARA DESATIVAR A LINHA ABAIXO
+    // try {
+    //    initStoryParticles();
+    // } catch (e) {
+    //    console.error("Falha ao carregar a animação de partículas: ", e);
+    // }
+    
+    // Se você usou a versão sem o try-catch, faça isso:
+    // initStoryParticles(); // << COLOQUE // NA FRENTE DESTA LINHA
+
+    initFormHandlers();
 const API_KEY_GEMINI = ""; // Coloque a sua chave aqui para ativar o chatbot e as dicas de IA.
 
 document.addEventListener('DOMContentLoaded', function() {
