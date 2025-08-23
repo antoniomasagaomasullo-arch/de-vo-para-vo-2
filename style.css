@@ -2710,6 +2710,11 @@ textarea:focus-visible {
     box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.6), var(--shadow-md);
 }
 
+#agendamentoLigacaoModal .close-btn:focus-visible {
+    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.6); /* Garante que o foco seja apenas o brilho */
+    background: rgba(0, 0, 0, 0.05); /* Mantém o fundo do estado :hover para consistência */
+}
+
 /* ==================== Responsividade (Media Queries) ==================== */
 @media (min-width: 769px) {
     .nav-toggle-btn {
