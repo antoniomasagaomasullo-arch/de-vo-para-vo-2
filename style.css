@@ -3077,3 +3077,11 @@ body.dark-mode .services-tags label.service-tag:hover span {
 body.dark-mode #bairros-atuacao .service-tag:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+#story-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Ficará atrás do conteúdo */
+}
