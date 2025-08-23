@@ -1210,6 +1210,11 @@ body.modal-open {
     background: var(--background-start);
 }
 
+.form-group small {
+    display: block;
+    padding-top: 0.25rem;
+}
+
 .form-group input:valid {
     border-color: var(--validation-success);
 }
