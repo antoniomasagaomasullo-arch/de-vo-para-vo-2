@@ -493,9 +493,15 @@ body.modal-open {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* ✅ ALTERAÇÃO: A transição já existe e está ótima, vamos garantir que o 'transform' também seja incluído. */
     transition: all 0.4s ease;
 }
 
+/* 🆕 NOVO CÓDIGO: Adicione esta classe para o estado "escondido" */
+.header--hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
+}
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
