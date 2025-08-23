@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initContrastToggle(); 
     initDarkMode(); 
     initSocialShare();
+    initReadingProgress();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -1356,5 +1357,50 @@ function triggerVibration() {
         // Vibração curta de 50 milissegundos
         navigator.vibrate(50);
     }
+}
+
+function initReadingProgress() {
+    const progressBar = document.getElementById('readingProgressBar');
+    if (!progressBar) return;
+
+    let currentArticle = null;
+
+    // Observa quando um artigo fica visível
+    const articleObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                currentArticle = entry.target.closest('.blog-card');
+                progressBar.classList.add('visible');
+            } else {
+                // Se o artigo que estava sendo lido saiu da tela, esconde a barra
+                if (currentArticle === entry.target.closest('.blog-card')) {
+                    currentArticle = null;
+                    progressBar.classList.remove('visible');
+                    progressBar.style.width = '0%';
+                }
+            }
+        });
+    }, { threshold: 0.5 }); // Ativa quando 50% do artigo está visível
+
+    // Adiciona o observador a todos os conteúdos de artigo
+    document.querySelectorAll('.full-article-content').forEach(articleContent => {
+        articleObserver.observe(articleContent);
+    });
+
+    // Atualiza a barra com base na rolagem
+    window.addEventListener('scroll', () => {
+        if (!currentArticle) return;
+
+        const articleContent = currentArticle.querySelector('.full-article-content');
+        const rect = articleContent.getBoundingClientRect();
+
+        // Calcula o quanto do artigo já foi "scrollado" para dentro da tela
+        const scrollPercent = (window.innerHeight - rect.top) / rect.height;
+
+        // Garante que o percentual fique entre 0 e 100
+        const progress = Math.min(Math.max(scrollPercent, 0), 1) * 100;
+
+        progressBar.style.width = `${progress}%`;
+    });
 }
 
