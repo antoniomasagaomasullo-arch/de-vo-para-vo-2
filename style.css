@@ -54,25 +54,35 @@
 
 /* Melhoria 1: Dark Mode */
 body.dark-mode {
+    /* Cores principais permanecem ótimas */
     --brand-primary: #C6A470;
     --brand-primary-light: #E0C49A;
     --brand-primary-dark: #F8F4EF;
+
+    /* Textos com leve ajuste para o novo fundo */
     --text-primary: #F9FAFB;
     --text-secondary: #E5E7EB;
     --text-tertiary: #9CA3AF;
     --text-on-dark: #1F1F1F;
-    --background-start: #1F1F1F;
+
+    /* === MUDANÇA PRINCIPAL: Fundos mais suaves === */
+    /* Usamos um cinza-escuro em vez de preto puro para o início */
+    --background-start: #1e1e20;
+    /* E um tom ainda mais escuro para o final do gradiente */
     --background-end: #121212;
+
+    /* Componentes com cores ajustadas para a nova paleta */
     --chat-bg: #2B2B2B;
     --user-message-bg: #4A4A4A;
     --ai-message-bg: #383838;
     --soft-gray: #374151;
-    --user-message-bg: #4A4A4A;
-    --ai-message-bg: #383838;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 5px 10px rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.8);
-    --shadow-xl: 0 15px 30px rgba(0, 0, 0, 1);
+
+    /* === MUDANÇA PRINCIPAL: Sombras viram brilhos sutis === */
+    /* Em vez de uma sombra escura, usamos um brilho branco com baixa opacidade */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 2px rgba(255, 255, 255, 0.05);
+    --shadow-md: 0 5px 10px rgba(0, 0, 0, 0.3), 0 0 5px rgba(255, 255, 255, 0.06);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 255, 255, 0.07);
+    --shadow-xl: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.08);
 }
 
 body {
@@ -3283,8 +3293,10 @@ body.dark-mode::before {
 
 /* 2. Deixa o cabeçalho com fundo escuro e texto legível */
 body.dark-mode .header {
-    background: rgba(18, 18, 18, 0.85); /* Cor escura com transparência */
+    background: rgba(30, 30, 32, 0.85); /* Usa a cor de --background-start com transparência */
     border-bottom-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px); /* Garante o efeito de desfoque */
+    -webkit-backdrop-filter: blur(15px);
 }
 
 body.dark-mode .nav-menu a {
