@@ -95,30 +95,37 @@
             </div>
         </section>
 
-      <section class="tereza-spotlight" id="vo-tereca">
+    <section class="tereza-spotlight" id="vo-tereca">
     <div class="container">
         <div class="section-header reveal">
             <h2 class="section-title">O Cantinho da Vó Tereca</h2>
             <p class="section-subtitle">Pequenos conselhos e grandes afetos de quem inspira nosso cuidado diário.</p>
         </div>
         <div class="spotlight-grid">
-            <div class="spotlight-card reveal-scale">
-                <div class="spotlight-icon">☕</div>
-                <h3 class="spotlight-title">O Chá que Acalma</h3>
-                <p class="spotlight-text">"Um chá de camomila com uma casquinha de laranja antes de dormir faz milagres. Acalma o corpo e a alma para uma boa noite de sono."</p>
             </div>
-            <div class="spotlight-card reveal-scale" style="--delay: 0.2s;">
-                <div class="spotlight-icon">📸</div>
-                <h3 class="spotlight-title">Memória no Coração</h3>
-                <p class="spotlight-text">"Ver fotos antigas é como dar um abraço no tempo. Relembrar as histórias com quem a gente ama mantém o coração jovem e a memória viva."</p>
-            </div>
-            <div class="spotlight-card reveal-scale" style="--delay: 0.4s;">
-                 <div class="spotlight-icon">🌿</div>
-                <h3 class="spotlight-title">Sol e Verde</h3>
-                <p class="spotlight-text">"Um pouquinho de sol pela manhã e o verde de uma planta por perto trazem uma alegria que remédio nenhum consegue dar. É o carinho da natureza."</p>
+
+        <div class="spotlight-submission-container reveal">
+            <h3 class="spotlight-submission-title">Compartilhe a Sabedoria da Sua Família</h3>
+            <p>Qual conselho ou história carinhosa da sua avó ou avô você gostaria de dividir com a nossa comunidade?</p>
+            <form id="formConselhoVo" class="spotlight-form">
+                <div class="form-group">
+                    <textarea id="conselhoVo" name="conselho" rows="4" placeholder="Escreva aqui a dica ou a pequena história..." required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="nomeVo" name="nomeVo" placeholder="Nome da sua avó/avô" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="seuNome" name="seuNome" placeholder="Seu nome" required>
+                    </div>
+                </div>
+                <button type="submit" class="cta-button">Enviar Homenagem</button>
+            </form>
+            <div id="submissionSuccessMessage" style="display: none; margin-top: 1.5rem;">
+                <p><strong>Obrigado por compartilhar! ❤️</strong> Sua história aquece nossa comunidade.</p>
             </div>
         </div>
-    </div>
+        </div>
 </section>
 
         <section class="services" id="servicos"> ```
