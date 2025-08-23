@@ -642,40 +642,74 @@ function initBlogFilters() {
 }
 
 function initBlogLinks() {
-    const blogCards = document.querySelectorAll('.blog-card');
-    
-    blogCards.forEach(card => {
-        const readMoreBtn = card.querySelector('.read-more-btn');
-        const readMoreText = readMoreBtn.querySelector('span');
-        const readMoreIcon = readMoreBtn.querySelector('svg');
-        const fullContent = card.querySelector('.full-article-content');
-        const shortText = card.querySelector('.short-text');
-        const aiTipContainer = card.querySelector('.ai-tip-container');
+    const progressBar = document.getElementById('readingProgressBar');
+    if (!progressBar) return;
 
-        const toggleContent = (e) => {
+    let activeArticleContent = null;
+
+    // Função que calcula e atualiza a barra de progresso
+    const scrollHandler = () => {
+        if (!activeArticleContent) return;
+
+        const rect = activeArticleContent.getBoundingClientRect();
+        const progress = (-rect.top / (rect.height - window.innerHeight)) * 100;
+        const cappedProgress = Math.min(Math.max(progress, 0), 100);
+        
+        progressBar.style.width = `${cappedProgress}%`;
+    };
+
+    // Adiciona o listener de scroll à janela (apenas uma vez)
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+
+    // Adiciona os listeners de clique a todos os botões "Ler artigo"
+    document.querySelectorAll('.blog-card .read-more-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
 
-            if (fullContent.classList.contains('visible')) {
-                fullContent.classList.remove('visible');
-                readMoreText.textContent = 'Ler artigo';
-                readMoreIcon.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
-                readMoreBtn.classList.remove('expanded');
-                shortText.classList.remove('hidden');
-                aiTipContainer.classList.remove('visible');
+            const card = button.closest('.blog-card');
+            const content = card.querySelector('.full-article-content');
+            const textSpan = button.querySelector('span');
+            const iconSvg = button.querySelector('svg');
+            const isOpening = !content.classList.contains('visible');
+
+            // Antes de fazer qualquer coisa, fecha todos os outros artigos que possam estar abertos
+            document.querySelectorAll('.full-article-content.visible').forEach(openContent => {
+                if (openContent !== content) {
+                    openContent.classList.remove('visible');
+                    const otherButton = openContent.closest('.blog-card').querySelector('.read-more-btn');
+                    const otherText = otherButton.querySelector('span');
+                    const otherIcon = otherButton.querySelector('svg');
+
+                    otherButton.classList.remove('expanded');
+                    otherText.textContent = 'Ler artigo';
+                    otherIcon.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
+                }
+            });
+
+            // Agora, abre ou fecha o artigo que foi clicado
+            content.classList.toggle('visible');
+            button.classList.toggle('expanded');
+            
+            // Atualiza o texto e o ícone do botão clicado
+            if (isOpening) {
+                textSpan.textContent = 'Diminuir';
+                iconSvg.innerHTML = `<path d="m18 15-6-6-6 6"/>`;
             } else {
-                fullContent.classList.add('visible');
-                readMoreText.textContent = 'Diminuir';
-                readMoreIcon.innerHTML = `<path d="m18 15-6-6-6 6"/></svg>`;
-                readMoreBtn.classList.add('expanded');
-                shortText.classList.add('hidden');
-                aiTipContainer.classList.add('visible');
+                textSpan.textContent = 'Ler artigo';
+                iconSvg.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
             }
-        };
-        
-        if (readMoreBtn) {
-            readMoreBtn.addEventListener('click', toggleContent);
-        }
+
+            // Finalmente, controla a visibilidade da barra de progresso
+            if (isOpening) {
+                activeArticleContent = content;
+                progressBar.classList.add('visible');
+            } else {
+                activeArticleContent = null;
+                progressBar.classList.remove('visible');
+                progressBar.style.width = '0%';
+            }
+        });
     });
 }
 
