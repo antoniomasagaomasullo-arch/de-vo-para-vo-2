@@ -135,6 +135,7 @@ function initNavToggle() {
 
     window.addEventListener('scroll', () => {
         const sections = document.querySelectorAll('section');
+        const sectionHeight = section.clientHeight;
         const navLinks = document.querySelectorAll('.nav-menu a');
         let current = '';
 
