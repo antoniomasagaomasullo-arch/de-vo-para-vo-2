@@ -1162,17 +1162,28 @@ body.modal-open {
     flex: 1;
 }
 
+/* ✅ ALTERAÇÃO: Adicionamos position: relative para o rótulo flutuante */
 .form-group {
     margin-bottom: 1.5rem;
+    position: relative;
 }
 
+/* ✅ ALTERAÇÃO: O rótulo agora se posiciona sobre o input */
 .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-tertiary); /* Cor mais suave para o estado inicial */
+    background: none;
+    padding: 0 0.25rem;
+    margin: 0;
+    transition: all 0.3s ease;
+    pointer-events: none; /* Permite clicar através do rótulo no input */
 }
 
+/* ✅ ALTERAÇÃO: Ajustamos o padding para dar espaço ao rótulo */
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -1185,6 +1196,18 @@ body.modal-open {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    /* Garante que o texto do input não sobreponha o rótulo inicial */
+    color: var(--text-primary); 
+}
+
+/* 🆕 NOVO CÓDIGO: Estilo do rótulo flutuante quando o campo está ativo */
+.form-group.active label {
+    top: 0;
+    left: 0.75rem;
+    font-size: var(--font-sm);
+    color: var(--brand-primary);
+    /* Pequeno truque para o fundo do rótulo "cortar" a borda do input no futuro */
+    background: var(--background-start);
 }
 
 .form-group input:valid {
