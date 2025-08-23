@@ -1215,22 +1215,29 @@ body.modal-open {
     padding-top: 0.25rem;
 }
 
-.form-group input:valid {
+/* ✅ ALTERAÇÃO: Regras de validação mais inteligentes */
+
+/* Estilo padrão para o foco, sem cor de validação */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.4);
+    transform: scale(1.01);
+}
+
+/* Mostra a cor de campo VÁLIDO (verde) apenas se o campo estiver ativo E válido */
+.form-group.active input:valid {
     border-color: var(--validation-success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
 }
 
-.form-group input:invalid:not(:placeholder-shown) {
+/* Mostra a cor de campo INVÁLIDO (vermelho) apenas se o campo estiver ativo E inválido */
+.form-group.active input:invalid {
     border-color: var(--validation-error);
-}
-
-.form-group input:valid:not([readonly]):focus {
-    box-shadow: none;
-    border-color: var(--validation-success);
-}
-
-.form-group input:invalid:not([readonly]):focus {
-    box-shadow: none;
-    border-color: var(--validation-error);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
 }
 
 .form-group input:focus,
