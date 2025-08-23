@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initBlogFilters();
     initFooter();
     initBackToTopButton();
+    initSmartHeader();
     initAgendamentoLigacao();
     initFontSizeToggle();
     initContrastToggle(); 
@@ -101,6 +102,42 @@ function initBackToTopButton() {
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+function initSmartHeader() {
+    const header = document.querySelector('.header');
+    if (!header) return;
+
+    let lastScrollTop = 0;
+    const delta = 5; // Pequena margem para evitar ativação em rolagens mínimas
+    const headerHeight = header.offsetHeight;
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Garante que o usuário rolou mais que a margem 'delta'
+        if (Math.abs(lastScrollTop - scrollTop) <= delta) {
+            return;
+        }
+
+        // Adiciona a classe 'scrolled' para o efeito de encolhimento quando rolar além da altura do header
+        if (scrollTop > headerHeight) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+
+        // Esconde o header ao rolar para baixo, mostra ao rolar para cima
+        if (scrollTop > lastScrollTop && scrollTop > headerHeight){
+            // Scroll Down
+            header.classList.add('header--hidden');
+        } else {
+            // Scroll Up
+            header.classList.remove('header--hidden');
+        }
+
+        lastScrollTop = scrollTop;
     });
 }
 
