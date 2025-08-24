@@ -669,14 +669,24 @@ function initCarousel() {
 
 function initBlogFilters() {
     const filterButtons = document.querySelectorAll('.blog-filter-btn');
-    const blogCards = document.querySelectorAll('.blog-card');
+    const blogCards = document.querySelectorAll('.blog-card:not(.empty-state-card)'); // <-- MUDANÇA AQUI
+    const resultsAnnouncer = document.getElementById('blog-filter-results');
+    const emptyStateCard = document.getElementById('empty-state-card'); // Pega o novo card
+    const showAllBtn = document.getElementById('show-all-articles-btn'); // Pega o botão do card
     
-    if (!filterButtons.length || !blogCards.length) return;
+    if (!filterButtons.length || !blogCards.length || !resultsAnnouncer || !emptyStateCard) return;
+
+    // Lógica para o botão "Ver todos" do card de estado vazio
+    showAllBtn.addEventListener('click', () => {
+        document.querySelector('.blog-filter-btn[data-filter="all"]').click();
+    });
 
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-    triggerVibration(); // 🆕 NOVA LINHA
-    const filter = button.getAttribute('data-filter');
+            triggerVibration();
+            const filter = button.getAttribute('data-filter');
+            const filterText = button.textContent;
+            let visibleCardsCount = 0;
             
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
@@ -689,10 +699,21 @@ function initBlogFilters() {
                 const cardTag = card.getAttribute('data-tag');
                 if (filter === 'all' || filter === cardTag) {
                     card.style.display = 'flex';
+                    visibleCardsCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
+
+            // --- LÓGICA DO ESTADO VAZIO ---
+            if (visibleCardsCount === 0) {
+                emptyStateCard.style.display = 'flex';
+            } else {
+                emptyStateCard.style.display = 'none';
+            }
+
+            const plural = visibleCardsCount === 1 ? 'artigo encontrado' : 'artigos encontrados';
+            resultsAnnouncer.textContent = `${visibleCardsCount} ${plural} para o filtro ${filterText}.`;
         });
     });
 }
