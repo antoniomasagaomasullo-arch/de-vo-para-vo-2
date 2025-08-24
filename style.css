@@ -1793,37 +1793,46 @@ body.modal-open {
     transform: scaleY(1);
 }
 
+/* ==================== Animação de Carregamento Temática (Coração) ==================== */
+
+/* Animação de fade do esqueleto antigo (mantida para evitar erros, mas não usada) */
+@keyframes pulse-skeleton {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Nova animação de pulsação para o coração */
+@keyframes heart-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Transforma o container do esqueleto no coração */
 .loading-skeleton {
     width: 100%;
-    display: none;
-    flex-direction: column;
-    gap: 0.75rem;
-    animation: pulse-skeleton 1.5s infinite ease-in-out;
+    display: none; /* Mantém o comportamento de ser escondido por padrão */
+    justify-content: center;
+    align-items: center;
+    min-height: 50px; /* Garante que o container tenha altura */
 }
 
-.skeleton-line {
-    height: 15px;
-    background-color: var(--background-end);
-    border-radius: 5px;
-}
-
+/* Esconde as linhas do esqueleto antigo */
 .loading-skeleton .skeleton-line {
-    background-color: rgba(0, 0, 0, 0.1);
-    height: 1rem;
-    border-radius: 5px;
+    display: none;
 }
 
-.loading-skeleton .skeleton-line:nth-child(2) {
-    width: 80%;
+/* Cria o coração usando pseudo-elementos */
+.loading-skeleton::before {
+    content: '❤️';
+    font-size: 2rem; /* Tamanho do coração */
+    color: var(--brand-secondary);
+    animation: heart-pulse 1.2s infinite ease-in-out;
+    display: block;
 }
 
-.loading-skeleton .skeleton-line:nth-child(3) {
-    width: 60%;
-}
-
-.loading-skeleton .skeleton-line:nth-child(4) {
-    width: 90%;
-}
+/* ==================== Estilos Relacionados Mantidos ==================== */
 
 .ai-tip-container.loaded .loading-skeleton {
     display: none;
