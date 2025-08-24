@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initReadingProgress();
     initChecklist();
     initConselhoVoForm();
-    initHighlightToShare();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -683,15 +682,16 @@ function initBlogFilters() {
     });
 }
 function initBlogLinks() {
+    const sharePopup = document.getElementById('share-popup'); // Pega a referência do pop-up de partilha
+
     // Função para fechar o modal de artigo
     const closeArticleModal = () => {
         const modal = document.querySelector('.modal.article-modal');
         if (modal) {
             modal.classList.remove('visible');
-            // Remove o modal do corpo da página após a animação de saída
             setTimeout(() => {
                 document.body.removeChild(modal);
-                document.body.classList.remove('modal-open'); // Libera o scroll
+                document.body.classList.remove('modal-open');
             }, 300);
         }
     };
@@ -702,55 +702,95 @@ function initBlogLinks() {
             e.preventDefault();
             e.stopPropagation();
 
-            // 1. Encontra o conteúdo do artigo que foi clicado
             const card = button.closest('.blog-card');
             const articleContent = card.querySelector('.full-article-content');
             if (!articleContent) return;
 
-            // 2. Cria o modal usando a MESMA estrutura do "Agendar Ligação"
+            // Cria a estrutura do modal
             const modalContainer = document.createElement('div');
-            // Adiciona as classes .modal (para o fundo escuro) e .article-modal (para estilos específicos)
             modalContainer.className = 'modal article-modal';
             
-            // Cria a janela de conteúdo
             const modalContent = document.createElement('div');
             modalContent.className = 'modal-content article-modal-content';
-            modalContent.innerHTML = articleContent.innerHTML; // Copia o conteúdo
+            modalContent.innerHTML = articleContent.innerHTML;
 
-            // 3. Cria o botão de fechar "X"
             const closeBtn = document.createElement('button');
             closeBtn.className = 'modal-close-btn';
             closeBtn.innerHTML = '×';
             closeBtn.setAttribute('aria-label', 'Fechar artigo');
             closeBtn.onclick = closeArticleModal;
 
-            // 4. Monta a estrutura final
             modalContent.appendChild(closeBtn);
             modalContainer.appendChild(modalContent);
             document.body.appendChild(modalContainer);
-            document.body.classList.add('modal-open'); // Trava o scroll da página
+            document.body.classList.add('modal-open');
 
-            // 5. Adiciona um listener para fechar ao clicar no fundo (overlay)
+            // ===================================================================
+            // NOVO BLOCO: LÓGICA DE PARTILHA INTEGRADA DIRETAMENTE NO MODAL
+            // ===================================================================
+            let selectedText = '';
+            modalContent.addEventListener('mouseup', () => {
+                setTimeout(() => { // Pequeno atraso para garantir que a seleção foi registada
+                    const selection = window.getSelection();
+                    selectedText = selection.toString().trim();
+
+                    if (selectedText && sharePopup) {
+                        const range = selection.getRangeAt(0);
+                        const rect = range.getBoundingClientRect();
+                        
+                        // Posiciona o pop-up acima da seleção
+                        sharePopup.style.top = `${rect.top - sharePopup.offsetHeight - 10}px`;
+                        sharePopup.style.left = `${rect.left + (rect.width / 2) - (sharePopup.offsetWidth / 2)}px`;
+                        sharePopup.classList.add('visible');
+                    } else if (sharePopup) {
+                        sharePopup.classList.remove('visible');
+                    }
+                }, 10);
+            });
+
+            // Lógica de clique para os botões do pop-up de partilha
+            sharePopup.onclick = (event) => {
+                const shareButton = event.target.closest('button');
+                if (!shareButton) return;
+
+                const platform = shareButton.dataset.platform;
+                const articleUrl = window.location.href;
+                const quote = `"${selectedText}" - De Vó para Vó`;
+                let shareUrl = '';
+
+                if (platform === 'whatsapp') {
+                    shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
+                } else if (platform === 'linkedin') {
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+                }
+
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+                }
+            };
+            // ===================================================================
+            // FIM DO NOVO BLOCO
+            // ===================================================================
+
             modalContainer.addEventListener('click', (event) => {
                 if (event.target === modalContainer) {
                     closeArticleModal();
                 }
             });
             
-            // 6. Ativa a animação de entrada
             setTimeout(() => {
                 modalContainer.classList.add('visible');
             }, 50);
         });
     });
 
-    // Adiciona um listener para a tecla "Escape"
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
             closeArticleModal();
         }
     });
 }
+
 // ==================== Funções da API Gemini ====================
 async function fetchGeminiApi(url, payload) {
     if (!API_KEY_GEMINI) {
@@ -1534,61 +1574,6 @@ function initConselhoVoForm() {
         // const formData = new FormData(form);
         // const data = Object.fromEntries(formData.entries());
         // console.log("Dados a serem enviados:", data);
-    });
-}
-
-function initHighlightToShare() {
-    const sharePopup = document.getElementById('share-popup');
-    if (!sharePopup) return;
-
-    let selectedText = '';
-
-    document.addEventListener('mouseup', (e) => {
-        // Atraso para garantir que a seleção foi registrada
-        setTimeout(() => {
-            const selection = window.getSelection();
-            selectedText = selection.toString().trim();
-            const articleContent = e.target.closest('.article-content');
-
-            if (selectedText && articleContent) {
-                const range = selection.getRangeAt(0);
-                const rect = range.getBoundingClientRect();
-                
-                // Posiciona o pop-up acima da seleção
-                const top = window.scrollY + rect.top - sharePopup.offsetHeight - 10;
-                const left = window.scrollX + rect.left + (rect.width / 2) - (sharePopup.offsetWidth / 2);
-
-                sharePopup.style.top = `${top}px`;
-                sharePopup.style.left = `${left}px`;
-                sharePopup.classList.add('visible');
-            } else {
-                // Esconde se o clique for fora ou a seleção for limpa
-                sharePopup.classList.remove('visible');
-            }
-        }, 10);
-    });
-
-    sharePopup.addEventListener('click', (e) => {
-        const button = e.target.closest('button');
-        if (!button) return;
-
-        const platform = button.dataset.platform;
-        const articleUrl = window.location.href;
-        const quote = `"${selectedText}" - De Vó para Vó`;
-        let shareUrl = '';
-
-        switch (platform) {
-            case 'whatsapp':
-                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
-                break;
-            case 'linkedin':
-                 shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
-                break;
-        }
-
-        if (shareUrl) {
-            window.open(shareUrl, '_blank', 'noopener,noreferrer');
-        }
     });
 }
 
