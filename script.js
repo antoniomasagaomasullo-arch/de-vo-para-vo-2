@@ -682,7 +682,6 @@ function initBlogFilters() {
         });
     });
 }
-
 function initBlogLinks() {
     const progressBar = document.getElementById('readingProgressBar');
     if (!progressBar) return;
@@ -718,16 +717,23 @@ function initBlogLinks() {
             // Antes de fazer qualquer coisa, fecha todos os outros artigos que possam estar abertos
             document.querySelectorAll('.full-article-content.visible').forEach(openContent => {
                 if (openContent !== content) {
+                    const otherCard = openContent.closest('.blog-card'); // MODIFICADO: Guarda a referência ao outro card
+                    otherCard.classList.remove('in-focus'); // NOVO: Remove o foco do outro card
+
                     openContent.classList.remove('visible');
-                    const otherButton = openContent.closest('.blog-card').querySelector('.read-more-btn');
+                    const otherButton = otherCard.querySelector('.read-more-btn'); // MODIFICADO: Usa a referência
                     const otherText = otherButton.querySelector('span');
                     const otherIcon = otherButton.querySelector('svg');
 
                     otherButton.classList.remove('expanded');
                     otherText.textContent = 'Ler artigo';
-                    otherIcon.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
+                    iconSvg.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
                 }
             });
+            
+            // NOVO BLOCO: Adiciona ou remove as classes de foco
+            document.body.classList.toggle('article-focus-mode', isOpening);
+            card.classList.toggle('in-focus', isOpening);
 
             // Agora, abre ou fecha o artigo que foi clicado
             content.classList.toggle('visible');
