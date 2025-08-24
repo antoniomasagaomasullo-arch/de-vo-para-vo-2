@@ -1739,9 +1739,16 @@ body.article-focus-mode::after {
 }
 
 /* Eleva o card ativo para ficar acima do overlay */
+/* Eleva o card do blog ativo e corrige o problema de contraste */
 .blog-card.in-focus {
     position: relative;
     z-index: 999;
+    /* MUDANÇA PRINCIPAL: Define um fundo sólido e opaco */
+    background: var(--background-start); /* Usa a cor de fundo principal do site */
+    
+    /* MELHORIA ESTÉTICA: Faz o card saltar um pouco para a frente */
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2); /* Sombra mais pronunciada */
 }
 
 .blog-card-content .read-more-btn.hidden {
