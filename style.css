@@ -2882,7 +2882,7 @@ textarea:focus-visible {
 
 /* ==================== Pop-up "Destacar para Compartilhar" ==================== */
 .share-popup {
-    position: absolute;
+    position: fixed;
     background-color: var(--brand-primary-dark);
     color: var(--text-on-dark);
     border-radius: 40px;
