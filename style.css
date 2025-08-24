@@ -1561,22 +1561,22 @@ body.modal-open {
 
 .blog-card {
     /* ANTES: background: rgba(255, 255, 255, 0.3); */
-    /* DEPOIS: Fundo com alta opacidade, baseado na cor do site */
-    background: rgba(248, 244, 239, 0.9); /* Cor sólida com leve transparência */
-    
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+.blog-card {
+    /* Base visual com fundo quase opaco para legibilidade total */
+    background: rgba(248, 244, 239, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 40px;
     box-shadow: var(--shadow-md);
+
+    /* Estrutura e animação de entrada */
     display: flex;
     flex-direction: column;
     overflow: hidden;
     opacity: 0;
     transform: translateY(20px);
     
-    /* Transição suave para todas as propriedades, incluindo o modo foco */
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Transição suave para todas as interações (hover e modo foco) */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, opacity 0.4s ease;
 }
 
 .blog-card.revealed {
@@ -1585,18 +1585,6 @@ body.modal-open {
 }
 
 .blog-card:hover {
-    animation: none;
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: var(--shadow-xl);
-}
-
-.blog-card.revealed {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.blog-card:hover {
-    animation: none;
     transform: translateY(-5px) scale(1.01);
     box-shadow: var(--shadow-xl);
 }
