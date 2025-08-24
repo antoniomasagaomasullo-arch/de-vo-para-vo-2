@@ -41,6 +41,8 @@
     --shadow-xl: 0 15px 30px rgba(93, 47, 9, 0.1);
 
     /* Tipografia (Melhoria 13: Otimizar line-height) */
+:root {
+    /* === NOVA TIPOGRAFIA RESPONSIVA === */
     --font-xs: 0.75rem;
     --font-sm: 0.875rem;
     --font-base: 1rem;
@@ -50,6 +52,17 @@
     --font-3xl: 1.875rem;
     --font-4xl: 2.5rem;
     --font-5xl: 3.5rem;
+    
+    /* NOVAS VARIÁVEIS RESPONSIVAS */
+    --font-hero: clamp(2.5rem, 6vw, 4.5rem);
+    --font-display: clamp(1.5rem, 3vw, 2.5rem);
+    --font-subtitle: clamp(1rem, 2vw, 1.25rem);
+    --line-height-tight: 1.1;
+    --line-height-normal: 1.4;
+    --line-height-relaxed: 1.7;
+    --letter-spacing-tight: -0.02em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.02em;
 }
 
 /* Melhoria 1: Dark Mode */
@@ -271,11 +284,13 @@ body.modal-open {
 }
 
 .section-title {
-    font-size: var(--font-4xl);
+    font-size: var(--font-display); /* MUDANÇA: era var(--font-4xl) */
     font-weight: bold;
     text-align: center;
     margin-bottom: 3rem;
     color: var(--brand-primary-dark);
+    line-height: var(--line-height-tight); /* NOVO */
+    letter-spacing: var(--letter-spacing-tight); /* NOVO */
 }
 
 .cta-button:hover {
@@ -737,19 +752,22 @@ body.modal-open {
 }
 
 .hero-content h1 {
-    font-size: var(--font-5xl);
+    font-size: var(--font-hero); /* MUDANÇA: era var(--font-5xl) */
     font-weight: 700;
     color: var(--brand-primary-dark);
     margin-bottom: 1.5rem;
-    line-height: 1.1;
+    line-height: var(--line-height-tight); /* NOVO */
+    letter-spacing: var(--letter-spacing-tight); /* NOVO */
 }
 
 .hero-subtitle {
-    font-size: var(--font-xl);
+    font-size: var(--font-subtitle); /* MUDANÇA: era var(--font-xl) */
     color: var(--text-secondary);
     margin-bottom: 2rem;
     font-weight: 400;
     max-width: 80%;
+    line-height: var(--line-height-relaxed); /* NOVO */
+    letter-spacing: var(--letter-spacing-normal); /* NOVO */
 }
 
 .whatsapp-btn {
@@ -3639,5 +3657,39 @@ body.dark-mode .close-btn-chat {
 body.dark-mode .modal-close-btn:hover,
 body.dark-mode .close-btn-chat:hover {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* === SISTEMA DE TIPOGRAFIA APRIMORADA === */
+.text-hero {
+    font-size: var(--font-hero);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    font-weight: 700;
+}
+
+.text-display {
+    font-size: var(--font-display);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    font-weight: 600;
+}
+
+.text-subtitle {
+    font-size: var(--font-subtitle);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+    font-weight: 400;
+}
+
+.text-body {
+    font-size: var(--font-base);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+.text-small {
+    font-size: var(--font-sm);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-wide);
 }
 
