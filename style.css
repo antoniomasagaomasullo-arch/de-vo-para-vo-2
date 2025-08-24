@@ -3602,3 +3602,52 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+/* ==================== Consistência e Polimento dos Modais ==================== */
+
+/* Garante que o conteúdo do modal seja a referência para o botão de fechar */
+.modal-content {
+    position: relative; /* Essencial para o posicionamento do botão */
+}
+
+/* Estilo UNIFICADO para TODOS os botões de fechar dos modais */
+.modal-close-btn,
+.close-btn-chat {
+    position: absolute;
+    top: 1rem;      /* 16px */
+    right: 1.5rem;  /* 24px */
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border: none;
+    border-radius: 50%;
+    color: #333;
+    font-size: 1.5rem; /* Tamanho do 'X' */
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10; /* Garante que fique acima do conteúdo */
+}
+
+/* Efeito de hover unificado */
+.modal-close-btn:hover,
+.close-btn-chat:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    transform: rotate(90deg);
+    color: var(--brand-primary);
+}
+
+/* Ajuste para o Dark Mode */
+body.dark-mode .modal-close-btn,
+body.dark-mode .close-btn-chat {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-on-dark);
+}
+
+body.dark-mode .modal-close-btn:hover,
+body.dark-mode .close-btn-chat:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
