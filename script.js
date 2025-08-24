@@ -99,9 +99,31 @@ function initParallax() {
 function initBackToTopButton() {
     const backToTopBtn = document.getElementById('backToTopBtn');
     if (!backToTopBtn) return;
-    
+
+    const progressCircle = backToTopBtn.querySelector('.progress-ring__circle--progress');
+    const radius = progressCircle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius; // Calcula a circunferência do círculo
+
+    // Define o comprimento e o início do traço do SVG
+    progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+    progressCircle.style.strokeDashoffset = circumference;
+
+    // Função para atualizar a animação do círculo
+    function setProgress(percent) {
+        const offset = circumference - (percent / 100) * circumference;
+        progressCircle.style.strokeDashoffset = offset;
+    }
+
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
+        // Calcula a percentagem de scroll da página
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+
+        setProgress(scrollPercent); // Atualiza o anel de progresso
+
+        // Controla a visibilidade do botão
+        if (scrollTop > 200) {
             backToTopBtn.classList.add('visible');
         } else {
             backToTopBtn.classList.remove('visible');
