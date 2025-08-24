@@ -3651,3 +3651,36 @@ body.dark-mode .modal-close-btn:hover,
 body.dark-mode .close-btn-chat:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+/* ==================== Estilo do Estado Vazio do Blog ==================== */
+
+.empty-state-card {
+    grid-column: 1 / -1; /* Faz o card ocupar a largura total da grade */
+    display: none; /* Dupla garantia de que começa escondido */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    border-style: dashed;
+    border-width: 2px;
+}
+
+.empty-state-content h3 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--font-2xl);
+    color: var(--brand-primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state-content p {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+}
