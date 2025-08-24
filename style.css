@@ -3600,4 +3600,79 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     left: 0;
     z-index: 0; /* Ficará atrás do conteúdo */
 }
+/* =================================================================== */
+/* BLOCO DE CÓDIGO DEFINITIVO PARA O BLOG E O MODO FOCO (V3)           */
+/* =================================================================== */
+
+/* 1. CORREÇÃO DA BASE: Garante que os cards sejam legíveis sempre. */
+.blog-card {
+    background: rgba(248, 244, 239, 0.95) !important; /* Fundo quase opaco para contraste */
+}
+
+/* 2. OVERLAY: Cria o fundo escuro para o modo foco. */
+body.article-focus-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(30, 30, 30, 0.8); /* Fundo bem escuro */
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* Não bloqueia cliques */
+}
+
+/* 3. MODO FOCO: Transforma o artigo num 'pop-up' de leitura claro e nítido. */
+.blog-card.in-focus {
+    position: fixed;
+    z-index: 1001;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    height: 85vh;
+    overflow-y: auto;
+    
+    /* A ILUMINAÇÃO QUE FALTAVA: Fundo 100% branco e sombra de destaque */
+    background: white !important;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+
+    /* Remove qualquer efeito de vidro residual */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* 4. MODO FOCO (UX): Trava o scroll da página de fundo. */
+body.article-focus-mode {
+    overflow: hidden;
+}
+
+/* 5. BOTÃO DE FECHAR: Estilo para o 'X'. */
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border: none;
+    border-radius: 50%;
+    color: #333;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    transform: rotate(90deg);
+    color: var(--brand-primary);
+}
 
