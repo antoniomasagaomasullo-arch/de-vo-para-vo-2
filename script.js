@@ -1171,116 +1171,145 @@ function updateCalculatorFromQuiz(answers) {
 }
 
 function initCalculadora() {
-    class CalculadoraOrcamento {
-        constructor() {
-            this.dados = {
-                tipo: 'basico',
-                preco: 30,
-                horas: 12,
-                dias: 7,
-                tipoLabel: 'Cuidado Básico',
-                horasLabel: '12 horas/dia',
-                diasLabel: '7 dias/semana'
-            };
-            this.init();
-        }
-        init() {
-            // Para ativar a persistência de dados, descomente a linha abaixo.
-            // this.loadState();
-            this.bindEvents();
-            this.calcular();
-            this.updateStepIndicator();
-        }
+   // SUBSTITUA TODA A CLASSE 'CalculadoraOrcamento' POR ISTO:
+class CalculadoraOrcamento {
+    constructor() {
+        this.dados = {
+            tipo: 'basico',
+            preco: 30,
+            horas: 12,
+            dias: 7,
+            tipoLabel: 'Cuidado Básico',
+            horasLabel: '12 horas/dia',
+            diasLabel: '7 dias/semana'
+        };
+        this.init();
+    }
+    init() {
+        this.bindEvents();
+        this.calcular();
+        this.updateStepIndicator();
+    }
+
     bindEvents() {
-    document.querySelectorAll('.calculadora-container .option-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-    triggerVibration(); // 🆕 NOVA LINHA
-            const step = card.closest('.calc-step');
-            const stepOptions = step.querySelectorAll('.option-card');
-            stepOptions.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            this.updateData(card);
-            this.calcular();
-            this.updateStepIndicator();
+        // Lógica para os CARDS DE OPÇÃO
+        document.querySelectorAll('.calculadora-container .option-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                triggerVibration();
+                const step = card.closest('.calc-step');
 
-            const nextStep = document.getElementById(`step${parseInt(step.id.slice(4)) + 1}`);
-            if(nextStep) {
-                document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
-                nextStep.classList.add('active');
-                // Adiciona um pequeno atraso para a animação ser mais agradável
-                setTimeout(() => {
-                    nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            }
-        });
-    });
+                const stepOptions = step.querySelectorAll('.option-card');
+                stepOptions.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
 
-    document.querySelectorAll('.calculadora-container .step-label').forEach(label => {
-        label.addEventListener('click', (e) => {
-            const step = label.closest('.calc-step');
-            document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
-            step.classList.add('active');
-        });
-    });
+                this.updateData(card);
+                this.calcular();
+                this.updateStepIndicator();
 
-    document.getElementById('btnWhatsApp').addEventListener('click', (e) => {
-        e.preventDefault();
-        this.enviarWhatsApp();
-    });
-}
-        updateData(card) {
-            if (card.dataset.tipo) {
-                this.dados.tipo = card.dataset.tipo;
-                this.dados.preco = parseInt(card.dataset.preco);
-                this.dados.tipoLabel = card.dataset.label;
-            }
-            if (card.dataset.horas) {
-                this.dados.horas = parseInt(card.dataset.horas);
-                this.dados.horasLabel = card.dataset.label;
-            }
-            if (card.dataset.dias) {
-                this.dados.dias = parseInt(card.dataset.dias);
-                this.dados.diasLabel = card.dataset.label;
-            }
-            // Para ativar a persistência, descomente a linha abaixo
-            // this.saveState();
-        }
-        calcular() {
-            const valorMensal = this.dados.preco * this.dados.horas * this.dados.dias * 4.3;
-            document.getElementById('valorFinal').textContent = valorMensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-            document.getElementById('totalMensal').textContent = valorMensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-            document.getElementById('valorHora').textContent = this.dados.preco;
-            document.getElementById('tipoSelecionado').textContent = this.dados.tipoLabel;
-            document.getElementById('periodoSelecionado').textContent = this.dados.horasLabel;
-            document.getElementById('frequenciaSelecionada').textContent = this.dados.diasLabel;
-            const resultado = document.getElementById('resultado');
-            if (!resultado.classList.contains('visible')) {
-                setTimeout(() => {
-                    resultado.classList.add('visible');
-                }, 300);
-            }
-        }
-        updateStepIndicator() {
-            const steps = document.querySelectorAll('.calc-step');
-            steps.forEach((step, index) => {
-                const allOptionsSelected = Array.from(step.querySelectorAll('.option-card')).some(c => c.classList.contains('selected'));
-                if (allOptionsSelected) {
-                    step.classList.add('completed');
-                } else {
-                    step.classList.remove('completed');
+                const currentStepNumber = parseInt(step.id.replace('step', ''));
+                const nextStep = document.getElementById(`step${currentStepNumber + 1}`);
+
+                if (nextStep) {
+                    setTimeout(() => {
+                        step.classList.remove('active');
+                        nextStep.classList.add('active');
+                        nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
                 }
             });
+        });
+
+        // Lógica para os TÍTULOS DOS PASSOS (agora no lugar certo)
+        document.querySelectorAll('.calculadora-container .step-label').forEach(label => {
+            label.addEventListener('click', (e) => {
+                const step = label.closest('.calc-step');
+                document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
+                step.classList.add('active');
+            });
+        });
+
+        // Lógica para o BOTÃO WHATSAPP (agora no lugar certo)
+        document.getElementById('btnWhatsApp').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.enviarWhatsApp();
+        });
+    }
+
+    updateData(card) {
+        if (card.dataset.tipo) {
+            this.dados.tipo = card.dataset.tipo;
+            this.dados.preco = parseInt(card.dataset.preco);
+            this.dados.tipoLabel = card.dataset.label;
         }
-        enviarWhatsApp() {
-            const mensagem = `Olá! Usei a calculadora do site e gostaria de agendar uma avaliação com base no meu orçamento:
-            🏥 Tipo: ${this.dados.tipoLabel}
-            ⏰ Período: ${this.dados.horasLabel}
-            📅 Frequência: ${this.dados.diasLabel}
-            💰 Estimativa: R$ ${document.getElementById('totalMensal').textContent}/mês`;
-            const telefone = '5511999999999';
-            const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-            window.open(url, '_blank');
+        if (card.dataset.horas) {
+            this.dados.horas = parseInt(card.dataset.horas);
+            this.dados.horasLabel = card.dataset.label;
         }
+        if (card.dataset.dias) {
+            this.dados.dias = parseInt(card.dataset.dias);
+            this.dados.diasLabel = card.dataset.label;
+        }
+    }
+
+    calcular() {
+        const valorMensal = this.dados.preco * this.dados.horas * this.dados.dias * 4.3;
+        
+        this.animateValue("valorFinal", 0, valorMensal, 1000);
+        this.animateValue("totalMensal", 0, valorMensal, 1000);
+
+        document.getElementById('valorHora').textContent = this.dados.preco;
+        document.getElementById('tipoSelecionado').textContent = this.dados.tipoLabel;
+        document.getElementById('periodoSelecionado').textContent = this.dados.horasLabel;
+        document.getElementById('frequenciaSelecionada').textContent = this.dados.diasLabel;
+        const resultado = document.getElementById('resultado');
+        if (!resultado.classList.contains('visible')) {
+            setTimeout(() => {
+                resultado.classList.add('visible');
+                resultado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
+        }
+    }
+
+    animateValue(id, start, end, duration) {
+        const obj = document.getElementById(id);
+        if (!obj) return;
+
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const currentValue = progress * (end - start) + start;
+            obj.textContent = currentValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    updateStepIndicator() {
+        const steps = document.querySelectorAll('.calc-step');
+        steps.forEach((step, index) => {
+            const allOptionsSelected = Array.from(step.querySelectorAll('.option-card')).some(c => c.classList.contains('selected'));
+            if (allOptionsSelected) {
+                step.classList.add('completed');
+            } else {
+                step.classList.remove('completed');
+            }
+        });
+    }
+
+    enviarWhatsApp() {
+        const mensagem = `Olá! Usei a calculadora do site e gostaria de agendar uma avaliação com base no meu orçamento:
+        🏥 Tipo: ${this.dados.tipoLabel}
+        ⏰ Período: ${this.dados.horasLabel}
+        📅 Frequência: ${this.dados.diasLabel}
+        💰 Estimativa: R$ ${document.getElementById('totalMensal').textContent}/mês`;
+        const telefone = '5511999999999';
+        const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, '_blank');
+    }
+}
         // Métodos para persistência (descomentar para usar)
         // saveState() {
         //    localStorage.setItem('calculadoraData', JSON.stringify(this.dados));
