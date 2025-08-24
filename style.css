@@ -67,9 +67,9 @@ body.dark-mode {
 
     /* === MUDANÇA PRINCIPAL: Fundos mais suaves === */
     /* Usamos um cinza-escuro em vez de preto puro para o início */
-    --background-start: #1e1e20;
+    --background-start: #212121; 
     /* E um tom ainda mais escuro para o final do gradiente */
-    --background-end: #121212;
+    --background-end: #181818; 
 
     /* Componentes com cores ajustadas para a nova paleta */
     --chat-bg: #2B2B2B;
@@ -3354,11 +3354,12 @@ body.dark-mode::before {
     display: none;
 }
 
-/* 2. Deixa o cabeçalho com fundo escuro e texto legível */
+/* 2. Unifica o cabeçalho para usar as novas variáveis de fundo */
 body.dark-mode .header {
-    background: rgba(30, 30, 32, 0.85); /* Usa a cor de --background-start com transparência */
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px); /* Garante o efeito de desfoque */
+    /* Usa a nova cor de fundo com transparência para o efeito glassmorphism */
+    background: rgba(33, 33, 33, 0.85); /* Cor exata de --background-start */
+    border-bottom-color: rgba(255, 255, 255, 0.08); /* Borda um pouco mais sutil */
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
 }
 
@@ -3366,18 +3367,15 @@ body.dark-mode .nav-menu a {
     color: var(--text-secondary);
 }
 
-body.dark-mode .nav-menu a:hover {
-    color: var(--text-primary);
-}
-
+body.dark-mode .nav-menu a:hover,
 body.dark-mode .nav-menu a.active {
     color: var(--text-primary);
 }
 
-/* 3. Deixa o rodapé com fundo escuro */
+/* 3. Unifica o rodapé para usar a nova cor de fundo mais escura */
 body.dark-mode .footer {
-    background-color: #121212; /* Um preto suave */
-    border-top-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--background-end); /* Usa a nova cor final do gradiente */
+    border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 body.dark-mode .footer p {
