@@ -2008,7 +2008,7 @@ body.article-focus-mode .blog-card:not(.in-focus) {
     margin: 0 auto;
     padding: 0 2rem;
     position: relative;
-    z-index: 1;
+    /* A linha z-index: 1; foi removida daqui. */
 }
 
 .faq-item {
