@@ -3570,3 +3570,26 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
 .service-card.main-service:hover {
     border-color: var(--brand-primary-dark);
 }
+
+/* ==================== Otimização da Legibilidade do Blog ==================== */
+
+/* Aplica uma largura máxima ideal para leitura nos elementos de texto do artigo */
+.article-content p,
+.article-content ul,
+.article-content h4,
+.article-content .hydration-table {
+    max-width: 65ch; /* Limita a largura a aproximadamente 65 caracteres */
+    margin-left: auto;  /* Centra o bloco de texto */
+    margin-right: auto; /* Centra o bloco de texto */
+}
+
+/* Garante que as tabelas não quebrem o layout em telas menores */
+.article-content .hydration-table {
+    width: 100%; /* A tabela ocupará 100% da largura máxima definida acima */
+}
+
+/* Pequeno ajuste para o título não ficar "colado" no texto limitado */
+.article-content h4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
