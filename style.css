@@ -3541,3 +3541,32 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
 .success-icon.animated .checkmark-path {
     stroke-dashoffset: 0; /* "Desenha" o caminho, trazendo para a posição inicial */
 }
+
+/* ==================== Destaque do Serviço Principal ==================== */
+
+/* Adiciona uma borda sutil na cor de destaque */
+.main-service {
+    border-color: var(--brand-secondary);
+}
+
+/* Cria o selo "Mais Procurado" no canto superior direito */
+.main-service::after {
+    content: 'Mais Procurado';
+    position: absolute;
+    top: 1.5rem; /* 24px */
+    right: -2.5rem; /* -40px, para começar fora do card */
+    background-color: var(--brand-secondary);
+    color: var(--text-on-dark);
+    padding: 0.3rem 3rem; /* Espaçamento interno */
+    font-size: var(--font-xs); /* 12px */
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+    transform: rotate(45deg); /* Rotaciona o selo */
+    transform-origin: center;
+    transition: all 0.3s ease;
+}
+
+/* Efeito sutil ao passar o mouse, para não interferir na rotação 3D */
+.service-card.main-service:hover {
+    border-color: var(--brand-primary-dark);
+}
