@@ -554,63 +554,73 @@ function initCarousel() {
     const prevBtn = document.querySelector('.carousel-btn.prev-btn');
     const nextBtn = document.querySelector('.carousel-btn.next-btn');
     const wrapper = document.querySelector('.testimonial-carousel-wrapper');
-    if (!carousel || !slides.length || !prevBtn || !nextBtn || !wrapper) return;
-    
+    const dotsContainer = document.getElementById('carousel-dots'); // NOVO
+
+    if (!carousel || slides.length === 0 || !prevBtn || !nextBtn || !wrapper || !dotsContainer) return;
+
     let currentIndex = 0;
     let autoSlideInterval;
-    let isDragging = false;
-    let startPos = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
-    let slideWidth = 0;
-    
-    function setCarouselHeight() {
-        const maxSlideHeight = Math.max(...Array.from(slides).map(s => s.offsetHeight));
-        wrapper.style.height = `${maxSlideHeight}px`;
+    let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, slideWidth = 0;
+
+    // Função para criar os pontos dinamicamente
+    function createDots() {
+        dotsContainer.innerHTML = ''; // Limpa pontos existentes
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-dot');
+            dot.setAttribute('aria-label', `Ir para o depoimento ${index + 1}`);
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+            });
+            dotsContainer.appendChild(dot);
+        });
     }
 
-    function updateCarousel() {
-        if (slides.length > 0) {
-            currentTranslate = -currentIndex * slideWidth;
-            carousel.style.transform = `translateX(${currentTranslate}px)`;
-        }
+    // Função para atualizar qual ponto está ativo
+    function updateDots() {
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    // Função central para navegar para um slide
+    function goToSlide(slideIndex) {
+        currentIndex = slideIndex;
+        currentTranslate = -currentIndex * slideWidth;
+        carousel.style.transform = `translateX(${currentTranslate}px)`;
+        updateDots();
+        resetAutoSlide();
     }
     
-    function startAutoSlide() {
+    // Função para reiniciar o temporizador do auto-slide
+    function resetAutoSlide() {
         clearInterval(autoSlideInterval);
         autoSlideInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateCarousel();
+            const nextIndex = (currentIndex + 1) % slides.length;
+            goToSlide(nextIndex);
         }, 5000);
     }
     
-    window.addEventListener('resize', () => {
-        setCarouselHeight();
-        if (slides.length > 0) {
-            slideWidth = slides[0].offsetWidth;
-        }
-        updateCarousel();
-    });
-    
-    setCarouselHeight();
-    if (slides.length > 0) {
+    function setCarouselDimensions() {
         slideWidth = slides[0].offsetWidth;
+        const maxSlideHeight = Math.max(...Array.from(slides).map(s => s.offsetHeight));
+        wrapper.style.height = `${maxSlideHeight}px`;
+        goToSlide(currentIndex);
     }
 
+    // Eventos dos botões de seta
     prevBtn.addEventListener('click', () => {
-        clearInterval(autoSlideInterval);
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
-        updateCarousel();
-        startAutoSlide();
+        const prevIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
+        goToSlide(prevIndex);
     });
     
     nextBtn.addEventListener('click', () => {
-        clearInterval(autoSlideInterval);
-        currentIndex = (currentIndex + 1) % slides.length;
-        updateCarousel();
-        startAutoSlide();
+        const nextIndex = (currentIndex + 1) % slides.length;
+        goToSlide(nextIndex);
     });
-    
+
+    // Eventos de toque (touch)
     wrapper.addEventListener('touchstart', (e) => {
         isDragging = true;
         startPos = e.touches[0].clientX;
@@ -621,14 +631,13 @@ function initCarousel() {
     wrapper.addEventListener('touchend', () => {
         isDragging = false;
         const movedBy = currentTranslate - prevTranslate;
-        if (movedBy < -100) {
-            currentIndex = (currentIndex + 1) % slides.length;
+        if (movedBy < -100 && currentIndex < slides.length - 1) {
+            currentIndex++;
         }
-        if (movedBy > 100) {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
+        if (movedBy > 100 && currentIndex > 0) {
+            currentIndex--;
         }
-        updateCarousel();
-        startAutoSlide();
+        goToSlide(currentIndex);
     });
 
     wrapper.addEventListener('touchmove', (e) => {
@@ -638,7 +647,10 @@ function initCarousel() {
         carousel.style.transform = `translateX(${currentTranslate}px)`;
     });
 
-    startAutoSlide();
+    // Inicialização
+    createDots();
+    setCarouselDimensions();
+    window.addEventListener('resize', setCarouselDimensions);
 }
 
 function initBlogFilters() {
