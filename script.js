@@ -681,16 +681,21 @@ function initBlogFilters() {
         });
     });
 }
-function initBlogLinks() {
-    const sharePopup = document.getElementById('share-popup'); // Pega a referência do pop-up de partilha
 
-    // Função para fechar o modal de artigo
+function initBlogLinks() {
+    const sharePopup = document.getElementById('share-popup');
+    if (!sharePopup) return;
+
+    // Função centralizada para fechar o modal de artigo
     const closeArticleModal = () => {
         const modal = document.querySelector('.modal.article-modal');
         if (modal) {
             modal.classList.remove('visible');
+            sharePopup.classList.remove('visible'); // <-- CORREÇÃO PRINCIPAL: Esconde o pop-up ao fechar
             setTimeout(() => {
-                document.body.removeChild(modal);
+                if (document.body.contains(modal)) {
+                    document.body.removeChild(modal);
+                }
                 document.body.classList.remove('modal-open');
             }, 300);
         }
@@ -726,50 +731,32 @@ function initBlogLinks() {
             document.body.classList.add('modal-open');
 
             // ===================================================================
-            // NOVO BLOCO: LÓGICA DE PARTILHA INTEGRADA DIRETAMENTE NO MODAL
+            // LÓGICA DE PARTILHA CORRIGIDA E INTEGRADA DIRETAMENTE NO MODAL
             // ===================================================================
             let selectedText = '';
-            modalContent.addEventListener('mouseup', () => {
+            modalContent.addEventListener('mouseup', (event) => {
+                // Impede que o mouseup se propague para o container e feche o modal
+                event.stopPropagation(); 
+                
                 setTimeout(() => { // Pequeno atraso para garantir que a seleção foi registada
                     const selection = window.getSelection();
                     selectedText = selection.toString().trim();
 
-                    if (selectedText && sharePopup) {
+                    if (selectedText) {
                         const range = selection.getRangeAt(0);
                         const rect = range.getBoundingClientRect();
                         
-                        // Posiciona o pop-up acima da seleção
                         sharePopup.style.top = `${rect.top - sharePopup.offsetHeight - 10}px`;
                         sharePopup.style.left = `${rect.left + (rect.width / 2) - (sharePopup.offsetWidth / 2)}px`;
                         sharePopup.classList.add('visible');
-                    } else if (sharePopup) {
+                    } else {
                         sharePopup.classList.remove('visible');
                     }
                 }, 10);
             });
 
-            // Lógica de clique para os botões do pop-up de partilha
-            sharePopup.onclick = (event) => {
-                const shareButton = event.target.closest('button');
-                if (!shareButton) return;
-
-                const platform = shareButton.dataset.platform;
-                const articleUrl = window.location.href;
-                const quote = `"${selectedText}" - De Vó para Vó`;
-                let shareUrl = '';
-
-                if (platform === 'whatsapp') {
-                    shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
-                } else if (platform === 'linkedin') {
-                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
-                }
-
-                if (shareUrl) {
-                    window.open(shareUrl, '_blank', 'noopener,noreferrer');
-                }
-            };
-            // ===================================================================
-            // FIM DO NOVO BLOCO
+            // A lógica de clique no pop-up é gerida por um único listener fora
+            // para evitar múltiplas atribuições.
             // ===================================================================
 
             modalContainer.addEventListener('click', (event) => {
@@ -783,7 +770,33 @@ function initBlogLinks() {
             }, 50);
         });
     });
+    
+    // Listener único para os botões do pop-up de partilha
+    sharePopup.addEventListener('click', (event) => {
+        const shareButton = event.target.closest('button');
+        if (!shareButton) return;
 
+        const platform = shareButton.dataset.platform;
+        const articleUrl = window.location.href;
+        // Precisamos obter o texto selecionado de uma variável acessível
+        const selection = window.getSelection().toString().trim();
+        if (!selection) return;
+
+        const quote = `"${selection}" - De Vó para Vó`;
+        let shareUrl = '';
+
+        if (platform === 'whatsapp') {
+            shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
+        } else if (platform === 'linkedin') {
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+        }
+
+        if (shareUrl) {
+            window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        }
+    });
+
+    // Adiciona um listener para a tecla "Escape"
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
             closeArticleModal();
