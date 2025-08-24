@@ -3585,8 +3585,7 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     top: 0;
     left: 0;
     z-index: 0; /* Ficará atrás do conteúdo */
-}
-/* =================================================================== */
+
 /* ========================================================== */
 /* BLOCO FINAL E CORRIGIDO PARA O MODO FOCO DE LEITURA        */
 /* ========================================================== */
@@ -3610,7 +3609,7 @@ body.article-focus-mode {
     overflow: hidden;
 }
 
-/* O artigo em foco, com a iluminação correta */
+/* O artigo em foco, agora com a iluminação correta */
 .blog-card.in-focus {
     position: fixed;
     z-index: 1001;
