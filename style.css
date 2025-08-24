@@ -1716,6 +1716,11 @@ body.modal-open {
 /* ▼▼▼ ADICIONE O NOVO BLOCO DE CÓDIGO ABAIXO DESTA LINHA ▼▼▼ */
 
 /* Estilo do Overlay para o "Modo Foco" */
+/* ======================================== */
+/* INÍCIO DO BLOCO CORRIGIDO PARA O MODO FOCO */
+/* ======================================== */
+
+/* Estilo do Overlay (camada de fundo escura) */
 body::after {
     content: '';
     position: fixed;
@@ -1723,13 +1728,16 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 998; /* Fica abaixo do header (1000) e do card ativo */
+    background-color: rgba(0, 0, 0, 0.7); /* Um pouco mais escuro para maior contraste */
+    z-index: 998;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    
+    /* CORREÇÃO FUNCIONAL: Impede que o overlay bloqueie os cliques */
+    pointer-events: none; 
 }
 
 /* Ativa o overlay */
@@ -1738,18 +1746,24 @@ body.article-focus-mode::after {
     visibility: visible;
 }
 
-/* Eleva o card ativo para ficar acima do overlay */
-/* Eleva o card do blog ativo e corrige o problema de contraste */
+/* Eleva o card do blog ativo e garante o contraste */
 .blog-card.in-focus {
     position: relative;
     z-index: 999;
-    /* MUDANÇA PRINCIPAL: Define um fundo sólido e opaco */
-    background: var(--background-start); /* Usa a cor de fundo principal do site */
+
+    /* CORREÇÃO VISUAL: Garante um fundo 100% opaco e melhora a transição */
+    background: var(--background-start);
+    transform: scale(1.03); /* Aumenta um pouco mais para destacar */
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
     
-    /* MELHORIA ESTÉTICA: Faz o card saltar um pouco para a frente */
-    transform: scale(1.02);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2); /* Sombra mais pronunciada */
+    /* Garante que a transição seja suave */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
+/* ======================================== */
+/* FIM DO BLOCO CORRIGIDO PARA O MODO FOCO  */
+/* ======================================== */
 
 .blog-card-content .read-more-btn.hidden {
     display: none;
