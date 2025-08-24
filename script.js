@@ -683,35 +683,16 @@ function initBlogFilters() {
     });
 }
 function initBlogLinks() {
-    const progressBar = document.getElementById('readingProgressBar');
-    if (!progressBar) return;
-
-    // Função centralizada para fechar qualquer artigo que esteja aberto
-    const closeFocusedArticle = () => {
-        const focusedCard = document.querySelector('.blog-card.in-focus');
-        if (focusedCard) {
-            const content = focusedCard.querySelector('.full-article-content');
-            const button = focusedCard.querySelector('.read-more-btn');
-            const textSpan = button.querySelector('span');
-            const iconSvg = button.querySelector('svg');
-
-            // Remove as classes de foco
-            document.body.classList.remove('article-focus-mode');
-            focusedCard.classList.remove('in-focus');
-
-            // Esconde o conteúdo do artigo
-            content.classList.remove('visible');
-            button.classList.remove('expanded');
-
-            // Restaura o texto e o ícone do botão "Ler artigo"
-            textSpan.textContent = 'Ler artigo';
-            iconSvg.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
-
-            // Encontra e remove o botão "X" que foi criado
-            const closeBtn = focusedCard.querySelector('.modal-close-btn');
-            if (closeBtn) {
-                focusedCard.removeChild(closeBtn);
-            }
+    // Função para fechar o modal de artigo
+    const closeArticleModal = () => {
+        const modal = document.querySelector('.modal.article-modal');
+        if (modal) {
+            modal.classList.remove('visible');
+            // Remove o modal do corpo da página após a animação de saída
+            setTimeout(() => {
+                document.body.removeChild(modal);
+                document.body.classList.remove('modal-open'); // Libera o scroll
+            }, 300);
         }
     };
 
@@ -721,49 +702,55 @@ function initBlogLinks() {
             e.preventDefault();
             e.stopPropagation();
 
+            // 1. Encontra o conteúdo do artigo que foi clicado
             const card = button.closest('.blog-card');
-            const content = card.querySelector('.full-article-content');
-            const isOpening = !content.classList.contains('visible');
+            const articleContent = card.querySelector('.full-article-content');
+            if (!articleContent) return;
 
-            // Primeiro, fecha qualquer artigo que já esteja aberto
-            closeFocusedArticle();
+            // 2. Cria o modal usando a MESMA estrutura do "Agendar Ligação"
+            const modalContainer = document.createElement('div');
+            // Adiciona as classes .modal (para o fundo escuro) e .article-modal (para estilos específicos)
+            modalContainer.className = 'modal article-modal';
+            
+            // Cria a janela de conteúdo
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content article-modal-content';
+            modalContent.innerHTML = articleContent.innerHTML; // Copia o conteúdo
 
-            // Se a ação for para abrir um artigo, executa a lógica de abertura
-            if (isOpening) {
-                // Ativa o "Modo Foco"
-                document.body.classList.add('article-focus-mode');
-                card.classList.add('in-focus');
-                
-                // Expande o conteúdo e o botão
-                content.classList.add('visible');
-                button.classList.add('expanded');
+            // 3. Cria o botão de fechar "X"
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'modal-close-btn';
+            closeBtn.innerHTML = '×';
+            closeBtn.setAttribute('aria-label', 'Fechar artigo');
+            closeBtn.onclick = closeArticleModal;
 
-                // Altera o botão para o estado "Diminuir"
-                button.querySelector('span').textContent = 'Diminuir';
-                button.querySelector('svg').innerHTML = `<path d="m18 15-6-6-6 6"/>`;
+            // 4. Monta a estrutura final
+            modalContent.appendChild(closeBtn);
+            modalContainer.appendChild(modalContent);
+            document.body.appendChild(modalContainer);
+            document.body.classList.add('modal-open'); // Trava o scroll da página
 
-                // Cria e adiciona o botão "X" para fechar
-                const closeBtn = document.createElement('button');
-                closeBtn.className = 'modal-close-btn';
-                closeBtn.innerHTML = '×'; // Símbolo de multiplicação para o "X"
-                closeBtn.setAttribute('aria-label', 'Fechar artigo');
-                
-                // O clique no "X" chama a mesma função de fechar
-                closeBtn.onclick = closeFocusedArticle;
-                
-                card.appendChild(closeBtn);
-            }
+            // 5. Adiciona um listener para fechar ao clicar no fundo (overlay)
+            modalContainer.addEventListener('click', (event) => {
+                if (event.target === modalContainer) {
+                    closeArticleModal();
+                }
+            });
+            
+            // 6. Ativa a animação de entrada
+            setTimeout(() => {
+                modalContainer.classList.add('visible');
+            }, 50);
         });
     });
 
-    // Adiciona um listener para a tecla "Escape" para fechar o modo foco
+    // Adiciona um listener para a tecla "Escape"
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
-            closeFocusedArticle();
+            closeArticleModal();
         }
     });
 }
-
 // ==================== Funções da API Gemini ====================
 async function fetchGeminiApi(url, payload) {
     if (!API_KEY_GEMINI) {
