@@ -67,9 +67,9 @@ body.dark-mode {
 
     /* === MUDANÇA PRINCIPAL: Fundos mais suaves === */
     /* Usamos um cinza-escuro em vez de preto puro para o início */
-       --background-start: #212121; 
+    --background-start: #1e1e20;
     /* E um tom ainda mais escuro para o final do gradiente */
-        --background-end: #181818; 
+    --background-end: #121212;
 
     /* Componentes com cores ajustadas para a nova paleta */
     --chat-bg: #2B2B2B;
@@ -1793,46 +1793,37 @@ body.modal-open {
     transform: scaleY(1);
 }
 
-/* ==================== Animação de Carregamento Temática (Coração) ==================== */
-
-/* Animação de fade do esqueleto antigo (mantida para evitar erros, mas não usada) */
-@keyframes pulse-skeleton {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
-
-/* Nova animação de pulsação para o coração */
-@keyframes heart-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-
-/* Transforma o container do esqueleto no coração */
 .loading-skeleton {
     width: 100%;
-    display: none; /* Mantém o comportamento de ser escondido por padrão */
-    justify-content: center;
-    align-items: center;
-    min-height: 50px; /* Garante que o container tenha altura */
-}
-
-/* Esconde as linhas do esqueleto antigo */
-.loading-skeleton .skeleton-line {
     display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    animation: pulse-skeleton 1.5s infinite ease-in-out;
 }
 
-/* Cria o coração usando pseudo-elementos */
-.loading-skeleton::before {
-    content: '❤️';
-    font-size: 2rem; /* Tamanho do coração */
-    color: var(--brand-secondary);
-    animation: heart-pulse 1.2s infinite ease-in-out;
-    display: block;
+.skeleton-line {
+    height: 15px;
+    background-color: var(--background-end);
+    border-radius: 5px;
 }
 
-/* ==================== Estilos Relacionados Mantidos ==================== */
+.loading-skeleton .skeleton-line {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 1rem;
+    border-radius: 5px;
+}
+
+.loading-skeleton .skeleton-line:nth-child(2) {
+    width: 80%;
+}
+
+.loading-skeleton .skeleton-line:nth-child(3) {
+    width: 60%;
+}
+
+.loading-skeleton .skeleton-line:nth-child(4) {
+    width: 90%;
+}
 
 .ai-tip-container.loaded .loading-skeleton {
     display: none;
@@ -3358,19 +3349,16 @@ body.dark-mode .moon-icon {
 
 /* ==================== Ajustes e Melhorias para o Dark Mode ==================== */
 
-/* ==================== Ajustes e Melhorias para o Dark Mode ==================== */
-
 /* 1. Remove o padrão de fundo que não fica bom no escuro */
 body.dark-mode::before {
     display: none;
 }
 
-/* 2. Unifica o cabeçalho para usar as novas variáveis de fundo */
+/* 2. Deixa o cabeçalho com fundo escuro e texto legível */
 body.dark-mode .header {
-    /* Usa a nova cor de fundo com transparência para o efeito glassmorphism */
-    background: rgba(33, 33, 33, 0.85); /* Cor exata de --background-start */
-    border-bottom-color: rgba(255, 255, 255, 0.08); /* Borda um pouco mais sutil */
-    backdrop-filter: blur(15px);
+    background: rgba(30, 30, 32, 0.85); /* Usa a cor de --background-start com transparência */
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px); /* Garante o efeito de desfoque */
     -webkit-backdrop-filter: blur(15px);
 }
 
@@ -3378,15 +3366,18 @@ body.dark-mode .nav-menu a {
     color: var(--text-secondary);
 }
 
-body.dark-mode .nav-menu a:hover,
+body.dark-mode .nav-menu a:hover {
+    color: var(--text-primary);
+}
+
 body.dark-mode .nav-menu a.active {
     color: var(--text-primary);
 }
 
-/* 3. Unifica o rodapé para usar a nova cor de fundo mais escura */
+/* 3. Deixa o rodapé com fundo escuro */
 body.dark-mode .footer {
-    background-color: var(--background-end); /* Usa a nova cor final do gradiente */
-    border-top-color: rgba(255, 255, 255, 0.08);
+    background-color: #121212; /* Um preto suave */
+    border-top-color: rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode .footer p {
@@ -3603,84 +3594,3 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     padding-right: 1rem;
 }
 
-/* ==================== Consistência e Polimento dos Modais ==================== */
-
-/* Garante que o conteúdo do modal seja a referência para o botão de fechar */
-.modal-content {
-    position: relative; /* Essencial para o posicionamento do botão */
-}
-
-/* Estilo UNIFICADO para TODOS os botões de fechar dos modais */
-.modal-close-btn,
-.close-btn-chat {
-    position: absolute;
-    top: 1rem;      /* 16px */
-    right: 1.5rem;  /* 24px */
-    width: 40px;
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0.08);
-    border: none;
-    border-radius: 50%;
-    color: #333;
-    font-size: 1.5rem; /* Tamanho do 'X' */
-    line-height: 1;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10; /* Garante que fique acima do conteúdo */
-}
-
-/* Efeito de hover unificado */
-.modal-close-btn:hover,
-.close-btn-chat:hover {
-    background-color: rgba(0, 0, 0, 0.15);
-    transform: rotate(90deg);
-    color: var(--brand-primary);
-}
-
-/* Ajuste para o Dark Mode */
-body.dark-mode .modal-close-btn,
-body.dark-mode .close-btn-chat {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-on-dark);
-}
-
-body.dark-mode .modal-close-btn:hover,
-body.dark-mode .close-btn-chat:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* ==================== Estilo do Estado Vazio do Blog ==================== */
-
-.empty-state-card {
-    grid-column: 1 / -1; /* Faz o card ocupar a largura total da grade */
-    display: none; /* Dupla garantia de que começa escondido */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 4rem 2rem;
-    border-style: dashed;
-    border-width: 2px;
-}
-
-.empty-state-content h3 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.empty-state-content h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: var(--font-2xl);
-    color: var(--brand-primary-dark);
-    margin-bottom: 0.5rem;
-}
-
-.empty-state-content p {
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
-    color: var(--text-secondary);
-}
