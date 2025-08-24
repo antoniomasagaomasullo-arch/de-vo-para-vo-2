@@ -1769,21 +1769,14 @@ body.article-focus-mode::after {
 
 /* Transforma o card focado num verdadeiro modal de leitura */
 .blog-card.in-focus {
-    /* MUDANÇA PRINCIPAL: Tira o card do layout normal da página */
     position: fixed;
-    z-index: 1001; /* Fica acima de TUDO, incluindo o overlay */
-    
-    /* Centraliza o card na tela */
+    z-index: 1001;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1); /* Começa no tamanho normal */
-    
-    /* Define dimensões e limites */
+    transform: translate(-50%, -50%) scale(1);
     width: 90%;
-    max-width: 800px; /* Limita a largura em telas grandes */
-    height: 85vh; /* Ocupa 85% da altura da tela */
-    
-    /* Garante que o conteúdo interno seja rolável se for muito grande */
+    max-width: 800px;
+    height: 85vh;
     overflow-y: auto;
     
     /* Garante o contraste e a aparência */
@@ -1799,6 +1792,11 @@ body.article-focus-mode::after {
     
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
                 opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+/* NOVO: Garante que as tabelas dentro do artigo focado também tenham fundo branco */
+.blog-card.in-focus .hydration-table,
+.blog-card.in-focus .hydration-table tr:nth-child(even) {
+    background: white;
 }
 
 /* Estado inicial do card antes de entrar em foco (para a animação) */
