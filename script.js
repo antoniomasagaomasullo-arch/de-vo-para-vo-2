@@ -691,7 +691,7 @@ function initBlogLinks() {
         const modal = document.querySelector('.modal.article-modal');
         if (modal) {
             modal.classList.remove('visible');
-            sharePopup.classList.remove('visible'); // <-- CORREÇÃO PRINCIPAL: Esconde o pop-up ao fechar
+            sharePopup.classList.remove('visible'); // <-- A CORREÇÃO ESTÁ AQUI
             setTimeout(() => {
                 if (document.body.contains(modal)) {
                     document.body.removeChild(modal);
@@ -730,22 +730,15 @@ function initBlogLinks() {
             document.body.appendChild(modalContainer);
             document.body.classList.add('modal-open');
 
-            // ===================================================================
-            // LÓGICA DE PARTILHA CORRIGIDA E INTEGRADA DIRETAMENTE NO MODAL
-            // ===================================================================
-            let selectedText = '';
+            // Lógica de partilha integrada no modal
             modalContent.addEventListener('mouseup', (event) => {
-                // Impede que o mouseup se propague para o container e feche o modal
                 event.stopPropagation(); 
-                
-                setTimeout(() => { // Pequeno atraso para garantir que a seleção foi registada
+                setTimeout(() => {
                     const selection = window.getSelection();
-                    selectedText = selection.toString().trim();
-
+                    const selectedText = selection.toString().trim();
                     if (selectedText) {
                         const range = selection.getRangeAt(0);
                         const rect = range.getBoundingClientRect();
-                        
                         sharePopup.style.top = `${rect.top - sharePopup.offsetHeight - 10}px`;
                         sharePopup.style.left = `${rect.left + (rect.width / 2) - (sharePopup.offsetWidth / 2)}px`;
                         sharePopup.classList.add('visible');
@@ -755,10 +748,7 @@ function initBlogLinks() {
                 }, 10);
             });
 
-            // A lógica de clique no pop-up é gerida por um único listener fora
-            // para evitar múltiplas atribuições.
-            // ===================================================================
-
+            // Adiciona listener para fechar ao clicar no fundo
             modalContainer.addEventListener('click', (event) => {
                 if (event.target === modalContainer) {
                     closeArticleModal();
@@ -775,13 +765,10 @@ function initBlogLinks() {
     sharePopup.addEventListener('click', (event) => {
         const shareButton = event.target.closest('button');
         if (!shareButton) return;
-
         const platform = shareButton.dataset.platform;
         const articleUrl = window.location.href;
-        // Precisamos obter o texto selecionado de uma variável acessível
         const selection = window.getSelection().toString().trim();
         if (!selection) return;
-
         const quote = `"${selection}" - De Vó para Vó`;
         let shareUrl = '';
 
@@ -790,7 +777,6 @@ function initBlogLinks() {
         } else if (platform === 'linkedin') {
             shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
         }
-
         if (shareUrl) {
             window.open(shareUrl, '_blank', 'noopener,noreferrer');
         }
