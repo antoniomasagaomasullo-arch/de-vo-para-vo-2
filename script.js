@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initReadingProgress();
     initChecklist();
     initConselhoVoForm();
+    initHighlightToShare();
 });
 
 // ==================== Funções de Efeitos Visuais ====================
@@ -683,23 +684,24 @@ function initBlogFilters() {
 }
 
 function initBlogLinks() {
-    const sharePopup = document.getElementById('share-popup');
-    if (!sharePopup) return;
+    const progressBar = document.getElementById('readingProgressBar');
+    if (!progressBar) return;
 
-    // Função centralizada para fechar o modal de artigo
-    const closeArticleModal = () => {
-        const modal = document.querySelector('.modal.article-modal');
-        if (modal) {
-            modal.classList.remove('visible');
-            sharePopup.classList.remove('visible'); // <-- A CORREÇÃO PRINCIPAL ESTÁ AQUI
-            setTimeout(() => {
-                if (document.body.contains(modal)) {
-                    document.body.removeChild(modal);
-                }
-                document.body.classList.remove('modal-open');
-            }, 300);
-        }
+    let activeArticleContent = null;
+
+    // Função que calcula e atualiza a barra de progresso
+    const scrollHandler = () => {
+        if (!activeArticleContent) return;
+
+        const rect = activeArticleContent.getBoundingClientRect();
+        const progress = (-rect.top / (rect.height - window.innerHeight)) * 100;
+        const cappedProgress = Math.min(Math.max(progress, 0), 100);
+        
+        progressBar.style.width = `${cappedProgress}%`;
     };
+
+    // Adiciona o listener de scroll à janela (apenas uma vez)
+    window.addEventListener('scroll', scrollHandler, { passive: true });
 
     // Adiciona os listeners de clique a todos os botões "Ler artigo"
     document.querySelectorAll('.blog-card .read-more-btn').forEach(button => {
@@ -708,120 +710,48 @@ function initBlogLinks() {
             e.stopPropagation();
 
             const card = button.closest('.blog-card');
-            const articleContent = card.querySelector('.full-article-content');
-            if (!articleContent) return;
+            const content = card.querySelector('.full-article-content');
+            const textSpan = button.querySelector('span');
+            const iconSvg = button.querySelector('svg');
+            const isOpening = !content.classList.contains('visible');
 
-            // Cria a estrutura do modal
-            const modalContainer = document.createElement('div');
-            modalContainer.className = 'modal article-modal';
-            
-            const modalContent = document.createElement('div');
-            modalContent.className = 'modal-content article-modal-content';
-            modalContent.innerHTML = articleContent.innerHTML;
+            // Antes de fazer qualquer coisa, fecha todos os outros artigos que possam estar abertos
+            document.querySelectorAll('.full-article-content.visible').forEach(openContent => {
+                if (openContent !== content) {
+                    openContent.classList.remove('visible');
+                    const otherButton = openContent.closest('.blog-card').querySelector('.read-more-btn');
+                    const otherText = otherButton.querySelector('span');
+                    const otherIcon = otherButton.querySelector('svg');
 
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'modal-close-btn';
-            closeBtn.innerHTML = '×';
-            closeBtn.setAttribute('aria-label', 'Fechar artigo');
-            closeBtn.onclick = closeArticleModal;
-
-            modalContent.appendChild(closeBtn);
-            modalContainer.appendChild(modalContent);
-            document.body.appendChild(modalContainer);
-            document.body.classList.add('modal-open');
-
-            // Lógica de partilha integrada no modal
-            modalContent.addEventListener('mouseup', (event) => {
-                event.stopPropagation(); 
-                setTimeout(() => {
-                    const selection = window.getSelection();
-                    const selectedText = selection.toString().trim();
-                    if (selectedText) {
-                        const range = selection.getRangeAt(0);
-                        const rect = range.getBoundingClientRect();
-                        sharePopup.style.top = `${rect.top - sharePopup.offsetHeight - 10}px`;
-                        sharePopup.style.left = `${rect.left + (rect.width / 2) - (sharePopup.offsetWidth / 2)}px`;
-                        sharePopup.classList.add('visible');
-                    } else {
-                        sharePopup.classList.remove('visible');
-                    }
-                }, 10);
-            });
-
-            // Adiciona listener para fechar ao clicar no fundo
-            modalContainer.addEventListener('click', (event) => {
-                if (event.target === modalContainer) {
-                    closeArticleModal();
+                    otherButton.classList.remove('expanded');
+                    otherText.textContent = 'Ler artigo';
+                    otherIcon.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
                 }
             });
+
+            // Agora, abre ou fecha o artigo que foi clicado
+            content.classList.toggle('visible');
+            button.classList.toggle('expanded');
             
-            setTimeout(() => {
-                modalContainer.classList.add('visible');
-            }, 50);
+            // Atualiza o texto e o ícone do botão clicado
+            if (isOpening) {
+                textSpan.textContent = 'Diminuir';
+                iconSvg.innerHTML = `<path d="m18 15-6-6-6 6"/>`;
+            } else {
+                textSpan.textContent = 'Ler artigo';
+                iconSvg.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
+            }
+
+            // Finalmente, controla a visibilidade da barra de progresso
+            if (isOpening) {
+                activeArticleContent = content;
+                progressBar.classList.add('visible');
+            } else {
+                activeArticleContent = null;
+                progressBar.classList.remove('visible');
+                progressBar.style.width = '0%';
+            }
         });
-    });
-    
-    // Listener único para os botões do pop-up de partilha
-    sharePopup.addEventListener('click', (event) => {
-        const shareButton = event.target.closest('button');
-        if (!shareButton) return;
-        const platform = shareButton.dataset.platform;
-        const articleUrl = window.location.href;
-        const selection = window.getSelection().toString().trim();
-        if (!selection) return;
-        const quote = `"${selection}" - De Vó para Vó`;
-        let shareUrl = '';
-
-        if (platform === 'whatsapp') {
-            shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
-        } else if (platform === 'linkedin') {
-            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
-        }
-        if (shareUrl) {
-            window.open(shareUrl, '_blank', 'noopener,noreferrer');
-        }
-    });
-
-    // Adiciona um listener para a tecla "Escape"
-    document.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") {
-            closeArticleModal();
-        }
-    });
-}
-            
-            setTimeout(() => {
-                modalContainer.classList.add('visible');
-            }, 50);
-        });
-    });
-    
-    // Listener único para os botões do pop-up de partilha
-    sharePopup.addEventListener('click', (event) => {
-        const shareButton = event.target.closest('button');
-        if (!shareButton) return;
-        const platform = shareButton.dataset.platform;
-        const articleUrl = window.location.href;
-        const selection = window.getSelection().toString().trim();
-        if (!selection) return;
-        const quote = `"${selection}" - De Vó para Vó`;
-        let shareUrl = '';
-
-        if (platform === 'whatsapp') {
-            shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
-        } else if (platform === 'linkedin') {
-            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
-        }
-        if (shareUrl) {
-            window.open(shareUrl, '_blank', 'noopener,noreferrer');
-        }
-    });
-
-    // Adiciona um listener para a tecla "Escape"
-    document.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") {
-            closeArticleModal();
-        }
     });
 }
 
@@ -1608,6 +1538,61 @@ function initConselhoVoForm() {
         // const formData = new FormData(form);
         // const data = Object.fromEntries(formData.entries());
         // console.log("Dados a serem enviados:", data);
+    });
+}
+
+function initHighlightToShare() {
+    const sharePopup = document.getElementById('share-popup');
+    if (!sharePopup) return;
+
+    let selectedText = '';
+
+    document.addEventListener('mouseup', (e) => {
+        // Atraso para garantir que a seleção foi registrada
+        setTimeout(() => {
+            const selection = window.getSelection();
+            selectedText = selection.toString().trim();
+            const articleContent = e.target.closest('.article-content');
+
+            if (selectedText && articleContent) {
+                const range = selection.getRangeAt(0);
+                const rect = range.getBoundingClientRect();
+                
+                // Posiciona o pop-up acima da seleção
+                const top = window.scrollY + rect.top - sharePopup.offsetHeight - 10;
+                const left = window.scrollX + rect.left + (rect.width / 2) - (sharePopup.offsetWidth / 2);
+
+                sharePopup.style.top = `${top}px`;
+                sharePopup.style.left = `${left}px`;
+                sharePopup.classList.add('visible');
+            } else {
+                // Esconde se o clique for fora ou a seleção for limpa
+                sharePopup.classList.remove('visible');
+            }
+        }, 10);
+    });
+
+    sharePopup.addEventListener('click', (e) => {
+        const button = e.target.closest('button');
+        if (!button) return;
+
+        const platform = button.dataset.platform;
+        const articleUrl = window.location.href;
+        const quote = `"${selectedText}" - De Vó para Vó`;
+        let shareUrl = '';
+
+        switch (platform) {
+            case 'whatsapp':
+                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
+                break;
+            case 'linkedin':
+                 shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+                break;
+        }
+
+        if (shareUrl) {
+            window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        }
     });
 }
 
