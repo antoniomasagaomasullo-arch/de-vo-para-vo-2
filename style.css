@@ -1794,6 +1794,8 @@ body.article-focus-mode::after {
     opacity: 1;
   backdrop-filter: none;
     -webkit-backdrop-filter: none;
+        opacity: 1 !important;
+
     
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
                 opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1815,6 +1817,7 @@ body.article-focus-mode .blog-card:not(.in-focus) {
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
                 background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 
 /* ======================================== */
 /* FIM DO BLOCO CORRIGIDO PARA O MODO FOCO  */
