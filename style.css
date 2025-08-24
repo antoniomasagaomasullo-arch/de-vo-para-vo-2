@@ -1691,10 +1691,6 @@ body.modal-open {
     display: none;
 }
 
-/* ==================== Blog Section ==================== */
-/* ... (outros estilos do blog que já existem) ... */
-
-/* ESTE É O SEU CÓDIGO ATUAL - NÃO PRECISA MUDAR NADA AQUI */
 .full-article-content {
     overflow: hidden;
     max-height: 0;
@@ -1711,106 +1707,6 @@ body.modal-open {
 .blog-card-content .short-text.hidden {
     display: none;
 }
-/* FIM DO SEU CÓDIGO ATUAL */
-
-
-/* ▼▼▼ ADICIONE O NOVO BLOCO DE CÓDIGO ABAIXO DESTA LINHA ▼▼▼ */
-
-/* Estilo do Overlay para o "Modo Foco" */
-/* ======================================== */
-/* INÍCIO DO BLOCO CORRIGIDO PARA O MODO FOCO */
-/* ======================================== */
-
-/* Estilo do Overlay (camada de fundo escura) */
-/* ================================================================ */
-/* INÍCIO DO BLOCO FINAL E DEFINITIVO PARA O MODO FOCO              */
-/* ================================================================ */
-
-/* Overlay (camada de fundo) - Praticamente inalterado */
-/* Overlay (camada de fundo) - Corrigido */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(30, 30, 30, 0.7);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease;
-    /* As duas linhas de backdrop-filter foram REMOVIDAS daqui */
-    pointer-events: none; 
-}
-
-/* Ativa o overlay e impede o scroll da página de fundo */
-body.article-focus-mode {
-    overflow: hidden; /* Impede que o body role por baixo do artigo */
-}
-body.article-focus-mode::after {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Transforma o card focado num verdadeiro modal de leitura */
-.blog-card.in-focus {
-    position: fixed;
-    z-index: 1001;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    width: 90%;
-    max-width: 800px;
-    height: 85vh;
-    overflow-y: auto;
-    
-    /* Garante o contraste e a aparência */
-    background: white;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    
-    /* Animação suave de entrada */
-    opacity: 1;
-  backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-        opacity: 1 !important;
-
-    
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-/* NOVO: Garante que as tabelas dentro do artigo focado também tenham fundo branco */
-.blog-card.in-focus .hydration-table,
-.blog-card.in-focus .hydration-table tr:nth-child(even) {
-    background: white;
-}
-
-/* Estado inicial do card antes de entrar em foco (para a animação) */
-.blog-card {
-    /* ... (seus estilos existentes para .blog-card) ... */
-    /* Adicionamos opacity e transform aqui para animar a sua "saída" e "entrada" */
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-body.article-focus-mode .blog-card:not(.in-focus) {
-    /* Esconde os outros cards que não estão em foco */
-    opacity: 0;
-    pointer-events: none;
-}
-    
-    /* Garante que a transição seja suave */
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-
-/* ======================================== */
-/* FIM DO BLOCO CORRIGIDO PARA O MODO FOCO  */
-/* ======================================== */
-
-.blog-card-content .read-more-btn.hidden {
-    display: none;
-}
-
 .article-content h4 {
     font-family: 'Playfair Display', serif;
     font-size: var(--font-lg);
@@ -3585,7 +3481,7 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     top: 0;
     left: 0;
     z-index: 0; /* Ficará atrás do conteúdo */
-
+}
 /* ========================================================== */
 /* BLOCO FINAL E CORRIGIDO PARA O MODO FOCO DE LEITURA        */
 /* ========================================================== */
