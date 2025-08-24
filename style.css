@@ -67,9 +67,9 @@ body.dark-mode {
 
     /* === MUDANÇA PRINCIPAL: Fundos mais suaves === */
     /* Usamos um cinza-escuro em vez de preto puro para o início */
-    --background-start: #1e1e20;
+       --background-start: #212121; 
     /* E um tom ainda mais escuro para o final do gradiente */
-    --background-end: #121212;
+        --background-end: #181818; 
 
     /* Componentes com cores ajustadas para a nova paleta */
     --chat-bg: #2B2B2B;
