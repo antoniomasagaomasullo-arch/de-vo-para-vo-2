@@ -9,7 +9,7 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="reading-progress-bar" id="readingProgressBar"></div> <button class="chatbot-toggler" id="chatbotTogglerBtn" aria-label="Abrir chat de dúvidas">
@@ -24,8 +24,14 @@
     </div>
     
     <div class="nav-overlay" id="navOverlay"></div>
-    <button class="back-to-top" id="backToTopBtn" aria-label="Voltar ao topo">↑</button>
-
+    
+    <div class="back-to-top" id="backToTopBtn" role="button" tabindex="0" aria-label="Voltar ao topo">
+        <svg class="progress-ring" width="100%" height="100%" viewBox="0 0 120 120">
+            <circle class="progress-ring__circle progress-ring__circle--bg" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+            <circle class="progress-ring__circle progress-ring__circle--progress" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+        </svg>
+        <span>↑</span>
+    </div>
     <header class="header reveal">
         <div class="nav-container">
             <div class="logo">
