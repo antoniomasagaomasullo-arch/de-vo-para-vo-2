@@ -326,8 +326,22 @@ function updateValidationIcons(inputElement, isValid) {
     const successIcon = parent.querySelector('.success-icon');
     const errorIcon = parent.querySelector('.error-icon');
 
-    if (successIcon) successIcon.style.display = isValid ? 'inline' : 'none';
-    if (errorIcon) errorIcon.style.display = isValid === false ? 'inline' : 'none';
+    if (successIcon) {
+        if (isValid) {
+            successIcon.style.display = 'inline';
+            // Força um reflow para garantir que a animação reinicie
+            successIcon.classList.remove('animated');
+            void successIcon.offsetWidth; 
+            successIcon.classList.add('animated');
+        } else {
+            successIcon.style.display = 'none';
+            successIcon.classList.remove('animated');
+        }
+    }
+    
+    if (errorIcon) {
+        errorIcon.style.display = isValid === false ? 'inline' : 'none';
+    }
 }
 
 function initFormHandlers() {
