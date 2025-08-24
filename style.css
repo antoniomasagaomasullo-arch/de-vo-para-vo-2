@@ -3527,3 +3527,17 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     transform: rotate(90deg);
     color: var(--brand-primary);
 }
+
+/* ==================== Animação de Validação de Formulário ==================== */
+
+/* Prepara o ícone para a animação */
+.success-icon .checkmark-path {
+    stroke-dasharray: 50;  /* Comprimento total do caminho do ícone */
+    stroke-dashoffset: 50; /* Esconde o caminho, começando do final */
+    transition: stroke-dashoffset 0.5s cubic-bezier(0.65, 0, 0.45, 1); /* Animação suave */
+}
+
+/* Estado ativado da animação */
+.success-icon.animated .checkmark-path {
+    stroke-dashoffset: 0; /* "Desenha" o caminho, trazendo para a posição inicial */
+}
