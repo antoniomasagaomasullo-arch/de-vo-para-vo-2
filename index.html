@@ -520,17 +520,28 @@
                     <button class="blog-filter-btn" data-filter="saude-mental" aria-pressed="false">Saúde Mental</button>
                     <button class="blog-filter-btn" data-filter="apoio-ortopedico" aria-pressed="false">Apoio Ortopédico</button>
                 </div>
-                <div class="blog-grid">
-                    <div class="blog-card reveal delay-1 glassmorphism" data-tag="hidratacao">
-                        <img src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso bebendo água" class="blog-card-image" loading="lazy">
-                        <div class="blog-card-content">
-                            <div class="blog-card-header">
-                                <span class="blog-card-tag">Hidratação</span>
-                                <div class="blog-card-info">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                                    <span>5 min leitura</span>
-                                </div>
-                            </div>
+             <div class="blog-grid">
+    <div class="blog-card empty-state-card" id="empty-state-card" style="display: none;">
+        <div class="empty-state-content">
+            <h3>🤔</h3>
+            <h4>Nenhum artigo encontrado</h4>
+            <p>Parece que ainda não escrevemos sobre este tópico. Que tal ver todos os nossos artigos?</p>
+            <button class="cta-button" id="show-all-articles-btn">Ver todos os artigos</button>
+        </div>
+    </div>
+    <div class="blog-card reveal delay-1 glassmorphism" data-tag="hidratacao">
+        <img src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto de um idoso bebendo água" class="blog-card-image" loading="lazy">
+        <div class="blog-card-content">
+            <div class="blog-card-header">
+                <span class="blog-card-tag">Hidratação</span>
+                <div class="blog-card-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <span>5 min leitura</span>
+                </div>
+            </div>
+            </div>
+    </div>
+    </div>
                             <h3>A importância da hidratação para idosos</h3>
                             <p class="short-text">Manter-se hidratado é crucial na terceira idade. A sensação de sede diminui, o que pode levar à desidratação sem que a pessoa perceba. Entenda a importância da hidratação e como incentivá-la no dia a dia.</p>
                             <div class="full-article-content">
