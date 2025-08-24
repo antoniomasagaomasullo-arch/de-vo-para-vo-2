@@ -686,21 +686,34 @@ function initBlogLinks() {
     const progressBar = document.getElementById('readingProgressBar');
     if (!progressBar) return;
 
-    let activeArticleContent = null;
+    // Função centralizada para fechar qualquer artigo que esteja aberto
+    const closeFocusedArticle = () => {
+        const focusedCard = document.querySelector('.blog-card.in-focus');
+        if (focusedCard) {
+            const content = focusedCard.querySelector('.full-article-content');
+            const button = focusedCard.querySelector('.read-more-btn');
+            const textSpan = button.querySelector('span');
+            const iconSvg = button.querySelector('svg');
 
-    // Função que calcula e atualiza a barra de progresso
-    const scrollHandler = () => {
-        if (!activeArticleContent) return;
+            // Remove as classes de foco
+            document.body.classList.remove('article-focus-mode');
+            focusedCard.classList.remove('in-focus');
 
-        const rect = activeArticleContent.getBoundingClientRect();
-        const progress = (-rect.top / (rect.height - window.innerHeight)) * 100;
-        const cappedProgress = Math.min(Math.max(progress, 0), 100);
-        
-        progressBar.style.width = `${cappedProgress}%`;
+            // Esconde o conteúdo do artigo
+            content.classList.remove('visible');
+            button.classList.remove('expanded');
+
+            // Restaura o texto e o ícone do botão "Ler artigo"
+            textSpan.textContent = 'Ler artigo';
+            iconSvg.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
+
+            // Encontra e remove o botão "X" que foi criado
+            const closeBtn = focusedCard.querySelector('.modal-close-btn');
+            if (closeBtn) {
+                focusedCard.removeChild(closeBtn);
+            }
+        }
     };
-
-    // Adiciona o listener de scroll à janela (apenas uma vez)
-    window.addEventListener('scroll', scrollHandler, { passive: true });
 
     // Adiciona os listeners de clique a todos os botões "Ler artigo"
     document.querySelectorAll('.blog-card .read-more-btn').forEach(button => {
@@ -710,54 +723,44 @@ function initBlogLinks() {
 
             const card = button.closest('.blog-card');
             const content = card.querySelector('.full-article-content');
-            const textSpan = button.querySelector('span');
-            const iconSvg = button.querySelector('svg');
             const isOpening = !content.classList.contains('visible');
 
-            // Antes de fazer qualquer coisa, fecha todos os outros artigos que possam estar abertos
-            document.querySelectorAll('.full-article-content.visible').forEach(openContent => {
-                if (openContent !== content) {
-                    const otherCard = openContent.closest('.blog-card'); // MODIFICADO: Guarda a referência ao outro card
-                    otherCard.classList.remove('in-focus'); // NOVO: Remove o foco do outro card
+            // Primeiro, fecha qualquer artigo que já esteja aberto
+            closeFocusedArticle();
 
-                    openContent.classList.remove('visible');
-                    const otherButton = otherCard.querySelector('.read-more-btn'); // MODIFICADO: Usa a referência
-                    const otherText = otherButton.querySelector('span');
-                    const otherIcon = otherButton.querySelector('svg');
-
-                    otherButton.classList.remove('expanded');
-                    otherText.textContent = 'Ler artigo';
-                    iconSvg.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
-                }
-            });
-            
-            // NOVO BLOCO: Adiciona ou remove as classes de foco
-            document.body.classList.toggle('article-focus-mode', isOpening);
-            card.classList.toggle('in-focus', isOpening);
-
-            // Agora, abre ou fecha o artigo que foi clicado
-            content.classList.toggle('visible');
-            button.classList.toggle('expanded');
-            
-            // Atualiza o texto e o ícone do botão clicado
+            // Se a ação for para abrir um artigo, executa a lógica de abertura
             if (isOpening) {
-                textSpan.textContent = 'Diminuir';
-                iconSvg.innerHTML = `<path d="m18 15-6-6-6 6"/>`;
-            } else {
-                textSpan.textContent = 'Ler artigo';
-                iconSvg.innerHTML = `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`;
-            }
+                // Ativa o "Modo Foco"
+                document.body.classList.add('article-focus-mode');
+                card.classList.add('in-focus');
+                
+                // Expande o conteúdo e o botão
+                content.classList.add('visible');
+                button.classList.add('expanded');
 
-            // Finalmente, controla a visibilidade da barra de progresso
-            if (isOpening) {
-                activeArticleContent = content;
-                progressBar.classList.add('visible');
-            } else {
-                activeArticleContent = null;
-                progressBar.classList.remove('visible');
-                progressBar.style.width = '0%';
+                // Altera o botão para o estado "Diminuir"
+                button.querySelector('span').textContent = 'Diminuir';
+                button.querySelector('svg').innerHTML = `<path d="m18 15-6-6-6 6"/>`;
+
+                // Cria e adiciona o botão "X" para fechar
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'modal-close-btn';
+                closeBtn.innerHTML = '×'; // Símbolo de multiplicação para o "X"
+                closeBtn.setAttribute('aria-label', 'Fechar artigo');
+                
+                // O clique no "X" chama a mesma função de fechar
+                closeBtn.onclick = closeFocusedArticle;
+                
+                card.appendChild(closeBtn);
             }
         });
+    });
+
+    // Adiciona um listener para a tecla "Escape" para fechar o modo foco
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            closeFocusedArticle();
+        }
     });
 }
 
