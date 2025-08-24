@@ -1736,6 +1736,11 @@ body.modal-open {
 /* ======================================== */
 
 /* Estilo do Overlay (camada de fundo escura) */
+/* ================================================================ */
+/* INÍCIO DO BLOCO FINAL E DEFINITIVO PARA O MODO FOCO              */
+/* ================================================================ */
+
+/* Overlay (camada de fundo) - Praticamente inalterado */
 body::after {
     content: '';
     position: fixed;
@@ -1743,36 +1748,65 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(30, 30, 30, 0.7); /* Fundo escuro */
-    z-index: 998;
+    background-color: rgba(30, 30, 30, 0.7);
+    z-index: 1000; /* Aumentamos para garantir que fica acima de tudo, menos do modal */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    
-    /* Resolve o problema de "ficar preso" */
     pointer-events: none; 
 }
 
-/* Ativa o overlay */
+/* Ativa o overlay e impede o scroll da página de fundo */
+body.article-focus-mode {
+    overflow: hidden; /* Impede que o body role por baixo do artigo */
+}
 body.article-focus-mode::after {
     opacity: 1;
     visibility: visible;
 }
 
-/* Destaca o card ativo, tornando-o 100% opaco */
+/* Transforma o card focado num verdadeiro modal de leitura */
 .blog-card.in-focus {
-    position: relative;
-    z-index: 999;
-    background: white; /* Fundo 100% branco para contraste máximo */
-    transform: scale(1.03);
+    /* MUDANÇA PRINCIPAL: Tira o card do layout normal da página */
+    position: fixed;
+    z-index: 1001; /* Fica acima de TUDO, incluindo o overlay */
+    
+    /* Centraliza o card na tela */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1); /* Começa no tamanho normal */
+    
+    /* Define dimensões e limites */
+    width: 90%;
+    max-width: 800px; /* Limita a largura em telas grandes */
+    height: 85vh; /* Ocupa 85% da altura da tela */
+    
+    /* Garante que o conteúdo interno seja rolável se for muito grande */
+    overflow-y: auto;
+    
+    /* Garante o contraste e a aparência */
+    background: white;
     box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    
+    /* Animação suave de entrada */
+    opacity: 1;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ================================================================= */
-/* FIM DO NOVO BLOCO CORRIGIDO                                       */
-/* ================================================================= */
+/* Estado inicial do card antes de entrar em foco (para a animação) */
+.blog-card {
+    /* ... (seus estilos existentes para .blog-card) ... */
+    /* Adicionamos opacity e transform aqui para animar a sua "saída" e "entrada" */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+body.article-focus-mode .blog-card:not(.in-focus) {
+    /* Esconde os outros cards que não estão em foco */
+    opacity: 0;
+    pointer-events: none;
+}
     
     /* Garante que a transição seja suave */
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
