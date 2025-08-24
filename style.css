@@ -3483,57 +3483,27 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     z-index: 0; /* Ficará atrás do conteúdo */
 }
 /* ========================================================== */
-/* BLOCO FINAL E CORRIGIDO PARA O MODO FOCO DE LEITURA        */
+/* BLOCO DEFINITIVO PARA O MODAL DE LEITURA DO BLOG (V4)      */
 /* ========================================================== */
 
-/* Camada escura de fundo (Overlay) */
-body.article-focus-mode::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(30, 30, 30, 0.8);
-    z-index: 1000;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-}
-
-/* Trava o scroll da página quando em modo foco */
-body.article-focus-mode {
-    overflow: hidden;
-}
-
-/* O artigo em foco, agora com a iluminação correta */
-.blog-card.in-focus {
-    position: fixed;
-    z-index: 1001;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* Estilos específicos para o conteúdo do modal do artigo */
+.article-modal-content {
+    /* Reutiliza o estilo base do .modal-content mas com dimensões maiores */
     width: 90%;
     max-width: 800px;
     height: 85vh;
-    overflow-y: auto;
-    
-    /* A ILUMINAÇÃO CORRETA: Fundo 100% branco e sombra de destaque */
-    background: white !important;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-
-    /* Remove qualquer efeito de vidro que possa ter sido herdado */
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    overflow-y: auto; /* Permite scroll se o conteúdo for longo */
+    padding: 3rem 2.5rem; /* Mais espaço interno */
 }
 
 /* Garante que tabelas dentro do artigo focado também fiquem opacas */
-.blog-card.in-focus .hydration-table,
-.blog-card.in-focus .hydration-table tr:nth-child(even) {
+.article-modal-content .hydration-table,
+.article-modal-content .hydration-table tr:nth-child(even) {
     background: white;
 }
 
 /* Estilo do botão "X" para fechar */
-.modal-close-btn {
+.article-modal-content .modal-close-btn {
     position: absolute;
     top: 1rem;
     right: 1.5rem;
@@ -3552,7 +3522,7 @@ body.article-focus-mode {
     transition: all 0.3s ease;
 }
 
-.modal-close-btn:hover {
+.article-modal-content .modal-close-btn:hover {
     background-color: rgba(0, 0, 0, 0.15);
     transform: rotate(90deg);
     color: var(--brand-primary);
