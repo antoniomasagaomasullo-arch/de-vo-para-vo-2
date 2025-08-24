@@ -658,20 +658,22 @@ body.modal-open {
 .back-to-top {
     position: fixed;
     bottom: 2rem;
-   left: 2rem;
+    left: 2rem;
     width: 50px;
     height: 50px;
-    background-color: var(--brand-primary);
-    color: var(--text-on-dark);
+    background-color: transparent; /* ANTES: Tinha cor de fundo */
     border: none;
     border-radius: 50%;
-    font-size: 1.5rem;
     cursor: pointer;
     box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
     z-index: 900;
     opacity: 0;
     visibility: hidden;
+    /* Novas propriedades para centralizar a seta */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .back-to-top.visible {
@@ -680,10 +682,37 @@ body.modal-open {
     transform: translateY(0);
 }
 
-.back-to-top:hover {
-    background-color: var(--brand-primary-dark);
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+/* Novas regras para o SVG e a seta */
+.back-to-top span {
+    position: absolute;
+    color: var(--brand-primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.back-to-top:hover span {
+    color: var(--brand-primary-dark);
+}
+
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg); /* Faz o anel começar a preencher a partir do topo */
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.1s linear;
+}
+
+.progress-ring__circle--bg {
+    stroke: rgba(0, 0, 0, 0.1); /* Cor do anel de fundo */
+}
+
+.progress-ring__circle--progress {
+    stroke: var(--brand-primary); /* Cor do progresso */
+    stroke-linecap: round; /* Pontas arredondadas */
 }
 
 /* ==================== Hero Section ==================== */
