@@ -691,7 +691,7 @@ function initBlogLinks() {
         const modal = document.querySelector('.modal.article-modal');
         if (modal) {
             modal.classList.remove('visible');
-            sharePopup.classList.remove('visible'); // <-- A CORREÇÃO ESTÁ AQUI
+            sharePopup.classList.remove('visible'); // <-- A CORREÇÃO PRINCIPAL ESTÁ AQUI
             setTimeout(() => {
                 if (document.body.contains(modal)) {
                     document.body.removeChild(modal);
@@ -754,6 +754,41 @@ function initBlogLinks() {
                     closeArticleModal();
                 }
             });
+            
+            setTimeout(() => {
+                modalContainer.classList.add('visible');
+            }, 50);
+        });
+    });
+    
+    // Listener único para os botões do pop-up de partilha
+    sharePopup.addEventListener('click', (event) => {
+        const shareButton = event.target.closest('button');
+        if (!shareButton) return;
+        const platform = shareButton.dataset.platform;
+        const articleUrl = window.location.href;
+        const selection = window.getSelection().toString().trim();
+        if (!selection) return;
+        const quote = `"${selection}" - De Vó para Vó`;
+        let shareUrl = '';
+
+        if (platform === 'whatsapp') {
+            shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(quote + '\n\nLeia mais em: ' + articleUrl)}`;
+        } else if (platform === 'linkedin') {
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
+        }
+        if (shareUrl) {
+            window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        }
+    });
+
+    // Adiciona um listener para a tecla "Escape"
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            closeArticleModal();
+        }
+    });
+}
             
             setTimeout(() => {
                 modalContainer.classList.add('visible');
