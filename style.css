@@ -1690,6 +1690,10 @@ body.modal-open {
     display: none;
 }
 
+/* ==================== Blog Section ==================== */
+/* ... (outros estilos do blog que já existem) ... */
+
+/* ESTE É O SEU CÓDIGO ATUAL - NÃO PRECISA MUDAR NADA AQUI */
 .full-article-content {
     overflow: hidden;
     max-height: 0;
@@ -1705,6 +1709,39 @@ body.modal-open {
 
 .blog-card-content .short-text.hidden {
     display: none;
+}
+/* FIM DO SEU CÓDIGO ATUAL */
+
+
+/* ▼▼▼ ADICIONE O NOVO BLOCO DE CÓDIGO ABAIXO DESTA LINHA ▼▼▼ */
+
+/* Estilo do Overlay para o "Modo Foco" */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 998; /* Fica abaixo do header (1000) e do card ativo */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+/* Ativa o overlay */
+body.article-focus-mode::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Eleva o card ativo para ficar acima do overlay */
+.blog-card.in-focus {
+    position: relative;
+    z-index: 999;
 }
 
 .blog-card-content .read-more-btn.hidden {
