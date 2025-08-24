@@ -722,6 +722,7 @@ function initBlogLinks() {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
+            triggerVibration();
 
             const card = button.closest('.blog-card');
             const content = card.querySelector('.full-article-content');
@@ -820,6 +821,7 @@ function initAITipGenerators() {
         const audioBtn = card.querySelector('.audio-btn');
 
         button.addEventListener('click', async () => {
+            triggerVibration();
             const topic = button.getAttribute('data-topic');
             aiTipText.textContent = '';
             aiTipContainer.classList.add('visible');
@@ -1359,6 +1361,7 @@ function initAgendamentoLigacao() {
     if (formAgendamentoLigacao) {
         formAgendamentoLigacao.addEventListener('submit', (e) => {
             e.preventDefault();
+            triggerVibration();
             const formData = new FormData(formAgendamentoLigacao);
             const nome = formData.get('nome');
             const telefone = formData.get('telefone');
