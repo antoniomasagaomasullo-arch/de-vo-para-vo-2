@@ -3805,3 +3805,27 @@ body.dark-mode .close-btn-chat:hover {
     border-color: var(--validation-error);
 }
 
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100vh) rotateZ(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotateZ(360deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background-color: var(--brand-secondary);
+    opacity: 0;
+    z-index: 10000; /* Garante que fique sobre todos os elementos */
+    pointer-events: none; /* Impede que o confete bloqueie cliques */
+    animation: confetti-fall 4s linear forwards;
+}
+
