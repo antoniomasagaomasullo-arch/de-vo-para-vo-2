@@ -614,3 +614,31 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 .export-btn:hover svg {
     transform: translateY(2px);
 }
+
+/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
+
+/* Estilos para o Seletor de Tags */
+.tag-selector {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.tag-selector input[type="checkbox"] {
+    display: none;
+}
+.tag-selector span {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--diary-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #fdfdfd;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--diary-secondary-text);
+}
+.tag-selector input[type="checkbox"]:checked + span {
+    background-color: var(--diary-primary-text);
+    border-color: var(--diary-primary-text);
+    color: white;
+}
