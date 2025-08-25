@@ -1028,6 +1028,8 @@ const quickReplyAnswers = {
     "Qual o diferencial da empresa?": "Nosso grande diferencial é o carinho! ❤️ Todos os nossos profissionais são treinados na prática em nossa própria casa, cuidando da nossa avó, Dona Tereca. Assim, garantimos que eles cuidem dos nossos clientes como se fossem da nossa própria família."
 };
 
+// SUGESTÃO: Substitua toda a sua função initChatbot no script.js por esta versão aprimorada.
+
 function initChatbot() {
     const chatbotTogglerBtn = document.getElementById('chatbotTogglerBtn');
     const chatbotModal = document.getElementById('chatbotModal');
@@ -1037,11 +1039,37 @@ function initChatbot() {
     const sendBtn = document.getElementById('sendBtn');
     const quickRepliesContainer = document.getElementById('quickReplies');
 
-    const initialMessage = "Olá! Como posso te ajudar? 👋";
+    // Mapeamento de seções para saudações personalizadas
+    const contextualGreetings = {
+        'servicos': "Olá! Vi que você está explorando nossos serviços. Gostaria de detalhes sobre as cuidadoras ou algum outro cuidado específico? 🏡",
+        'calculadora': "Olá! Usando nossa calculadora de orçamento? Se tiver qualquer dúvida sobre os valores ou como funciona, é só perguntar! 💰",
+        'blog': "Olá! Que bom ver seu interesse em nossas dicas de cuidado. Há algum tópico do blog sobre o qual você gostaria de conversar? 📚",
+        'default': "Olá! Como posso te ajudar hoje? 👋"
+    };
+
+    // Função para descobrir qual seção está mais visível
+    const getActiveSection = () => {
+        let activeSectionId = 'default';
+        let maxVisibleArea = 0;
+        document.querySelectorAll('section[id]').forEach(section => {
+            const rect = section.getBoundingClientRect();
+            // Calcula a área visível da seção na tela
+            const visibleArea = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+            if (visibleArea > maxVisibleArea) {
+                maxVisibleArea = visibleArea;
+                activeSectionId = section.id;
+            }
+        });
+        return activeSectionId;
+    };
     
     // Mostra a mensagem inicial e as opções rápidas
     const showInitialState = () => {
         chatbox.innerHTML = '';
+        const activeSection = getActiveSection();
+        // Escolhe a saudação com base na seção ativa, ou usa a padrão
+        const initialMessage = contextualGreetings[activeSection] || contextualGreetings['default'];
+        
         appendMessage(initialMessage, 'ai');
         quickRepliesContainer.style.display = 'block';
     };
@@ -1052,11 +1080,11 @@ function initChatbot() {
             triggerVibration(); 
             chatbotModal.classList.add('visible');
             document.body.classList.add('modal-open');
-            showInitialState();
+            showInitialState(); // Agora esta função é inteligente!
         });
     }
 
-    // Lógica para fechar o chat
+    // Lógica para fechar o chat (inalterada)
     if (closeChatBtn) {
         closeChatBtn.addEventListener('click', () => {
             chatbotModal.classList.remove('visible');
@@ -1064,7 +1092,7 @@ function initChatbot() {
         });
     }
     
-    // Lógica para enviar mensagem digitada
+    // Lógica para enviar mensagem (inalterada)
     if (sendBtn) {
         sendBtn.addEventListener('click', handleUserMessage);
     }
@@ -1076,17 +1104,14 @@ function initChatbot() {
         });
     }
 
-    // Lógica para os botões de resposta rápida
-if (quickRepliesContainer) {
+    // Lógica para os botões de resposta rápida (inalterada)
+    if (quickRepliesContainer) {
         quickRepliesContainer.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON') {
                 const question = e.target.dataset.question;
                 const answer = quickReplyAnswers[question];
-                
                 quickRepliesContainer.style.display = 'none';
-                
                 appendMessage(question, 'user');
-                
                 setTimeout(() => {
                     appendMessage(answer, 'ai');
                     setTimeout(() => {
