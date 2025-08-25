@@ -416,3 +416,34 @@
         grid-template-columns: 1fr; /* Coluna única em telas pequenas */
     }
 }
+
+/* diario.css */
+/* Estilos para os campos de edição do Perfil de Saúde */
+.item-input {
+    display: none; /* Escondido por padrão */
+    width: 100%;
+    font-size: var(--font-base);
+    color: var(--text-secondary);
+    border: 1px solid var(--soft-gray);
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+}
+
+.item-input:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+}
+
+textarea.item-input {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* Quando o container estiver no modo de edição */
+.profile-grid.editing .item-value {
+    display: none; /* Esconde o texto de visualização */
+}
+
+.profile-grid.editing .item-input {
+    display: block; /* Mostra o campo de edição */
+}
