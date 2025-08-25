@@ -153,17 +153,36 @@ body {
     display: inline-block;
 }
 .emoji-selector p { font-size: var(--font-sm); margin-top: 0.25rem; color: var(--diary-secondary-text); }
-.emoji-selector input:checked + span { transform: scale(1.2); background-color: var(--diary-accent-peach); }
+.emoji-selector input:checked + span {
+    transform: scale(1.2);
+    background-color: var(--diary-accent-peach); /* << USA A NOVA COR DE DESTAQUE */
+}
 
+/* Seletor de Toggle e Checkbox */
 .toggle-selector span, .checkbox-selector span {
-    padding: 0.75rem 1.5rem; border: 1px solid var(--diary-border);
-    border-radius: 30px; cursor: pointer; transition: all 0.2s ease;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--diary-border);
+    border-radius: 10px; /* << BORDAS MENOS ARREDONDADAS, COMO ETIQUETAS */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #fdfdfd; /* Fundo um pouco diferente */
+    font-weight: 500;
 }
-.toggle-selector input:checked + span, .checkbox-selector input:checked + span {
-    background-color: var(--diary-primary-text); border-color: var(--diary-primary-text);
-    color: white; box-shadow: var(--shadow-sm);
+.toggle-selector input:checked + span,
+.checkbox-selector input[type="checkbox"]:checked + span {
+    background-color: var(--diary-accent-green); /* << USA A COR VERDE PASTEL */
+    border-color: var(--diary-accent-green);
+    color: var(--diary-primary-text); /* << TEXTO ESCURO PARA MELHOR LEITURA */
+    box-shadow: none; /* Remove a sombra para um look mais "flat" */
 }
 
+/* Ajuste no botão principal para usar a nova paleta */
+.submit-btn {
+    background-color: var(--diary-primary-text);
+}
+.submit-btn:hover {
+    background-color: #2a251d; /* Tom de sépia ainda mais escuro */
+}
 /* Sinais Vitais */
 .vital-signs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .input-group label { font-size: var(--font-sm); font-weight: 500 !important; margin-bottom: 0.5rem !important; }
