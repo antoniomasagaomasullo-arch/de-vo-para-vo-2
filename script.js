@@ -1540,25 +1540,91 @@ function initChecklist() {
 }
 
 // ==================== Lógica do Formulário "Conselho de Vó" ====================
+// ... código anterior
+
+const sampleTributes = [
+    {
+        conselho: "A vida é como uma horta, o que plantamos hoje, colhemos amanhã. Cultive o amor e a paciência.",
+        nomeVo: "Dona Maria",
+        seuNome: "Clara G."
+    },
+    {
+        conselho: "O melhor remédio é um bom abraço e um café quentinho. Nunca economize nos dois!",
+        nomeVo: "Vó Lúcia",
+        seuNome: "José P."
+    },
+    {
+        conselho: "Envelhecer é como subir uma montanha; quanto mais alto, mais a paisagem se abre.",
+        nomeVo: "Vovô João",
+        seuNome: "Ana S."
+    }
+];
+
 function initConselhoVoForm() {
     const form = document.getElementById('formConselhoVo');
     const successMessage = document.getElementById('submissionSuccessMessage');
-
-    if (!form) return;
+    const conselhosGrid = document.getElementById('conselhosGrid');
+    
+    if (!form || !conselhosGrid) return;
+    
+    // NOVO: Renderiza os conselhos de exemplo ao carregar a página
+    renderTributes(sampleTributes);
 
     form.addEventListener('submit', function(e) {
         e.preventDefault(); // Impede o envio real do formulário
         triggerVibration();
 
+        const conselho = document.getElementById('conselhoVo').value;
+        const nomeVo = document.getElementById('nomeVo').value;
+        const seuNome = document.getElementById('seuNome').value;
+
+        // NOVO: Cria e adiciona o novo card de homenagem à galeria
+        const newTribute = { conselho, nomeVo, seuNome };
+        renderTributes([newTribute], true); // Adiciona o novo no início da lista
+
         // Esconde o formulário e mostra a mensagem de sucesso
         form.style.display = 'none';
         successMessage.style.display = 'block';
 
-        // Opcional: em um projeto real, aqui você enviaria os dados para um servidor.
-        // const formData = new FormData(form);
-        // const data = Object.fromEntries(formData.entries());
-        // console.log("Dados a serem enviados:", data);
+        // Reseta o formulário para a próxima vez
+        form.reset();
+        
+        // Em um projeto real, aqui você enviaria os dados para um servidor para persistência.
     });
+
+    // NOVO: Adiciona um botão de "enviar outro" na mensagem de sucesso
+    const sendAnotherBtn = document.createElement('button');
+    sendAnotherBtn.textContent = 'Enviar outra homenagem';
+    sendAnotherBtn.classList.add('cta-button');
+    sendAnotherBtn.style.marginTop = '1.5rem';
+    sendAnotherBtn.addEventListener('click', () => {
+        successMessage.style.display = 'none';
+        form.style.display = 'block';
+    });
+    successMessage.appendChild(sendAnotherBtn);
+}
+
+// NOVO: Função para renderizar os cards de conselho na galeria
+function renderTributes(tributes, prepend = false) {
+    const conselhosGrid = document.getElementById('conselhosGrid');
+    if (!conselhosGrid) return;
+
+    const cardsHtml = tributes.map(tribute => `
+        <div class="spotlight-card reveal">
+            <div class="spotlight-icon">💛</div>
+            <div class="spotlight-text">"${tribute.conselho}"</div>
+            <div class="spotlight-author">— ${tribute.nomeVo}, homenageada por ${tribute.seuNome}</div>
+        </div>
+    `).join('');
+
+    if (prepend) {
+        conselhosGrid.insertAdjacentHTML('afterbegin', cardsHtml);
+    } else {
+        conselhosGrid.innerHTML = cardsHtml;
+    }
+    
+    // NOVO: Garante que as novas cartas tenham a animação de revelação
+    initScrollReveal();
 }
 
 function initHighlightToShare() {
