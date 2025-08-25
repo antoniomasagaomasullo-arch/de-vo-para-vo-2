@@ -220,15 +220,41 @@ function initMessageBoard() {
 
 function initExportButton() {
     const exportBtn = document.getElementById('exportPdfBtn');
-    if (!exportBtn) return;
+    const letterModal = document.getElementById('letterModal');
+    if (!exportBtn || !letterModal) return;
 
+    // Função para abrir o modal
     exportBtn.addEventListener('click', () => {
         triggerVibration();
-        // Simulação da funcionalidade
-        alert('A "Carta da Semana" em PDF foi gerada com sucesso e estaria pronta para impressão ou download!');
+        
+        // **Lógica para popular o modal dinamicamente (exemplo)**
+        // Em um app real, você pegaria os dados dos gráficos aqui.
+        // Por agora, vamos copiar o mosaico de humor existente como demonstração.
+        const mainMosaic = document.querySelector('#weekly-analysis .mood-mosaic');
+        const letterMosaicContainer = letterModal.querySelector('.letter-mood-mosaic');
+        
+        if (mainMosaic && letterMosaicContainer) {
+            letterMosaicContainer.innerHTML = mainMosaic.innerHTML;
+        }
+
+        letterModal.classList.add('visible');
+    });
+
+    // Função para fechar o modal
+    const closeBtn = letterModal.querySelector('[data-close-modal="letterModal"]');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            letterModal.classList.remove('visible');
+        });
+    }
+
+    // Fechar clicando fora do modal (opcional, mas bom para UX)
+    letterModal.addEventListener('click', (e) => {
+        if (e.target === letterModal) {
+            letterModal.classList.remove('visible');
+        }
     });
 }
-
 function initDynamicHeader(userData) {
     const diaryTitle = document.getElementById('diaryTitle');
     const diarySubtitle = document.getElementById('diarySubtitle');
