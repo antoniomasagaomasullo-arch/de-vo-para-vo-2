@@ -262,3 +262,74 @@
     font-size: var(--font-sm);
     color: var(--text-tertiary);
 }
+
+/* diario.css */
+
+/* Subtítulos para organizar o formulário */
+.daily-checklist-form h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--brand-secondary);
+    border-bottom: 1px solid var(--soft-gray);
+    padding-bottom: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Grid para Sinais Vitais */
+.vital-signs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.input-group label {
+    font-size: var(--font-sm);
+    font-weight: 500 !important; /* Sobrescreve o estilo anterior */
+    margin-bottom: 0.5rem !important;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--soft-gray);
+    border-radius: 10px;
+    font-size: var(--font-base);
+    transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(198, 164, 112, 0.4);
+}
+
+/* Seletor de Checkbox */
+.checkbox-selector {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.checkbox-selector input[type="checkbox"] {
+    display: none;
+}
+.checkbox-selector span {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--soft-gray);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.checkbox-selector input[type="checkbox"]:checked + span {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: white;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Pequeno ajuste para responsividade */
+@media (max-width: 500px) {
+    .vital-signs-grid {
+        grid-template-columns: 1fr;
+    }
+}
