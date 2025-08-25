@@ -130,26 +130,37 @@ function initTimeline() {
         if (header) {
             header.addEventListener('click', () => {
                 triggerVibration();
-                const isActive = item.classList.contains('active');
-                timelineItems.forEach(otherItem => otherItem.classList.remove('active'));
-               if (!isActive) {
-    item.classList.add('active');
-    // Adicione esta lógica:
-    const moodSpan = item.querySelector('.timeline-mood');
-    if (moodSpan) {
-        const mood = moodSpan.dataset.mood;
-        const dot = item.querySelector('.timeline-dot');
-        if(dot) dot.dataset.activeMood = mood;
-    }
-} else {
-    const dot = item.querySelector('.timeline-dot');
-    if(dot) delete dot.dataset.activeMood;
-}
+                
+                // Passo A: Verifica se o item que foi clicado já estava ativo.
+                const isAlreadyActive = item.classList.contains('active');
+
+                // Passo B: Reseta TODOS os itens para o estado padrão (fechado e sem cor no ponto).
+                timelineItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    const dot = otherItem.querySelector('.timeline-dot');
+                    if (dot && dot.dataset.activeMood) {
+                        delete dot.dataset.activeMood;
+                    }
+                });
+
+                // Passo C: Se o item clicado NÃO estava ativo antes, nós o ativamos e colorimos o ponto.
+                // Se ele já estava ativo, ele simplesmente permanecerá fechado após o reset do Passo B.
+                if (!isAlreadyActive) {
+                    item.classList.add('active');
+                    
+                    const moodSpan = item.querySelector('.timeline-mood');
+                    if (moodSpan) {
+                        const mood = moodSpan.dataset.mood;
+                        const dot = item.querySelector('.timeline-dot');
+                        if (dot) {
+                            dot.dataset.activeMood = mood;
+                        }
+                    }
+                }
             });
         }
     });
 }
-
 function initHealthProfileAccordion() {
     const accordionItems = document.querySelectorAll('.accordion-item');
     accordionItems.forEach(item => {
