@@ -1,3 +1,70 @@
+/* SUGESTÃO: Adicione este código NO INÍCIO do seu arquivo diario.css */
+
+/* =================================================================== */
+/* ======        PALETA DE CORES EXCLUSIVA DO DIÁRIO        ====== */
+/* =================================================================== */
+:root {
+    --diary-bg: #FBF9F6;            /* Cor de papel antigo, bem claro */
+    --diary-container-bg: #FFFFFF;  /* Branco puro para o container principal */
+    --diary-primary-text: #413A30;  /* Um marrom escuro, quase sépia, para textos */
+    --diary-secondary-text: #7D7060;/* Um tom mais claro para textos de apoio */
+    --diary-accent-peach: #FADACD;   /* Destaque em tom pêssego/salmão suave */
+    --diary-accent-green: #D4E2D4;   /* Destaque em tom verde pastel (saúde) */
+    --diary-border: #EFEBE4;        /* Cor suave para bordas e linhas */
+}
+
+/* =================================================================== */
+/* ======   APLICANDO AS NOVAS CORES (PRIMEIROS PASSOS)   ====== */
+/* =================================================================== */
+
+/* Aplicamos a cor de fundo de "papel" à página inteira */
+body {
+    background-color: var(--diary-bg);
+}
+
+/* O container principal (o "cartão" branco) ganha a nova cor de fundo */
+.diary-container {
+    background: var(--diary-container-bg);
+    border: 1px solid var(--diary-border); /* Borda sutil */
+}
+
+/* Ajustando o texto dos títulos principais */
+.section-title, .daily-checklist-form h3, #weekly-analysis h3, #health-profile h3 {
+    color: var(--diary-primary-text);
+}
+
+/* Ajustando o texto dos subtítulos e labels */
+.section-subtitle, .checklist-group > label, .chart-container h4, .item-label {
+    color: var(--diary-secondary-text);
+}
+
+/* Ajustando os botões de abas */
+.tab-link {
+    color: var(--diary-secondary-text);
+}
+
+.tab-link.active {
+    color: var(--diary-primary-text);
+}
+
+.tab-link::after {
+    background-color: var(--diary-primary-text);
+}
+
+/* Ajustando os itens do Perfil de Saúde */
+.profile-item {
+    background-color: #FDFDFD; /* Fundo um pouco diferente do container */
+    border-left-color: var(--diary-accent-green);
+}
+
+.item-label {
+    color: var(--diary-primary-text);
+}
+
+.item-value {
+    color: var(--diary-secondary-text);
+}
+
 /* Estilos para a Seção do Diário */
 .diary-section {
     padding: 120px 0 80px 0; /* Mais padding no topo para compensar o header */
