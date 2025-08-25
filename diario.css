@@ -746,3 +746,19 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     transform: translate(-50%, -50%) scale(1); /* Garante que o ícone fique em tamanho normal no estado final */
     opacity: 1;
 }
+
+/* SUGESTÃO: Adicionar este novo bloco no seu diario.css */
+
+/* Melhora a responsividade dos gráficos e tabelas */
+.chart-wrapper {
+    overflow-x: auto;
+    padding-bottom: 1rem; /* Adiciona espaço para a barra de rolagem não ficar colada */
+}
+
+.mood-mosaic {
+    min-width: 500px; /* Garante que o mosaico não encolha demais */
+}
+
+.line-chart {
+    min-width: 500px; /* Garante que o gráfico de linha não encolha demais */
+}
