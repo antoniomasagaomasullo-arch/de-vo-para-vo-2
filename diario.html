@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário de Bordo - De Vó para Vó</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="diario.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <a class="title" href="index.html">De Vó para Vó</a>
+            </div>
+            <a href="index.html#contato" class="cta-button">Fale Conosco</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="diary-section" id="diario">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Diário de Bordo da Família</h2>
+                    <p class="section-subtitle">Um espaço de carinho e comunicação entre você e nossos cuidadores.</p>
+                </div>
+
+                <div class="diary-container">
+                    <div class="diary-entries" id="diaryEntries">
+                        <div class="diary-entry">
+                            <p class="entry-meta"><strong>Cuidadora Ana</strong> em 24/08/2025, 14:30</p>
+                            <p class="entry-text">Hoje a Dona Tereca almoçou muito bem (sopa de legumes!) e assistimos a um filme antigo que ela adora. Ela mandou um beijo para todos! ❤️</p>
+                        </div>
+                        <div class="diary-entry author-family">
+                            <p class="entry-meta"><strong>Família Silva</strong> em 24/08/2025, 10:15</p>
+                            <p class="entry-text">Obrigado, Ana! Lembrete: a neta Sofia vai ligar por vídeo às 16h para mostrar o novo cachorrinho. Por favor, ajude-a a atender. Abraços!</p>
+                        </div>
+                    </div>
+
+                    <form class="diary-form" id="diaryForm">
+                        <h3>Nova Entrada no Diário</h3>
+                        <div class="form-group">
+                            <textarea id="diaryMessage" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <select id="diaryAuthor">
+                                <option value="familia">Família (Sua Mensagem)</option>
+                                <option value="cuidadora">Cuidadora (Simulação)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">Adicionar Registro</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 - De Vó para Vó</p>
+        </div>
+    </footer>
+
+    <script src="diario.js"></script>
+</body>
+</html>
