@@ -234,48 +234,222 @@ body {
 
 
 /* Seletores (Emoji, Toggle, Checkbox) */
-.emoji-selector, .toggle-selector, .checkbox-selector { display: flex; gap: 1rem; flex-wrap: wrap; }
-.emoji-selector { justify-content: space-around; }
-.emoji-selector label, .toggle-selector label, .checkbox-selector label { margin-bottom: 0; cursor: pointer; }
-.emoji-selector input, .toggle-selector input, .checkbox-selector input { display: none; }
-
-/* Melhoria: Estado de Hover */
-.emoji-selector:hover span {
-    opacity: 0.6;
-    transform: scale(0.95);
+.emoji-selector, .toggle-selector, .checkbox-selector { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0;
 }
 
-.emoji-selector span:hover {
-    opacity: 1;
+.emoji-selector {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.emoji-selector label, .toggle-selector label, .checkbox-selector label { 
+    margin-bottom: 0; 
+    cursor: pointer; 
+    position: relative;
+}
+
+.emoji-selector input, .toggle-selector input, .checkbox-selector input { 
+    display: none; 
+}
+
+/* SELETORES DE EMOJI MODERNOS */
+.emoji-selector label {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--diary-border);
+    border-radius: 20px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+}
+
+.emoji-selector label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--diary-accent-peach), var(--diary-accent-green));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.emoji-selector label:hover::before {
+    opacity: 0.1;
+}
+
+.emoji-selector input:checked + label::before {
+    opacity: 0.2;
+}
+
+.emoji-selector span {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    filter: grayscale(0.4);
+}
+
+.emoji-selector label:hover span,
+.emoji-selector input:checked + label span {
     transform: scale(1.1);
+    filter: grayscale(0);
 }
 
-.emoji-selector input:checked + span {
-    opacity: 1;
-    transform: scale(1.2);
-    background-color: var(--diary-accent-peach);
+.emoji-selector input:checked + label span {
+    transform: scale(1.15);
+    animation: celebration 0.5s ease-out;
 }
 
-.emoji-selector span { font-size: 2.5rem; padding: 0.5rem; border-radius: 50%; transition: transform 0.2s ease, background-color 0.2s ease; display: inline-block; }
-.emoji-selector p { font-size: var(--font-sm); margin-top: 0.25rem; color: var(--diary-secondary-text); text-align: center; }
-.emoji-selector input:checked + span { transform: scale(1.2); background-color: var(--diary-accent-peach); }
+.emoji-selector p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--diary-secondary-text);
+    text-align: center;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.emoji-selector label:hover p,
+.emoji-selector input:checked + label p {
+    color: var(--diary-primary-text);
+}
 
 /* Melhoria: Animação de seleção para os seletores de texto */
-.toggle-selector span, .checkbox-selector span {
-    padding: 0.75rem 1.5rem; border: 1px solid var(--diary-border); border-radius: 10px;
-    background-color: #fdfdfd; font-weight: 500; transition: all 0.2s ease;
-    box-shadow: var(--shadow-sm);
+.toggle-selector label, .checkbox-selector label {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--diary-border);
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    color: var(--diary-secondary-text);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
-/* Melhoria: Estado de Hover para os seletores de texto */
-.toggle-selector span:hover, .checkbox-selector span:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+
+.toggle-selector label::before, .checkbox-selector label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--diary-accent-green), #B8D4B8);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.8);
 }
-.toggle-selector input:checked + span, .checkbox-selector input:checked + span {
-    background-color: var(--diary-accent-green); border-color: var(--diary-accent-green);
-    color: var(--diary-primary-text);
-    box-shadow: var(--shadow-lg);
+
+.toggle-selector label:hover::before, .checkbox-selector label:hover::before {
+    opacity: 0.1;
+    transform: scale(1);
+}
+
+.toggle-selector input:checked + label::before, 
+.checkbox-selector input:checked + label::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.toggle-selector label:hover, .checkbox-selector label:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: var(--diary-accent-green);
+}
+
+.toggle-selector input:checked + label, 
+.checkbox-selector input:checked + label {
     transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--diary-accent-green);
+    color: white;
+    font-weight: 600;
+}
+
+.toggle-selector label span, .checkbox-selector label span {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+/* ANIMAÇÕES */
+@keyframes celebration {
+    0% { transform: scale(1.15); }
+    50% { transform: scale(1.25) rotate(5deg); }
+    100% { transform: scale(1.15); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.toggle-selector input:checked + label, 
+.checkbox-selector input:checked + label {
+    animation: pulse 0.3s ease-out;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .emoji-selector {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .toggle-selector, .checkbox-selector {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .emoji-selector label {
+        padding: 1rem 0.5rem;
+    }
+    
+    .emoji-selector span {
+        font-size: 2.2rem;
+    }
+    
+    .toggle-selector label, .checkbox-selector label {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .emoji-selector {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.4rem;
+    }
+    
+    .emoji-selector label {
+        padding: 0.8rem 0.3rem;
+    }
+    
+    .emoji-selector span {
+        font-size: 2rem;
+    }
+    
+    .emoji-selector p {
+        font-size: 0.7rem;
+    }
 }
 
 
