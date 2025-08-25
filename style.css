@@ -3479,6 +3479,7 @@ body.dark-mode #bairros-atuacao .service-tag:hover {
     left: 0;
     z-index: 0; /* Ficará atrás do conteúdo */
 }
+
 /* ========================================================== */
 /* BLOCO DEFINITIVO PARA O MODAL DE LEITURA DO BLOG (V4)      */
 /* ========================================================== */
@@ -3638,6 +3639,36 @@ body.dark-mode .close-btn-chat {
 body.dark-mode .modal-close-btn:hover,
 body.dark-mode .close-btn-chat:hover {
     background-color: rgba(255, 255, 255, 0.2);
+    color: var(--brand-primary);
+}
+
+/* NOVO BLOCO: Animação do campo de input */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    ...
+    transition: all 0.4s ease; /* Transição unificada para campos de formulário */
+}
+
+.form-group input:valid:not([readonly]):focus {
+    ...
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.4); /* Brilho de sucesso */
+    border-color: var(--validation-success);
+}
+
+.form-group input:invalid:not([readonly]):focus {
+    ...
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.4); /* Brilho de erro */
+    border-color: var(--validation-error);
+}
+
+/* NOVO BLOCO: Efeito de borda colorida na validação */
+.form-group input.valid {
+    border-color: var(--validation-success);
+}
+
+.form-group input.invalid {
+    border-color: var(--validation-error);
 }
 
 
