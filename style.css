@@ -3862,3 +3862,16 @@ body.dark-mode .close-btn-chat:hover {
     }
 }
 
+.cta-button-secondary {
+    background-color: transparent;
+    color: var(--brand-primary);
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--brand-primary);
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: var(--font-sm);
+    /* LINHA ADICIONADA ABAIXO */
+    text-decoration: none;
+}
