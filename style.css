@@ -608,6 +608,9 @@ body.modal-open {
 
 .nav-menu a.active::after {
     width: 100%;
+    /* NOVO: Adiciona um brilho sutil ao sublinhado do link ativo */
+    box-shadow: 0 0 8px var(--brand-primary); 
+    background-color: var(--brand-primary-dark);
 }
 
 #header-contact-btn:hover {
