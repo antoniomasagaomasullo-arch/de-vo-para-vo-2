@@ -288,7 +288,7 @@ function initDynamicHeader(userData) {
 }
 
 
-// --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA (ÚNICO BLOCO) ---
+// --- EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Verifica se há um usuário logado
     const loggedInUserData = sessionStorage.getItem('loggedInUser');
@@ -300,13 +300,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Personaliza a página com dados do login
     const userData = JSON.parse(loggedInUserData);
-    const diaryTitle = document.getElementById('diaryTitle');
-    const diarySubtitle = document.getElementById('diarySubtitle');
-    const profileImage = document.getElementById('profileImage');
-    
-    if (diaryTitle) diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
-    if (diarySubtitle) diarySubtitle.textContent = `Registros de cuidado e bem-estar da ${userData.familia}`;
-    if (profileImage) profileImage.alt = `Foto da Vó ${userData.avo}`;
     
     // 3. Inicializa todas as funcionalidades da página
     initDynamicHeader(userData);
@@ -316,6 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initTimeline();
     initHealthProfileAccordion();
     initProfileEditing();
-    initMessageBoard(); 
+    initMessageBoard();
     initExportButton();
 });
