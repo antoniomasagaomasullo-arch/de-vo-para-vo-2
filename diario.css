@@ -1,1506 +1,280 @@
+/* ────────────────────────────────────────────────────────────────────────────
+   Diário — Design System CSS
+   - Tokens (tipografia, cores, radius, sombras)
+   - Reset suave
+   - Layout base (app, grid responsivo)
+   - Componentes: Card, Botão, Inputs, Topbar, Search, Filtros, Toast
+   - Lista de Entradas (cards), truncamento, estados
+   - Acessibilidade (focus visible, sr-only)
+   - Microinterações (hover/press, ripple)
+   - Preferências de usuário (dark mode, reduced motion)
+   ─────────────────────────────────────────────────────────────────────────── */
+
 :root{
   /* Tipografia */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto,
+               "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   --font-serif: "Ibarra Real Nova", "Georgia", serif;
 
-  /* Escala */
-  --fs-12: .75rem;  /* legendas */
-  --fs-14: .875rem; /* corpo secundário */
-  --fs-16: 1rem;    /* corpo */
-  --fs-20: 1.25rem; /* subtítulo */
-  --fs-28: 1.75rem; /* título */
+  /* Escala tipográfica */
+  --fs-12: .75rem;   /* 12px  - legendas/metadados */
+  --fs-14: .875rem;  /* 14px  - corpo secundário */
+  --fs-16: 1rem;     /* 16px  - corpo padrão */
+  --fs-18: 1.125rem; /* 18px  - destaque leve */
+  --fs-20: 1.25rem;  /* 20px  - subtítulo */
+  --fs-28: 1.75rem;  /* 28px  - título */
 
-  /* Cores base (claro) */
-  --bg: #FAFAFA;
-  --paper: #FFFFFF;
-  --ink: #0B0B0C;
-  --muted: #6B7280;
-  --stroke: #E5E7EB;
-  --brand: #2D5BFF;          /* destaque */
-  --brand-ink: #FFFFFF;      /* texto em cima do brand */
-  --accent: #10B981;         /* sucesso */
+  /* Espaçamento (8pt system) */
+  --sp-4: 4px;  --sp-8: 8px;  --sp-12: 12px; --sp-16: 16px; --sp-20: 20px;
+  --sp-24: 24px; --sp-32: 32px;
 
-  /* Radius/Sombra */
-  --r: 14px;
+  /* Cores (claro) */
+  --bg:       #FAFAFA;
+  --paper:    #FFFFFF;
+  --ink:      #0B0B0C;
+  --muted:    #6B7280;   /* texto secundário */
+  --stroke:   #E5E7EB;   /* bordas */
+  --soft:     #F3F4F6;   /* superfícies suaves */
+  --brand:    #2D5BFF;   /* ação primária */
+  --brand-ink:#FFFFFF;   /* texto sobre brand */
+  --accent:   #10B981;   /* sucesso */
+  --warn:     #F59E0B;   /* aviso */
+  --danger:   #EF4444;   /* erro */
+
+  /* Efeitos */
+  --r: 14px;                           /* border-radius padrão */
   --shadow: 0 6px 30px rgba(2,6,23,.06);
+  --ring: 0 0 0 3px color-mix(in srgb, var(--brand) 22%, transparent);
+
+  /* Larguras */
+  --max: 1040px;
 }
 
-/* Modo escuro automático */
+/* Dark mode automático (respeita SO) */
 @media (prefers-color-scheme: dark){
   :root{
-    --bg: #0F1115;
-    --paper: #171923;
-    --ink: #E5E7EB;
-    --muted: #9CA3AF;
-    --stroke: #242735;
-    --brand: #5C7CFF;
+    --bg:       #0F1115;
+    --paper:    #171923;
+    --ink:      #E5E7EB;
+    --muted:    #9CA3AF;
+    --stroke:   #242735;
+    --soft:     #0F121B;
+    --brand:    #5C7CFF;
+    --brand-ink:#0B0D16;
+    --shadow:   0 6px 30px rgba(0,0,0,.35);
   }
 }
 
-/* Reset/estrutura mínima */
-html,body{height:100%}
+/* Respeita usuários com redução de movimento */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ── Reset suave / base tipográfica ───────────────────────────────────────── */
+
+*{ box-sizing: border-box }
+html,body{ height:100% }
+html{ -webkit-text-size-adjust:100% }
 body{
-  margin:0; font-family:var(--font-sans); color:var(--ink); background:var(--bg);
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-sans); font-size:var(--fs-16); line-height:1.55;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
+img{ max-width:100%; height:auto; display:block }
+a{ color:inherit; text-decoration: none }
+button{ font:inherit; color:inherit; background:none; border:none; padding:0; cursor:pointer }
 
-/* Títulos e parágrafos */
-h1,h2{font-family:var(--font-serif); letter-spacing:-0.01em}
-h1{font-size:var(--fs-28); margin:0 0 .25rem}
-h2{font-size:var(--fs-20); margin:1.25rem 0 .5rem}
-p,li{font-size:var(--fs-16); line-height:1.55}
+h1,h2,h3{ font-family:var(--font-serif); margin:0 0 var(--sp-8); letter-spacing:-0.01em }
+h1{ font-size:var(--fs-28) }
+h2{ font-size:var(--fs-20) }
+h3{ font-size:var(--fs-18) }
+p,li{ margin:0 0 var(--sp-12) }
+small{ font-size:var(--fs-12); color:var(--muted) }
 
-/* Containers padrão para seu layout atual */
-.app-wrap{max-width: 1040px; margin: 0 auto; padding: 24px}
-.card{background:var(--paper); border:1px solid var(--stroke); border-radius:var(--r); box-shadow:var(--shadow)}
+/* ── Layout da aplicação ─────────────────────────────────────────────────── */
 
-/* Inputs e botões – base */
-input[type=\"text\"], textarea, select{
+.app-wrap{ max-width:var(--max); margin:0 auto; padding: var(--sp-24) var(--sp-24) }
+.topbar{
+  position: sticky; top:0; z-index:10;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--paper) 75%, transparent);
+  border-bottom:1px solid var(--stroke);
+}
+
+/* Grid responsivo mantendo core (coluna única -> duas colunas) */
+.grid{ display:grid; gap: var(--sp-20); grid-template-columns: 1fr }
+@media (min-width: 900px){
+  .grid{ grid-template-columns: 1.2fr .8fr }
+}
+
+/* ── Componentes base ────────────────────────────────────────────────────── */
+
+/* Card genérico */
+.card{
+  background:var(--paper); border:1px solid var(--stroke);
+  border-radius:var(--r); box-shadow:var(--shadow);
+}
+
+/* Botões */
+.button{
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:10px 14px; border-radius:12px; border:1px solid var(--stroke);
+  background:var(--paper); font-weight:600; transition: transform .06s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+  will-change: transform;
+}
+.button:hover{ transform: translateY(-1px); box-shadow: var(--shadow) }
+.button:active{ transform: translateY(0) scale(.99) }
+.button:focus-visible{ outline: none; box-shadow: var(--ring) }
+
+.button--primary{ background:var(--brand); border-color:var(--brand); color:var(--brand-ink) }
+.button--success{ background:var(--accent); border-color:var(--accent); color:#072814 }
+.button--ghost{ background:transparent }
+.button--danger{ background:var(--danger); border-color:var(--danger); color:#fff }
+
+/* Ripple (JS injeta .ripple) */
+.button{ overflow:hidden }
+.button .ripple{
+  position:absolute; border-radius:50%; transform:scale(0); opacity:.28;
+  background: currentColor; pointer-events:none; animation: ripple .6s ease-out forwards;
+}
+@keyframes ripple{ to{ transform:scale(12); opacity:0 } }
+
+/* Inputs */
+input[type="text"], input[type="search"], input[type="date"], textarea, select{
   width:100%; background:transparent; color:var(--ink);
   border:1px solid var(--stroke); border-radius:12px; padding:12px 14px; outline:none;
-  transition: border-color .2s ease, box-shadow .2s ease, transform .05s ease;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .05s ease, background .2s ease;
 }
+input::placeholder, textarea::placeholder{ color: color-mix(in srgb, var(--muted) 80%, transparent) }
 input:focus, textarea:focus, select:focus{
   border-color: var(--brand);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 20%, transparent);
+  box-shadow: var(--ring);
 }
 
-.button{
-  display:inline-flex; align-items:center; gap:.5rem;
-  padding:10px 14px; border-radius:12px; border:1px solid var(--stroke); background:var(--paper);
-  font-weight:600; cursor:pointer; transition: transform .06s ease, box-shadow .2s ease, background .2s;
+/* Campos compostos (busca) */
+.search{
+  display:flex; align-items:center; gap: var(--sp-8);
+  background: var(--soft); border:1px solid var(--stroke); border-radius: 12px; padding: 10px 12px;
 }
-.button:hover{ box-shadow:var(--shadow) }
-.button:active{ transform: translateY(1px) }
+.search__icon{ opacity:.6 }
+.search input[type="search"]{ border:0; padding:0; background:transparent }
 
-.button--primary{
-  background: var(--brand); border-color: var(--brand); color: var(--brand-ink);
+/* Grupo de filtros */
+.filter-chip{
+  display:inline-flex; align-items:center; gap:6px;
+  border:1px solid var(--stroke); background:var(--paper); border-radius: 999px;
+  padding:8px 12px; font-size: var(--fs-14);
+  transition: background .2s, border-color .2s, color .2s;
 }
-.button--success{ background: var(--accent); border-color:var(--accent); color:#072814 }
-
-/* Barra superior (se existir) */
-.topbar{ position:sticky; top:0; backdrop-filter: blur(10px); background: color-mix(in srgb, var(--paper) 75%, transparent); border-bottom:1px solid var(--stroke); z-index:10 }
-
-/* Grid responsivo para composer + lista */
-.grid{
-  display:grid; gap:20px;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 900px){
-  .grid{ grid-template-columns: 1.2fr .8fr } /* ajuste fino sem mudar arquitetura */
+.filter-chip[aria-pressed="true"], .filter-chip.is-active{
+  background: color-mix(in srgb, var(--brand) 12%, var(--paper));
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--stroke));
+  color: color-mix(in srgb, var(--brand) 70%, var(--ink));
 }
 
-/* Lista de entradas como cards */
+/* Toast */
+.toast{
+  background:var(--paper); border:1px solid var(--stroke); border-radius:12px; box-shadow:var(--shadow);
+  padding: 12px 14px; position: fixed; right: 20px; bottom: 20px; display:none; z-index: 50;
+}
+.toast--show{ display:block; animation: toastIn .24s ease-out, toastOut .22s ease-in 2.8s forwards }
+@keyframes toastIn{ from{ transform: translateY(8px); opacity:0 } to{ transform: translateY(0); opacity:1 } }
+@keyframes toastOut{ to{ transform: translateY(8px); opacity:0 } }
+
+/* ── Entradas do Diário (lista em cards) ─────────────────────────────────── */
+
 .entry{
-  border-radius:var(--r); border:1px solid var(--stroke); background:var(--paper); padding:14px;
+  border:1px solid var(--stroke); border-radius:var(--r); background:var(--paper);
+  padding: var(--sp-14, 14px); /* compatível com navegadores sem var fallback */
+  padding: 14px;
+  transition: box-shadow .2s ease, transform .06s ease, border-color .2s ease;
 }
-.entry__meta{ display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:var(--fs-12) }
-.entry__text{ margin:.5rem 0 0; font-size:var(--fs-16) }
+.entry:hover{ transform: translateY(-1px); box-shadow: var(--shadow) }
+.entry:focus-within{ box-shadow: var(--ring) }
 
-/* Acessibilidade – foco visível também para botões */
-.button:focus-visible{ outline: 3px solid color-mix(in srgb, var(--brand) 40%, transparent); outline-offset:2px }
-
-/* =================================================================== */
-/* ======        PALETA DE CORES EXCLUSIVA DO DIÁRIO        ====== */
-/* =================================================================== */
-:root {
-    --diary-bg: #FBF9F6;            /* Cor de papel antigo, bem claro */
-    --diary-container-bg: #FFFFFF;  /* Branco puro para o container principal */
-    --diary-primary-text: #413A30;  /* Um marrom escuro, quase sépia, para textos */
-    --diary-secondary-text: #7D7060;/* Um tom mais claro para textos de apoio */
-    --diary-accent-peach: #FADACD;   /* Destaque em tom pêssego/salmão suave */
-    --diary-accent-green: #D4E2D4;   /* Destaque em tom verde pastel (saúde) */
-    --diary-border: #EFEBE4;        /* Cor suave para bordas e linhas */
-}
-
-/* =================================================================== */
-/* ======                 ESTRUTURA E LAYOUT GERAL              ====== */
-/* =================================================================== */
-body {
-    background-color: var(--diary-bg);
-    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23EFEBE4" fill-opacity="0.4"%3E%3Cpath d="M36 34.542V13.84L54.764 24.288l-5.32 3.07a2 2 0 0 1-1.92-1.28L44 20v24L24 34.542V13.84L5.236 24.288l5.32 3.07a2 2 0 0 1 1.92-1.28L16 20v24l20-10.458z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-    font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
-    line-height: 1.8;
-}
-
-.diary-section {
-    padding: 100px 0 80px 0;
-    min-height: 100vh;
-}
-
-.diary-container {
-    max-width: 850px;
-    margin: 0 auto;
-    background: var(--diary-container-bg);
-    border: 1px solid var(--diary-border);
-    border-radius: 40px;
-    box-shadow: var(--shadow-xl);
-    padding: 3rem 4rem;
-    position: relative;
-    z-index: 1;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: var(--diary-primary-text);
-    box-shadow: 0 0 0 3px var(--validation-success);
-}
-.input-group input:focus:invalid {
-    box-shadow: 0 0 0 3px var(--validation-error);
-}
-
-/* =================================================================== */
-/* ======          HEADER MODERNO COM GLASSMORPHISM            ====== */
-/* =================================================================== */
-.diary-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    max-width: 850px;
-    margin: 0 auto 2.5rem auto;
-    
-    /* Glassmorphism mais sutil */
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    
-    /* Layout */
-    padding: 1.2rem 2rem;
-    border-radius: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    
-    /* Animações suaves */
-    transition: all 0.3s ease;
-    animation: fadeInDown 0.6s ease-out;
-}
-
-.diary-header:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-.profile-picture {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-    border: 2px solid rgba(250, 218, 205, 0.8);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-.profile-picture:hover {
-    transform: scale(1.05);
-    border-color: var(--diary-accent-peach);
-}
-
-.profile-picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.profile-picture:hover img {
-    transform: scale(1.1);
-}
-
-.profile-info h2 {
-    font-family: 'Lora', serif;
-    font-size: 1.4rem;
-    color: var(--diary-primary-text);
-    margin: 0;
-    font-weight: 600;
-}
-
-.profile-info p {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    color: var(--diary-secondary-text);
-    margin: 0;
-    opacity: 0.8;
-}
-
-/* =================================================================== */
-/* ======          SISTEMA DE TABS MODERNO                     ====== */
-/* =================================================================== */
-.tabs-container {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(239, 235, 228, 0.6);
-    border-radius: 20px;
-    padding: 0.5rem;
-    margin: 0 auto 3rem;
-    max-width: 650px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    position: relative;
-    display: flex;
-    transition: all 0.3s ease;
-}
-
-.tabs-container:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-.tab-indicator {
-    position: absolute;
-    background: linear-gradient(135deg, var(--diary-primary-text) 0%, #5A4D3A 100%);
-    border-radius: 16px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-    height: calc(100% - 1rem);
-    top: 0.5rem;
-    box-shadow: 0 2px 10px rgba(65, 58, 48, 0.3);
-}
-
-.tab-link {
-    flex: 1;
-    padding: 1rem 1.5rem;
-    background: none;
-    border: none;
-    border-radius: 16px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: var(--diary-secondary-text);
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-align: center;
-    white-space: nowrap;
-    user-select: none;
-}
-
-.tab-link:hover:not(.active) {
-    color: var(--diary-primary-text);
-    background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-1px);
-}
-
-.tab-link.active {
-    color: white;
-    font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.tab-content {
-    display: none;
-}
-.tab-content.active {
-    display: block;
-}
-
-/* =================================================================== */
-/* ======              FORMULÁRIO DE REGISTRO DIÁRIO            ====== */
-/* =================================================================== */
-.daily-checklist-form h3 {
-    text-align: left;
-    font-size: 2rem;
-    font-family: 'Lora', serif;
-    color: var(--diary-primary-text);
-}
-.daily-checklist-form h4 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    color: var(--brand-secondary);
-    border-bottom: 1px solid var(--diary-border);
-    padding-bottom: 0.5rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1.5rem;
-}
-.checklist-group {
-    margin-bottom: 2rem;
-}
-.checklist-group > label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--diary-secondary-text);
-}
-
-/* Destaque e Momento Conexão */
-.daily-highlight, .connection-moment {
-    max-width: 850px;
-    margin: 0 auto 2rem auto;
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-.daily-highlight { background-color: var(--diary-accent-peach); }
-.connection-moment { background-color: var(--diary-accent-green); }
-
-.highlight-icon, .connection-icon {
-    font-size: 3rem;
-    flex-shrink: 0;
-}
-.highlight-text h4, .connection-text h4 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    color: var(--diary-primary-text);
-    margin: 0 0 0.25rem 0;
-}
-.highlight-text p, .connection-text p {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: var(--diary-secondary-text);
-    margin: 0;
-}
-
-/* =================================================================== */
-/* ======          SELETORES INTERATIVOS MODERNOS              ====== */
-/* =================================================================== */
-/* =================================================================== */
-/* ======      CORREÇÃO: SELETORES FUNCIONAIS (SUBSTITUIR)        ====== */
-/* =================================================================== */
-
-/* ENCONTRE e SUBSTITUA completamente os blocos de seletores por estes: */
-
-.emoji-selector, .toggle-selector, .checkbox-selector { 
-    display: flex; 
-    gap: 1rem; 
-    flex-wrap: wrap; 
-    margin: 1.5rem 0;
-}
-
-.emoji-selector { 
-    justify-content: space-around; 
-}
-
-.emoji-selector label, .toggle-selector label, .checkbox-selector label { 
-    margin-bottom: 0; 
-    cursor: pointer; 
-    position: relative;
-}
-
-.emoji-selector input, .toggle-selector input, .checkbox-selector input { 
-    display: none; 
-}
-
-/* SELETORES DE EMOJI MODERNOS - VERSÃO FUNCIONAL */
-.emoji-selector span {
-    font-size: 2.8rem;
-    padding: 1rem;
-    border-radius: 20px;
-    border: 2px solid var(--diary-border);
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    display: inline-block;
-    text-align: center;
-    min-width: 80px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    filter: grayscale(0.4);
-}
-
-.emoji-selector span::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, var(--diary-accent-peach), var(--diary-accent-green));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.emoji-selector span:hover {
-    transform: scale(1.05);
-    filter: grayscale(0.2);
-    border-color: var(--diary-accent-peach);
-}
-
-.emoji-selector span:hover::before {
-    opacity: 0.1;
-}
-
-.emoji-selector input:checked + span {
-    transform: scale(1.1);
-    filter: grayscale(0);
-    border-color: var(--diary-primary-text);
-    background: rgba(250, 218, 205, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.emoji-selector input:checked + span::before {
-    opacity: 0.2;
-}
-
-.emoji-selector p { 
-    font-size: 0.85rem; 
-    margin-top: 0.5rem; 
-    color: var(--diary-secondary-text); 
-    text-align: center;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.emoji-selector label:hover p,
-.emoji-selector input:checked + span + p {
-    color: var(--diary-primary-text);
-    font-weight: 600;
-}
-
-/* SELETORES DE TOGGLE E CHECKBOX MODERNOS - VERSÃO FUNCIONAL */
-.toggle-selector span, .checkbox-selector span {
-    padding: 1rem 2rem; 
-    border: 2px solid var(--diary-border); 
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    font-weight: 500; 
-    color: var(--diary-secondary-text);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    position: relative;
-    overflow: hidden;
-    user-select: none;
-    display: inline-block;
-}
-
-.toggle-selector span::before, .checkbox-selector span::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, var(--diary-accent-green), #B8D4B8);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(0.8);
-}
-
-.toggle-selector span:hover, .checkbox-selector span:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border-color: var(--diary-accent-green);
-}
-
-.toggle-selector span:hover::before, .checkbox-selector span:hover::before {
-    opacity: 0.1;
-    transform: scale(1);
-}
-
-.toggle-selector input:checked + span, 
-.checkbox-selector input:checked + span {
-    background: rgba(212, 226, 212, 0.8);
-    border-color: var(--diary-accent-green);
-    color: var(--diary-primary-text);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    font-weight: 600;
-}
-.toggle-selector input:checked + span::before, 
-.checkbox-selector input:checked + span::before {
-     display: none; /* MUDANÇA: remove o overlay que estava cobrindo o texto */
-}
-
-/* Animação para seleção */
-@keyframes selectPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.toggle-selector input:checked + span, 
-.checkbox-selector input:checked + span,
-.emoji-selector input:checked + span {
-    animation: selectPulse 0.3s ease-out;
-}
-/* =================================================================== */
-/* ======          TEXTAREA MODERNA E PROFISSIONAL             ====== */
-/* =================================================================== */
-.modern-textarea-group {
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.modern-textarea-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--diary-secondary-text);
-    font-size: 0.95rem;
-    position: relative;
-    padding-left: 1rem;
-}
-
-.modern-textarea-group label::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 16px;
-    background: linear-gradient(135deg, var(--diary-accent-peach), var(--diary-accent-green));
-    border-radius: 2px;
-}
-
-.modern-textarea {
-    width: 100%;
-    min-height: 120px;
-    padding: 1.5rem;
-    border: 2px solid var(--diary-border);
-    border-radius: 20px;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--diary-primary-text);
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    resize: vertical;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    position: relative;
-    z-index: 1;
-}
-
-.modern-textarea::placeholder {
-    color: var(--diary-secondary-text);
-    opacity: 0.7;
-    font-style: italic;
-}
-
-.modern-textarea:focus {
-    outline: none;
-    border-color: var(--diary-primary-text);
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 
-        0 0 0 4px rgba(65, 58, 48, 0.1),
-        0 8px 25px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-}
-
-.modern-textarea:hover:not(:focus) {
-    border-color: rgba(65, 58, 48, 0.4);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-    transform: translateY(-1px);
-}
-
-.textarea-container {
-    position: relative;
-}
-
-.character-counter {
-    position: absolute;
-    bottom: -1.5rem;
-    right: 0;
-    font-size: 0.8rem;
-    color: var(--diary-secondary-text);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modern-textarea:focus + .character-counter {
-    opacity: 1;
-}
-
-.textarea-status-icon {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    width: 24px;
-    height: 24px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.textarea-status-icon.success {
-    opacity: 1;
-    color: var(--diary-accent-green);
-}
-
-.textarea-status-icon.typing {
-    opacity: 0.6;
-    color: var(--diary-secondary-text);
-    animation: pulse-typing 1.5s ease-in-out infinite;
-}
-
-.modern-textarea.has-content {
-    border-color: var(--diary-accent-green);
-    background: rgba(212, 226, 212, 0.1);
-}
-
-/* Sinais Vitais */
-.vital-signs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.input-group label { font-size: var(--font-sm); font-weight: 500 !important; margin-bottom: 0.5rem !important; }
-.input-group input {
-    width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--diary-border);
-    border-radius: 10px; font-size: var(--font-base); transition: all 0.2s ease;
-}
-.input-group input:focus {
-    outline: none; border-color: var(--diary-primary-text);
-    box-shadow: 0 0 0 3px var(--diary-accent-peach);
-}
-.submit-btn { background-color: var(--diary-primary-text); }
-.submit-btn:hover { background-color: #2a251d; }
-
-/* =================================================================== */
-/* ======                 PAINEL DE ANÁLISE SEMANAL             ====== */
-/* =================================================================== */
-#weekly-analysis h3 {
-    text-align: left;
-    font-size: 2rem;
-    font-family: 'Lora', serif;
-    color: var(--diary-primary-text);
-}
-.chart-container {
-    margin-bottom: 4rem;
-}
-.chart-container h4 {
-    text-align: left;
-    font-weight: 600;
-    color: var(--diary-secondary-text);
-    margin-bottom: 1.5rem;
-}
-
-/* NOVO: Mosaico de Humor */
-.mood-mosaic {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.75rem;
-    height: 120px;
-}
-.mosaic-day {
-    border-radius: 10px;
-    background-color: var(--diary-border);
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 0.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.mosaic-day:hover {
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-.day-label {
-    font-size: var(--font-sm);
-    font-weight: 500;
-    color: rgba(0,0,0,0.4);
-}
-.mosaic-day[data-mood="feliz"] { background-color: #FFD97D; }
-.mosaic-day[data-mood="calmo"] { background-color: var(--diary-accent-green); }
-.mosaic-day[data-mood="agitado"] { background-color: var(--diary-accent-peach); }
-.mosaic-day[data-mood="triste"] { background-color: #A4BBD0; }
-
-/* Gráfico de Linha */
-.line-chart {
-    height: 150px; border-left: 2px solid var(--diary-border);
-    border-bottom: 2px solid var(--diary-border); padding: 1rem;
-}
-.line-chart svg { width: 100%; height: 100%; }
-.line-chart:hover polyline { stroke-width: 2; opacity: 0.8; }
-.axis-labels {
-    display: flex; justify-content: space-around; padding: 0 1rem;
-    margin-top: 0.5rem; font-size: var(--font-sm); color: var(--diary-secondary-text);
-}
-.chart-legend { display: flex; justify-content: flex-start; gap: 2rem; margin-bottom: 1rem; }
-.legend-item { display: flex; align-items: center; font-size: var(--font-sm); color: var(--diary-secondary-text); }
-.legend-color { width: 12px; height: 12px; border-radius: 3px; margin-right: 0.5rem; }
-.legend-color.systolic { background-color: var(--brand-secondary); }
-.legend-color.diastolic { background-color: var(--brand-primary-light); }
-.line-chart .line-systolic { stroke: var(--brand-secondary); }
-.line-chart .line-diastolic { stroke: var(--brand-primary-light); }
-
-.chart-tooltip {
-    position: fixed; display: none; background-color: var(--diary-primary-text);
-    color: var(--diary-bg); padding: 0.5rem 1rem; border-radius: 10px;
-    font-size: var(--font-sm); font-weight: 500; pointer-events: none;
-    z-index: 10; white-space: nowrap;
-}
-
-/* =================================================================== */
-/* ======                    PERFIL DE SAÚDE                    ====== */
-/* =================================================================== */
-#health-profile h3 {
-    text-align: left;
-    font-size: 2rem;
-    font-family: 'Lora', serif;
-    color: var(--diary-primary-text);
-}
-.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
-.profile-item {
-    background-color: #FDFDFD; padding: 1rem; border-radius: 10px;
-    border-left: 3px solid var(--diary-accent-green);
-}
-.profile-item.full-width { grid-column: 1 / -1; }
-.item-label {
-    display: block;
-    font-size: var(--font-sm);
-    font-weight: 600;
-    color: var(--diary-primary-text);
-    margin-bottom: 0.5rem;
-}
-.item-value { display: block; font-size: var(--font-base); color: var(--diary-secondary-text); }
-
-/* Edição do Perfil */
-.item-input {
-    display: none; width: 100%; font-size: var(--font-base); color: var(--diary-secondary-text);
-    border: 1px solid var(--diary-border); border-radius: 5px; padding: 0.25rem 0.5rem;
-}
-.item-input:focus { outline: none; border-color: var(--diary-primary-text); }
-textarea.item-input { resize: vertical; min-height: 60px; }
-.profile-grid.editing .item-value { display: none; }
-.profile-grid.editing .item-input { display: block; }
-
-/* =================================================================== */
-/* ======                LINHA DO TEMPO DA JORNADA              ====== */
-/* =================================================================== */
-#timeline h3 {
-    text-align: left;
-    font-size: 2rem;
-    font-family: 'Lora', serif;
-    color: var(--diary-primary-text);
-}
-
-.timeline {
-    list-style: none;
-    padding: 0;
-    margin-top: 2rem;
-    position: relative;
-}
-
-/* A linha vertical que conecta os pontos */
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 9px;
-    bottom: 10px;
-    width: 4px;
-    background: var(--diary-border);
-    border-radius: 2px;
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 1.5rem;
-    transition: margin-bottom 0.4s ease-out;
-}
-
-.timeline-item.active {
-    margin-bottom: 2rem;
-}
-
-.timeline-dot {
-    position: absolute;
-    top: 8px;
-    left: 0;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background-color: var(--diary-container-bg);
-    border: 4px solid var(--diary-border);
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.timeline-item:hover .timeline-dot {
-    border-color: var(--diary-accent-peach);
-}
-
-.timeline-item.active .timeline-dot {
-    border-color: var(--diary-primary-text);
-}
-
-/* Extraindo a cor da tag de humor e aplicando ao ponto */
-.timeline-item:has(.timeline-mood[data-mood="feliz"]).active .timeline-dot {
-    background-color: #FFD97D;
-}
-.timeline-item:has(.timeline-mood[data-mood="calmo"]).active .timeline-dot {
-    background-color: var(--diary-accent-green);
-}
-.timeline-item:has(.timeline-mood[data-mood="agitado"]).active .timeline-dot {
-    background-color: var(--diary-accent-peach);
-}
-.timeline-item:has(.timeline-mood[data-mood="triste"]).active .timeline-dot {
-    background-color: #A4BBD0;
-}
-
-.timeline-content {
-    margin-left: 40px;
-    background-color: #FDFDFD;
-    border: 1px solid var(--diary-border);
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.timeline-header {
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.2s ease;
-}
-
-.timeline-item.active .timeline-header {
-    background-color: #f9f6f2;
-}
-
-.timeline-date {
-    font-weight: 600;
-    color: var(--diary-primary-text);
-}
-
-.timeline-mood {
-    font-size: var(--font-sm);
-    font-weight: 500;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    color: var(--diary-primary-text);
-}
-
-/* Cores para a tag de humor */
-.timeline-mood[data-mood="feliz"] { background-color: #FFD97D; }
-.timeline-mood[data-mood="calmo"] { background-color: var(--diary-accent-green); }
-.timeline-mood[data-mood="agitado"] { background-color: var(--diary-accent-peach); }
-.timeline-mood[data-mood="triste"] { background-color: #A4BBD0; }
-
-.timeline-summary {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 1.5rem;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-}
-
-.timeline-item.active .timeline-summary {
-    max-height: 500px;
-    padding: 1rem 1.5rem;
-}
-
-.timeline-summary p {
-    margin: 0 0 0.5rem 0;
-    color: var(--diary-secondary-text);
-}
-
-.accordion-header {
-    width: 100%;
-    padding: 1.5rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    text-align: left;
-    background-color: transparent;
-    border-style: none;
-    font-family: 'Lora', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--diary-primary-text);
-}
-
-/* Estilos para a Caixa de Memórias Multimídia */
-.timeline-media {
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.timeline-media img {
-    width: 100%;
-    border-radius: 10px;
-    border: 1px solid var(--diary-border);
-}
-
-.media-caption {
-    background-color: var(--diary-accent-green);
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    color: var(--diary-primary-text);
-    margin: 0;
-    line-height: 1.6;
-    font-style: italic;
-}
-
-/* Estilos para o Mural de Recados */
-.morning-message-board {
-    max-width: 850px;
-    margin: 0 auto 2rem auto;
-    border: 1px solid var(--diary-border);
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-}
-
-.morning-message-board h4 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    color: var(--diary-primary-text);
-    margin: 0 0 1rem 0;
-    text-align: center;
-}
-
-.message-display-area {
-    background-color: #fdfaf6;
-    border-radius: 10px;
-    padding: 1.5rem;
-    min-height: 80px;
-    margin-bottom: 1rem;
-}
-
-.message-display-area .no-message-placeholder {
-    font-style: italic;
-    color: var(--diary-secondary-text);
-    text-align: center;
-    margin: 0;
-}
-
-.message-display-area .sent-message {
-    color: var(--diary-primary-text);
-    line-height: 1.7;
-    margin: 0;
-}
-
-.message-input-area {
-    display: flex;
-    gap: 1rem;
-}
-
-.message-input-area textarea {
-    flex-grow: 1;
-    border: 1px solid var(--diary-border);
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    resize: vertical;
-}
-
-.message-input-area textarea:focus {
-    outline: none;
-    border-color: var(--diary-primary-text);
-    box-shadow: 0 0 0 3px var(--diary-accent-peach);
-}
-
-.message-input-area button {
-    background-color: var(--diary-primary-text);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 0 1.5rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.message-input-area button:hover {
-    background-color: #2a251d;
-}
-
-/* Estilos para o cabeçalho das abas */
-.tab-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-/* Estilo para o botão de exportação */
-.export-btn {
-    background-color: transparent;
-    border: 1px solid var(--diary-border);
-    color: var(--diary-secondary-text);
-    border-radius: 10px;
-    padding: 0.6rem 1.2rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
+.entry__meta{
+  display:flex; align-items:center; justify-content:space-between;
+  color:var(--muted); font-size:var(--fs-12); gap: var(--sp-8);
 }
+.entry__text{ margin-top: .5rem; font-size: var(--fs-16) }
 
-.export-btn:hover {
-    background-color: var(--diary-accent-green);
-    color: var(--diary-primary-text);
-    border-color: var(--diary-accent-green);
+/* Truncamento opcional (aplique .entry--clamp em cards listados) */
+.entry--clamp .entry__text{
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
 }
 
-.export-btn svg {
-    transition: transform 0.2s ease;
+/* Botão de favorito compacto dentro do card */
+.entry__star{
+  border:1px solid var(--stroke); border-radius: 999px; padding: 4px 8px; font-size: var(--fs-12);
+  background: var(--paper);
 }
+.entry__star[aria-pressed="true"]{ background: color-mix(in srgb, var(--warn) 10%, var(--paper)); border-color: color-mix(in srgb, var(--warn) 35%, var(--stroke)) }
 
-.export-btn:hover svg {
-    transform: translateY(2px);
+/* Estados vazios */
+.empty{
+  text-align:center; color:var(--muted); border:1px dashed var(--stroke); border-radius: var(--r);
+  padding: var(--sp-24);
 }
 
-/* Estilos para o Seletor de Tags */
-.tag-selector {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-}
-.tag-selector input[type="checkbox"] {
-    display: none;
-}
-.tag-selector span {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--diary-border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: #fdfdfd;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: var(--diary-secondary-text);
-}
-.tag-selector input[type="checkbox"]:checked + span {
-    background-color: var(--diary-primary-text);
-    border-color: var(--diary-primary-text);
-    color: white;
-}
-
-/* Estilos para a Microinteração do Botão Salvar */
-.submit-btn {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-}
-.submit-btn .btn-text {
-    transition: opacity 0.2s ease-in-out;
-}
-.submit-btn .icon-success {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    fill: white;
-    opacity: 0;
-}
-
-/* Estado de sucesso */
-.submit-btn.is-success {
-    background-color: var(--diary-accent-green);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-.submit-btn.is-success .btn-text {
-    opacity: 0;
-}
-.submit-btn.is-success .icon-success {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-}
-
-/* Melhora a responsividade dos gráficos e tabelas */
-.chart-wrapper {
-    overflow-x: auto;
-    padding-bottom: 1rem;
-}
-
-.mood-mosaic {
-    min-width: 500px;
-}
-
-.line-chart {
-    min-width: 500px;
-}
-
-/* =================================================================== */
-/* ======              ANIMAÇÕES E EFEITOS                     ====== */
-/* =================================================================== */
-@keyframes celebration {
-    0% { transform: scale(1.15); }
-    50% { transform: scale(1.25) rotate(5deg); }
-    100% { transform: scale(1.15); }
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-@keyframes pulse-typing {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.1); }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes draw-line {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes fade-in-tile {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.toggle-selector input:checked + label, 
-.checkbox-selector input:checked + label {
-    animation: pulse 0.3s ease-out;
-}
-
-/* Preparação para a animação do gráfico de linha */
-.line-chart.animated polyline {
-  stroke-dasharray: 500;
-  stroke-dashoffset: 500;
-  animation: draw-line 1.5s ease-in-out forwards;
-}
-
-/* Preparação para a animação do mosaico */
-.mood-mosaic.animated .mosaic-day {
-  opacity: 0;
-  animation: fade-in-tile 0.5s ease-out forwards;
-}
+/* ── Acessibilidade ─────────────────────────────────────────────────────── */
 
-/* Efeito cascata para os dias do mosaico */
-.mood-mosaic.animated .mosaic-day:nth-child(1) { animation-delay: 0.1s; }
-.mood-mosaic.animated .mosaic-day:nth-child(2) { animation-delay: 0.2s; }
-.mood-mosaic.animated .mosaic-day:nth-child(3) { animation-delay: 0.3s; }
-.mood-mosaic.animated .mosaic-day:nth-child(4) { animation-delay: 0.4s; }
-.mood-mosaic.animated .mosaic-day:nth-child(5) { animation-delay: 0.5s; }
-.mood-mosaic.animated .mosaic-day:nth-child(6) { animation-delay: 0.6s; }
-.mood-mosaic.animated .mosaic-day:nth-child(7) { animation-delay: 0.7s; }
-
-/* =================================================================== */
-/* ======                MODAL CARTA DA SEMANA                  ====== */
-/* =================================================================== */
-.letter-content {
-    max-width: 700px;
-    background-color: #FDFBF8;
-    font-family: 'Inter', sans-serif;
-    color: var(--diary-primary-text);
-    padding: 3rem 4rem;
-}
-
-.letter-date {
-    font-size: 0.9rem;
-    color: var(--diary-secondary-text);
-    text-align: right;
-    margin-bottom: 2rem;
-}
-
-.letter-title {
-    font-family: 'Lora', serif;
-    font-size: 1.8rem;
-    color: var(--diary-primary-text);
-    margin-bottom: 1.5rem;
-}
-
-.letter-content h4 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    color: var(--brand-secondary);
-    border-bottom: 1px solid var(--diary-border);
-    padding-bottom: 0.5rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.letter-intro, .letter-highlights li {
-    line-height: 1.8;
-    color: var(--diary-secondary-text);
-}
-
-.letter-highlights {
-    list-style: none;
-    padding-left: 0;
-}
-
-.letter-highlights li {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-    position: relative;
-}
-
-.letter-highlights li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--brand-secondary);
-    font-size: 1.2rem;
-    line-height: 1.8;
-}
-
-.letter-mood-mosaic {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-}
-
-.letter-mood-mosaic .mosaic-day {
-    height: 50px;
-}
-
-.letter-closing {
-    margin-top: 3rem;
-    line-height: 1.6;
-    font-style: italic;
-    color: var(--diary-secondary-text);
+.sr-only{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0; clip:rect(0 0 0 0); overflow:hidden; border:0;
 }
+.visually-muted{ color: var(--muted); font-size: var(--fs-12) }
 
-.letter-actions {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--diary-border);
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}
+:focus-visible{ outline: none; box-shadow: var(--ring) }
 
-/* =================================================================== */
-/* ======        ANIMAÇÕES DE TRANSIÇÃO DE ABAS (SLIDE)         ====== */
-/* =================================================================== */
-@keyframes slideInFromRight {
-    from { transform: translateX(30px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-@keyframes slideOutToLeft {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(-30px); opacity: 0; }
-}
-@keyframes slideInFromLeft {
-    from { transform: translateX(-30px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-@keyframes slideOutToRight {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(30px); opacity: 0; }
-}
+/* Melhor foco para itens clicáveis em teclado (ex.: .entry) */
+.entry:focus-visible{ outline: 3px solid color-mix(in srgb, var(--brand) 40%, transparent); outline-offset:2px }
 
-/* Classes de animação */
-.slide-in-right { animation: slideInFromRight 0.4s ease-out forwards; }
-.slide-out-left { animation: slideOutToLeft 0.4s ease-out forwards; }
-.slide-in-left { animation: slideInFromLeft 0.4s ease-out forwards; }
-.slide-out-right { animation: slideOutToRight 0.4s ease-out forwards; }
+/* Estados desativados */
+[disabled], .is-disabled{ opacity:.5; cursor:not-allowed; pointer-events:none }
 
-/* =================================================================== */
-/* ======        PAINEL DO DIA (FLOR + DESTAQUES) - VERSÃO FINAL ====== */
-/* =================================================================== */
-.daily-status-grid { display: none; }
-.status-divider { display: none; }
+/* ── Utilitários de layout/spacing (leves e opcionais) ───────────────────── */
 
-.daily-status-panel {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 2rem;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    background-color: transparent;
-    border: none;
-    margin-bottom: 2.5rem;
-}
+.stack-8  > * + *{ margin-top: var(--sp-8) }
+.stack-12 > * + *{ margin-top: var(--sp-12) }
+.stack-16 > * + *{ margin-top: var(--sp-16) }
+.row{ display:flex; gap: var(--sp-8); align-items:center }
+.row.wrap{ flex-wrap:wrap }
+.space-between{ display:flex; justify-content:space-between; align-items:center; gap: var(--sp-8) }
+.mt-0{ margin-top:0 } .mt-8{ margin-top:var(--sp-8) } .mt-16{ margin-top:var(--sp-16) }
+.mb-0{ margin-bottom:0 } .mb-8{ margin-bottom:var(--sp-8) } .mb-16{ margin-bottom:var(--sp-16) }
+.p-12{ padding: var(--sp-12) } .p-16{ padding: var(--sp-16) } .p-24{ padding: var(--sp-24) }
 
-.wellness-flower-container {
-    width: 140px;
-    height: 140px;
-    margin: 0 auto;
-}
+/* ── Topbar / Header padrão (opcional) ───────────────────────────────────── */
 
-.status-text-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.header{
+  display:flex; align-items:center; gap: var(--sp-12);
+  padding: var(--sp-12) var(--sp-16);
 }
+.header__title{ font-weight:700; font-family:var(--font-serif); font-size:var(--fs-20) }
+.header__spacer{ margin-left:auto }
 
-.daily-highlight, .connection-moment {
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    position: relative;
-    margin: 0;
-    box-shadow: none;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    transition: all 0.2s ease-in-out;
+/* Toggle de modo manual (css-only visual; funcionalidade via JS) */
+.mode-toggle{
+  border:1px solid var(--stroke); background:var(--paper); border-radius:12px; padding:8px 12px; font-size: var(--fs-14);
 }
+.mode-toggle:focus-visible{ box-shadow: var(--ring) }
 
-.daily-highlight:hover, .connection-moment:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: rgba(0,0,0,0.08);
-}
+/* ── Tabelas/relatórios (caso exporte/estatísticas) ─────────────────────── */
 
-.wellness-flower .petal {
-    fill: var(--diary-border);
-    stroke: var(--diary-secondary-text);
-    stroke-width: 0.5;
-    opacity: 0.6;
-    transform-origin: center;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.wellness-flower .flower-center {
-    fill: #FEEA9A;
-    stroke: #FDB813;
-    stroke-width: 0.5;
-}
-.wellness-flower .petal.filled {
-    fill: var(--diary-accent-peach);
-    opacity: 0.8;
-    transform: scale(1.1);
+.table{
+  width:100%; border-collapse: collapse; font-size: var(--fs-14); background:var(--paper);
+  border:1px solid var(--stroke); border-radius: var(--r); overflow:hidden;
 }
-.wellness-flower .petal.vibrant {
-    fill: #F5A68D;
-    opacity: 1;
-    transform: scale(1.2);
-}
+.table th, .table td{ padding: 10px 12px; border-bottom:1px solid var(--stroke) }
+.table th{ text-align:left; color:var(--muted); font-weight:600 }
 
-/* =================================================================== */
-/* ======                       RESPONSIVIDADE                  ====== */
-/* =================================================================== */
-@media (max-width: 768px) {
-    .diary-header {
-        margin: 1rem auto 2rem auto;
-        padding: 1rem 1.5rem;
-        border-radius: 20px;
-        background: var(--diary-container-bg);
-        border: 1px solid var(--diary-border);
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-    
-    .tabs-container {
-        max-width: 100%;
-        margin: 0 1rem 2rem 1rem;
-        padding: 0.4rem;
-        border-radius: 16px;
-    }
-    
-    .tab-link {
-        padding: 0.8rem 0.5rem;
-        font-size: 0.8rem;
-    }
-    
-    .tab-indicator {
-        border-radius: 12px;
-    }
-    
-    .diary-container {
-        padding: 2rem 1.5rem;
-    }
-    
-    .profile-picture {
-        width: 48px;
-        height: 48px;
-    }
-    
-    .profile-info h2 {
-        font-size: 1.2rem;
-    }
-    
-    .profile-info p {
-        font-size: 0.8rem;
-    }
-    
-    .emoji-selector {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-    }
-    
-    .toggle-selector, .checkbox-selector {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-    
-    .emoji-selector label {
-        padding: 1rem 0.5rem;
-    }
-    
-    .emoji-selector span {
-        font-size: 2.2rem;
-    }
-    
-    .toggle-selector label, .checkbox-selector label {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-    }
-    
-    .modern-textarea {
-        padding: 1.2rem;
-        border-radius: 16px;
-        font-size: 0.95rem;
-        min-height: 100px;
-    }
-    
-    .modern-textarea-group label {
-        font-size: 0.9rem;
-    }
-    
-    .daily-status-panel {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0;
-    }
-    .wellness-flower-container {
-        width: 120px;
-        height: 120px;
-    }
-}
+/* ── Helpers de cor para feedback textual ───────────────────────────────── */
 
-@media (max-width: 600px) {
-    .profile-grid { grid-template-columns: 1fr; }
-}
+.text-muted{ color:var(--muted) }
+.text-success{ color:var(--accent) }
+.text-warn{ color:var(--warn) }
+.text-danger{ color:var(--danger) }
 
-@media (max-width: 500px) {
-    .vital-signs-grid { grid-template-columns: 1fr; }
-}
+/* ── Pequenos toques de transição entre seções (opcionais) ──────────────── */
 
-@media (max-width: 480px) {
-    .tab-link {
-        padding: 0.7rem 0.3rem;
-        font-size: 0.75rem;
-    }
-    
-    .emoji-selector {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.4rem;
-    }
-    
-    .emoji-selector label {
-        padding: 0.8rem 0.3rem;
-    }
-    
-    .emoji-selector span {
-        font-size: 2rem;
-    }
-    
-    .emoji-selector p {
-        font-size: 0.7rem;
-    }
-    
-    .modern-textarea {
-        padding: 1rem;
-        border-radius: 14px;
-        min-height: 90px;
-    }
-}
+.fade-in{ animation: fadeIn .24s ease-out both }
+@keyframes fadeIn{ from{ opacity:0; transform: translateY(4px) } to{ opacity:1; transform: translateY(0) } }
