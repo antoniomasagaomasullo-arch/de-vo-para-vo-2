@@ -28,6 +28,8 @@ function initTabs() {
     });
 }
 
+// SUGESTÃO: Substitua a sua função initDiary por esta versão final
+
 function initDiary() {
     const dailyChecklistForm = document.getElementById('dailyChecklistForm');
     if (!dailyChecklistForm) return;
@@ -36,10 +38,12 @@ function initDiary() {
         e.preventDefault();
         triggerVibration();
 
+        const submitBtn = dailyChecklistForm.querySelector('.submit-btn');
+
+        // --- Lógica dos cards de Destaque e Conexão (inalterada) ---
         const highlightIcon = document.querySelector('.highlight-icon');
         const highlightMessage = document.getElementById('highlightMessage');
         const connectionSuggestion = document.getElementById('connectionSuggestion');
-        
         const formData = new FormData(dailyChecklistForm);
         const mood = formData.get('mood');
         const observations = document.getElementById('diaryMessage').value;
@@ -49,12 +53,7 @@ function initDiary() {
             highlightIcon.textContent = '📝';
             highlightMessage.textContent = observations;
         } else if (mood) {
-            const moodMap = {
-                feliz: { icon: '😊', text: 'Hoje foi um dia feliz!' },
-                calmo: { icon: '😐', text: 'O dia foi calmo e sereno.' },
-                agitado: { icon: '😟', text: 'Hoje o dia foi um pouco mais agitado.' },
-                triste: { icon: '😢', text: 'Hoje o humor esteve um pouco mais para baixo.' }
-            };
+            const moodMap = { feliz: { icon: '😊', text: 'Hoje foi um dia feliz!' }, calmo: { icon: '😐', text: 'O dia foi calmo e sereno.' }, agitado: { icon: '😟', text: 'Hoje o dia foi um pouco mais agitado.' }, triste: { icon: '😢', text: 'Hoje o humor esteve um pouco mais para baixo.' } };
             highlightIcon.textContent = moodMap[mood].icon;
             highlightMessage.textContent = moodMap[mood].text;
         } else {
@@ -62,24 +61,24 @@ function initDiary() {
             highlightMessage.textContent = 'Registro do dia salvo.';
         }
 
-        const suggestions = {
-            caminhada: "Que tal perguntar como foi a caminhada e o que ela viu de interessante no caminho?",
-            fisioterapia: "Pergunte como ela está se sentindo após a fisioterapia e se algum exercício foi novidade.",
-            alongamento: "Uma boa ideia é perguntar se ela se sentiu mais disposta depois de se alongar.",
-            nenhuma: "Talvez seja uma boa ideia sugerir uma atividade leve para amanhã, como ouvir uma música juntos por telefone.",
-            default: "Pergunte qual foi a parte favorita do dia dela hoje!"
-        };
+        const suggestions = { caminhada: "Que tal perguntar como foi a caminhada e o que ela viu de interessante no caminho?", fisioterapia: "Pergunte como ela está se sentindo após a fisioterapia e se algum exercício foi novidade.", alongamento: "Uma boa ideia é perguntar se ela se sentiu mais disposta depois de se alongar.", nenhuma: "Talvez seja uma boa ideia sugerir uma atividade leve para amanhã, como ouvir uma música juntos por telefone.", default: "Pergunte qual foi a parte favorita do dia dela hoje!" };
         let finalSuggestion = suggestions.default;
         if (activities.length > 0 && suggestions[activities[0]]) {
             finalSuggestion = suggestions[activities[0]];
         }
         connectionSuggestion.textContent = finalSuggestion;
 
-        alert('Registro diário salvo com sucesso!');
-        dailyChecklistForm.reset();
+        // --- NOVA LÓGICA DA ANIMAÇÃO DO BOTÃO ---
+        // 1. Ativa o estado de sucesso
+        submitBtn.classList.add('is-success');
+
+        // 2. Após 2 segundos, reseta o botão e o formulário
+        setTimeout(() => {
+            submitBtn.classList.remove('is-success');
+            dailyChecklistForm.reset();
+        }, 2000);
     });
 }
-
 function initInteractiveCharts() {
     const tooltip = document.getElementById('chartTooltip');
     const charts = document.querySelectorAll('.bar-chart, .line-chart');
