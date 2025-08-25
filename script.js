@@ -344,6 +344,8 @@ function updateValidationIcons(inputElement, isValid) {
     }
 }
 
+// ... Outras funções ...
+
 function initFormHandlers() {
     const form = document.querySelector('.contact-form');
     const cepInput = document.getElementById('cep');
@@ -384,6 +386,34 @@ function initFormHandlers() {
             }
         });
     }
+
+    // ... Mais código ...
+
+    // NOVO: Adiciona a lógica para o efeito de floating label
+    const formInputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea');
+
+    formInputs.forEach(input => {
+        const parent = input.closest('.form-group');
+        if (!parent) return;
+
+        // Ativa o efeito se o input já tiver um valor (ex: preenchimento automático)
+        if (input.value) {
+            parent.classList.add('active');
+        }
+
+        input.addEventListener('focus', () => {
+            parent.classList.add('active');
+        });
+
+        input.addEventListener('blur', () => {
+            if (input.value === '') {
+                parent.classList.remove('active');
+            }
+        });
+    });
+}
+
+// ... Outras funções ...
 
     if (cpfInput) {
         cpfInput.addEventListener('input', function(e) {
