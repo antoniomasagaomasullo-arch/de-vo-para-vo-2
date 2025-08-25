@@ -86,7 +86,7 @@ body.dark-mode {
 
 body {
     font-family: 'Inter', sans-serif;
-    line-height: 1.7;
+    line-height: 1.6; /* Ajustado para melhorar a legibilidade em blocos de texto */
     letter-spacing: 0.01em;
     color: var(--text-primary);
     /* A linha abaixo será alterada */
