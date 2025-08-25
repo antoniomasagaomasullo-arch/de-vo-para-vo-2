@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - De Vó para Vó</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css"> </head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <a href="index.html" class="login-logo">De Vó para Vó</a>
+            <h2>Acesso da Família</h2>
+            <p>Entre para ver o diário de bordo e o perfil de saúde.</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required>
+                </div>
+                <p id="loginError" class="error-message"></p>
+                <button type="submit" class="submit-btn">Entrar</button>
+            </form>
+        </div>
+    </div>
+    <script src="login.js"></script> </body>
+</html>
