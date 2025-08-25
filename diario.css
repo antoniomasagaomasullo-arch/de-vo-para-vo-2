@@ -642,3 +642,38 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     border-color: var(--diary-primary-text);
     color: white;
 }
+
+/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
+
+/* Estilos para a Microinteração do Botão Salvar */
+.submit-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+.submit-btn .btn-text {
+    transition: opacity 0.2s ease;
+}
+.submit-btn .icon-success {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease;
+    fill: white;
+    opacity: 0;
+}
+
+/* Estado de sucesso */
+.submit-btn.is-success {
+    background-color: var(--diary-accent-green);
+    width: 60px; /* Encolhe para o tamanho do ícone */
+    border-radius: 50%; /* Fica redondo */
+}
+.submit-btn.is-success .btn-text {
+    opacity: 0;
+}
+.submit-btn.is-success .icon-success {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
