@@ -47,13 +47,18 @@ function initDiary() {
         e.preventDefault();
         triggerVibration();
 
+        // Pega os elementos dos cards
         const highlightIcon = document.querySelector('.highlight-icon');
         const highlightMessage = document.getElementById('highlightMessage');
-        
+        const connectionSuggestion = document.getElementById('connectionSuggestion');
+
+        // Pega os dados do formulário
         const formData = new FormData(dailyChecklistForm);
         const mood = formData.get('mood');
-        const observations = document.getElementById('diaryMessage').value; // Usar .value para textarea
+        const observations = document.getElementById('diaryMessage').value;
+        const activities = formData.getAll('activity'); // Pega todas as atividades marcadas
 
+        // --- Lógica para o Destaque do Dia (sem alterações) ---
         if (observations.trim() !== '') {
             highlightIcon.textContent = '📝';
             highlightMessage.textContent = observations;
@@ -70,6 +75,23 @@ function initDiary() {
             highlightIcon.textContent = '📋';
             highlightMessage.textContent = 'Registro do dia salvo.';
         }
+
+        // --- NOVA LÓGICA PARA O MOMENTO CONEXÃO ---
+        const suggestions = {
+            caminhada: "Que tal perguntar como foi a caminhada e o que ela viu de interessante no caminho?",
+            fisioterapia: "Pergunte como ela está se sentindo após a fisioterapia e se algum exercício foi novidade.",
+            alongamento: "Uma boa ideia é perguntar se ela se sentiu mais disposta depois de se alongar.",
+            nenhuma: "Talvez seja uma boa ideia sugerir uma atividade leve para amanhã, como ouvir uma música juntos por telefone.",
+            default: "Pergunte qual foi a parte favorita do dia dela hoje!"
+        };
+
+        let finalSuggestion = suggestions.default;
+        // Pega a primeira atividade da lista para gerar a sugestão
+        if (activities.length > 0 && suggestions[activities[0]]) {
+            finalSuggestion = suggestions[activities[0]];
+        }
+        connectionSuggestion.textContent = finalSuggestion;
+
 
         alert('Registro diário salvo com sucesso!');
         dailyChecklistForm.reset();
