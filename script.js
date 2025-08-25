@@ -344,8 +344,6 @@ function updateValidationIcons(inputElement, isValid) {
     }
 }
 
-// ... Outras funções ...
-
 function initFormHandlers() {
     const form = document.querySelector('.contact-form');
     const cepInput = document.getElementById('cep');
@@ -387,34 +385,6 @@ function initFormHandlers() {
         });
     }
 
-    // ... Mais código ...
-
-    // NOVO: Adiciona a lógica para o efeito de floating label
-    const formInputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea');
-
-    formInputs.forEach(input => {
-        const parent = input.closest('.form-group');
-        if (!parent) return;
-
-        // Ativa o efeito se o input já tiver um valor (ex: preenchimento automático)
-        if (input.value) {
-            parent.classList.add('active');
-        }
-
-        input.addEventListener('focus', () => {
-            parent.classList.add('active');
-        });
-
-        input.addEventListener('blur', () => {
-            if (input.value === '') {
-                parent.classList.remove('active');
-            }
-        });
-    });
-}
-
-// ... Outras funções ...
-
     if (cpfInput) {
         cpfInput.addEventListener('input', function(e) {
             e.target.value = maskCPF(e.target.value);
@@ -448,7 +418,6 @@ function initFormHandlers() {
             }
         });
     }
-
 const formInputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
 
     formInputs.forEach(input => {
@@ -471,6 +440,7 @@ const formInputs = form.querySelectorAll('input[type="text"], input[type="email"
         });
     });
     // FIM DO NOVO BLOCO
+}
 
 async function searchCEP(cep) {
     const statusElement = document.getElementById('cep-status');
@@ -1570,99 +1540,26 @@ function initChecklist() {
 }
 
 // ==================== Lógica do Formulário "Conselho de Vó" ====================
-// ... código anterior
-
-const sampleTributes = [
-    {
-        conselho: "A vida é como uma horta, o que plantamos hoje, colhemos amanhã. Cultive o amor e a paciência.",
-        nomeVo: "Dona Maria",
-        seuNome: "Clara G."
-    },
-    {
-        conselho: "O melhor remédio é um bom abraço e um café quentinho. Nunca economize nos dois!",
-        nomeVo: "Vó Lúcia",
-        seuNome: "José P."
-    },
-    {
-        conselho: "Envelhecer é como subir uma montanha; quanto mais alto, mais a paisagem se abre.",
-        nomeVo: "Vovô João",
-        seuNome: "Ana S."
-    }
-];
-
 function initConselhoVoForm() {
     const form = document.getElementById('formConselhoVo');
     const successMessage = document.getElementById('submissionSuccessMessage');
-    const conselhosGrid = document.getElementById('conselhosGrid');
-    
-    if (!form || !conselhosGrid) return;
-    
-    // NOVO: Renderiza os conselhos de exemplo ao carregar a página
-    renderTributes(sampleTributes);
+
+    if (!form) return;
 
     form.addEventListener('submit', function(e) {
         e.preventDefault(); // Impede o envio real do formulário
         triggerVibration();
 
-        const conselho = document.getElementById('conselhoVo').value;
-        const nomeVo = document.getElementById('nomeVo').value;
-        const seuNome = document.getElementById('seuNome').value;
-
-        // NOVO: Cria e adiciona o novo card de homenagem à galeria
-        const newTribute = { conselho, nomeVo, seuNome };
-        renderTributes([newTribute], true); // Adiciona o novo no início da lista
-
         // Esconde o formulário e mostra a mensagem de sucesso
         form.style.display = 'none';
         successMessage.style.display = 'block';
 
-        // Reseta o formulário para a próxima vez
-        form.reset();
-        
-        // Em um projeto real, aqui você enviaria os dados para um servidor para persistência.
+        // Opcional: em um projeto real, aqui você enviaria os dados para um servidor.
+        // const formData = new FormData(form);
+        // const data = Object.fromEntries(formData.entries());
+        // console.log("Dados a serem enviados:", data);
     });
-
-    // NOVO: Adiciona um botão de "enviar outro" na mensagem de sucesso
-    const sendAnotherBtn = document.createElement('button');
-    sendAnotherBtn.textContent = 'Enviar outra homenagem';
-    sendAnotherBtn.classList.add('cta-button');
-    sendAnotherBtn.style.marginTop = '1.5rem';
-    sendAnotherBtn.addEventListener('click', () => {
-        successMessage.style.display = 'none';
-        form.style.display = 'block';
-    });
-    successMessage.appendChild(sendAnotherBtn);
 }
-
-// NOVO: Função para renderizar os cards de conselho na galeria
-// ... Outras funções ...
-
-function renderTributes(tributes, prepend = false) {
-    const conselhosGrid = document.getElementById('conselhosGrid');
-    if (!conselhosGrid) return;
-
-    const cardsHtml = tributes.map(tribute => `
-        <div class="spotlight-card reveal">
-            <div class="spotlight-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
-                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                </svg>
-            </div>
-            <div class="spotlight-text">"${tribute.conselho}"</div>
-            <div class="spotlight-author">— ${tribute.nomeVo}, homenageada por ${tribute.seuNome}</div>
-        </div>
-    `).join('');
-
-    if (prepend) {
-        conselhosGrid.insertAdjacentHTML('afterbegin', cardsHtml);
-    } else {
-        conselhosGrid.innerHTML = cardsHtml;
-    }
-    
-    initScrollReveal();
-}
-
-// ... Outras funções ...
 
 function initHighlightToShare() {
     const sharePopup = document.getElementById('share-popup');
@@ -1718,3 +1615,4 @@ function initHighlightToShare() {
         }
     });
 }
+
