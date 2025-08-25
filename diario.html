@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="tab-content active" id="daily-log">
-                      <div class="daily-status-grid">
+          <div class="daily-status-panel">
     <div class="wellness-flower-container">
         <svg id="wellnessFlower" class="wellness-flower" viewBox="0 0 100 100">
             <path id="petal-mood" class="petal" d="M50 50 L40 20 Q50 10 60 20 Z"></path>
@@ -52,7 +52,8 @@
             <circle class="flower-center" cx="50" cy="50" r="12"></circle>
         </svg>
     </div>
-    <div class="status-cards-container">
+
+    <div class="status-text-content">
         <div class="daily-highlight">
             <div class="highlight-icon">😊</div>
             <div class="highlight-text">
@@ -63,6 +64,21 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
             </button>
         </div>
+        
+        <div class="status-divider"></div>
+        
+        <div class="connection-moment">
+            <div class="connection-icon">💬</div>
+            <div class="connection-text">
+                <h4>Momento Conexão</h4>
+                <p id="connectionSuggestion">Preencha o registro para receber uma sugestão de assunto para sua próxima conversa.</p>
+            </div>
+            <button class="text-to-speech-btn" data-speak-target="connectionSuggestion" aria-label="Ouvir Sugestão de Conexão">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </button>
+        </div>
+    </div>
+</div>
         <div class="connection-moment">
             <div class="connection-icon">💬</div>
             <div class="connection-text">
