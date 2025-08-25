@@ -67,15 +67,13 @@ function initDiary() {
             finalSuggestion = suggestions[activities[0]];
         }
         connectionSuggestion.textContent = finalSuggestion;
-
-        // NOVA LÓGICA DA ANIMAÇÃO DO BOTÃO
-        // 1. Ativa o estado de sucesso
+     
+        // LÓGICA DA ANIMAÇÃO DO BOTÃO APRIMORADA
         submitBtn.classList.add('is-success');
 
-        // 2. Após 2 segundos, reseta o botão e o formulário
+        // Após a animação, apenas reseta o botão, mantendo os dados no formulário
         setTimeout(() => {
             submitBtn.classList.remove('is-success');
-            dailyChecklistForm.reset();
         }, 2000);
     });
 }
