@@ -15,11 +15,39 @@ function initTabs() {
     const tabLinks = Array.from(tabContainer.querySelectorAll('.tab-link'));
     const editProfileBtn = document.getElementById('editProfileBtn');
 
+    // Criar o indicador se não existir
+    let tabIndicator = tabContainer.querySelector('.tab-indicator');
+    if (!tabIndicator) {
+        tabIndicator = document.createElement('div');
+        tabIndicator.className = 'tab-indicator';
+        tabContainer.insertBefore(tabIndicator, tabContainer.firstChild);
+    }
+
     let currentActiveIndex = tabLinks.findIndex(link => link.classList.contains('active'));
 
+    // Função para atualizar a posição do indicador
+    function updateIndicator(activeTab) {
+        const rect = activeTab.getBoundingClientRect();
+        const containerRect = tabContainer.getBoundingClientRect();
+        const left = rect.left - containerRect.left - 8;
+        const width = rect.width;
+        
+        tabIndicator.style.left = left + 'px';
+        tabIndicator.style.width = width + 'px';
+    }
+
+    // Inicializar o indicador na posição correta
+    if (currentActiveIndex >= 0) {
+        setTimeout(() => {
+            updateIndicator(tabLinks[currentActiveIndex]);
+        }, 100);
+    }
+
+    // Event listeners para os tabs
     tabLinks.forEach((link, index) => {
         link.addEventListener('click', () => {
             if (index === currentActiveIndex) return;
+            
             triggerVibration();
 
             const oldActiveLink = tabLinks[currentActiveIndex];
@@ -28,45 +56,28 @@ function initTabs() {
             const newActiveLink = link;
             const newActiveContent = document.getElementById(newActiveLink.dataset.tab);
 
-            // Determina a direção
-            const direction = index > currentActiveIndex ? 'right' : 'left';
-
             // Remove a classe 'active' do link antigo e adiciona ao novo
             oldActiveLink.classList.remove('active');
             newActiveLink.classList.add('active');
 
-            // Aplica as animações
-            if (direction === 'right') {
-                oldActiveContent.classList.add('slide-out-left');
-                newActiveContent.classList.add('slide-in-right');
-            } else {
-                oldActiveContent.classList.add('slide-out-right');
-                newActiveContent.classList.add('slide-in-left');
-            }
-            
-            // Ativa o display do novo conteúdo para a animação ser visível
+            // Atualiza o indicador
+            updateIndicator(newActiveLink);
+
+            // Atualiza o conteúdo
+            oldActiveContent.classList.remove('active');
             newActiveContent.classList.add('active');
-
-            // Limpa as classes de animação após a transição
-            oldActiveContent.addEventListener('animationend', () => {
-                oldActiveContent.classList.remove('active', 'slide-out-left', 'slide-out-right');
-            }, { once: true });
-
-            newActiveContent.addEventListener('animationend', () => {
-                newActiveContent.classList.remove('slide-in-left', 'slide-in-right');
-            }, { once: true });
 
             // Atualiza o índice ativo
             currentActiveIndex = index;
             
-            // Lógica de visibilidade do FAB (Botão Flutuante)
+            // Lógica de visibilidade do FAB
             if (newActiveLink.dataset.tab === 'health-profile') {
                 editProfileBtn.classList.add('visible');
             } else {
                 editProfileBtn.classList.remove('visible');
             }
 
-            // Lógica de animação dos gráficos (já existente)
+            // Animação dos gráficos
             if (newActiveLink.dataset.tab === 'weekly-analysis') {
                 const moodMosaic = newActiveContent.querySelector('.mood-mosaic');
                 const lineCharts = newActiveContent.querySelectorAll('.line-chart');
@@ -81,6 +92,112 @@ function initTabs() {
             }
         });
     });
+
+    // Atualizar indicador no resize
+    window.addEventListener('resize', () => {
+        if (currentActiveIndex >= 0) {
+            updateIndicator(tabLinks[currentActiveIndex]);
+        }
+    });
+}
+
+// ADICIONE também esta função para a textarea moderna:
+function initModernTextarea() {
+    const textarea = document.getElementById('diaryMessage');
+    const charCount = document.getElementById('charCount');
+    const statusIcon = document.getElementById('textareaStatus');
+    
+    if (!textarea) return;
+
+    let typingTimer;
+    const typingDelay = 1000;
+
+    function updateCharCount() {
+        const currentLength = textarea.value.length;
+        const maxLength = textarea.getAttribute('maxlength') || 500;
+        
+        if (charCount) {
+            charCount.textContent = currentLength;
+            
+            if (currentLength > maxLength * 0.8) {
+                charCount.style.color = '#E74C3C';
+            } else if (currentLength > maxLength * 0.6) {
+                charCount.style.color = '#F39C12';
+            } else {
+                charCount.style.color = 'var(--diary-secondary-text)';
+            }
+        }
+    }
+
+    function showTypingStatus() {
+        if (statusIcon) {
+            statusIcon.innerHTML = '✏️';
+            statusIcon.className = 'textarea-status-icon typing';
+        }
+    }
+
+    function showSuccessStatus() {
+        if (statusIcon) {
+            statusIcon.innerHTML = '✓';
+            statusIcon.className = 'textarea-status-icon success';
+            
+            setTimeout(() => {
+                statusIcon.className = 'textarea-status-icon';
+            }, 2000);
+        }
+    }
+
+    function autoResize() {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.max(120, textarea.scrollHeight) + 'px';
+    }
+
+    textarea.addEventListener('input', function() {
+        updateCharCount();
+        autoResize();
+        showTypingStatus();
+        
+        if (this.value.trim().length > 0) {
+            this.classList.add('has-content');
+        } else {
+            this.classList.remove('has-content');
+        }
+
+        clearTimeout(typingTimer);
+        
+        typingTimer = setTimeout(() => {
+            if (this.value.trim().length > 0) {
+                showSuccessStatus();
+            }
+        }, typingDelay);
+    });
+
+    textarea.addEventListener('focus', function() {
+        this.classList.add('expanding');
+    });
+
+    textarea.addEventListener('blur', function() {
+        this.classList.remove('expanding');
+    });
+
+    updateCharCount();
+
+    const placeholders = [
+        "Conte como foi o dia... O que mais marcou?",
+        "Alguma visita especial hoje?",
+        "Como ela estava se sentindo?",
+        "Algum momento especial para compartilhar?",
+        "Qualquer detalhe importante para a família saber..."
+    ];
+
+    let placeholderIndex = 0;
+    
+    setInterval(() => {
+        if (textarea.value.trim() === '' && document.activeElement !== textarea) {
+            textarea.placeholder = placeholders[placeholderIndex];
+            placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+        }
+    }, 4000);
 }
 
 // SUGESTÃO: Substitua a sua função initDiary por esta versão final
