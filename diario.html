@@ -98,20 +98,32 @@
                                     <label><input type="radio" name="eating" value="ruim"><span>Recusou</span></label>
                                 </div>
                             </div>
-                            <h4>Atividades do Dia</h4>
-                            <div class="checklist-group">
-                                <label>5. Houve atividade física hoje?</label>
-                                <div class="checkbox-selector">
-                                    <label><input type="checkbox" name="activity" value="caminhada"><span>Caminhada Leve</span></label>
-                                    <label><input type="checkbox" name="activity" value="fisioterapia"><span>Fisioterapia</span></label>
-                                    <label><input type="checkbox" name="activity" value="alongamento"><span>Alongamento</span></label>
-                                    <label><input type="checkbox" name="activity" value="nenhuma"><span>Nenhuma</span></label>
-                                </div>
-                            </div>
-                            <div class="checklist-group">
-                                <label for="diaryMessage">6. Observações e mensagens do dia:</label>
-                                <textarea id="diaryMessage" placeholder="Descreva outras atividades, visitas, ou qualquer detalhe importante..."></textarea>
-                            </div>
+                        <h4>Atividades do Dia</h4>
+<div class="checklist-group">
+    <label>5. Houve atividade física hoje?</label>
+    <div class="checkbox-selector">
+        <label><input type="checkbox" name="activity" value="caminhada"><span>Caminhada Leve</span></label>
+        <label><input type="checkbox" name="activity" value="fisioterapia"><span>Fisioterapia</span></label>
+        <label><input type="checkbox" name="activity" value="alongamento"><span>Alongamento</span></label>
+        <label><input type="checkbox" name="activity" value="nenhuma"><span>Nenhuma</span></label>
+    </div>
+</div>
+
+<div class="checklist-group">
+    <label>6. Tags do Dia (opcional):</label>
+    <div class="tag-selector">
+        <label><input type="checkbox" name="tags" value="visita"><span>#VisitaDaFamília</span></label>
+        <label><input type="checkbox" name="tags" value="sol"><span>#TardeDeSol</span></label>
+        <label><input type="checkbox" name="tags" value="musica"><span>#OuvindoMúsica</span></label>
+        <label><input type="checkbox" name="tags" value="conversa"><span>#BoaConversa</span></label>
+        <label><input type="checkbox" name="tags" value="saudade"><span>#ComSaudade</span></label>
+    </div>
+</div>
+
+<div class="checklist-group">
+    <label for="diaryMessage">7. Observações e mensagens do dia:</label>
+    <textarea id="diaryMessage" placeholder="Descreva outras atividades, visitas, ou qualquer detalhe importante..."></textarea>
+</div>
                             <button type="submit" class="submit-btn">Salvar Registro do Dia</button>
                         </form>
                     </div>
