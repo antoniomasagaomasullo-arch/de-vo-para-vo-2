@@ -374,3 +374,37 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 @media (max-width: 500px) {
     .vital-signs-grid { grid-template-columns: 1fr; }
 }
+
+/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
+
+/* Estilos para o card "Momento Conexão" */
+.connection-moment {
+    max-width: 850px;
+    margin: 0 auto 2rem auto;
+    background-color: var(--diary-accent-green); /* Usando a cor verde de "saúde/bem-estar" */
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.connection-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.connection-text h4 {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: var(--diary-primary-text);
+    margin: 0 0 0.25rem 0;
+}
+
+.connection-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--diary-secondary-text);
+    margin: 0;
+}
