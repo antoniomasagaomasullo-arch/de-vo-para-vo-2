@@ -442,7 +442,8 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     border-color: var(--diary-accent-peach);
 }
 
-timeline-item.active .timeline-dot {
+.timeline-item.active .timeline-dot { /* <-- CORRIGIDO */
+
     border-color: var(--diary-primary-text); /* Borda mais forte para o item ativo */
 }
 
