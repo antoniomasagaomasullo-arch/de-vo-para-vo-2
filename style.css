@@ -3254,33 +3254,70 @@ textarea:focus-visible {
     margin: 0.5rem auto 0;
 }
 
+/* SUGESTÃO: Substitua os seletores .spotlight-grid e .spotlight-card no seu style.css por este bloco */
+
 .spotlight-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    /* Usamos colunas CSS para criar o efeito masonry */
+    column-count: 3; /* Para telas largas, 3 colunas */
+    column-gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
-    /* NOVO: Propriedades para a animação da galeria */
-    perspective: 1000px;
-    transform-style: preserve-3d;
 }
+
+/* Ajustes para telas menores */
+@media (max-width: 900px) {
+    .spotlight-grid {
+        column-count: 2;
+    }
+}
+@media (max-width: 600px) {
+    .spotlight-grid {
+        column-count: 1;
+    }
+}
+
 
 .spotlight-card {
     background: var(--background-start);
-    border-radius: 30px;
+    border-radius: 20px; /* Bordas um pouco menos arredondadas para parecer mais um papel */
     padding: 2.5rem 2rem;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(0, 0, 0, 0.05);
     text-align: center;
-    transition: all 0.5s ease;
-    cursor: pointer;
+    transition: all 0.4s ease; /* Transição um pouco mais rápida */
     position: relative;
-    overflow: hidden;
-    transform: rotateX(0deg);
+    
+    /* ESSENCIAL para o masonry: evita que um card seja cortado entre colunas */
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 2rem; /* Espaçamento vertical entre os cards */
+    break-inside: avoid;
 }
 
 .spotlight-card:hover {
-    transform: translateY(-8px) scale(1.02) rotateX(5deg);
+    transform: translateY(-8px) scale(1.03); /* Efeito de 'levantar' mais pronunciado */
+    box-shadow: var(--shadow-xl);
+}
+
+/* Adicionando variação visual aos cards para o efeito "mural" */
+.spotlight-card:nth-child(3n+1) {
+    background-color: #FDF5E6; /* Cor sutil de "post-it" amarelado */
+    transform: rotate(-1deg); /* Leve rotação */
+}
+
+.spotlight-card:nth-child(3n+2) {
+    background-color: #F5F5F5; /* Cor de "cartolina" */
+    transform: rotate(1.5deg);
+}
+
+.spotlight-card:nth-child(3n+3) {
+    background-color: #FFF8DC; /* Outro tom de papel */
+    transform: rotate(-0.5deg);
+}
+
+/* Anula a rotação no hover para o card ficar reto ao interagir */
+.spotlight-card:hover {
+    transform: translateY(-8px) scale(1.03) rotate(0deg);
     box-shadow: var(--shadow-xl);
 }
 
