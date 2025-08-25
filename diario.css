@@ -52,13 +52,35 @@ body {
 /* ======          CABEÇALHO PERSONALIZADO DO DIÁRIO           ====== */
 /* =================================================================== */
 .diary-header {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    
+    /* Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* Layout e Estilo */
     display: flex;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
-    max-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
+    gap: 1.5rem;
+    padding: 1rem 2rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    
+    /* Animações */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideDown 0.6s ease-out;
+}
+
+/* Efeito hover no header */
+.diary-header:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 .profile-picture {
     width: 80px;
