@@ -25,12 +25,12 @@
             <div class="container">
                 <div class="diary-header">
                     <div class="profile-picture">
-                        <img id="profileImage" src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib-rb-4.0.3&q=80&w=1080" alt="Foto da pessoa cuidada">
+                        <img id="profileImage" src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto da pessoa cuidada">
                     </div>
-                   <div class="profile-info">
-    <h2 id="diaryTitle">Diário de Bordo da Vó Tereca</h2>
-    <p id="diarySubtitle">Uma saudação para a Família Silva</p> 
-</div>
+                    <div class="profile-info">
+                        <h2 id="diaryTitle">Diário de Bordo da Vó Tereca</h2>
+                        <p id="diarySubtitle">Uma saudação para a Família Silva</p>
+                    </div>
                 </div>
 
                 <div class="diary-container">
@@ -98,97 +98,96 @@
                                     <label><input type="radio" name="eating" value="ruim"><span>Recusou</span></label>
                                 </div>
                             </div>
-                        <h4>Atividades do Dia</h4>
-<div class="checklist-group">
-    <label>5. Houve atividade física hoje?</label>
-    <div class="checkbox-selector">
-        <label><input type="checkbox" name="activity" value="caminhada"><span>Caminhada Leve</span></label>
-        <label><input type="checkbox" name="activity" value="fisioterapia"><span>Fisioterapia</span></label>
-        <label><input type="checkbox" name="activity" value="alongamento"><span>Alongamento</span></label>
-        <label><input type="checkbox" name="activity" value="nenhuma"><span>Nenhuma</span></label>
-    </div>
-</div>
-
-<div class="checklist-group">
-    <label>6. Tags do Dia (opcional):</label>
-    <div class="tag-selector">
-        <label><input type="checkbox" name="tags" value="visita"><span>#VisitaDaFamília</span></label>
-        <label><input type="checkbox" name="tags" value="sol"><span>#TardeDeSol</span></label>
-        <label><input type="checkbox" name="tags" value="musica"><span>#OuvindoMúsica</span></label>
-        <label><input type="checkbox" name="tags" value="conversa"><span>#BoaConversa</span></label>
-        <label><input type="checkbox" name="tags" value="saudade"><span>#ComSaudade</span></label>
-    </div>
-</div>
-
-<div class="checklist-group">
-    <label for="diaryMessage">7. Observações e mensagens do dia:</label>
-    <textarea id="diaryMessage" placeholder="Descreva outras atividades, visitas, ou qualquer detalhe importante..."></textarea>
-</div>
-<button type="submit" class="submit-btn">
-    <span class="btn-text">Salvar Registro do Dia</span>
-    <svg class="icon-success" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-</button>                        
-</form>
+                            <h4>Atividades do Dia</h4>
+                            <div class="checklist-group">
+                                <label>5. Houve atividade física hoje?</label>
+                                <div class="checkbox-selector">
+                                    <label><input type="checkbox" name="activity" value="caminhada"><span>Caminhada Leve</span></label>
+                                    <label><input type="checkbox" name="activity" value="fisioterapia"><span>Fisioterapia</span></label>
+                                    <label><input type="checkbox" name="activity" value="alongamento"><span>Alongamento</span></label>
+                                    <label><input type="checkbox" name="activity" value="nenhuma"><span>Nenhuma</span></label>
+                                </div>
+                            </div>
+                            <div class="checklist-group">
+                                <label>6. Tags do Dia (opcional):</label>
+                                <div class="tag-selector">
+                                    <label><input type="checkbox" name="tags" value="visita"><span>#VisitaDaFamília</span></label>
+                                    <label><input type="checkbox" name="tags" value="sol"><span>#TardeDeSol</span></label>
+                                    <label><input type="checkbox" name="tags" value="musica"><span>#OuvindoMúsica</span></label>
+                                    <label><input type="checkbox" name="tags" value="conversa"><span>#BoaConversa</span></label>
+                                    <label><input type="checkbox" name="tags" value="saudade"><span>#ComSaudade</span></label>
+                                </div>
+                            </div>
+                            <div class="checklist-group">
+                                <label for="diaryMessage">7. Observações e mensagens do dia:</label>
+                                <textarea id="diaryMessage" placeholder="Descreva outras atividades, visitas, ou qualquer detalhe importante..."></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-text">Salvar Registro do Dia</span>
+                                <svg class="icon-success" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                            </button>
+                        </form>
                     </div>
 
-      <div class="tab-content" id="weekly-analysis">
-    <div id="chartTooltip" class="chart-tooltip"></div>
-    <div class="tab-header">
-        <h3>Resumo da Semana</h3>
-        <button id="exportPdfBtn" class="export-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-            Gerar Carta da Semana
-        </button>
-    </div>
-    <div class="chart-container">
-        <h4>Mosaico de Humor da Semana</h4>
-        <div class="chart-wrapper">
-            <div class="mood-mosaic">
-                <div class="mosaic-day" data-mood="feliz"><span class="day-label">Seg</span></div>
-                <div class="mosaic-day" data-mood="feliz"><span class="day-label">Ter</span></div>
-                <div class="mosaic-day" data-mood="calmo"><span class="day-label">Qua</span></div>
-                <div class="mosaic-day" data-mood="feliz"><span class="day-label">Qui</span></div>
-                <div class="mosaic-day" data-mood="agitado"><span class="day-label">Sex</span></div>
-                <div class="mosaic-day" data-mood="calmo"><span class="day-label">Sáb</span></div>
-                <div class="mosaic-day" data-mood="triste"><span class="day-label">Dom</span></div>
-            </div>
-        </div>
-    </div>
-    <div class="chart-container">
-        <h4>Qualidade do Sono</h4>
-        <div class="chart-wrapper">
-            <div class="line-chart">
-                <svg viewBox="0 0 100 50"><polyline fill="none" stroke="var(--brand-secondary)" stroke-width="1" points="5,20 20,10 35,15 50,5 65,12 80,25 95,20" /></svg>
-            </div>
-        </div>
-        <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
-    </div>
-    <div class="chart-container">
-        <h4>Pressão Arterial (Sistólica / Diastólica)</h4>
-        <div class="chart-legend">
-            <div class="legend-item"><span class="legend-color systolic"></span> Máxima (Sistólica)</div>
-            <div class="legend-item"><span class="legend-color diastolic"></span> Mínima (Diastólica)</div>
-        </div>
-        <div class="chart-wrapper">
-            <div class="line-chart">
-                <svg viewBox="0 0 100 50">
-                    <polyline class="line-systolic" fill="none" stroke-width="1" points="5,15 20,10 35,18 50,12 65,20 80,15 95,12" />
-                    <polyline class="line-diastolic" fill="none" stroke-width="1" points="5,35 20,30 35,38 50,32 65,40 80,35 95,32" />
-                </svg>
-            </div>
-        </div>
-        <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
-    </div>
-    <div class="chart-container">
-        <h4>Oxigenação do Sangue (O₂)</h4>
-        <div class="chart-wrapper">
-            <div class="line-chart">
-                <svg viewBox="0 0 100 50"><polyline fill="none" stroke="var(--brand-action)" stroke-width="1" points="5,10 20,12 35,8 50,15 65,13 80,10 95,11" /></svg>
-            </div>
-        </div>
-        <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
-    </div>
-</div>
+                    <div class="tab-content" id="weekly-analysis">
+                        <div id="chartTooltip" class="chart-tooltip"></div>
+                        <div class="tab-header">
+                            <h3>Resumo da Semana</h3>
+                            <button id="exportPdfBtn" class="export-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                                Gerar Carta da Semana
+                            </button>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Mosaico de Humor da Semana</h4>
+                            <div class="chart-wrapper">
+                                <div class="mood-mosaic">
+                                    <div class="mosaic-day" data-mood="feliz"><span class="day-label">Seg</span></div>
+                                    <div class="mosaic-day" data-mood="feliz"><span class="day-label">Ter</span></div>
+                                    <div class="mosaic-day" data-mood="calmo"><span class="day-label">Qua</span></div>
+                                    <div class="mosaic-day" data-mood="feliz"><span class="day-label">Qui</span></div>
+                                    <div class="mosaic-day" data-mood="agitado"><span class="day-label">Sex</span></div>
+                                    <div class="mosaic-day" data-mood="calmo"><span class="day-label">Sáb</span></div>
+                                    <div class="mosaic-day" data-mood="triste"><span class="day-label">Dom</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Qualidade do Sono</h4>
+                            <div class="chart-wrapper">
+                                <div class="line-chart">
+                                    <svg viewBox="0 0 100 50"><polyline fill="none" stroke="var(--brand-secondary)" stroke-width="1" points="5,20 20,10 35,15 50,5 65,12 80,25 95,20" /></svg>
+                                </div>
+                            </div>
+                            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Pressão Arterial (Sistólica / Diastólica)</h4>
+                            <div class="chart-legend">
+                                <div class="legend-item"><span class="legend-color systolic"></span> Máxima (Sistólica)</div>
+                                <div class="legend-item"><span class="legend-color diastolic"></span> Mínima (Diastólica)</div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <div class="line-chart">
+                                    <svg viewBox="0 0 100 50">
+                                        <polyline class="line-systolic" fill="none" stroke-width="1" points="5,15 20,10 35,18 50,12 65,20 80,15 95,12" />
+                                        <polyline class="line-diastolic" fill="none" stroke-width="1" points="5,35 20,30 35,38 50,32 65,40 80,35 95,32" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Oxigenação do Sangue (O₂)</h4>
+                            <div class="chart-wrapper">
+                                <div class="line-chart">
+                                    <svg viewBox="0 0 100 50"><polyline fill="none" stroke="var(--brand-action)" stroke-width="1" points="5,10 20,12 35,8 50,15 65,13 80,10 95,11" /></svg>
+                                </div>
+                            </div>
+                            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                        </div>
+                    </div>
+
                     <div class="tab-content" id="timeline">
                         <h3>Linha do Tempo da Jornada</h3>
                         <ul class="timeline">
@@ -217,10 +216,10 @@
                                         <p><strong>Destaque:</strong> Dia tranquilo, com leitura no jardim pela manhã.</p>
                                         <p><strong>Sono:</strong> Bom</p>
                                         <p><strong>Atividade:</strong> Alongamento</p>
-                                    </div>
-                                    <div class="timeline-media">
-                                        <img src="https://images.unsplash.com/photo-1554435493-952136a782b7?q=80&w=870" alt="Foto de casamento antiga">
-                                        <p class="media-caption">"Ela sorriu muito ao ver esta foto do casamento. Contou que o vestido foi feito pela tia."</p>
+                                        <div class="timeline-media">
+                                            <img src="https://images.unsplash.com/photo-1554435493-952136a782b7?q=80&w=870" alt="Foto de casamento antiga">
+                                            <p class="media-caption">"Ela sorriu muito ao ver esta foto do casamento. Contou que o vestido foi feito pela tia."</p>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -241,86 +240,84 @@
                         </ul>
                     </div>
 
-<div class="tab-content" id="health-profile">
-    <h3>Perfil de Saúde</h3>
-    <div class="health-accordion" id="healthAccordion">
-        <div class="accordion-item">
-            <button class="accordion-header">Histórico Essencial<span class="accordion-icon">+</span></button>
-            <div class="accordion-content">
-                <div class="profile-grid">
-                    <div class="profile-item">
-                        <span class="item-label">Último Check-up Geral</span>
-                        <span class="item-value">15/05/2025</span>
-                        <input type="date" class="item-input" value="2025-05-15">
+                    <div class="tab-content" id="health-profile">
+                        <h3>Perfil de Saúde</h3>
+                        <div class="health-accordion" id="healthAccordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">Histórico Essencial<span class="accordion-icon">+</span></button>
+                                <div class="accordion-content">
+                                    <div class="profile-grid">
+                                        <div class="profile-item">
+                                            <span class="item-label">Último Check-up Geral</span>
+                                            <span class="item-value">15/05/2025</span>
+                                            <input type="date" class="item-input" value="2025-05-15">
+                                        </div>
+                                        <div class="profile-item">
+                                            <span class="item-label">Última Vez que Ficou Doente</span>
+                                            <span class="item-value">Janeiro/2025 (Gripe leve)</span>
+                                            <input type="text" class="item-input" value="Janeiro/2025 (Gripe leve)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">Condições e Alergias<span class="accordion-icon">+</span></button>
+                                <div class="accordion-content">
+                                    <div class="profile-grid">
+                                        <div class="profile-item">
+                                            <span class="item-label">Alergias Conhecidas</span>
+                                            <span class="item-value">Penicilina, camarão</span>
+                                            <input type="text" class="item-input" value="Penicilina, camarão">
+                                        </div>
+                                        <div class="profile-item">
+                                            <span class="item-label">Condições Crônicas</span>
+                                            <span class="item-value">Hipertensão, Diabetes Tipo 2</span>
+                                            <input type="text" class="item-input" value="Hipertensão, Diabetes Tipo 2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">Medicamentos de Uso Contínuo<span class="accordion-icon">+</span></button>
+                                <div class="accordion-content">
+                                    <div class="profile-grid">
+                                        <div class="profile-item full-width">
+                                            <span class="item-label"></span>
+                                            <span class="item-value">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</span>
+                                            <textarea class="item-input">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">Contatos e Plano de Saúde<span class="accordion-icon">+</span></button>
+                                <div class="accordion-content">
+                                    <div class="profile-grid">
+                                        <div class="profile-item">
+                                            <span class="item-label">Contato de Emergência</span>
+                                            <span class="item-value">João Silva (Filho) - (11) 99999-8888</span>
+                                            <input type="text" class="item-input" value="João Silva (Filho) - (11) 99999-8888">
+                                        </div>
+                                        <div class="profile-item">
+                                            <span class="item-label">Plano de Saúde</span>
+                                            <span class="item-value">Unimed - Carteirinha 123.456.789</span>
+                                            <input type="text" class="item-input" value="Unimed - Carteirinha 123.456.789">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="editProfileBtn" class="submit-btn" style="margin-top: 2rem;">Editar Perfil</button>
                     </div>
-                    <div class="profile-item">
-                        <span class="item-label">Última Vez que Ficou Doente</span>
-                        <span class="item-value">Janeiro/2025 (Gripe leve)</span>
-                        <input type="text" class="item-input" value="Janeiro/2025 (Gripe leve)">
-                    </div>
-                </div>
-            </div>
-        </div>
-                           <div class="accordion-item">
-            <button class="accordion-header">Condições e Alergias<span class="accordion-icon">+</span></button>
-            <div class="accordion-content">
-                <div class="profile-grid">
-                    <div class="profile-item">
-                        <span class="item-label">Alergias Conhecidas</span>
-                        <span class="item-value">Penicilina, camarão</span>
-                        <input type="text" class="item-input" value="Penicilina, camarão">
-                    </div>
-                    <div class="profile-item">
-                        <span class="item-label">Condições Crônicas</span>
-                        <span class="item-value">Hipertensão, Diabetes Tipo 2</span>
-                        <input type="text" class="item-input" value="Hipertensão, Diabetes Tipo 2">
-                    </div>
-                </div>
-            </div>
-        </div>
-                           <div class="accordion-item">
-            <button class="accordion-header">Medicamentos de Uso Contínuo<span class="accordion-icon">+</span></button>
-            <div class="accordion-content">
-                <div class="profile-grid">
-                    <div class="profile-item full-width">
-                        <span class="item-label"></span>
-                        <span class="item-value">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</span>
-                        <textarea class="item-input">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</textarea>
-                    </div>
-                </div>
-            </div>
-                           /div>
-        <div class="accordion-item">
-            <button class="accordion-header">Contatos e Plano de Saúde<span class="accordion-icon">+</span></button>
-            <div class="accordion-content">
-                <div class="profile-grid">
-                    <div class="profile-item">
-                        <span class="item-label">Contato de Emergência</span>
-                        <span class="item-value">João Silva (Filho) - (11) 99999-8888</span>
-                        <input type="text" class="item-input" value="João Silva (Filho) - (11) 99999-8888">
-                    </div>
-                    <div class="profile-item">
-                        <span class="item-label">Plano de Saúde</span>
-                        <span class="item-value">Unimed - Carteirinha 123.456.789</span>
-                        <input type="text" class="item-input" value="Unimed - Carteirinha 123.456.789">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button id="editProfileBtn" class="submit-btn" style="margin-top: 2rem;">Editar Perfil</button>
-</div>
-
-        </section>
+                </div> </div> </section>
     </main>
-    
+
     <footer class="footer">
         <div class="container">
             <p>© 2025 - De Vó para Vó</p>
         </div>
     </footer>
 
-    <script src="diario.js"></script>
     <div id="letterModal" class="modal">
         <div class="modal-content letter-content">
             <button class="modal-close-btn" data-close-modal="letterModal" aria-label="Fechar carta">✕</button>
@@ -328,11 +325,8 @@
                 <p class="letter-date">Semana de 24 a 30 de Agosto de 2025</p>
                 <h3 class="letter-title">Querida Família Silva,</h3>
                 <p class="letter-intro">Aqui estão alguns destaques e observações carinhosas sobre a semana da Vó Tereca. Foi uma semana de sentimentos mistos, com predominância de dias felizes e tranquilos.</p>
-                
                 <h4>Mosaico de Humor:</h4>
-                <div class="letter-mood-mosaic">
-                    </div>
-
+                <div class="letter-mood-mosaic"></div>
                 <h4>Destaques e Observações:</h4>
                 <ul class="letter-highlights">
                     <li><strong>Segunda-feira:</strong> Almoçou muito bem e assistiu a um filme antigo que adora.</li>
@@ -349,7 +343,5 @@
     </div>
 
     <script src="diario.js"></script>
-</body>
-</html>
 </body>
 </html>
