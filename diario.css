@@ -37,6 +37,17 @@ body {
     padding: 3rem 4rem;
 }
 
+.input-group input:focus {
+    outline: none;
+    border-color: var(--diary-primary-text);
+    /* Substituição: Usa a variável global para a cor do brilho */
+    box-shadow: 0 0 0 3px var(--validation-success);
+}
+.input-group input:focus:invalid {
+    /* Adicionado: Brilho de erro para campos inválidos */
+    box-shadow: 0 0 0 3px var(--validation-error);
+}
+
 /* =================================================================== */
 /* ======          CABEÇALHO PERSONALIZADO DO DIÁRIO           ====== */
 /* =================================================================== */
