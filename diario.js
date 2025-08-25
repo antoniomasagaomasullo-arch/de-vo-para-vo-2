@@ -122,43 +122,32 @@ function initInteractiveCharts() {
 }
 
 function initTimeline() {
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    if (timelineItems.length === 0) return;
+    const allHeaders = document.querySelectorAll('.timeline-header');
 
-    timelineItems.forEach(item => {
-        const header = item.querySelector('.timeline-header');
-        if (header) {
-            header.addEventListener('click', () => {
-                triggerVibration();
-                
-                // Passo A: Verifica se o item que foi clicado já estava ativo.
-                const isAlreadyActive = item.classList.contains('active');
+    allHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            triggerVibration();
+            
+            // Encontra o 'pai' do cabeçalho que foi clicado
+            const clickedItem = header.closest('.timeline-item');
+            
+            // Verifica se o item clicado já estava aberto
+            const wasAlreadyActive = clickedItem.classList.contains('active');
 
-                // Passo B: Reseta TODOS os itens para o estado padrão (fechado e sem cor no ponto).
-                timelineItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                    const dot = otherItem.querySelector('.timeline-dot');
-                    if (dot && dot.dataset.activeMood) {
-                        delete dot.dataset.activeMood;
-                    }
-                });
-
-                // Passo C: Se o item clicado NÃO estava ativo antes, nós o ativamos e colorimos o ponto.
-                // Se ele já estava ativo, ele simplesmente permanecerá fechado após o reset do Passo B.
-                if (!isAlreadyActive) {
-                    item.classList.add('active');
-                    
-                    const moodSpan = item.querySelector('.timeline-mood');
-                    if (moodSpan) {
-                        const mood = moodSpan.dataset.mood;
-                        const dot = item.querySelector('.timeline-dot');
-                        if (dot) {
-                            dot.dataset.activeMood = mood;
-                        }
-                    }
-                }
+            // Antes de qualquer coisa, fecha TODOS os itens da timeline
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                item.classList.remove('active');
             });
-        }
+
+            // AGORA, a decisão final:
+            // Se o item que clicamos NÃO estava ativo, nós o ativamos.
+            if (!wasAlreadyActive) {
+                clickedItem.classList.add('active');
+            }
+            
+            // Se ele já estava ativo, a ação de fechar todos os itens já resolveu.
+            // O resultado é que clicar em um item aberto apenas o fecha.
+        });
     });
 }
 function initHealthProfileAccordion() {
