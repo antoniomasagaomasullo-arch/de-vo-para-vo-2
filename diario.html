@@ -25,7 +25,7 @@
             <div class="container">
                 <div class="diary-header">
                     <div class="profile-picture">
-                        <img id="profileImage" src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="Foto da pessoa cuidada">
+                        <img id="profileImage" src="https://images.unsplash.com/photo-1542810634-71277d95ae51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHwyfHxjdWlkYWRvJTIwZGUlMjBpZG9zb3xlbnwwfHx8fDE2ODk2MzUyNDZ8MA&ixlib-rb-4.0.3&q=80&w=1080" alt="Foto da pessoa cuidada">
                     </div>
                     <div class="profile-info">
                         <h2 id="diaryTitle">Diário de Bordo da Vó Tereca</h2>
@@ -58,21 +58,198 @@
                         </div>
                         <form class="daily-checklist-form" id="dailyChecklistForm">
                             <h3>Registro do Dia - 25/08/2025</h3>
-                            </form>
+                            <h4>Bem-Estar Geral</h4>
+                            <div class="checklist-group">
+                                <label>1. Como estava o humor hoje?</label>
+                                <div class="emoji-selector">
+                                    <label><input type="radio" name="mood" value="feliz"><span>😊<p>Feliz</p></span></label>
+                                    <label><input type="radio" name="mood" value="calmo"><span>😐<p>Calmo</p></span></label>
+                                    <label><input type="radio" name="mood" value="agitado"><span>😟<p>Agitado</p></span></label>
+                                    <label><input type="radio" name="mood" value="triste"><span>😢<p>Triste</p></span></label>
+                                </div>
+                            </div>
+                            <div class="checklist-group">
+                                <label>2. Qualidade do sono (noite anterior)?</label>
+                                <div class="toggle-selector">
+                                    <label><input type="radio" name="sleep" value="bom"><span>Bom</span></label>
+                                    <label><input type="radio" name="sleep" value="agitado"><span>Agitado</span></label>
+                                    <label><input type="radio" name="sleep" value="ruim"><span>Ruim</span></label>
+                                </div>
+                            </div>
+                            <h4>Sinais Vitais e Saúde</h4>
+                            <div class="checklist-group">
+                                <label>3. Sinais vitais medidos hoje:</label>
+                                <div class="vital-signs-grid">
+                                    <div class="input-group">
+                                        <label for="bloodPressure">Pressão Arterial</label>
+                                        <input type="text" id="bloodPressure" name="bloodPressure" placeholder="Ex: 120/80">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="bloodO2">Oxigenação (O₂)</label>
+                                        <input type="text" id="bloodO2" name="bloodO2" placeholder="Ex: 97%">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checklist-group">
+                                <label>4. Como foi a alimentação?</label>
+                                <div class="toggle-selector">
+                                    <label><input type="radio" name="eating" value="boa"><span>Comeu bem</span></label>
+                                    <label><input type="radio" name="eating" value="regular"><span>Comeu pouco</span></label>
+                                    <label><input type="radio" name="eating" value="ruim"><span>Recusou</span></label>
+                                </div>
+                            </div>
+                            <h4>Atividades do Dia</h4>
+                            <div class="checklist-group">
+                                <label>5. Houve atividade física hoje?</label>
+                                <div class="checkbox-selector">
+                                    <label><input type="checkbox" name="activity" value="caminhada"><span>Caminhada Leve</span></label>
+                                    <label><input type="checkbox" name="activity" value="fisioterapia"><span>Fisioterapia</span></label>
+                                    <label><input type="checkbox" name="activity" value="alongamento"><span>Alongamento</span></label>
+                                    <label><input type="checkbox" name="activity" value="nenhuma"><span>Nenhuma</span></label>
+                                </div>
+                            </div>
+                            <div class="checklist-group">
+                                <label for="diaryMessage">6. Observações e mensagens do dia:</label>
+                                <textarea id="diaryMessage" placeholder="Descreva outras atividades, visitas, ou qualquer detalhe importante..."></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Salvar Registro do Dia</button>
+                        </form>
                     </div>
 
                     <div class="tab-content" id="weekly-analysis">
                         <div id="chartTooltip" class="chart-tooltip"></div>
                         <h3>Resumo da Semana</h3>
+                        <div class="chart-container">
+                            <h4>Mosaico de Humor da Semana</h4>
+                            <div class="mood-mosaic">
+                                <div class="mosaic-day" data-mood="feliz"><span class="day-label">Seg</span></div>
+                                <div class="mosaic-day" data-mood="feliz"><span class="day-label">Ter</span></div>
+                                <div class="mosaic-day" data-mood="calmo"><span class="day-label">Qua</span></div>
+                                <div class="mosaic-day" data-mood="feliz"><span class="day-label">Qui</span></div>
+                                <div class="mosaic-day" data-mood="agitado"><span class="day-label">Sex</span></div>
+                                <div class="mosaic-day" data-mood="calmo"><span class="day-label">Sáb</span></div>
+                                <div class="mosaic-day" data-mood="triste"><span class="day-label">Dom</span></div>
+                            </div>
                         </div>
+                        <div class="chart-container">
+                            <h4>Qualidade do Sono</h4>
+                            <div class="line-chart">
+                                <svg viewBox="0 0 100 50"><polyline fill="none" stroke="var(--brand-secondary)" stroke-width="1" points="5,20 20,10 35,15 50,5 65,12 80,25 95,20" /></svg>
+                            </div>
+                            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Pressão Arterial (Sistólica / Diastólica)</h4>
+                            <div class="chart-legend">
+                                <div class="legend-item"><span class="legend-color systolic"></span> Máxima (Sistólica)</div>
+                                <div class="legend-item"><span class="legend-color diastolic"></span> Mínima (Diastólica)</div>
+                            </div>
+                            <div class="line-chart">
+                                <svg viewBox="0 0 100 50">
+                                    <polyline class="line-systolic" fill="none" stroke-width="1" points="5,15 20,10 35,18 50,12 65,20 80,15 95,12" />
+                                    <polyline class="line-diastolic" fill="none" stroke-width="1" points="5,35 20,30 35,38 50,32 65,40 80,35 95,32" />
+                                </svg>
+                            </div>
+                            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Oxigenação do Sangue (O₂)</h4>
+                            <div class="line-chart">
+                                <svg viewBox="0 0 100 50"><polyline fill="none" stroke="var(--brand-action)" stroke-width="1" points="5,10 20,12 35,8 50,15 65,13 80,10 95,11" /></svg>
+                            </div>
+                            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                        </div>
+                    </div>
 
                     <div class="tab-content" id="timeline">
                         <h3>Linha do Tempo da Jornada</h3>
-                        </div>
+                        <ul class="timeline">
+                            <li class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-header">
+                                        <span class="timeline-date">25 de Agosto, 2025</span>
+                                        <span class="timeline-mood" data-mood="feliz">😊 Feliz</span>
+                                    </div>
+                                    <div class="timeline-summary">
+                                        <p><strong>Destaque:</strong> Almoçou muito bem e assistiu a um filme antigo que adora.</p>
+                                        <p><strong>Sono:</strong> Bom</p>
+                                        <p><strong>Atividade:</strong> Caminhada Leve</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-header">
+                                        <span class="timeline-date">24 de Agosto, 2025</span>
+                                        <span class="timeline-mood" data-mood="calmo">😐 Calmo</span>
+                                    </div>
+                                    <div class="timeline-summary">
+                                        <p><strong>Destaque:</strong> Dia tranquilo, com leitura no jardim pela manhã.</p>
+                                        <p><strong>Sono:</strong> Bom</p>
+                                        <p><strong>Atividade:</strong> Alongamento</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-header">
+                                        <span class="timeline-date">23 de Agosto, 2025</span>
+                                        <span class="timeline-mood" data-mood="agitado">😟 Agitado</span>
+                                    </div>
+                                    <div class="timeline-summary">
+                                        <p><strong>Destaque:</strong> Um pouco inquieta durante a tarde, mas se acalmou após o lanche.</p>
+                                        <p><strong>Sono:</strong> Agitado</p>
+                                        <p><strong>Atividade:</strong> Nenhuma</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
 
                     <div class="tab-content" id="health-profile">
                         <h3>Perfil de Saúde</h3>
+                        <div class="profile-grid" id="profileGrid">
+                            <div class="profile-item">
+                                <span class="item-label">Último Check-up Geral</span>
+                                <span class="item-value">15/05/2025</span>
+                                <input type="date" class="item-input" value="2025-05-15">
+                            </div>
+                            <div class="profile-item">
+                                <span class="item-label">Última Vez que Ficou Doente</span>
+                                <span class="item-value">Janeiro/2025 (Gripe leve)</span>
+                                <input type="text" class="item-input" value="Janeiro/2025 (Gripe leve)">
+                            </div>
+                            <div class="profile-item">
+                                <span class="item-label">Alergias Conhecidas</span>
+                                <span class="item-value">Penicilina, camarão</span>
+                                <input type="text" class="item-input" value="Penicilina, camarão">
+                            </div>
+                            <div class="profile-item">
+                                <span class="item-label">Condições Crônicas</span>
+                                <span class="item-value">Hipertensão, Diabetes Tipo 2</span>
+                                <input type="text" class="item-input" value="Hipertensão, Diabetes Tipo 2">
+                            </div>
+                            <div class="profile-item full-width">
+                                <span class="item-label">Medicamentos de Uso Contínuo</span>
+                                <span class="item-value">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</span>
+                                <textarea class="item-input">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</textarea>
+                            </div>
+                            <div class="profile-item">
+                                <span class="item-label">Contato de Emergência</span>
+                                <span class="item-value">João Silva (Filho) - (11) 99999-8888</span>
+                                <input type="text" class="item-input" value="João Silva (Filho) - (11) 99999-8888">
+                            </div>
+                            <div class="profile-item">
+                                <span class="item-label">Plano de Saúde</span>
+                                <span class="item-value">Unimed - Carteirinha 123.456.789</span>
+                                <input type="text" class="item-input" value="Unimed - Carteirinha 123.456.789">
+                            </div>
                         </div>
+                        <button id="editProfileBtn" class="submit-btn" style="margin-top: 2rem;">Editar Perfil</button>
+                    </div>
                 </div> </div>
         </section>
     </main>
