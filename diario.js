@@ -1,44 +1,33 @@
 // ===================================================================
-// ======   ARQUIVO COMPLETO E CORRIGIDO PARA diario.js   ======
+// ======   ARQUIVO JAVASCRIPT FINAL E CORRETO PARA DIARIO.JS   ======
 // ===================================================================
 
-// --- PASSO 1: DECLARAÇÃO DE TODAS AS FUNÇÕES ---
+// --- PASSO 1: DECLARAÇÃO DE TODAS AS NOSSAS FUNÇÕES ---
 
-// Função para vibrar (opcional, mas mantém a consistência)
 function triggerVibration() {
     if ('vibrate' in navigator) {
         navigator.vibrate(50);
     }
 }
 
-// Função para controlar as abas
 function initTabs() {
     const tabLinks = document.querySelectorAll('.tab-link');
     const tabContents = document.querySelectorAll('.tab-content');
 
     tabLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (link.classList.contains('active')) {
-                return;
-            }
+            if (link.classList.contains('active')) return;
             triggerVibration();
             const tabId = link.getAttribute('data-tab');
-
             tabLinks.forEach(item => item.classList.remove('active'));
             link.classList.add('active');
-
             tabContents.forEach(content => {
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
-                }
+                content.classList.toggle('active', content.id === tabId);
             });
         });
     });
 }
 
-// Função para o formulário de registro e card de destaque
 function initDiary() {
     const dailyChecklistForm = document.getElementById('dailyChecklistForm');
     if (!dailyChecklistForm) return;
@@ -47,18 +36,15 @@ function initDiary() {
         e.preventDefault();
         triggerVibration();
 
-        // Pega os elementos dos cards
         const highlightIcon = document.querySelector('.highlight-icon');
         const highlightMessage = document.getElementById('highlightMessage');
         const connectionSuggestion = document.getElementById('connectionSuggestion');
-
-        // Pega os dados do formulário
+        
         const formData = new FormData(dailyChecklistForm);
         const mood = formData.get('mood');
         const observations = document.getElementById('diaryMessage').value;
-        const activities = formData.getAll('activity'); // Pega todas as atividades marcadas
+        const activities = formData.getAll('activity');
 
-        // --- Lógica para o Destaque do Dia (sem alterações) ---
         if (observations.trim() !== '') {
             highlightIcon.textContent = '📝';
             highlightMessage.textContent = observations;
@@ -76,7 +62,6 @@ function initDiary() {
             highlightMessage.textContent = 'Registro do dia salvo.';
         }
 
-        // --- NOVA LÓGICA PARA O MOMENTO CONEXÃO ---
         const suggestions = {
             caminhada: "Que tal perguntar como foi a caminhada e o que ela viu de interessante no caminho?",
             fisioterapia: "Pergunte como ela está se sentindo após a fisioterapia e se algum exercício foi novidade.",
@@ -84,59 +69,17 @@ function initDiary() {
             nenhuma: "Talvez seja uma boa ideia sugerir uma atividade leve para amanhã, como ouvir uma música juntos por telefone.",
             default: "Pergunte qual foi a parte favorita do dia dela hoje!"
         };
-
         let finalSuggestion = suggestions.default;
-        // Pega a primeira atividade da lista para gerar a sugestão
         if (activities.length > 0 && suggestions[activities[0]]) {
             finalSuggestion = suggestions[activities[0]];
         }
         connectionSuggestion.textContent = finalSuggestion;
-
 
         alert('Registro diário salvo com sucesso!');
         dailyChecklistForm.reset();
     });
 }
 
-// Função para controlar a edição do Perfil de Saúde
-function initProfileEditing() {
-    const editBtn = document.getElementById('editProfileBtn');
-    const profileGrid = document.getElementById('profileGrid');
-    if (!editBtn || !profileGrid) return;
-
-    editBtn.addEventListener('click', () => {
-        triggerVibration();
-        const isEditing = profileGrid.classList.contains('editing');
-
-        if (isEditing) {
-            profileGrid.querySelectorAll('.profile-item').forEach(item => {
-                const valueSpan = item.querySelector('.item-value');
-                const input = item.querySelector('.item-input');
-                if (input.type === 'date') {
-                    const [year, month, day] = input.value.split('-');
-                    valueSpan.textContent = `${day}/${month}/${year}`;
-                } else {
-                    valueSpan.textContent = input.value;
-                }
-            });
-            profileGrid.classList.remove('editing');
-            editBtn.textContent = 'Editar Perfil';
-            alert('Perfil atualizado com sucesso!');
-        } else {
-            profileGrid.querySelectorAll('.profile-item').forEach(item => {
-                const valueSpan = item.querySelector('.item-value');
-                const input = item.querySelector('.item-input');
-                if (input.type !== 'date') {
-                    input.value = valueSpan.textContent;
-                }
-            });
-            profileGrid.classList.add('editing');
-            editBtn.textContent = 'Salvar Alterações';
-        }
-    });
-}
-
-// Função para os gráficos interativos
 function initInteractiveCharts() {
     const tooltip = document.getElementById('chartTooltip');
     const charts = document.querySelectorAll('.bar-chart, .line-chart');
@@ -157,41 +100,6 @@ function initInteractiveCharts() {
     });
 }
 
-// --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. VERIFICA SE HÁ UM USUÁRIO LOGADO
-    const loggedInUserData = sessionStorage.getItem('loggedInUser');
-    if (!loggedInUserData) {
-        alert('Você precisa fazer o login para acessar esta página.');
-        window.location.href = 'login.html';
-        return;
-    }
-
-    // 2. PERSONALIZA A PÁGINA
-    const userData = JSON.parse(loggedInUserData);
-    const diaryTitle = document.getElementById('diaryTitle');
-    const diarySubtitle = document.getElementById('diarySubtitle');
-    const profileImage = document.getElementById('profileImage');
-    
-    if (diaryTitle) {
-        diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
-    }
-    if (diarySubtitle) {
-        diarySubtitle.textContent = `Registros de cuidado e bem-estar da ${userData.familia}`;
-    }
-    if (profileImage) {
-        profileImage.alt = `Foto da Vó ${userData.avo}`;
-    }
-    
-    // 3. INICIALIZA TODAS AS FUNÇÕES DA PÁGINA
-    initTabs();
-    initDiary();
-    initProfileEditing();
-    initInteractiveCharts();
-});
-
-// Adicione esta nova função ANTES do evento 'DOMContentLoaded' no seu diario.js
-
 function initTimeline() {
     const timelineItems = document.querySelectorAll('.timeline-item');
     if (timelineItems.length === 0) return;
@@ -201,52 +109,49 @@ function initTimeline() {
         if (header) {
             header.addEventListener('click', () => {
                 triggerVibration();
-                // Fecha todos os outros itens para manter a interface limpa
-                timelineItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                // Alterna o estado do item clicado
-                item.classList.toggle('active');
+                const isActive = item.classList.contains('active');
+                timelineItems.forEach(otherItem => otherItem.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
             });
         }
     });
 }
 
-
-// AGORA, adicione a chamada da nova função dentro do 'DOMContentLoaded'
-// que já existe no seu arquivo.
-
-document.addEventListener('DOMContentLoaded', () => {
-    // ... seu código de login e personalização ...
-
-    // 3. INICIALIZA AS FUNÇÕES DA PÁGINA
-    initTabs();
-    initDiary();
-    initProfileEditing();
-    initInteractiveCharts();
-    initTimeline(); // <-- ADICIONE ESTA LINHA
-});
-
-// SUBSTITUA a antiga função initProfileEditing por esta nova:
-function initAccordionEditing() {
-    const editButtons = document.querySelectorAll('.edit-section-btn');
-
-    editButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
+function initHealthProfileAccordion() {
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        header.addEventListener('click', () => {
             triggerVibration();
-            const content = btn.closest('.accordion-content');
-            const grid = content.querySelector('.profile-grid');
-            const isEditing = grid.classList.contains('editing');
+            const isActive = item.classList.contains('active');
+            accordionItems.forEach(otherItem => otherItem.classList.remove('active'));
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+}
 
-            if (isEditing) {
-                // MODO DE SALVAR
-                grid.querySelectorAll('.profile-item').forEach(item => {
-                    const valueSpan = item.querySelector('.item-value');
-                    const input = item.querySelector('.item-input');
-                    if(valueSpan && input) {
-                        if (input.type === 'date') {
+function initProfileEditing() {
+    const editBtn = document.getElementById('editProfileBtn');
+    const accordion = document.getElementById('healthAccordion');
+    if (!editBtn || !accordion) return;
+
+    editBtn.addEventListener('click', () => {
+        triggerVibration();
+        const isEditing = accordion.classList.contains('editing');
+        const allItems = accordion.querySelectorAll('.accordion-item');
+
+        if (isEditing) {
+            // MODO DE SALVAR
+            allItems.forEach(item => {
+                item.querySelectorAll('.profile-item').forEach(profileItem => {
+                    const valueSpan = profileItem.querySelector('.item-value');
+                    const input = profileItem.querySelector('.item-input');
+                    if (valueSpan && input) {
+                        if (input.type === 'date' && input.value) {
                             const [year, month, day] = input.value.split('-');
                             valueSpan.textContent = `${day}/${month}/${year}`;
                         } else {
@@ -254,37 +159,53 @@ function initAccordionEditing() {
                         }
                     }
                 });
-                grid.classList.remove('editing');
-                btn.classList.remove('active');
-                btn.textContent = 'Editar';
-            } else {
-                // MODO DE EDIÇÃO
-                grid.querySelectorAll('.profile-item').forEach(item => {
-                    const valueSpan = item.querySelector('.item-value');
-                    const input = item.querySelector('.item-input');
-                    if(valueSpan && input) {
-                       if (input.type !== 'date') {
-                            input.value = valueSpan.textContent;
-                        }
+            });
+            accordion.classList.remove('editing');
+            editBtn.textContent = 'Editar Perfil';
+            alert('Perfil atualizado com sucesso!');
+        } else {
+            // MODO DE EDIÇÃO (e expande todos os acordeões)
+            allItems.forEach(item => {
+                item.classList.add('active'); // Garante que todos estejam abertos para edição
+                item.querySelectorAll('.profile-item').forEach(profileItem => {
+                    const valueSpan = profileItem.querySelector('.item-value');
+                    const input = profileItem.querySelector('.item-input');
+                    if (valueSpan && input && input.type !== 'date') {
+                        input.value = valueSpan.textContent;
                     }
                 });
-                grid.classList.add('editing');
-                btn.classList.add('active');
-                btn.textContent = 'Salvar';
-            }
-        });
+            });
+            accordion.classList.add('editing');
+            editBtn.textContent = 'Salvar Alterações';
+        }
     });
 }
 
-// AGORA, ATUALIZE a chamada da função dentro do 'DOMContentLoaded'
+// --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
 document.addEventListener('DOMContentLoaded', () => {
-    // ... todo o seu código anterior ...
+    // 1. Verifica se há um usuário logado
+    const loggedInUserData = sessionStorage.getItem('loggedInUser');
+    if (!loggedInUserData) {
+        alert('Você precisa fazer o login para acessar esta página.');
+        window.location.href = 'login.html';
+        return;
+    }
 
-    // 3. INICIALIZA TODAS AS FUNÇÕES DA PÁGINA
+    // 2. Personaliza a página com dados do login
+    const userData = JSON.parse(loggedInUserData);
+    const diaryTitle = document.getElementById('diaryTitle');
+    const diarySubtitle = document.getElementById('diarySubtitle');
+    const profileImage = document.getElementById('profileImage');
+    
+    if (diaryTitle) diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
+    if (diarySubtitle) diarySubtitle.textContent = `Registros de cuidado e bem-estar da ${userData.familia}`;
+    if (profileImage) profileImage.alt = `Foto da Vó ${userData.avo}`;
+    
+    // 3. Inicializa todas as funcionalidades da página
     initTabs();
     initDiary();
     initInteractiveCharts();
     initTimeline();
     initHealthProfileAccordion();
-    initAccordionEditing(); // <-- ATUALIZE AQUI
+    initProfileEditing();
 });
