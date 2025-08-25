@@ -3244,15 +3244,11 @@ textarea:focus-visible {
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(0, 0, 0, 0.05);
     text-align: center;
-    transition: all 0.5s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transform: rotateX(0deg);
+    transition: all 0.3s ease;
 }
 
 .spotlight-card:hover {
-    transform: translateY(-8px) scale(1.02) rotateX(5deg);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-xl);
 }
 
@@ -3261,6 +3257,17 @@ textarea:focus-visible {
     margin-bottom: 1rem;
     line-height: 1;
 }
+
+.spotlight-icon svg {
+    stroke: var(--brand-secondary);
+    stroke-width: 1.5px;
+    transition: stroke 0.3s ease;
+}
+
+.spotlight-card:hover .spotlight-icon svg {
+    stroke: var(--brand-primary);
+}
+
 
 .spotlight-title {
     font-family: 'Playfair Display', serif;
