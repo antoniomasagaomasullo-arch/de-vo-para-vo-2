@@ -18,19 +18,15 @@ function initTabs() {
 
     tabLinks.forEach(link => {
         link.addEventListener('click', () => {
-            // Se o link clicado já está ativo, não faz nada
             if (link.classList.contains('active')) {
                 return;
             }
-
             triggerVibration();
             const tabId = link.getAttribute('data-tab');
 
-            // Atualiza os links das abas
             tabLinks.forEach(item => item.classList.remove('active'));
             link.classList.add('active');
 
-            // Atualiza a visibilidade do conteúdo
             tabContents.forEach(content => {
                 if (content.id === tabId) {
                     content.classList.add('active');
@@ -45,19 +41,57 @@ function initTabs() {
 // Função principal do diário (lida com o formulário)
 function initDiary() {
     const dailyChecklistForm = document.getElementById('dailyChecklistForm');
-
     if (!dailyChecklistForm) return;
 
     dailyChecklistForm.addEventListener('submit', (e) => {
         e.preventDefault();
         triggerVibration();
-
-        // Em uma aplicação real, aqui você coletaria os dados do formulário
-        // e enviaria para um servidor.
-
-        // Para nosso protótipo, apenas damos um feedback
         alert('Registro diário salvo com sucesso!');
         dailyChecklistForm.reset();
+    });
+}
+
+// NOVA FUNÇÃO para controlar a edição do Perfil de Saúde
+function initProfileEditing() {
+    const editBtn = document.getElementById('editProfileBtn');
+    const profileGrid = document.getElementById('profileGrid');
+
+    if (!editBtn || !profileGrid) return;
+
+    editBtn.addEventListener('click', () => {
+        triggerVibration();
+        const isEditing = profileGrid.classList.contains('editing');
+
+        if (isEditing) {
+            // Se ESTÁ editando, vamos SALVAR
+            profileGrid.querySelectorAll('.profile-item').forEach(item => {
+                const valueSpan = item.querySelector('.item-value');
+                const input = item.querySelector('.item-input');
+                if (input.type === 'date') {
+                    const [year, month, day] = input.value.split('-');
+                    valueSpan.textContent = `${day}/${month}/${year}`;
+                } else {
+                    valueSpan.textContent = input.value;
+                }
+            });
+
+            profileGrid.classList.remove('editing');
+            editBtn.textContent = 'Editar Perfil';
+            alert('Perfil atualizado com sucesso!');
+
+        } else {
+            // Se NÃO ESTÁ editando, vamos entrar no MODO DE EDIÇÃO
+            profileGrid.querySelectorAll('.profile-item').forEach(item => {
+                const valueSpan = item.querySelector('.item-value');
+                const input = item.querySelector('.item-input');
+                if (input.type !== 'date') {
+                    input.value = valueSpan.textContent;
+                }
+            });
+
+            profileGrid.classList.add('editing');
+            editBtn.textContent = 'Salvar Alterações';
+        }
     });
 }
 
@@ -69,10 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const loggedInUserData = sessionStorage.getItem('loggedInUser');
 
     if (!loggedInUserData) {
-        // Se não houver, redireciona para a página de login
         alert('Você precisa fazer o login para acessar esta página.');
         window.location.href = 'login.html';
-        return; // Impede que o resto do script execute
+        return;
     }
 
     // 2. PERSONALIZA A PÁGINA
@@ -82,7 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
     }
     
-    // 3. INICIALIZA AS FUNÇÕES DA PÁGINA (agora que já foram declaradas)
+    // 3. INICIALIZA TODAS AS FUNÇÕES DA PÁGINA
     initTabs();
     initDiary();
+    initProfileEditing(); // Chamada da nova função
 });
