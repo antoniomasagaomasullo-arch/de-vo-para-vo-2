@@ -1,4 +1,28 @@
-// Função para vibrar (opcional, mas mantém a consistência)
+// Adicione todo este bloco no TOPO do seu arquivo diario.js
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. VERIFICA SE HÁ UM USUÁRIO LOGADO
+    const loggedInUserData = sessionStorage.getItem('loggedInUser');
+
+    if (!loggedInUserData) {
+        // Se não houver, redireciona para a página de login
+        alert('Você precisa fazer o login para acessar esta página.');
+        window.location.href = 'login.html';
+        return; // Impede que o resto do script execute
+    }
+
+    // 2. PERSONALIZA A PÁGINA
+    const userData = JSON.parse(loggedInUserData);
+    const diaryTitle = document.getElementById('diaryTitle');
+    if (diaryTitle) {
+        diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
+    }
+
+    // 3. INICIALIZA AS FUNÇÕES DA PÁGINA (código que já tínhamos)
+    initTabs();
+    initDiary();
+});
+
+}// Função para vibrar (opcional, mas mantém a consistência)
 function triggerVibration() {
     if ('vibrate' in navigator) {
         navigator.vibrate(50);
