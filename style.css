@@ -282,6 +282,10 @@ body.modal-open {
     box-shadow: var(--shadow-md);
     background-color: var(--brand-primary-dark);
 }
+.cta-button:active {
+    box-shadow: var(--shadow-sm), inset 0 3px 5px rgba(0, 0, 0, 0.2); /* NOVO: Adiciona um efeito de "pressão" */
+    transform: translateY(1px) scale(0.98); /* NOVO: Efeito de escala no clique */
+}
 
 /* ==================== Animações ==================== */
 @keyframes logoPulse {
