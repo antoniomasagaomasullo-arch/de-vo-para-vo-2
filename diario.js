@@ -189,3 +189,42 @@ document.addEventListener('DOMContentLoaded', () => {
     initProfileEditing();
     initInteractiveCharts();
 });
+
+// Adicione esta nova função ANTES do evento 'DOMContentLoaded' no seu diario.js
+
+function initTimeline() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    if (timelineItems.length === 0) return;
+
+    timelineItems.forEach(item => {
+        const header = item.querySelector('.timeline-header');
+        if (header) {
+            header.addEventListener('click', () => {
+                triggerVibration();
+                // Fecha todos os outros itens para manter a interface limpa
+                timelineItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // Alterna o estado do item clicado
+                item.classList.toggle('active');
+            });
+        }
+    });
+}
+
+
+// AGORA, adicione a chamada da nova função dentro do 'DOMContentLoaded'
+// que já existe no seu arquivo.
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... seu código de login e personalização ...
+
+    // 3. INICIALIZA AS FUNÇÕES DA PÁGINA
+    initTabs();
+    initDiary();
+    initProfileEditing();
+    initInteractiveCharts();
+    initTimeline(); // <-- ADICIONE ESTA LINHA
+});
