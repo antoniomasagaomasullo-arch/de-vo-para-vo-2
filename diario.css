@@ -23,10 +23,22 @@ body {
 }
 
 .diary-section {
-    padding: 100px 0 80px 0;
+    padding: 160px 0 80px 0;  /* MUDANÇA: aumentei de 100px para 160px */
     min-height: 100vh;
 }
 
+
+/* =================================================================== */
+/* ======          CORREÇÃO: HEADER SOBREPONDO CONTEÚDO            ====== */
+/* =================================================================== */
+
+/* 1. PRIMEIRO, encontre e MODIFIQUE o .diary-section existente: */
+.diary-section {
+    padding: 160px 0 80px 0;  /* MUDANÇA: aumentei de 100px para 160px */
+    min-height: 100vh;
+}
+
+/* 2. ADICIONE estas regras para o container principal: */
 .diary-container {
     max-width: 850px;
     margin: 0 auto;
@@ -35,8 +47,9 @@ body {
     border-radius: 40px;
     box-shadow: var(--shadow-xl);
     padding: 3rem 4rem;
+    position: relative;  /* ADICIONADO */
+    z-index: 1;          /* ADICIONADO - garante que fique abaixo do header */
 }
-
 .input-group input:focus {
     outline: none;
     border-color: var(--diary-primary-text);
@@ -56,7 +69,7 @@ body {
     top: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
+    z-index: 1000; 
     
     /* Glassmorphism Effect */
     background: rgba(255, 255, 255, 0.85);
@@ -75,6 +88,10 @@ body {
     /* Animações */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     animation: slideDown 0.6s ease-out;
+}
+
+.header {
+    z-index: 999;  /* Garante que fique abaixo do diary-header */
 }
 
 /* Efeito hover no header */
@@ -390,8 +407,24 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 /* ======                       RESPONSIVIDADE                  ====== */
 /* =================================================================== */
 @media (max-width: 768px) {
-    .diary-container { padding: 2rem 1.5rem; }
-    .diary-header { flex-direction: column; text-align: center; }
+    .diary-header {
+        position: relative;  /* Em mobile volta a ser relativo */
+        top: 0;
+        left: 0;
+        transform: none;
+        margin: 1rem auto 2rem auto;  /* MUDANÇA: adicionei margin-bottom */
+        padding: 1rem 1.5rem;
+        border-radius: 20px;
+        z-index: auto;  /* Remove z-index em mobile */
+    }
+    
+    .diary-section {
+        padding: 100px 0 80px 0;  /* Em mobile, menos padding-top */
+    }
+    
+    .diary-container {
+        padding: 2rem 1.5rem;
+    }
 }
 @media (max-width: 600px) {
     .profile-grid { grid-template-columns: 1fr; }
