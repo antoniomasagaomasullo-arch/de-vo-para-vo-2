@@ -1,6 +1,6 @@
 /* ==================== Estilos Globais e Reset ==================== */
 * {
-    margin: 0;
+    margin: 01;
     padding: 0;
     box-sizing: border-box;
     /* Melhoria 16: Adicionar will-change */
