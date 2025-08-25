@@ -124,11 +124,29 @@ html.large-font {
 
 /* Adicione o código novo para o alto contraste ABAIXO dele */
 body.high-contrast {
-    filter: contrast(175%);
+    filter: none; /* Remove o filtro geral para melhor controle */
 }
 
-body.high-contrast {
-    filter: contrast(150%);
+/* NOVO BLOCO: Estilos específicos para o modo de alto contraste */
+.high-contrast-mode {
+    --text-primary: #000000;
+    --text-secondary: #000000;
+    --text-tertiary: #555555;
+    --text-on-dark: #FFFFFF;
+    --brand-primary: #000000;
+    --brand-primary-light: #555555;
+    --brand-primary-dark: #000000;
+    --brand-secondary: #000000;
+    --brand-accent: #000000;
+    --brand-action: #000000;
+    --background-start: #FFFFFF;
+    --background-end: #EEEEEE;
+    --chat-bg: #FFFFFF;
+    --user-message-bg: #E0E0E0;
+    --ai-message-bg: #F0F0F0;
+    --soft-gray: #DDDDDD;
+    --validation-error: #FF0000;
+    --validation-success: #008000;
 }
 
 body::-webkit-scrollbar {
