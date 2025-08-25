@@ -125,7 +125,47 @@
                     </div>
                     <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
                 </div>
+<div class="tab-content" id="weekly-analysis">
+    <div class="diary-container">
+        <h3>Resumo da Semana</h3>
+        
+        <div class="chart-container">
+            </div>
 
+        <div class="chart-container">
+            </div>
+
+        <div class="chart-container">
+            <h4>Pressão Arterial (Sistólica / Diastólica)</h4>
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <span class="legend-color systolic"></span> Máxima (Sistólica)
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color diastolic"></span> Mínima (Diastólica)
+                </div>
+            </div>
+            <div class="line-chart">
+                <svg viewBox="0 0 100 50">
+                    <polyline class="line-systolic" fill="none" stroke-width="1" points="5,15 20,10 35,18 50,12 65,20 80,15 95,12" />
+                    <polyline class="line-diastolic" fill="none" stroke-width="1" points="5,35 20,30 35,38 50,32 65,40 80,35 95,32" />
+                </svg>
+            </div>
+            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+        </div>
+
+        <div class="chart-container">
+            <h4>Oxigenação do Sangue (O₂)</h4>
+            <div class="line-chart">
+                <svg viewBox="0 0 100 50">
+                    <polyline fill="none" stroke="var(--brand-action)" stroke-width="1" points="5,10 20,12 35,8 50,15 65,13 80,10 95,11" />
+                </svg>
+            </div>
+            <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+        </div>
+        
+    </div>
+</div>
             </div>
         </div>
     </div>
