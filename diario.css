@@ -416,6 +416,13 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 .timeline-item {
     position: relative;
     margin-bottom: 1.5rem;
+    /* ADICIONADO: Anima a mudança de margem para um efeito suave */
+    transition: margin-bottom 0.4s ease-out;
+}
+
+/* NOVO: Aumenta o espaço abaixo do item ativo, empurrando os outros */
+.timeline-item.active {
+    margin-bottom: 2rem;
 }
 
 .timeline-dot {
@@ -427,11 +434,30 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     border-radius: 50%;
     background-color: var(--diary-container-bg);
     border: 4px solid var(--diary-border);
-    transition: border-color 0.3s ease;
+    /* ADICIONADO: Anima também a cor de fundo */
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .timeline-item:hover .timeline-dot {
     border-color: var(--diary-accent-peach);
+}
+
+timeline-item.active .timeline-dot {
+    border-color: var(--diary-primary-text); /* Borda mais forte para o item ativo */
+}
+
+/* Extraindo a cor da tag de humor e aplicando ao ponto */
+.timeline-item:has(.timeline-mood[data-mood="feliz"]).active .timeline-dot {
+    background-color: #FFD97D;
+}
+.timeline-item:has(.timeline-mood[data-mood="calmo"]).active .timeline-dot {
+    background-color: var(--diary-accent-green);
+}
+.timeline-item:has(.timeline-mood[data-mood="agitado"]).active .timeline-dot {
+    background-color: var(--diary-accent-peach);
+}
+.timeline-item:has(.timeline-mood[data-mood="triste"]).active .timeline-dot {
+    background-color: #A4BBD0;
 }
 
 .timeline-content {
