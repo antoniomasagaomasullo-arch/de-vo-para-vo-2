@@ -948,3 +948,62 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 .slide-out-left { animation: slideOutToLeft 0.4s ease-out forwards; }
 .slide-in-left { animation: slideInFromLeft 0.4s ease-out forwards; }
 .slide-out-right { animation: slideOutToRight 0.4s ease-out forwards; }
+
+/* =================================================================== */
+/* ======           FLOR DO BEM-ESTAR (GAMIFICAÇÃO)             ====== */
+/* =================================================================== */
+.daily-status-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* Coluna para a flor, e o resto para os cards */
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.wellness-flower-container {
+    width: 100%;
+    height: 150px;
+}
+
+.wellness-flower .petal {
+    fill: var(--diary-border); /* Cor inicial, "vazia" */
+    stroke: var(--diary-secondary-text);
+    stroke-width: 0.5;
+    opacity: 0.6;
+    transform-origin: center;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação com "salto" */
+}
+
+.wellness-flower .flower-center {
+    fill: #FEEA9A; /* Miolo amarelo */
+    stroke: #FDB813;
+    stroke-width: 0.5;
+}
+
+/* Estado "Preenchido" da pétala */
+.wellness-flower .petal.filled {
+    fill: var(--diary-accent-peach);
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+/* Estado "Vibrante" para entradas positivas */
+.wellness-flower .petal.vibrant {
+    fill: #F5A68D; /* Um tom de pêssego mais forte */
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.status-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 600px) {
+    .daily-status-grid {
+        grid-template-columns: 1fr; /* Flor fica em cima dos cards */
+        justify-items: center;
+    }
+}
