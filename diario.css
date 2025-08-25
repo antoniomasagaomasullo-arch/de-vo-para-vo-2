@@ -770,3 +770,46 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 .line-chart {
     min-width: 500px; /* Garante que o gráfico de linha não encolha demais */
 }
+
+/* =================================================================== */
+/* ======          ANIMAÇÕES PARA GRÁFICOS E ANÁLISES         ====== */
+/* =================================================================== */
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade-in-tile {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Preparação para a animação do gráfico de linha */
+.line-chart.animated polyline {
+  stroke-dasharray: 500; /* Um valor alto para cobrir o comprimento da linha */
+  stroke-dashoffset: 500; /* Esconde a linha inicialmente */
+  animation: draw-line 1.5s ease-in-out forwards;
+}
+
+/* Preparação para a animação do mosaico */
+.mood-mosaic.animated .mosaic-day {
+  opacity: 0;
+  animation: fade-in-tile 0.5s ease-out forwards;
+}
+
+/* Efeito cascata para os dias do mosaico */
+.mood-mosaic.animated .mosaic-day:nth-child(1) { animation-delay: 0.1s; }
+.mood-mosaic.animated .mosaic-day:nth-child(2) { animation-delay: 0.2s; }
+.mood-mosaic.animated .mosaic-day:nth-child(3) { animation-delay: 0.3s; }
+.mood-mosaic.animated .mosaic-day:nth-child(4) { animation-delay: 0.4s; }
+.mood-mosaic.animated .mosaic-day:nth-child(5) { animation-delay: 0.5s; }
+.mood-mosaic.animated .mosaic-day:nth-child(6) { animation-delay: 0.6s; }
+.mood-mosaic.animated .mosaic-day:nth-child(7) { animation-delay: 0.7s; }
