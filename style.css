@@ -285,8 +285,17 @@ body.modal-open {
     font-size: var(--font-4xl);
     font-weight: bold;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem; /* Aumentamos a margem inferior para 4rem */
     color: var(--brand-primary-dark);
+    /* NOVO: Adicionamos um pouco mais de espaço acima para separar melhor as seções */
+    padding-top: 2rem; 
+}
+
+.services, .our-story, .blog, .faq, .calculadora-section, .contact, .checklist-section, .tereza-spotlight {
+    padding-top: 60px; /* Reduzimos um pouco o padding-top que antes era 80px */
+    padding-bottom: 80px;
+    position: relative;
+    overflow: hidden;
 }
 
 .cta-button:hover {
