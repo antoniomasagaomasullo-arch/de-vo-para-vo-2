@@ -1,3 +1,105 @@
+:root{
+  /* Tipografia */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  --font-serif: "Ibarra Real Nova", "Georgia", serif;
+
+  /* Escala */
+  --fs-12: .75rem;  /* legendas */
+  --fs-14: .875rem; /* corpo secundário */
+  --fs-16: 1rem;    /* corpo */
+  --fs-20: 1.25rem; /* subtítulo */
+  --fs-28: 1.75rem; /* título */
+
+  /* Cores base (claro) */
+  --bg: #FAFAFA;
+  --paper: #FFFFFF;
+  --ink: #0B0B0C;
+  --muted: #6B7280;
+  --stroke: #E5E7EB;
+  --brand: #2D5BFF;          /* destaque */
+  --brand-ink: #FFFFFF;      /* texto em cima do brand */
+  --accent: #10B981;         /* sucesso */
+
+  /* Radius/Sombra */
+  --r: 14px;
+  --shadow: 0 6px 30px rgba(2,6,23,.06);
+}
+
+/* Modo escuro automático */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0F1115;
+    --paper: #171923;
+    --ink: #E5E7EB;
+    --muted: #9CA3AF;
+    --stroke: #242735;
+    --brand: #5C7CFF;
+  }
+}
+
+/* Reset/estrutura mínima */
+html,body{height:100%}
+body{
+  margin:0; font-family:var(--font-sans); color:var(--ink); background:var(--bg);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+/* Títulos e parágrafos */
+h1,h2{font-family:var(--font-serif); letter-spacing:-0.01em}
+h1{font-size:var(--fs-28); margin:0 0 .25rem}
+h2{font-size:var(--fs-20); margin:1.25rem 0 .5rem}
+p,li{font-size:var(--fs-16); line-height:1.55}
+
+/* Containers padrão para seu layout atual */
+.app-wrap{max-width: 1040px; margin: 0 auto; padding: 24px}
+.card{background:var(--paper); border:1px solid var(--stroke); border-radius:var(--r); box-shadow:var(--shadow)}
+
+/* Inputs e botões – base */
+input[type=\"text\"], textarea, select{
+  width:100%; background:transparent; color:var(--ink);
+  border:1px solid var(--stroke); border-radius:12px; padding:12px 14px; outline:none;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .05s ease;
+}
+input:focus, textarea:focus, select:focus{
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 20%, transparent);
+}
+
+.button{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:10px 14px; border-radius:12px; border:1px solid var(--stroke); background:var(--paper);
+  font-weight:600; cursor:pointer; transition: transform .06s ease, box-shadow .2s ease, background .2s;
+}
+.button:hover{ box-shadow:var(--shadow) }
+.button:active{ transform: translateY(1px) }
+
+.button--primary{
+  background: var(--brand); border-color: var(--brand); color: var(--brand-ink);
+}
+.button--success{ background: var(--accent); border-color:var(--accent); color:#072814 }
+
+/* Barra superior (se existir) */
+.topbar{ position:sticky; top:0; backdrop-filter: blur(10px); background: color-mix(in srgb, var(--paper) 75%, transparent); border-bottom:1px solid var(--stroke); z-index:10 }
+
+/* Grid responsivo para composer + lista */
+.grid{
+  display:grid; gap:20px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px){
+  .grid{ grid-template-columns: 1.2fr .8fr } /* ajuste fino sem mudar arquitetura */
+}
+
+/* Lista de entradas como cards */
+.entry{
+  border-radius:var(--r); border:1px solid var(--stroke); background:var(--paper); padding:14px;
+}
+.entry__meta{ display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:var(--fs-12) }
+.entry__text{ margin:.5rem 0 0; font-size:var(--fs-16) }
+
+/* Acessibilidade – foco visível também para botões */
+.button:focus-visible{ outline: 3px solid color-mix(in srgb, var(--brand) 40%, transparent); outline-offset:2px }
+
 /* =================================================================== */
 /* ======        PALETA DE CORES EXCLUSIVA DO DIÁRIO        ====== */
 /* =================================================================== */
