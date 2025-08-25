@@ -180,7 +180,6 @@ function initProfileEditing() {
         }
     });
 }
-
 function initMessageBoard() {
     const sendMessageBtn = document.getElementById('sendMessageBtn');
     const messageInput = document.getElementById('morningMessageInput');
