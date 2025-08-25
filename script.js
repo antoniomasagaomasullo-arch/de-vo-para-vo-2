@@ -448,6 +448,7 @@ function initFormHandlers() {
             }
         });
     }
+
 const formInputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
 
     formInputs.forEach(input => {
@@ -470,7 +471,6 @@ const formInputs = form.querySelectorAll('input[type="text"], input[type="email"
         });
     });
     // FIM DO NOVO BLOCO
-}
 
 async function searchCEP(cep) {
     const statusElement = document.getElementById('cep-status');
