@@ -1,0 +1,79 @@
+/* Estilos para a Seção do Diário */
+.diary-section {
+    padding: 120px 0 80px 0; /* Mais padding no topo para compensar o header */
+    background-color: var(--background-start);
+    min-height: 100vh;
+}
+
+.diary-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 40px;
+    box-shadow: var(--shadow-xl);
+    padding: 3rem;
+}
+
+.diary-entries {
+    margin-bottom: 2.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 1rem; /* Espaço para a barra de rolagem */
+}
+
+/* Estilizando a barra de rolagem do diário */
+.diary-entries::-webkit-scrollbar { width: 6px; }
+.diary-entries::-webkit-scrollbar-thumb { background-color: var(--brand-primary-light); border-radius: 3px; }
+.diary-entries::-webkit-scrollbar-track { background-color: var(--soft-gray); }
+
+.diary-entry {
+    background: var(--ai-message-bg);
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--brand-accent);
+}
+
+.diary-entry.author-family {
+    background: var(--user-message-bg);
+    border-left-color: var(--brand-secondary);
+}
+
+.entry-meta {
+    font-size: var(--font-sm);
+    color: var(--text-tertiary);
+    margin-bottom: 0.5rem;
+}
+
+.entry-text {
+    font-size: var(--font-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.diary-form h3 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    color: var(--brand-primary-dark);
+    margin-bottom: 1.5rem;
+}
+
+.diary-form textarea, .diary-form select {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 20px;
+    font-size: var(--font-base);
+    background: rgba(245, 245, 245, 0.8);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    resize: vertical;
+}
+
+.diary-form textarea:focus, .diary-form select:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 4px rgba(198, 164, 112, 0.4);
+}
