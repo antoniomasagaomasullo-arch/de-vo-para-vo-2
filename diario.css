@@ -14,9 +14,32 @@
 /* =================================================================== */
 /* ======                 ESTRUTURA E LAYOUT GERAL              ====== */
 /* =================================================================== */
+body {
+    background-color: var(--diary-bg);
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23EFEBE4" fill-opacity="0.4"%3E%3Cpath d="M36 34.542V13.84L54.764 24.288l-5.32 3.07a2 2 0 0 1-1.92-1.28L44 20v24L24 34.542V13.84L5.236 24.288l5.32 3.07a2 2 0 0 1 1.92-1.28L16 20v24l20-10.458z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.diary-section {
+    padding: 100px 0 80px 0;
+    min-height: 100vh;
+}
+
+.diary-container {
+    max-width: 850px;
+    margin: 0 auto;
+    background: var(--diary-container-bg);
+    border: 1px solid var(--diary-border);
+    border-radius: 40px;
+    box-shadow: var(--shadow-xl);
+    padding: 3rem 4rem;
+}
+
+/* =================================================================== */
 /* ======          CABEÇALHO PERSONALIZADO DO DIÁRIO           ====== */
 /* =================================================================== */
-
 .diary-header {
     display: flex;
     align-items: center;
@@ -26,7 +49,6 @@
     margin-left: auto;
     margin-right: auto;
 }
-
 .profile-picture {
     width: 80px;
     height: 80px;
@@ -36,20 +58,17 @@
     border: 3px solid var(--diary-container-bg);
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-
 .profile-picture img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .profile-info h2 {
     font-family: 'Lora', serif;
     font-size: 2.5rem;
     color: var(--diary-primary-text);
     margin: 0;
 }
-
 .profile-info p {
     font-family: 'Inter', sans-serif;
     font-size: 1.1rem;
@@ -57,74 +76,14 @@
     margin: 0;
 }
 
-body {
-    background-color: var(--diary-bg);
-    /* ADICIONAMOS A TEXTURA SUTIL ABAIXO */
-    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23EFEBE4" fill-opacity="0.4"%3E%3Cpath d="M36 34.542V13.84L54.764 24.288l-5.32 3.07a2 2 0 0 1-1.92-1.28L44 20v24L24 34.542V13.84L5.236 24.288l5.32 3.07a2 2 0 0 1 1.92-1.28L16 20v24l20-10.458z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-    font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
-    line-height: 1.8;
-}
-
-
-.diary-section {
-    padding: 100px 0 80px 0; /* Ajuste no padding para a nova estrutura */
-    background-color: var(--diary-bg);
-    min-height: 100vh;
-}
-
-.diary-container {
-    max-width: 850px; /* Um pouco mais largo para o novo layout */
-    margin: 0 auto; /* Mantemos a centralização do container geral na página */
-    background: var(--diary-container-bg);
-    border: 1px solid var(--diary-border);
-    border-radius: 40px;
-    box-shadow: var(--shadow-xl);
-    padding: 3rem 4rem; /* Mais padding horizontal */
-}
-
-.section-header {
-    text-align: left; /* << MUDANÇA PRINCIPAL */
-    margin-bottom: 2rem;
-}
-
-.daily-checklist-form h3, #weekly-analysis h3, #health-profile h3 {
-    text-align: left; /* << MUDANÇA PRINCIPAL */
-    font-size: 2rem;  /* Um pouco maior para mais destaque */
-}
-
-/* As abas agora ficam alinhadas à esquerda do container */
-.tabs-container {
-    justify-content: flex-start; /* << MUDANÇA PRINCIPAL */
-    margin-bottom: 2.5rem;
-}
-
-/* Títulos */
-.section-title, .daily-checklist-form h3, #weekly-analysis h3, #health-profile h3, .daily-checklist-form h4 {
-    font-family: 'Lora', serif; /* APLICAMOS A NOVA FONTE AQUI */
-    color: var(--diary-primary-text);
-}
-
-.section-subtitle, .checklist-group > label, .chart-container h4, .item-label {
-    color: var(--diary-secondary-text);
-}
-.daily-checklist-form h4 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: var(--brand-secondary);
-    border-bottom: 1px solid var(--diary-border);
-    padding-bottom: 0.5rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1.5rem;
-}
 
 /* =================================================================== */
 /* ======                    SISTEMA DE ABAS                    ====== */
 /* =================================================================== */
 .tabs-container {
+    justify-content: flex-start;
+    margin-bottom: 2.5rem;
     display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
     border-bottom: 1px solid var(--diary-border);
 }
 .tab-link {
@@ -171,6 +130,21 @@ body {
 /* =================================================================== */
 /* ======              FORMULÁRIO DE REGISTRO DIÁRIO            ====== */
 /* =================================================================== */
+.daily-checklist-form h3 {
+    text-align: left;
+    font-size: 2rem;
+    font-family: 'Lora', serif;
+    color: var(--diary-primary-text);
+}
+.daily-checklist-form h4 {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: var(--brand-secondary);
+    border-bottom: 1px solid var(--diary-border);
+    padding-bottom: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
 .checklist-group {
     margin-bottom: 2rem;
 }
@@ -178,54 +152,59 @@ body {
     display: block;
     font-weight: 600;
     margin-bottom: 1rem;
+    color: var(--diary-secondary-text);
+}
+
+/* Destaque e Momento Conexão */
+.daily-highlight, .connection-moment {
+    max-width: 850px;
+    margin: 0 auto 2rem auto;
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.daily-highlight { background-color: var(--diary-accent-peach); }
+.connection-moment { background-color: var(--diary-accent-green); }
+
+.highlight-icon, .connection-icon {
+    font-size: 3rem;
+    flex-shrink: 0;
+}
+.highlight-text h4, .connection-text h4 {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: var(--diary-primary-text);
+    margin: 0 0 0.25rem 0;
+}
+.highlight-text p, .connection-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--diary-secondary-text);
+    margin: 0;
 }
 
 /* Seletores (Emoji, Toggle, Checkbox) */
-.emoji-selector, .toggle-selector, .checkbox-selector {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
+.emoji-selector, .toggle-selector, .checkbox-selector { display: flex; gap: 1rem; flex-wrap: wrap; }
 .emoji-selector { justify-content: space-around; }
-.emoji-selector label, .toggle-selector label, .checkbox-selector label { margin-bottom: 0; }
+.emoji-selector label, .toggle-selector label, .checkbox-selector label { margin-bottom: 0; cursor: pointer; }
 .emoji-selector input, .toggle-selector input, .checkbox-selector input { display: none; }
 
-.emoji-selector span {
-    font-size: 2.5rem; padding: 0.5rem; border-radius: 50%;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    display: inline-block;
-}
-.emoji-selector p { font-size: var(--font-sm); margin-top: 0.25rem; color: var(--diary-secondary-text); }
-.emoji-selector input:checked + span {
-    transform: scale(1.2);
-    background-color: var(--diary-accent-peach); /* << USA A NOVA COR DE DESTAQUE */
-}
+.emoji-selector span { font-size: 2.5rem; padding: 0.5rem; border-radius: 50%; transition: transform 0.2s ease, background-color 0.2s ease; display: inline-block; }
+.emoji-selector p { font-size: var(--font-sm); margin-top: 0.25rem; color: var(--diary-secondary-text); text-align: center; }
+.emoji-selector input:checked + span { transform: scale(1.2); background-color: var(--diary-accent-peach); }
 
-/* Seletor de Toggle e Checkbox */
 .toggle-selector span, .checkbox-selector span {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid var(--diary-border);
-    border-radius: 10px; /* << BORDAS MENOS ARREDONDADAS, COMO ETIQUETAS */
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: #fdfdfd; /* Fundo um pouco diferente */
-    font-weight: 500;
+    padding: 0.75rem 1.5rem; border: 1px solid var(--diary-border); border-radius: 10px;
+    background-color: #fdfdfd; font-weight: 500; transition: all 0.2s ease;
 }
-.toggle-selector input:checked + span,
-.checkbox-selector input[type="checkbox"]:checked + span {
-    background-color: var(--diary-accent-green); /* << USA A COR VERDE PASTEL */
-    border-color: var(--diary-accent-green);
-    color: var(--diary-primary-text); /* << TEXTO ESCURO PARA MELHOR LEITURA */
-    box-shadow: none; /* Remove a sombra para um look mais "flat" */
+.toggle-selector input:checked + span, .checkbox-selector input:checked + span {
+    background-color: var(--diary-accent-green); border-color: var(--diary-accent-green);
+    color: var(--diary-primary-text); box-shadow: none;
 }
 
-/* Ajuste no botão principal para usar a nova paleta */
-.submit-btn {
-    background-color: var(--diary-primary-text);
-}
-.submit-btn:hover {
-    background-color: #2a251d; /* Tom de sépia ainda mais escuro */
-}
 /* Sinais Vitais */
 .vital-signs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .input-group label { font-size: var(--font-sm); font-weight: 500 !important; margin-bottom: 0.5rem !important; }
@@ -237,68 +216,70 @@ body {
     outline: none; border-color: var(--diary-primary-text);
     box-shadow: 0 0 0 3px var(--diary-accent-peach);
 }
-
-/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
-
-/* Estilos para o card de Destaque do Dia */
-.daily-highlight {
-    max-width: 850px;
-    margin: 0 auto 2rem auto; /* Espaçamento abaixo do card */
-    background-color: var(--diary-accent-peach);
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.highlight-icon {
-    font-size: 3rem;
-    flex-shrink: 0;
-}
-
-.highlight-text h4 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    color: var(--diary-primary-text);
-    margin: 0 0 0.25rem 0;
-}
-
-.highlight-text p {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: var(--diary-secondary-text);
-    margin: 0;
-}
+.submit-btn { background-color: var(--diary-primary-text); }
+.submit-btn:hover { background-color: #2a251d; }
 
 /* =================================================================== */
 /* ======                 PAINEL DE ANÁLISE SEMANAL             ====== */
 /* =================================================================== */
+#weekly-analysis h3 {
+    text-align: left;
+    font-size: 2rem;
+    font-family: 'Lora', serif;
+    color: var(--diary-primary-text);
+}
 .chart-container {
     margin-bottom: 4rem;
 }
-.bar-chart {
-    display: flex; justify-content: space-around; align-items: flex-end;
-    height: 200px; border-left: 2px solid var(--diary-border);
-    border-bottom: 2px solid var(--diary-border); padding: 0 1rem;
+.chart-container h4 {
+    text-align: left;
+    font-weight: 600;
+    color: var(--diary-secondary-text);
+    margin-bottom: 1.5rem;
 }
-.bar {
-    width: 10%; background-color: var(--diary-accent-peach);
-    border-radius: 5px 5px 0 0;
+
+/* NOVO: Mosaico de Humor */
+.mood-mosaic {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.75rem;
+    height: 120px;
 }
+.mosaic-day {
+    border-radius: 10px;
+    background-color: var(--diary-border);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.mosaic-day:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.day-label {
+    font-size: var(--font-sm);
+    font-weight: 500;
+    color: rgba(0,0,0,0.4);
+}
+.mosaic-day[data-mood="feliz"] { background-color: #FFD97D; }
+.mosaic-day[data-mood="calmo"] { background-color: var(--diary-accent-green); }
+.mosaic-day[data-mood="agitado"] { background-color: var(--diary-accent-peach); }
+.mosaic-day[data-mood="triste"] { background-color: #A4BBD0; }
+
+/* Gráfico de Linha */
 .line-chart {
     height: 150px; border-left: 2px solid var(--diary-border);
     border-bottom: 2px solid var(--diary-border); padding: 1rem;
 }
 .line-chart svg { width: 100%; height: 100%; }
+.line-chart:hover polyline { stroke-width: 2; opacity: 0.8; }
 .axis-labels {
     display: flex; justify-content: space-around; padding: 0 1rem;
     margin-top: 0.5rem; font-size: var(--font-sm); color: var(--diary-secondary-text);
 }
-.chart-legend {
-    display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem;
-}
+.chart-legend { display: flex; justify-content: flex-start; gap: 2rem; margin-bottom: 1rem; }
 .legend-item { display: flex; align-items: center; font-size: var(--font-sm); color: var(--diary-secondary-text); }
 .legend-color { width: 12px; height: 12px; border-radius: 3px; margin-right: 0.5rem; }
 .legend-color.systolic { background-color: var(--brand-secondary); }
@@ -306,52 +287,35 @@ body {
 .line-chart .line-systolic { stroke: var(--brand-secondary); }
 .line-chart .line-diastolic { stroke: var(--brand-primary-light); }
 
-/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
-
-/* Estilos para o Tooltip Flutuante */
 .chart-tooltip {
-    position: fixed; /* Flutua sobre toda a página */
-    display: none;   /* Escondido por padrão */
-    background-color: var(--diary-primary-text);
-    color: var(--diary-bg);
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    font-size: var(--font-sm);
-    font-weight: 500;
-    pointer-events: none; /* Garante que o tooltip não bloqueie o mouse */
-    z-index: 10;
-    white-space: nowrap;
-}
-
-/* Efeito de hover nas barras do gráfico */
-.bar-chart .bar {
-    transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.bar-chart:hover .bar {
-    background-color: var(--diary-accent-peach); /* Todas ficam claras */
-}
-
-.bar-chart .bar:hover {
-    background-color: var(--brand-secondary) !important; /* A barra sob o mouse fica escura */
-    transform: scaleY(1.05); /* Um pouco mais alta */
-}
-
-/* Efeito de hover nas linhas do gráfico */
-.line-chart:hover polyline {
-    stroke-width: 2;
-    opacity: 0.8;
+    position: fixed; display: none; background-color: var(--diary-primary-text);
+    color: var(--diary-bg); padding: 0.5rem 1rem; border-radius: 10px;
+    font-size: var(--font-sm); font-weight: 500; pointer-events: none;
+    z-index: 10; white-space: nowrap;
 }
 
 /* =================================================================== */
 /* ======                    PERFIL DE SAÚDE                    ====== */
 /* =================================================================== */
+#health-profile h3 {
+    text-align: left;
+    font-size: 2rem;
+    font-family: 'Lora', serif;
+    color: var(--diary-primary-text);
+}
 .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
 .profile-item {
     background-color: #FDFDFD; padding: 1rem; border-radius: 10px;
     border-left: 3px solid var(--diary-accent-green);
 }
 .profile-item.full-width { grid-column: 1 / -1; }
+.item-label {
+    display: block;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--diary-primary-text);
+    margin-bottom: 0.5rem;
+}
 .item-value { display: block; font-size: var(--font-base); color: var(--diary-secondary-text); }
 
 /* Edição do Perfil */
@@ -367,44 +331,13 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 /* =================================================================== */
 /* ======                       RESPONSIVIDADE                  ====== */
 /* =================================================================== */
+@media (max-width: 768px) {
+    .diary-container { padding: 2rem 1.5rem; }
+    .diary-header { flex-direction: column; text-align: center; }
+}
 @media (max-width: 600px) {
     .profile-grid { grid-template-columns: 1fr; }
-    .diary-container { padding: 2rem 1.5rem; }
 }
 @media (max-width: 500px) {
     .vital-signs-grid { grid-template-columns: 1fr; }
-}
-
-/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
-
-/* Estilos para o card "Momento Conexão" */
-.connection-moment {
-    max-width: 850px;
-    margin: 0 auto 2rem auto;
-    background-color: var(--diary-accent-green); /* Usando a cor verde de "saúde/bem-estar" */
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    border: 1px solid rgba(0,0,0,0.05);
-}
-
-.connection-icon {
-    font-size: 2.5rem;
-    flex-shrink: 0;
-}
-
-.connection-text h4 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    color: var(--diary-primary-text);
-    margin: 0 0 0.25rem 0;
-}
-
-.connection-text p {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: var(--diary-secondary-text);
-    margin: 0;
 }
