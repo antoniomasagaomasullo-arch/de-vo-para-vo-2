@@ -497,3 +497,80 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     line-height: 1.6;
     font-style: italic;
 }
+
+/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
+
+/* Estilos para o Mural de Recados */
+.morning-message-board {
+    max-width: 850px;
+    margin: 0 auto 2rem auto;
+    border: 1px solid var(--diary-border);
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+}
+
+.morning-message-board h4 {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: var(--diary-primary-text);
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+.message-display-area {
+    background-color: #fdfaf6;
+    border-radius: 10px;
+    padding: 1.5rem;
+    min-height: 80px;
+    margin-bottom: 1rem;
+}
+
+.message-display-area .no-message-placeholder {
+    font-style: italic;
+    color: var(--diary-secondary-text);
+    text-align: center;
+    margin: 0;
+}
+
+.message-display-area .sent-message {
+    color: var(--diary-primary-text);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.message-input-area {
+    display: flex;
+    gap: 1rem;
+}
+
+.message-input-area textarea {
+    flex-grow: 1;
+    border: 1px solid var(--diary-border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+.message-input-area textarea:focus {
+    outline: none;
+    border-color: var(--diary-primary-text);
+    box-shadow: 0 0 0 3px var(--diary-accent-peach);
+}
+
+.message-input-area button {
+    background-color: var(--diary-primary-text);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.message-input-area button:hover {
+    background-color: #2a251d;
+}
