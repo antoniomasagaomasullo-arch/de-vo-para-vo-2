@@ -93,12 +93,20 @@ body {
     line-height: 1.6;
     letter-spacing: 0.01em;
     color: var(--text-primary);
+    
+    /* A linha abaixo será alterada */
     background: linear-gradient(to bottom, var(--background-start), var(--background-end));
+    
+    /* TORNAMOS O FUNDO 4 VEZES MAIOR QUE A TELA */
+    background-size: 100% 400%; 
+    
+    /* APLICAMOS A ANIMAÇÃO */
+    animation: move-gradient 20s ease-in-out infinite;
+
     min-height: 100vh;
     overflow-x: hidden;
     font-size: var(--font-base);
     position: relative;
-    /* Adicionamos a transição para o tamanho da fonte aqui */
     transition: font-size 0.4s ease;
 }
 
@@ -3831,5 +3839,17 @@ body.dark-mode .close-btn-chat:hover {
     z-index: 10000; /* Garante que fique sobre todos os elementos */
     pointer-events: none; /* Impede que o confete bloqueie cliques */
     animation: confetti-fall 4s linear forwards;
+}
+
+@keyframes move-gradient {
+    0% {
+        background-position: 50% 0%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    100% {
+        background-position: 50% 0%;
+    }
 }
 
