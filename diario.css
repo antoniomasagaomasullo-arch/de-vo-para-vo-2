@@ -341,3 +341,112 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 @media (max-width: 500px) {
     .vital-signs-grid { grid-template-columns: 1fr; }
 }
+
+/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
+
+/* =================================================================== */
+/* ======                LINHA DO TEMPO DA JORNADA              ====== */
+/* =================================================================== */
+#timeline h3 {
+    text-align: left;
+    font-size: 2rem;
+    font-family: 'Lora', serif;
+    color: var(--diary-primary-text);
+}
+
+.timeline {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    position: relative;
+}
+
+/* A linha vertical que conecta os pontos */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 9px;
+    bottom: 10px;
+    width: 4px;
+    background: var(--diary-border);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--diary-container-bg);
+    border: 4px solid var(--diary-border);
+    transition: border-color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    border-color: var(--diary-accent-peach);
+}
+
+.timeline-content {
+    margin-left: 40px;
+    background-color: #FDFDFD;
+    border: 1px solid var(--diary-border);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.timeline-header {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.timeline-item.active .timeline-header {
+    background-color: #f9f6f2;
+}
+
+.timeline-date {
+    font-weight: 600;
+    color: var(--diary-primary-text);
+}
+
+.timeline-mood {
+    font-size: var(--font-sm);
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    color: var(--diary-primary-text);
+}
+
+/* Cores para a tag de humor */
+.timeline-mood[data-mood="feliz"] { background-color: #FFD97D; }
+.timeline-mood[data-mood="calmo"] { background-color: var(--diary-accent-green); }
+.timeline-mood[data-mood="agitado"] { background-color: var(--diary-accent-peach); }
+.timeline-mood[data-mood="triste"] { background-color: #A4BBD0; }
+
+.timeline-summary {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.timeline-item.active .timeline-summary {
+    max-height: 200px; /* Altura suficiente para o conteúdo */
+    padding: 1rem 1.5rem;
+}
+
+.timeline-summary p {
+    margin: 0 0 0.5rem 0;
+    color: var(--diary-secondary-text);
+}
