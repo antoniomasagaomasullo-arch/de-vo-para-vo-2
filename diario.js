@@ -198,6 +198,18 @@ function initMessageBoard() {
     });
 }
 
+function initExportButton() {
+    const exportBtn = document.getElementById('exportPdfBtn');
+    if (!exportBtn) return;
+
+    exportBtn.addEventListener('click', () => {
+        triggerVibration();
+        // Simulação da funcionalidade
+        alert('A "Carta da Semana" em PDF foi gerada com sucesso e estaria pronta para impressão ou download!');
+    });
+}
+
+
 
 // --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA (ÚNICO BLOCO) ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -227,4 +239,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initHealthProfileAccordion();
     initProfileEditing();
     initMessageBoard(); 
+    initExportButton();
 });
