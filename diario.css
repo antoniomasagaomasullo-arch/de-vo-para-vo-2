@@ -470,3 +470,30 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     font-weight: 600;
     color: var(--diary-primary-text);
 }
+
+/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
+
+/* Estilos para a Caixa de Memórias Multimídia */
+.timeline-media {
+    padding: 0 1.5rem 1.5rem 1.5rem; /* Adicionado apenas quando o item está ativo/expandido */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.timeline-media img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--diary-border);
+}
+
+.media-caption {
+    background-color: var(--diary-accent-green);
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: var(--diary-primary-text);
+    margin: 0;
+    line-height: 1.6;
+    font-style: italic;
+}
