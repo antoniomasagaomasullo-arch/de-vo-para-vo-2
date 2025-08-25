@@ -152,3 +152,44 @@ document.addEventListener('DOMContentLoaded', () => {
     initDiary();
     initProfileEditing(); // Chamada da nova função
 });
+
+function initInteractiveCharts() {
+    const tooltip = document.getElementById('chartTooltip');
+    const charts = document.querySelectorAll('.bar-chart, .line-chart');
+
+    if (!tooltip || charts.length === 0) return;
+
+    charts.forEach(chart => {
+        chart.addEventListener('mousemove', (e) => {
+            // Pega o título do gráfico mais próximo
+            const title = chart.closest('.chart-container').querySelector('h4').textContent;
+            
+            // Simula um valor para o protótipo
+            const mockValue = `${title}: Valor do Dia`;
+
+            tooltip.style.display = 'block';
+            tooltip.textContent = mockValue;
+            // Posiciona o tooltip um pouco acima e à direita do cursor do mouse
+            tooltip.style.left = e.pageX + 15 + 'px';
+            tooltip.style.top = e.pageY - 30 + 'px';
+        });
+
+        chart.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+    });
+}
+
+
+// AGORA, adicione a chamada da nova função dentro do 'DOMContentLoaded'
+// que já existe no seu arquivo.
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... seu código de login e personalização ...
+    
+    // 3. INICIALIZA AS FUNÇÕES DA PÁGINA
+    initTabs();
+    initDiary();
+    initProfileEditing();
+    initInteractiveCharts(); // <-- ADICIONE ESTA LINHA
+});
