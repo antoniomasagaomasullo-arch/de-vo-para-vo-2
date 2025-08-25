@@ -207,6 +207,27 @@ function initExportButton() {
     });
 }
 
+function initDynamicHeader(userData) {
+    const diaryTitle = document.getElementById('diaryTitle');
+    const diarySubtitle = document.getElementById('diarySubtitle');
+
+    if (!diaryTitle || !diarySubtitle) return;
+
+    // Define o nome da avó no título principal
+    diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
+
+    // Lógica para a saudação dinâmica
+    const horaAtual = new Date().getHours();
+    let saudacao;
+    if (horaAtual >= 5 && horaAtual < 12) {
+        saudacao = "Bom dia";
+    } else if (horaAtual >= 12 && horaAtual < 18) {
+        saudacao = "Boa tarde";
+    } else {
+        saudacao = "Boa noite";
+    }
+        diarySubtitle.textContent = `${saudacao}, ${userData.familia}. Aqui estão as últimas atualizações.`;
+}
 
 
 // --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA (ÚNICO BLOCO) ---
@@ -230,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (profileImage) profileImage.alt = `Foto da Vó ${userData.avo}`;
     
     // 3. Inicializa todas as funcionalidades da página
+    initDynamicHeader(userData);
     initTabs();
     initDiary();
     initInteractiveCharts();
