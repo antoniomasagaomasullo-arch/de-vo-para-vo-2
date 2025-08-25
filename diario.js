@@ -85,17 +85,52 @@ function initTabs() {
 
 // SUGESTÃO: Substitua a sua função initDiary por esta versão final
 
+// ===================================================================
+// ======   FUNÇÃO INITDIARY - VERSÃO FINAL E COMPLETA          ======
+// ===================================================================
 function initDiary() {
     const dailyChecklistForm = document.getElementById('dailyChecklistForm');
-    if (!dailyChecklistForm) return;
+    const mediaUploadInput = document.getElementById('mediaUpload');
+    const mediaPreview = document.getElementById('mediaPreview');
+    let mediaFileContent = null; 
 
+    if (!dailyChecklistForm || !mediaUploadInput) {
+        console.error("Formulário do Diário ou Input de Mídia não encontrados!");
+        return;
+    }
+
+    // --- Lógica de pré-visualização da mídia ---
+    mediaUploadInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) {
+            mediaFileContent = null;
+            mediaPreview.innerHTML = '';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            mediaFileContent = e.target.result;
+            mediaPreview.innerHTML = '';
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = mediaFileContent;
+                mediaPreview.appendChild(img);
+            } else if (file.type.startsWith('audio/')) {
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.src = mediaFileContent;
+                mediaPreview.appendChild(audio);
+            }
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // --- Lógica de submissão do formulário ---
     dailyChecklistForm.addEventListener('submit', (e) => {
         e.preventDefault();
         triggerVibration();
-
+        
         const submitBtn = dailyChecklistForm.querySelector('.submit-btn');
-
-        // Lógica dos cards de Destaque e Conexão (inalterada)
         const highlightIcon = document.querySelector('.highlight-icon');
         const highlightMessage = document.getElementById('highlightMessage');
         const connectionSuggestion = document.getElementById('connectionSuggestion');
@@ -115,18 +150,29 @@ function initDiary() {
             highlightIcon.textContent = '📋';
             highlightMessage.textContent = 'Registro do dia salvo.';
         }
-
+        
         const suggestions = { caminhada: "Que tal perguntar como foi a caminhada e o que ela viu de interessante no caminho?", fisioterapia: "Pergunte como ela está se sentindo após a fisioterapia e se algum exercício foi novidade.", alongamento: "Uma boa ideia é perguntar se ela se sentiu mais disposta depois de se alongar.", nenhuma: "Talvez seja uma boa ideia sugerir uma atividade leve para amanhã, como ouvir uma música juntos por telefone.", default: "Pergunte qual foi a parte favorita do dia dela hoje!" };
         let finalSuggestion = suggestions.default;
         if (activities.length > 0 && suggestions[activities[0]]) {
             finalSuggestion = suggestions[activities[0]];
         }
         connectionSuggestion.textContent = finalSuggestion;
-     
-        // LÓGICA DA ANIMAÇÃO DO BOTÃO APRIMORADA
-        submitBtn.classList.add('is-success');
 
-        // Após a animação, apenas reseta o botão, mantendo os dados no formulário
+        // --- LÓGICA CENTRAL: Cria e adiciona a nova entrada na timeline ---
+        const timelineUl = document.querySelector('.timeline');
+        if (timelineUl) {
+            const newEntry = createTimelineEntry(formData, mediaFileContent);
+            timelineUl.prepend(newEntry);
+            initTimeline(); // Re-inicializa a timeline para que o novo item funcione
+        }
+
+        // Limpa o formulário e a pré-visualização
+        dailyChecklistForm.reset();
+        mediaPreview.innerHTML = '';
+        mediaFileContent = null;
+        
+        // Animação do botão de sucesso
+        submitBtn.classList.add('is-success');
         setTimeout(() => {
             submitBtn.classList.remove('is-success');
         }, 2000);
@@ -368,6 +414,42 @@ function initWellnessFlower() {
     });
 }
 
+// ===================================================================
+// ======   FUNÇÃO NOVA PARA CRIAR ENTRADAS NA TIMELINE         ======
+// ===================================================================
+function createTimelineEntry(formData, mediaSrc) {
+    const item = document.createElement('li');
+    item.className = 'timeline-item';
+
+    // Se houver mídia, adiciona a classe para o estilo "Polaroid"
+    if (mediaSrc && mediaSrc.startsWith('data:image/')) {
+        item.classList.add('has-media');
+    }
+
+    const mood = formData.get('mood') || 'calmo';
+    const moodMap = {
+        feliz: '😊 Feliz',
+        calmo: '😐 Calmo',
+        agitado: '😟 Agitado',
+        triste: '😢 Triste'
+    };
+
+    const today = new Date();
+    const dateString = today.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+    
+    let mediaHTML = '';
+    if (mediaSrc) {
+        if (mediaSrc.startsWith('data:image/')) {
+            mediaHTML = `<div class="timeline-media"><img src="${mediaSrc}" alt="Memória do dia"></div>`;
+        } else if (mediaSrc.startsWith('data:audio/')) {
+            mediaHTML = `<div class="timeline-media"><audio controls src="${mediaSrc}"></audio></div>`;
+        }
+    }
+
+    const summaryText = formData.get('diaryMessage') || 'Nenhuma observação registrada para este dia.';
+    const sleepText = formData.get('sleep') ? formData.get('sleep').charAt(0).toUpperCase() + formData.get('sleep').slice(1) : '
+
+    
 // --- EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Verifica se há um usuário logado
