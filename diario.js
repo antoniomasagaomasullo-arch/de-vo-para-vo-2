@@ -19,11 +19,35 @@ function initTabs() {
             if (link.classList.contains('active')) return;
             triggerVibration();
             const tabId = link.getAttribute('data-tab');
+
+            // Desativa todas as abas e conteúdos
             tabLinks.forEach(item => item.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Ativa a aba e o conteúdo clicado
             link.classList.add('active');
-            tabContents.forEach(content => {
-                content.classList.toggle('active', content.id === tabId);
-            });
+            const activeContent = document.getElementById(tabId);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+
+            // **NOVA LÓGICA DE ANIMAÇÃO**
+            // Se a aba de análise for ativada, aciona as animações
+            if (tabId === 'weekly-analysis') {
+                const moodMosaic = activeContent.querySelector('.mood-mosaic');
+                const lineCharts = activeContent.querySelectorAll('.line-chart');
+
+                // Remove a classe para 'resetar' a animação e depois a adiciona novamente
+                if (moodMosaic) {
+                    moodMosaic.classList.remove('animated');
+                    // Usamos um pequeno timeout para garantir que o navegador processe a remoção da classe antes de adicioná-la de novo
+                    setTimeout(() => moodMosaic.classList.add('animated'), 10);
+                }
+                lineCharts.forEach(chart => {
+                    chart.classList.remove('animated');
+                    setTimeout(() => chart.classList.add('animated'), 10);
+                });
+            }
         });
     });
 }
