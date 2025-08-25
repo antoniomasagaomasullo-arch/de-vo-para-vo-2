@@ -23,19 +23,35 @@ body {
 
 
 .diary-section {
-    padding: 120px 2rem 80px 2rem;
-    background-color: var(--diary-bg); /* Corrigido para usar a nova paleta */
+    padding: 100px 0 80px 0; /* Ajuste no padding para a nova estrutura */
+    background-color: var(--diary-bg);
     min-height: 100vh;
 }
 
 .diary-container {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 850px; /* Um pouco mais largo para o novo layout */
+    margin: 0 auto; /* Mantemos a centralização do container geral na página */
     background: var(--diary-container-bg);
     border: 1px solid var(--diary-border);
     border-radius: 40px;
     box-shadow: var(--shadow-xl);
-    padding: 3rem;
+    padding: 3rem 4rem; /* Mais padding horizontal */
+}
+
+.section-header {
+    text-align: left; /* << MUDANÇA PRINCIPAL */
+    margin-bottom: 2rem;
+}
+
+.daily-checklist-form h3, #weekly-analysis h3, #health-profile h3 {
+    text-align: left; /* << MUDANÇA PRINCIPAL */
+    font-size: 2rem;  /* Um pouco maior para mais destaque */
+}
+
+/* As abas agora ficam alinhadas à esquerda do container */
+.tabs-container {
+    justify-content: flex-start; /* << MUDANÇA PRINCIPAL */
+    margin-bottom: 2.5rem;
 }
 
 /* Títulos */
