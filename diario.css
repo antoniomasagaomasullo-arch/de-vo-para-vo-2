@@ -813,3 +813,89 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 .mood-mosaic.animated .mosaic-day:nth-child(5) { animation-delay: 0.5s; }
 .mood-mosaic.animated .mosaic-day:nth-child(6) { animation-delay: 0.6s; }
 .mood-mosaic.animated .mosaic-day:nth-child(7) { animation-delay: 0.7s; }
+
+/* =================================================================== */
+/* ======                MODAL CARTA DA SEMANA                  ====== */
+/* =================================================================== */
+.letter-content {
+    max-width: 700px;
+    background-color: #FDFBF8; /* Um tom de papel creme muito sutil */
+    font-family: 'Inter', sans-serif;
+    color: var(--diary-primary-text);
+    padding: 3rem 4rem;
+}
+
+.letter-date {
+    font-size: 0.9rem;
+    color: var(--diary-secondary-text);
+    text-align: right;
+    margin-bottom: 2rem;
+}
+
+.letter-title {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    color: var(--diary-primary-text);
+    margin-bottom: 1.5rem;
+}
+
+.letter-content h4 {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: var(--brand-secondary);
+    border-bottom: 1px solid var(--diary-border);
+    padding-bottom: 0.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.letter-intro, .letter-highlights li {
+    line-height: 1.8;
+    color: var(--diary-secondary-text);
+}
+
+.letter-highlights {
+    list-style: none;
+    padding-left: 0;
+}
+
+.letter-highlights li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.letter-highlights li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--brand-secondary);
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.letter-mood-mosaic {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.letter-mood-mosaic .mosaic-day {
+    height: 50px; /* Menor que o do painel principal */
+}
+
+.letter-closing {
+    margin-top: 3rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--diary-secondary-text);
+}
+
+.letter-actions {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--diary-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
