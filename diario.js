@@ -228,3 +228,63 @@ document.addEventListener('DOMContentLoaded', () => {
     initInteractiveCharts();
     initTimeline(); // <-- ADICIONE ESTA LINHA
 });
+
+// SUBSTITUA a antiga função initProfileEditing por esta nova:
+function initAccordionEditing() {
+    const editButtons = document.querySelectorAll('.edit-section-btn');
+
+    editButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            triggerVibration();
+            const content = btn.closest('.accordion-content');
+            const grid = content.querySelector('.profile-grid');
+            const isEditing = grid.classList.contains('editing');
+
+            if (isEditing) {
+                // MODO DE SALVAR
+                grid.querySelectorAll('.profile-item').forEach(item => {
+                    const valueSpan = item.querySelector('.item-value');
+                    const input = item.querySelector('.item-input');
+                    if(valueSpan && input) {
+                        if (input.type === 'date') {
+                            const [year, month, day] = input.value.split('-');
+                            valueSpan.textContent = `${day}/${month}/${year}`;
+                        } else {
+                            valueSpan.textContent = input.value;
+                        }
+                    }
+                });
+                grid.classList.remove('editing');
+                btn.classList.remove('active');
+                btn.textContent = 'Editar';
+            } else {
+                // MODO DE EDIÇÃO
+                grid.querySelectorAll('.profile-item').forEach(item => {
+                    const valueSpan = item.querySelector('.item-value');
+                    const input = item.querySelector('.item-input');
+                    if(valueSpan && input) {
+                       if (input.type !== 'date') {
+                            input.value = valueSpan.textContent;
+                        }
+                    }
+                });
+                grid.classList.add('editing');
+                btn.classList.add('active');
+                btn.textContent = 'Salvar';
+            }
+        });
+    });
+}
+
+// AGORA, ATUALIZE a chamada da função dentro do 'DOMContentLoaded'
+document.addEventListener('DOMContentLoaded', () => {
+    // ... todo o seu código anterior ...
+
+    // 3. INICIALIZA TODAS AS FUNÇÕES DA PÁGINA
+    initTabs();
+    initDiary();
+    initInteractiveCharts();
+    initTimeline();
+    initHealthProfileAccordion();
+    initAccordionEditing(); // <-- ATUALIZE AQUI
+});
