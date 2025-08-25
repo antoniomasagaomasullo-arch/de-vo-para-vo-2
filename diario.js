@@ -39,6 +39,7 @@ function initTabs() {
 }
 
 // Função principal do diário (lida com o formulário)
+
 function initDiary() {
     const dailyChecklistForm = document.getElementById('dailyChecklistForm');
     if (!dailyChecklistForm) return;
@@ -46,6 +47,37 @@ function initDiary() {
     dailyChecklistForm.addEventListener('submit', (e) => {
         e.preventDefault();
         triggerVibration();
+
+        // Pega os elementos do card de destaque
+        const highlightIcon = document.querySelector('.highlight-icon');
+        const highlightMessage = document.getElementById('highlightMessage');
+
+        // Pega os dados do formulário
+        const formData = new FormData(dailyChecklistForm);
+        const mood = formData.get('mood');
+        const observations = formData.get('diaryMessage');
+
+        // Lógica para atualizar o destaque
+        if (observations.trim() !== '') {
+            // Se houver uma observação, ela tem prioridade
+            highlightIcon.textContent = '📝';
+            highlightMessage.textContent = observations;
+        } else if (mood) {
+            // Se não, usa o humor selecionado
+            const moodMap = {
+                feliz: { icon: '😊', text: 'Hoje foi um dia feliz!' },
+                calmo: { icon: '😐', text: 'O dia foi calmo e sereno.' },
+                agitado: { icon: '😟', text: 'Hoje o dia foi um pouco mais agitado.' },
+                triste: { icon: '😢', text: 'Hoje o humor esteve um pouco mais para baixo.' }
+            };
+            highlightIcon.textContent = moodMap[mood].icon;
+            highlightMessage.textContent = moodMap[mood].text;
+        } else {
+            // Mensagem padrão se nada for preenchido
+            highlightIcon.textContent = '📋';
+            highlightMessage.textContent = 'Registro do dia salvo.';
+        }
+
         alert('Registro diário salvo com sucesso!');
         dailyChecklistForm.reset();
     });
