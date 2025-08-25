@@ -1615,4 +1615,3 @@ function initHighlightToShare() {
         }
     });
 }
-
