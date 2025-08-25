@@ -21,42 +21,90 @@
     </header>
 
     <main>
-        <section class="diary-section" id="diario">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Diário de Bordo da Família</h2>
-                    <p class="section-subtitle">Um espaço de carinho e comunicação entre você e nossos cuidadores.</p>
-                </div>
+       <section class="diary-section" id="diario">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Diário de Bordo da Família</h2>
+            <p class="section-subtitle">Acompanhe de perto a jornada de cuidado e bem-estar.</p>
+        </div>
 
-                <div class="diary-container">
-                    <div class="diary-entries" id="diaryEntries">
-                        <div class="diary-entry">
-                            <p class="entry-meta"><strong>Cuidadora Ana</strong> em 24/08/2025, 14:30</p>
-                            <p class="entry-text">Hoje a Dona Tereca almoçou muito bem (sopa de legumes!) e assistimos a um filme antigo que ela adora. Ela mandou um beijo para todos! ❤️</p>
-                        </div>
-                        <div class="diary-entry author-family">
-                            <p class="entry-meta"><strong>Família Silva</strong> em 24/08/2025, 10:15</p>
-                            <p class="entry-text">Obrigado, Ana! Lembrete: a neta Sofia vai ligar por vídeo às 16h para mostrar o novo cachorrinho. Por favor, ajude-a a atender. Abraços!</p>
+        <div class="tabs-container">
+            <button class="tab-link active" data-tab="daily-log">Registro Diário</button>
+            <button class="tab-link" data-tab="weekly-analysis">Análise Semanal</button>
+        </div>
+
+        <div class="tab-content active" id="daily-log">
+            <div class="diary-container">
+                <form class="daily-checklist-form" id="dailyChecklistForm">
+                    <h3>Checklist do Dia - 25/08/2025</h3>
+                    
+                    <div class="checklist-group">
+                        <label>1. Como estava o humor hoje?</label>
+                        <div class="emoji-selector">
+                            <label><input type="radio" name="mood" value="feliz"><span>😊<p>Feliz</p></span></label>
+                            <label><input type="radio" name="mood" value="calmo"><span>😐<p>Calmo</p></span></label>
+                            <label><input type="radio" name="mood" value="agitado"><span>😟<p>Agitado</p></span></label>
+                            <label><input type="radio" name="mood" value="triste"><span>😢<p>Triste</p></span></label>
                         </div>
                     </div>
 
-                    <form class="diary-form" id="diaryForm">
-                        <h3>Nova Entrada no Diário</h3>
-                        <div class="form-group">
-                            <textarea id="diaryMessage" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                    <div class="checklist-group">
+                        <label>2. Como foi a alimentação?</label>
+                        <div class="toggle-selector">
+                            <label><input type="radio" name="eating" value="boa"><span>Comeu bem</span></label>
+                            <label><input type="radio" name="eating" value="regular"><span>Comeu pouco</span></label>
+                            <label><input type="radio" name="eating" value="ruim"><span>Recusou</span></label>
                         </div>
-                        <div class="form-group">
-                            <select id="diaryAuthor">
-                                <option value="familia">Família (Sua Mensagem)</option>
-                                <option value="cuidadora">Cuidadora (Simulação)</option>
-                            </select>
+                    </div>
+
+                    <div class="checklist-group">
+                        <label>3. Qualidade do sono (noite anterior)?</label>
+                        <div class="toggle-selector">
+                            <label><input type="radio" name="sleep" value="bom"><span>Bom</span></label>
+                            <label><input type="radio" name="sleep" value="agitado"><span>Agitado</span></label>
+                            <label><input type="radio" name="sleep" value="ruim"><span>Ruim</span></label>
                         </div>
-                        <button type="submit" class="submit-btn">Adicionar Registro</button>
-                    </form>
-                </div>
+                    </div>
+                    
+                    <div class="checklist-group">
+                        <label for="diaryMessage">4. Observações e mensagens do dia:</label>
+                        <textarea id="diaryMessage" placeholder="Descreva atividades, visitas, ou qualquer detalhe importante do dia..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Salvar Registro do Dia</button>
+                </form>
             </div>
-        </section>
-    </main>
+        </div>
+
+        <div class="tab-content" id="weekly-analysis">
+            <div class="diary-container">
+                <h3>Resumo da Semana</h3>
+                
+                <div class="chart-container">
+                    <h4>Humor Predominante</h4>
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 80%;"><span class="label">Feliz</span></div>
+                        <div class="bar" style="height: 50%;"><span class="label">Calmo</span></div>
+                        <div class="bar" style="height: 20%;"><span class="label">Agitado</span></div>
+                        <div class="bar" style="height: 10%;"><span class="label">Triste</span></div>
+                    </div>
+                    <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                </div>
+
+                <div class="chart-container">
+                    <h4>Qualidade do Sono</h4>
+                    <div class="line-chart">
+                        <svg viewBox="0 0 100 50">
+                            <polyline fill="none" stroke="var(--brand-secondary)" stroke-width="1" points="5,20 20,10 35,15 50,5 65,12 80,25 95,20" />
+                        </svg>
+                    </div>
+                    <div class="axis-labels"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
 
     <footer class="footer">
         <div class="container">
