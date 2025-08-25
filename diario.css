@@ -382,7 +382,7 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 #timeline h3 {
     text-align: left;
     font-size: 2rem;
-    font-family: var(--font-heading);
+    font-family: 'Lora', serif;
     color: var(--diary-primary-text);
 }
 
