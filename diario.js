@@ -180,6 +180,43 @@ function initProfileEditing() {
         }
     });
 }
+// Adicione esta nova função ANTES do evento 'DOMContentLoaded' no seu diario.js
+
+function initMessageBoard() {
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const messageInput = document.getElementById('morningMessageInput');
+    const displayArea = document.getElementById('messageDisplayArea');
+
+    if (!sendMessageBtn || !messageInput || !displayArea) return;
+
+    sendMessageBtn.addEventListener('click', () => {
+        const message = messageInput.value.trim();
+        if (message === '') return;
+
+        triggerVibration();
+
+        // Exibe a mensagem enviada na área de display
+        displayArea.innerHTML = `<p class="sent-message">${message}</p>`;
+
+        // Limpa o campo de texto
+        messageInput.value = '';
+
+        // (Em uma aplicação real, esta mensagem seria salva no servidor)
+        alert('Recado enviado para a cuidadora!');
+    });
+}
+
+
+// AGORA, adicione a chamada da nova função dentro do 'DOMContentLoaded'
+// que já existe no seu arquivo.
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... todo o seu código anterior ...
+
+    initHealthProfileAccordion();
+    initAccordionEditing();
+    initMessageBoard(); // <-- ADICIONE ESTA LINHA
+});
 
 // --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
 document.addEventListener('DOMContentLoaded', () => {
