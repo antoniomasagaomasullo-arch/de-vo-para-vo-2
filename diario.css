@@ -509,7 +509,7 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 }
 
 .timeline-item.active .timeline-summary {
-    max-height: 200px; /* Altura suficiente para o conteúdo */
+    max-height: 500px; /* Altura aumentada para acomodar mais conteúdo */
     padding: 1rem 1.5rem;
 }
 
