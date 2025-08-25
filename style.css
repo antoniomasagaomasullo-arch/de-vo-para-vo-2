@@ -2848,9 +2848,11 @@ textarea:focus-visible {
 
 .spotlight-submission-title {
     font-family: 'Playfair Display', serif;
-    font-size: var(--font-2xl);
+    font-size: var(--font-xl); /* Diminuído de 2xl para xl */
+    font-weight: 600; /* Diminuído o peso da fonte */
     color: var(--brand-primary-dark);
     margin-bottom: 0.5rem;
+    opacity: 0.9;
 }
 
 .spotlight-submission-container p {
