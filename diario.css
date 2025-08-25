@@ -206,10 +206,18 @@ body {
 .emoji-selector input, .toggle-selector input, .checkbox-selector input { display: none; }
 
 /* Melhoria: Estado de Hover */
+.emoji-selector:hover span {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
 .emoji-selector span:hover {
+    opacity: 1;
     transform: scale(1.1);
 }
+
 .emoji-selector input:checked + span {
+    opacity: 1;
     transform: scale(1.2);
     background-color: var(--diary-accent-peach);
 }
@@ -222,18 +230,18 @@ body {
 .toggle-selector span, .checkbox-selector span {
     padding: 0.75rem 1.5rem; border: 1px solid var(--diary-border); border-radius: 10px;
     background-color: #fdfdfd; font-weight: 500; transition: all 0.2s ease;
-    box-shadow: var(--shadow-sm); /* Adicionado: Sombra sutil para dar profundidade */
+    box-shadow: var(--shadow-sm);
 }
 /* Melhoria: Estado de Hover para os seletores de texto */
 .toggle-selector span:hover, .checkbox-selector span:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md); /* Sombra mais intensa no hover */
+    box-shadow: var(--shadow-md);
 }
 .toggle-selector input:checked + span, .checkbox-selector input:checked + span {
     background-color: var(--diary-accent-green); border-color: var(--diary-accent-green);
     color: var(--diary-primary-text);
-    box-shadow: var(--shadow-lg); /* Sombra maior para o estado de selecionado */
-    transform: translateY(-4px); /* Animação mais pronunciada */
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
 }
 
 
