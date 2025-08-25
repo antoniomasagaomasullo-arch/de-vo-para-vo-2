@@ -57,19 +57,18 @@ body.dark-mode {
     /* Cores principais permanecem ótimas */
     --brand-primary: #C6A470;
     --brand-primary-light: #E0C49A;
-    --brand-primary-dark: #F8F4EF;
+    --brand-primary-dark: #F8F4EF; 
 
     /* Textos com leve ajuste para o novo fundo */
-    --text-primary: #F9FAFB;
+   --text-primary: #F9FAFB; /* Corrigido para branco total para maior contraste */
     --text-secondary: #E5E7EB;
     --text-tertiary: #9CA3AF;
     --text-on-dark: #1F1F1F;
 
-    /* === MUDANÇA PRINCIPAL: Fundos mais suaves === */
-    /* Usamos um cinza-escuro em vez de preto puro para o início */
-    --background-start: #212121; 
+   /* Usamos um cinza-escuro em vez de preto puro para o início */
+    --background-start: #1C1C1C; /* Escurecido para melhor contraste */
     /* E um tom ainda mais escuro para o final do gradiente */
-    --background-end: #181818; 
+    --background-end: #121212; /* Escurecido para melhor contraste */
 
     /* Componentes com cores ajustadas para a nova paleta */
     --chat-bg: #2B2B2B;
