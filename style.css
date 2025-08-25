@@ -84,18 +84,22 @@ body.dark-mode {
     --shadow-xl: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.08);
 }
 
+* {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
 body {
     font-family: 'Inter', sans-serif;
-    line-height: 1.6; /* Ajustado para melhorar a legibilidade em blocos de texto */
+    line-height: 1.6;
     letter-spacing: 0.01em;
     color: var(--text-primary);
-    /* A linha abaixo será alterada */
     background: linear-gradient(to bottom, var(--background-start), var(--background-end));
     min-height: 100vh;
     overflow-x: hidden;
     font-size: var(--font-base);
     position: relative;
-    transition: font-size 0.3s ease;
+    /* Adicionamos a transição para o tamanho da fonte aqui */
+    transition: font-size 0.4s ease;
 }
 
 body::before {
