@@ -33,48 +33,73 @@
             <button class="tab-link" data-tab="weekly-analysis">Análise Semanal</button>
         </div>
 
-        <div class="tab-content active" id="daily-log">
-            <div class="diary-container">
-                <form class="daily-checklist-form" id="dailyChecklistForm">
-                    <h3>Checklist do Dia - 25/08/2025</h3>
-                    
-                    <div class="checklist-group">
-                        <label>1. Como estava o humor hoje?</label>
-                        <div class="emoji-selector">
-                            <label><input type="radio" name="mood" value="feliz"><span>😊<p>Feliz</p></span></label>
-                            <label><input type="radio" name="mood" value="calmo"><span>😐<p>Calmo</p></span></label>
-                            <label><input type="radio" name="mood" value="agitado"><span>😟<p>Agitado</p></span></label>
-                            <label><input type="radio" name="mood" value="triste"><span>😢<p>Triste</p></span></label>
-                        </div>
-                    </div>
-
-                    <div class="checklist-group">
-                        <label>2. Como foi a alimentação?</label>
-                        <div class="toggle-selector">
-                            <label><input type="radio" name="eating" value="boa"><span>Comeu bem</span></label>
-                            <label><input type="radio" name="eating" value="regular"><span>Comeu pouco</span></label>
-                            <label><input type="radio" name="eating" value="ruim"><span>Recusou</span></label>
-                        </div>
-                    </div>
-
-                    <div class="checklist-group">
-                        <label>3. Qualidade do sono (noite anterior)?</label>
-                        <div class="toggle-selector">
-                            <label><input type="radio" name="sleep" value="bom"><span>Bom</span></label>
-                            <label><input type="radio" name="sleep" value="agitado"><span>Agitado</span></label>
-                            <label><input type="radio" name="sleep" value="ruim"><span>Ruim</span></label>
-                        </div>
-                    </div>
-                    
-                    <div class="checklist-group">
-                        <label for="diaryMessage">4. Observações e mensagens do dia:</label>
-                        <textarea id="diaryMessage" placeholder="Descreva atividades, visitas, ou qualquer detalhe importante do dia..."></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Salvar Registro do Dia</button>
-                </form>
+   <div class="tab-content active" id="daily-log">
+    <div class="diary-container">
+        <form class="daily-checklist-form" id="dailyChecklistForm">
+            <h3>Checklist do Dia - 25/08/2025</h3>
+            
+            <h4>Bem-Estar Geral</h4>
+            <div class="checklist-group">
+                <label>1. Como estava o humor hoje?</label>
+                <div class="emoji-selector">
+                    <label><input type="radio" name="mood" value="feliz"><span>😊<p>Feliz</p></span></label>
+                    <label><input type="radio" name="mood" value="calmo"><span>😐<p>Calmo</p></span></label>
+                    <label><input type="radio" name="mood" value="agitado"><span>😟<p>Agitado</p></span></label>
+                    <label><input type="radio" name="mood" value="triste"><span>😢<p>Triste</p></span></label>
+                </div>
             </div>
-        </div>
+            <div class="checklist-group">
+                <label>2. Qualidade do sono (noite anterior)?</label>
+                <div class="toggle-selector">
+                    <label><input type="radio" name="sleep" value="bom"><span>Bom</span></label>
+                    <label><input type="radio" name="sleep" value="agitado"><span>Agitado</span></label>
+                    <label><input type="radio" name="sleep" value="ruim"><span>Ruim</span></label>
+                </div>
+            </div>
+
+            <h4>Sinais Vitais e Saúde</h4>
+            <div class="checklist-group">
+                <label>3. Sinais vitais medidos hoje:</label>
+                <div class="vital-signs-grid">
+                    <div class="input-group">
+                        <label for="bloodPressure">Pressão Arterial</label>
+                        <input type="text" id="bloodPressure" name="bloodPressure" placeholder="Ex: 120/80">
+                    </div>
+                    <div class="input-group">
+                        <label for="bloodO2">Oxigenação (O₂)</label>
+                        <input type="text" id="bloodO2" name="bloodO2" placeholder="Ex: 97%">
+                    </div>
+                </div>
+            </div>
+             <div class="checklist-group">
+                <label>4. Como foi a alimentação?</label>
+                <div class="toggle-selector">
+                    <label><input type="radio" name="eating" value="boa"><span>Comeu bem</span></label>
+                    <label><input type="radio" name="eating" value="regular"><span>Comeu pouco</span></label>
+                    <label><input type="radio" name="eating" value="ruim"><span>Recusou</span></label>
+                </div>
+            </div>
+
+            <h4>Atividades do Dia</h4>
+            <div class="checklist-group">
+                <label>5. Houve atividade física hoje?</label>
+                <div class="checkbox-selector">
+                    <label><input type="checkbox" name="activity" value="caminhada"><span>Caminhada Leve</span></label>
+                    <label><input type="checkbox" name="activity" value="fisioterapia"><span>Fisioterapia</span></label>
+                    <label><input type="checkbox" name="activity" value="alongamento"><span>Alongamento</span></label>
+                    <label><input type="checkbox" name="activity" value="nenhuma"><span>Nenhuma</span></label>
+                </div>
+            </div>
+
+            <div class="checklist-group">
+                <label for="diaryMessage">6. Observações e mensagens do dia:</label>
+                <textarea id="diaryMessage" placeholder="Descreva outras atividades, visitas, ou qualquer detalhe importante..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Salvar Registro do Dia</button>
+        </form>
+    </div>
+</div>
 
         <div class="tab-content" id="weekly-analysis">
             <div class="diary-container">
