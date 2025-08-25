@@ -132,9 +132,19 @@ function initTimeline() {
                 triggerVibration();
                 const isActive = item.classList.contains('active');
                 timelineItems.forEach(otherItem => otherItem.classList.remove('active'));
-                if (!isActive) {
-                    item.classList.add('active');
-                }
+               if (!isActive) {
+    item.classList.add('active');
+    // Adicione esta lógica:
+    const moodSpan = item.querySelector('.timeline-mood');
+    if (moodSpan) {
+        const mood = moodSpan.dataset.mood;
+        const dot = item.querySelector('.timeline-dot');
+        if(dot) dot.dataset.activeMood = mood;
+    }
+} else {
+    const dot = item.querySelector('.timeline-dot');
+    if(dot) delete dot.dataset.activeMood;
+}
             });
         }
     });
