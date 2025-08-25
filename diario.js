@@ -140,18 +140,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // 2. PERSONALIZA A PÁGINA
-    const userData = JSON.parse(loggedInUserData);
-    const diaryTitle = document.getElementById('diaryTitle');
-    if (diaryTitle) {
-        diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
-    }
-    
-    // 3. INICIALIZA TODAS AS FUNÇÕES DA PÁGINA
-    initTabs();
-    initDiary();
-    initProfileEditing(); // Chamada da nova função
-});
+  // 2. PERSONALIZA A PÁGINA
+const userData = JSON.parse(loggedInUserData);
+const diaryTitle = document.getElementById('diaryTitle');
+const diarySubtitle = document.getElementById('diarySubtitle');
+const profileImage = document.getElementById('profileImage');
+
+if (diaryTitle) {
+    diaryTitle.textContent = `Diário de Bordo da Vó ${userData.avo}`;
+}
+if (diarySubtitle) {
+    diarySubtitle.textContent = `Registros de cuidado e bem-estar da ${userData.familia}`;
+}
+if (profileImage) {
+    // Em uma aplicação real, a URL da imagem viria dos dados do usuário.
+    // Aqui, usamos a imagem de exemplo que já está no HTML.
+    profileImage.alt = `Foto da Vó ${userData.avo}`;
+}
 
 function initInteractiveCharts() {
     const tooltip = document.getElementById('chartTooltip');
