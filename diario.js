@@ -40,7 +40,7 @@ function initDiary() {
 
         const submitBtn = dailyChecklistForm.querySelector('.submit-btn');
 
-        // --- Lógica dos cards de Destaque e Conexão (inalterada) ---
+        // Lógica dos cards de Destaque e Conexão (inalterada)
         const highlightIcon = document.querySelector('.highlight-icon');
         const highlightMessage = document.getElementById('highlightMessage');
         const connectionSuggestion = document.getElementById('connectionSuggestion');
@@ -68,7 +68,7 @@ function initDiary() {
         }
         connectionSuggestion.textContent = finalSuggestion;
 
-        // --- NOVA LÓGICA DA ANIMAÇÃO DO BOTÃO ---
+        // NOVA LÓGICA DA ANIMAÇÃO DO BOTÃO
         // 1. Ativa o estado de sucesso
         submitBtn.classList.add('is-success');
 
