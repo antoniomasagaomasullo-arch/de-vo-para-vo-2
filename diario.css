@@ -10,7 +10,23 @@
     --diary-accent-green: #D4E2D4;   /* Destaque em tom verde pastel (saúde) */
     --diary-border: #EFEBE4;        /* Cor suave para bordas e linhas */
 }
+ /* Tipografia base usada no arquivo */
+  --font-sm: .875rem;
+  --font-base: 1rem;
 
+  /* Sombra usada nos cards/container */
+  --shadow-xl: 0 20px 60px rgba(0,0,0,.08);
+  --shadow-md: 0 10px 30px rgba(0,0,0,.06);
+
+  /* Paleta auxiliar para charts/legendas */
+  --brand-secondary: #6B7AFF;        /* roxo-azulado */
+  --brand-primary-light: #9AB3FF;    /* variação clara */
+  --validation-success: rgba(16,185,129,.25);
+  --validation-error: rgba(239,68,68,.25);
+
+  /* Larguras padrão para containers */
+  --container-max: 850px;
+}
 /* =================================================================== */
 /* ======                 ESTRUTURA E LAYOUT GERAL              ====== */
 /* =================================================================== */
