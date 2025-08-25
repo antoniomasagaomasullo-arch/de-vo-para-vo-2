@@ -126,10 +126,11 @@ function initHealthProfileAccordion() {
         header.addEventListener('click', () => {
             triggerVibration();
             const isActive = item.classList.contains('active');
-            accordionItems.forEach(otherItem => otherItem.classList.remove('active'));
-            if (!isActive) {
-                item.classList.add('active');
-            }
+            // Remove a lógica de fechar os outros para um acordeão mais livre
+            // accordionItems.forEach(otherItem => {
+            //     if (otherItem !== item) otherItem.classList.remove('active')
+            // });
+            item.classList.toggle('active');
         });
     });
 }
@@ -166,7 +167,7 @@ function initProfileEditing() {
         } else {
             // MODO DE EDIÇÃO (e expande todos os acordeões)
             allItems.forEach(item => {
-                item.classList.add('active'); // Garante que todos estejam abertos para edição
+                item.classList.add('active'); 
                 item.querySelectorAll('.profile-item').forEach(profileItem => {
                     const valueSpan = profileItem.querySelector('.item-value');
                     const input = profileItem.querySelector('.item-input');
@@ -180,45 +181,25 @@ function initProfileEditing() {
         }
     });
 }
-// Adicione esta nova função ANTES do evento 'DOMContentLoaded' no seu diario.js
 
 function initMessageBoard() {
     const sendMessageBtn = document.getElementById('sendMessageBtn');
     const messageInput = document.getElementById('morningMessageInput');
     const displayArea = document.getElementById('messageDisplayArea');
-
     if (!sendMessageBtn || !messageInput || !displayArea) return;
 
     sendMessageBtn.addEventListener('click', () => {
         const message = messageInput.value.trim();
         if (message === '') return;
-
         triggerVibration();
-
-        // Exibe a mensagem enviada na área de display
         displayArea.innerHTML = `<p class="sent-message">${message}</p>`;
-
-        // Limpa o campo de texto
         messageInput.value = '';
-
-        // (Em uma aplicação real, esta mensagem seria salva no servidor)
         alert('Recado enviado para a cuidadora!');
     });
 }
 
 
-// AGORA, adicione a chamada da nova função dentro do 'DOMContentLoaded'
-// que já existe no seu arquivo.
-
-document.addEventListener('DOMContentLoaded', () => {
-    // ... todo o seu código anterior ...
-
-    initHealthProfileAccordion();
-    initAccordionEditing();
-    initMessageBoard(); // <-- ADICIONE ESTA LINHA
-});
-
-// --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
+// --- PASSO 2: EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA (ÚNICO BLOCO) ---
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Verifica se há um usuário logado
     const loggedInUserData = sessionStorage.getItem('loggedInUser');
@@ -245,4 +226,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initTimeline();
     initHealthProfileAccordion();
     initProfileEditing();
+    initMessageBoard(); 
 });
