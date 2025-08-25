@@ -510,5 +510,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initProfileEditing();
     initMessageBoard();
     initExportButton();
+    initModernTextarea(); 
 });
 
