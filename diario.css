@@ -128,15 +128,11 @@ body {
 }
 .tab-content {
     display: none;
-    animation: fadeIn 0.5s ease;
 }
 .tab-content.active {
     display: block;
 }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+
 
 /* =================================================================== */
 /* ======              FORMULÁRIO DE REGISTRO DIÁRIO            ====== */
@@ -926,3 +922,29 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     justify-content: flex-end;
     gap: 1rem;
 }
+
+/* =================================================================== */
+/* ======        ANIMAÇÕES DE TRANSIÇÃO DE ABAS (SLIDE)         ====== */
+/* =================================================================== */
+@keyframes slideInFromRight {
+    from { transform: translateX(30px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOutToLeft {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-30px); opacity: 0; }
+}
+@keyframes slideInFromLeft {
+    from { transform: translateX(-30px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOutToRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(30px); opacity: 0; }
+}
+
+/* Classes de animação */
+.slide-in-right { animation: slideInFromRight 0.4s ease-out forwards; }
+.slide-out-left { animation: slideOutToLeft 0.4s ease-out forwards; }
+.slide-in-left { animation: slideInFromLeft 0.4s ease-out forwards; }
+.slide-out-right { animation: slideOutToRight 0.4s ease-out forwards; }
