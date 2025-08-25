@@ -14,6 +14,49 @@
 /* =================================================================== */
 /* ======                 ESTRUTURA E LAYOUT GERAL              ====== */
 /* =================================================================== */
+/* ======          CABEÇALHO PERSONALIZADO DO DIÁRIO           ====== */
+/* =================================================================== */
+
+.diary-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid var(--diary-container-bg);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    color: var(--diary-primary-text);
+    margin: 0;
+}
+
+.profile-info p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: var(--diary-secondary-text);
+    margin: 0;
+}
+
 body {
     background-color: var(--diary-bg);
     /* ADICIONAMOS A TEXTURA SUTIL ABAIXO */
