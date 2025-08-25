@@ -649,17 +649,17 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 .submit-btn {
     position: relative;
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease-in-out; /* Tornando a transição um pouco mais suave */
 }
 .submit-btn .btn-text {
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease-in-out;
 }
 .submit-btn .icon-success {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.4s ease;
+    transform: translate(-50%, -50%) scale(0.8); /* Reduzindo um pouco o tamanho do ícone */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     fill: white;
     opacity: 0;
 }
@@ -667,13 +667,14 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 /* Estado de sucesso */
 .submit-btn.is-success {
     background-color: var(--diary-accent-green);
-    width: 60px; /* Encolhe para o tamanho do ícone */
+    width: 50px; /* Encolhe um pouco menos */
+    height: 50px; /* Garante que fique quadrado antes de arredondar */
     border-radius: 50%; /* Fica redondo */
 }
 .submit-btn.is-success .btn-text {
     opacity: 0;
 }
 .submit-btn.is-success .icon-success {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1); /* Garante que o ícone fique em tamanho normal no estado final */
     opacity: 1;
 }
