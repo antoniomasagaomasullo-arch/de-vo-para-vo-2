@@ -16,7 +16,11 @@
 /* =================================================================== */
 body {
     background-color: var(--diary-bg);
+    font-family: 'Inter', sans-serif; /* Garantimos a fonte base */
+    font-size: 1.05rem; /* Aumentamos levemente o tamanho da fonte base */
+    line-height: 1.8; /* Aumentamos o espaçamento entre linhas para mais conforto */
 }
+
 
 .diary-section {
     padding: 120px 2rem 80px 2rem;
@@ -35,9 +39,11 @@ body {
 }
 
 /* Títulos */
-.section-title, .daily-checklist-form h3, #weekly-analysis h3, #health-profile h3 {
+.section-title, .daily-checklist-form h3, #weekly-analysis h3, #health-profile h3, .daily-checklist-form h4 {
+    font-family: 'Lora', serif; /* APLICAMOS A NOVA FONTE AQUI */
     color: var(--diary-primary-text);
 }
+
 .section-subtitle, .checklist-group > label, .chart-container h4, .item-label {
     color: var(--diary-secondary-text);
 }
