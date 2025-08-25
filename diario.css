@@ -450,3 +450,23 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     margin: 0 0 0.5rem 0;
     color: var(--diary-secondary-text);
 }
+
+.accordion-header {
+    width: 100%;
+    padding: 1.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+
+    /* --- Correções Explícitas --- */
+    background-color: transparent; /* Garante fundo transparente */
+    border-style: none; /* Garante que não haja borda */
+
+    /* --- Estilos de Fonte --- */
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--diary-primary-text);
+}
