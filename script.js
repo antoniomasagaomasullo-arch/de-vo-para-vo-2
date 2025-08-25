@@ -1543,7 +1543,7 @@ function initChecklist() {
 // ... código anterior
 
 const sampleTributes = [
-    {
+ {
         conselho: "A vida é como uma horta, o que plantamos hoje, colhemos amanhã. Cultive o amor e a paciência.",
         nomeVo: "Dona Maria",
         seuNome: "Clara G."
@@ -1557,6 +1557,22 @@ const sampleTributes = [
         conselho: "Envelhecer é como subir uma montanha; quanto mais alto, mais a paisagem se abre.",
         nomeVo: "Vovô João",
         seuNome: "Ana S."
+    },
+    // <-- NOVOS CARDS ADICIONADOS AQUI -->
+    {
+        conselho: "Não guarde a louça boa para as visitas. A melhor visita que sua casa pode ter é você, todos os dias.",
+        nomeVo: "Vó Nena",
+        seuNome: "Marcos T."
+    },
+    {
+        conselho: "As melhores histórias não estão nos livros, mas nas memórias de quem viveu. Sente-se e ouça.",
+        nomeVo: "Sr. Armando",
+        seuNome: "Beatriz L."
+    },
+    {
+        conselho: "Um bolo no forno perfuma a casa e conforta a alma. O segredo é sempre uma pitada de carinho.",
+        nomeVo: "Dona Olga",
+        seuNome: "Tiago M."
     }
 ];
 
