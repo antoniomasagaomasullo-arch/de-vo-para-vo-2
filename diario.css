@@ -242,6 +242,43 @@ body {
 .line-chart .line-systolic { stroke: var(--brand-secondary); }
 .line-chart .line-diastolic { stroke: var(--brand-primary-light); }
 
+/* SUGESTÃO: Adicione este novo bloco no seu diario.css */
+
+/* Estilos para o Tooltip Flutuante */
+.chart-tooltip {
+    position: fixed; /* Flutua sobre toda a página */
+    display: none;   /* Escondido por padrão */
+    background-color: var(--diary-primary-text);
+    color: var(--diary-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: var(--font-sm);
+    font-weight: 500;
+    pointer-events: none; /* Garante que o tooltip não bloqueie o mouse */
+    z-index: 10;
+    white-space: nowrap;
+}
+
+/* Efeito de hover nas barras do gráfico */
+.bar-chart .bar {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.bar-chart:hover .bar {
+    background-color: var(--diary-accent-peach); /* Todas ficam claras */
+}
+
+.bar-chart .bar:hover {
+    background-color: var(--brand-secondary) !important; /* A barra sob o mouse fica escura */
+    transform: scaleY(1.05); /* Um pouco mais alta */
+}
+
+/* Efeito de hover nas linhas do gráfico */
+.line-chart:hover polyline {
+    stroke-width: 2;
+    opacity: 0.8;
+}
+
 /* =================================================================== */
 /* ======                    PERFIL DE SAÚDE                    ====== */
 /* =================================================================== */
