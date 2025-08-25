@@ -1501,6 +1501,30 @@ function initReadingProgress() {
     });
 }
 
+function triggerConfetti() {
+    const colors = ['--brand-primary', '--brand-secondary', '--brand-accent'];
+    for (let i = 0; i < 100; i++) { // Cria 100 partículas de confete
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        const randomColorVar = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.backgroundColor = `var(${randomColorVar})`;
+        
+        confetti.style.left = Math.random() * 100 + 'vw'; // Posição horizontal aleatória
+        confetti.style.animationDelay = Math.random() * 2 + 's'; // Atraso aleatório para um efeito mais natural
+        confetti.style.width = Math.floor(Math.random() * 10 + 5) + 'px';
+        confetti.style.height = confetti.style.width;
+        confetti.style.opacity = Math.random() + 0.5;
+
+        document.body.appendChild(confetti);
+
+        // Remove a partícula do DOM após a animação para não sobrecarregar a página
+        setTimeout(() => {
+            confetti.remove();
+        }, 4000);
+    }
+}
+
 function initChecklist() {
     const checklist = document.getElementById('interactiveChecklist');
     if (!checklist) return;
@@ -1510,26 +1534,33 @@ function initChecklist() {
     const counter = document.getElementById('checklistCounter');
     const totalItems = checkboxes.length;
 
-    const updateProgress = () => {
-        const checkedItems = checklist.querySelectorAll('input[type="checkbox"]:checked').length;
+const updateProgress = () => {
+    const checkedItems = checklist.querySelectorAll('input[type="checkbox"]:checked').length;
 
-        // Atualiza a barra de progresso
-        const progressPercentage = (checkedItems / totalItems) * 100;
-        progressBar.style.width = `${progressPercentage}%`;
+    // Atualiza a barra de progresso
+    const progressPercentage = (checkedItems / totalItems) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
 
-        // Atualiza o contador de texto
-        counter.textContent = `${checkedItems} de ${totalItems} itens concluídos`;
+    // Atualiza o contador de texto
+    counter.textContent = `${checkedItems} de ${totalItems} itens concluídos`;
 
-        // Adiciona ou remove a classe para o efeito visual
-        checkboxes.forEach(cb => {
-            const item = cb.closest('.check-item');
-            if (cb.checked) {
-                item.classList.add('completed');
-            } else {
-                item.classList.remove('completed');
-            }
-        });
-    };
+    // Verifica se todos os itens foram concluídos
+    if (checkedItems === totalItems) {
+        // Atraso sutil para a animação do confete começar após a última marcação
+        setTimeout(triggerConfetti, 300);
+    }
+
+    // Adiciona ou remove a classe para o efeito visual
+    checkboxes.forEach(cb => {
+        const item = cb.closest('.check-item');
+        if (cb.checked) {
+            item.classList.add('completed');
+        } else {
+            item.classList.remove('completed');
+        }
+    });
+};
+
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateProgress);
