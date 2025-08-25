@@ -2171,6 +2171,20 @@ body.modal-open {
     position: relative;
     overflow: hidden;
 }
+@keyframes bounceInImproved {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.05); /* Um pouco mais de "salto" */
+        opacity: 1;
+        box-shadow: 0 0 20px rgba(93, 47, 9, 0.3); /* Adiciona um brilho */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 
 .option-card:hover {
     transform: translateY(-3px);
@@ -2184,8 +2198,10 @@ body.modal-open {
     color: var(--text-on-dark);
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
-    animation: bounceIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Usa a nova animação, mais refinada */
+    animation: bounceInImproved 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
+
 
 .option-card .option-content {
     position: relative;
