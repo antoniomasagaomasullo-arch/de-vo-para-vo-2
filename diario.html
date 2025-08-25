@@ -144,21 +144,49 @@
                     </div>
                 </div>
 
-                <div class="tab-content" id="health-profile">
-                    <div class="diary-container">
-                        <h3>Perfil de Saúde</h3>
-                        <div class="profile-grid">
-                            <div class="profile-item"><span class="item-label">Último Check-up Geral</span><span class="item-value">15/05/2025</span></div>
-                            <div class="profile-item"><span class="item-label">Última Vez que Ficou Doente</span><span class="item-value">Janeiro/2025 (Gripe leve)</span></div>
-                            <div class="profile-item"><span class="item-label">Alergias Conhecidas</span><span class="item-value">Penicilina, camarão</span></div>
-                            <div class="profile-item"><span class="item-label">Condições Crônicas</span><span class="item-value">Hipertensão, Diabetes Tipo 2</span></div>
-                            <div class="profile-item full-width"><span class="item-label">Medicamentos de Uso Contínuo</span><span class="item-value">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</span></div>
-                            <div class="profile-item"><span class="item-label">Contato de Emergência</span><span class="item-value">João Silva (Filho) - (11) 99999-8888</span></div>
-                            <div class="profile-item"><span class="item-label">Plano de Saúde</span><span class="item-value">Unimed - Carteirinha 123.456.789</span></div>
-                        </div>
-                        <button class="submit-btn" style="margin-top: 2rem;">Editar Perfil</button>
-                    </div>
-                </div>
+            <div class="tab-content" id="health-profile">
+    <div class="diary-container">
+        <h3>Perfil de Saúde</h3>
+        <div class="profile-grid" id="profileGrid">
+            <div class="profile-item">
+                <span class="item-label">Último Check-up Geral</span>
+                <span class="item-value">15/05/2025</span>
+                <input type="date" class="item-input" value="2025-05-15">
+            </div>
+            <div class="profile-item">
+                <span class="item-label">Última Vez que Ficou Doente</span>
+                <span class="item-value">Janeiro/2025 (Gripe leve)</span>
+                <input type="text" class="item-input" value="Janeiro/2025 (Gripe leve)">
+            </div>
+            <div class="profile-item">
+                <span class="item-label">Alergias Conhecidas</span>
+                <span class="item-value">Penicilina, camarão</span>
+                <input type="text" class="item-input" value="Penicilina, camarão">
+            </div>
+            <div class="profile-item">
+                <span class="item-label">Condições Crônicas</span>
+                <span class="item-value">Hipertensão, Diabetes Tipo 2</span>
+                <input type="text" class="item-input" value="Hipertensão, Diabetes Tipo 2">
+            </div>
+            <div class="profile-item full-width">
+                <span class="item-label">Medicamentos de Uso Contínuo</span>
+                <span class="item-value">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</span>
+                <textarea class="item-input">Losartana 50mg (manhã), Metformina 850mg (almoço e jantar)</textarea>
+            </div>
+            <div class="profile-item">
+                <span class="item-label">Contato de Emergência</span>
+                <span class="item-value">João Silva (Filho) - (11) 99999-8888</span>
+                <input type="text" class="item-input" value="João Silva (Filho) - (11) 99999-8888">
+            </div>
+            <div class="profile-item">
+                <span class="item-label">Plano de Saúde</span>
+                <span class="item-value">Unimed - Carteirinha 123.456.789</span>
+                <input type="text" class="item-input" value="Unimed - Carteirinha 123.456.789">
+            </div>
+        </div>
+        <button id="editProfileBtn" class="submit-btn" style="margin-top: 2rem;">Editar Perfil</button>
+    </div>
+</div>
             </div>
         </section>
     </main>
