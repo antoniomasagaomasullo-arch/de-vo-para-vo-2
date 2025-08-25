@@ -3875,3 +3875,10 @@ body.dark-mode .close-btn-chat:hover {
     /* LINHA ADICIONADA ABAIXO */
     text-decoration: none;
 }
+
+.cta-button-secondary:hover {
+    background-color: var(--brand-primary-dark); /* <-- Cor de fundo ajustada */
+    color: var(--text-on-dark);
+    transform: translateY(-3px); /* <-- Transformação igualada */
+    box-shadow: var(--shadow-md); /* <-- Sombra igualada */
+}
