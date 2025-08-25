@@ -318,6 +318,56 @@ function initDynamicHeader(userData) {
         diarySubtitle.textContent = `${saudacao}, ${userData.familia}. Aqui estão as últimas atualizações.`;
 }
 
+function initWellnessFlower() {
+    const form = document.getElementById('dailyChecklistForm');
+    if (!form) return;
+
+    const petals = {
+        mood: document.getElementById('petal-mood'),
+        sleep: document.getElementById('petal-sleep'),
+        eating: document.getElementById('petal-eating'),
+        activity: document.getElementById('petal-activity')
+    };
+
+    // Função para atualizar uma pétala
+    const updatePetal = (key, value) => {
+        const petal = petals[key];
+        if (!petal) return;
+
+        if (value) {
+            petal.classList.add('filled');
+            // Condições para o estado "vibrante"
+            if ((key === 'mood' && value === 'feliz') ||
+                (key === 'sleep' && value === 'bom') ||
+                (key === 'eating' && value === 'boa') ||
+                (key === 'activity' && (value !== 'nenhuma' && value !== ''))) {
+                petal.classList.add('vibrant');
+            } else {
+                petal.classList.remove('vibrant');
+            }
+        } else {
+            petal.classList.remove('filled', 'vibrant');
+        }
+    };
+
+    // Adiciona os listeners aos campos do formulário
+    form.addEventListener('change', (e) => {
+        const { name, value, type, checked } = e.target;
+
+        if (type === 'radio') {
+            updatePetal(name, value);
+        } else if (type === 'checkbox' && name === 'activity') {
+            const activities = Array.from(form.querySelectorAll('input[name="activity"]:checked')).map(cb => cb.value);
+            updatePetal('activity', activities.length > 0 ? activities[0] : '');
+        }
+    });
+
+    // Reseta a flor quando o formulário é resetado
+    form.addEventListener('reset', () => {
+        Object.keys(petals).forEach(key => updatePetal(key, ''));
+    });
+}
+
 
 // --- EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -335,6 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Inicializa todas as funcionalidades da página
     initDynamicHeader(userData);
     initTabs();
+    initWellnessFlower();
     initDiary();
     initInteractiveCharts();
     initTimeline();
