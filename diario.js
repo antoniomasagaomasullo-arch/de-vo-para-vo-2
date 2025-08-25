@@ -11,36 +11,67 @@ function triggerVibration() {
 }
 
 function initTabs() {
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const tabContainer = document.querySelector('.tabs-container');
+    const tabLinks = Array.from(tabContainer.querySelectorAll('.tab-link'));
+    const editProfileBtn = document.getElementById('editProfileBtn');
 
-    tabLinks.forEach(link => {
+    let currentActiveIndex = tabLinks.findIndex(link => link.classList.contains('active'));
+
+    tabLinks.forEach((link, index) => {
         link.addEventListener('click', () => {
-            if (link.classList.contains('active')) return;
+            if (index === currentActiveIndex) return;
             triggerVibration();
-            const tabId = link.getAttribute('data-tab');
 
-            // Desativa todas as abas e conteúdos
-            tabLinks.forEach(item => item.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
+            const oldActiveLink = tabLinks[currentActiveIndex];
+            const oldActiveContent = document.getElementById(oldActiveLink.dataset.tab);
+            
+            const newActiveLink = link;
+            const newActiveContent = document.getElementById(newActiveLink.dataset.tab);
 
-            // Ativa a aba e o conteúdo clicado
-            link.classList.add('active');
-            const activeContent = document.getElementById(tabId);
-            if (activeContent) {
-                activeContent.classList.add('active');
+            // Determina a direção
+            const direction = index > currentActiveIndex ? 'right' : 'left';
+
+            // Remove a classe 'active' do link antigo e adiciona ao novo
+            oldActiveLink.classList.remove('active');
+            newActiveLink.classList.add('active');
+
+            // Aplica as animações
+            if (direction === 'right') {
+                oldActiveContent.classList.add('slide-out-left');
+                newActiveContent.classList.add('slide-in-right');
+            } else {
+                oldActiveContent.classList.add('slide-out-right');
+                newActiveContent.classList.add('slide-in-left');
+            }
+            
+            // Ativa o display do novo conteúdo para a animação ser visível
+            newActiveContent.classList.add('active');
+
+            // Limpa as classes de animação após a transição
+            oldActiveContent.addEventListener('animationend', () => {
+                oldActiveContent.classList.remove('active', 'slide-out-left', 'slide-out-right');
+            }, { once: true });
+
+            newActiveContent.addEventListener('animationend', () => {
+                newActiveContent.classList.remove('slide-in-left', 'slide-in-right');
+            }, { once: true });
+
+            // Atualiza o índice ativo
+            currentActiveIndex = index;
+            
+            // Lógica de visibilidade do FAB (Botão Flutuante)
+            if (newActiveLink.dataset.tab === 'health-profile') {
+                editProfileBtn.classList.add('visible');
+            } else {
+                editProfileBtn.classList.remove('visible');
             }
 
-            // **NOVA LÓGICA DE ANIMAÇÃO**
-            // Se a aba de análise for ativada, aciona as animações
-            if (tabId === 'weekly-analysis') {
-                const moodMosaic = activeContent.querySelector('.mood-mosaic');
-                const lineCharts = activeContent.querySelectorAll('.line-chart');
-
-                // Remove a classe para 'resetar' a animação e depois a adiciona novamente
+            // Lógica de animação dos gráficos (já existente)
+            if (newActiveLink.dataset.tab === 'weekly-analysis') {
+                const moodMosaic = newActiveContent.querySelector('.mood-mosaic');
+                const lineCharts = newActiveContent.querySelectorAll('.line-chart');
                 if (moodMosaic) {
                     moodMosaic.classList.remove('animated');
-                    // Usamos um pequeno timeout para garantir que o navegador processe a remoção da classe antes de adicioná-la de novo
                     setTimeout(() => moodMosaic.classList.add('animated'), 10);
                 }
                 lineCharts.forEach(chart => {
