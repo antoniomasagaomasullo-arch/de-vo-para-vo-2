@@ -5,40 +5,55 @@ function triggerVibration() {
     }
 }
 
-// Função principal do diário
-function initDiary() {
-    const diaryForm = document.getElementById('diaryForm');
-    const diaryEntries = document.getElementById('diaryEntries');
+// Função para controlar as abas
+function initTabs() {
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-    if (!diaryForm) return;
+    tabLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const tabId = link.getAttribute('data-tab');
 
-    // Lógica para adicionar uma nova entrada
-    diaryForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        triggerVibration();
+            // Atualiza os links
+            tabLinks.forEach(item => item.classList.remove('active'));
+            link.classList.add('active');
 
-        const message = document.getElementById('diaryMessage').value;
-        const authorType = document.getElementById('diaryAuthor').value;
-        
-        if (!message.trim()) return;
-
-        const authorName = authorType === 'familia' ? 'Família' : 'Cuidadora';
-        const authorClass = authorType === 'familia' ? 'author-family' : '';
-        const now = new Date();
-        const timestamp = `${now.toLocaleDateString('pt-BR')}, ${now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})}`;
-
-        const newEntry = document.createElement('div');
-        newEntry.className = `diary-entry ${authorClass}`;
-        newEntry.innerHTML = `
-            <p class="entry-meta"><strong>${authorName}</strong> em ${timestamp}</p>
-            <p class="entry-text">${message}</p>
-        `;
-
-        diaryEntries.prepend(newEntry);
-
-        document.getElementById('diaryMessage').value = '';
+            // Atualiza o conteúdo
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        });
     });
 }
 
-// Inicializa a funcionalidade quando a página carregar
-document.addEventListener('DOMContentLoaded', initDiary);
+
+// Função principal do diário (agora lida com o novo formulário)
+function initDiary() {
+    const dailyChecklistForm = document.getElementById('dailyChecklistForm');
+
+    if (!dailyChecklistForm) return;
+
+    dailyChecklistForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        triggerVibration();
+
+        // Em uma aplicação real, aqui você coletaria os dados do formulário:
+        // const formData = new FormData(dailyChecklistForm);
+        // const data = Object.fromEntries(formData.entries());
+        // console.log(data); // E enviaria para um servidor
+
+        // Para nosso protótipo, apenas damos um feedback
+        alert('Registro diário salvo com sucesso!');
+        dailyChecklistForm.reset();
+    });
+}
+
+// Inicializa tudo quando a página carregar
+document.addEventListener('DOMContentLoaded', () => {
+    initTabs();
+    initDiary();
+});
