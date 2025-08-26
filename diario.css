@@ -1314,5 +1314,24 @@ textarea.item-input { resize: vertical; min-height: 60px; }
         transform: translateY(0);
     }
 }
+.petal {
+  fill: var(--diary-border);
+  transition: fill 0.5s ease, transform 0.4s ease;
+  transform-origin: center;
+}
+
+.petal.active {
+  fill: var(--diary-accent-peach);
+  transform: scale(1.05) rotate(2deg);
+}
+
+.flower-center {
+  fill: var(--diary-primary-text);
+  transition: fill 0.4s ease;
+}
+
+.flower-center.active {
+  fill: var(--diary-accent-green);
+}
 
 
