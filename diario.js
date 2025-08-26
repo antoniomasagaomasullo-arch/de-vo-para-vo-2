@@ -330,9 +330,15 @@ function initWellnessFlower() {
     };
 
     // Função para atualizar uma pétala
-    const updatePetal = (key, value) => {
-        const petal = petals[key];
-        if (!petal) return;
+   const updatePetal = (key, value) => {
+    const petal = petals[key];
+    if (!petal) return;
+
+    // Ativa animação suave
+    petal.classList.remove('active');
+    setTimeout(() => {
+        petal.classList.add('active');
+    }, 10);
 
         if (value) {
             petal.classList.add('filled');
