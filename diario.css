@@ -1339,14 +1339,11 @@ textarea.item-input { resize: vertical; min-height: 60px; }
 }
 
 .wellness-flower-container.completed {
-    animation: flowerSpin 0.8s ease;
+    animation: flowerSpin 1.2s ease-out;
 }
 
 @keyframes flowerSpin {
-    0% { transform: rotate(0deg); }
-    40% { transform: rotate(15deg); }
-    70% { transform: rotate(-10deg); }
-    100% { transform: rotate(0deg); }
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
-
 
