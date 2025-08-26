@@ -1,15 +1,36 @@
 /* =================================================================== */
 /* ======        PALETA DE CORES EXCLUSIVA DO DIÁRIO        ====== */
 /* =================================================================== */
+/* M1 — tokens complementares (append-only) */
 :root {
-    --diary-bg: #FBF9F6;            /* Cor de papel antigo, bem claro */
-    --diary-container-bg: #FFFFFF;  /* Branco puro para o container principal */
-    --diary-primary-text: #413A30;  /* Um marrom escuro, quase sépia, para textos */
-    --diary-secondary-text: #7D7060;/* Um tom mais claro para textos de apoio */
-    --diary-accent-peach: #FADACD;   /* Destaque em tom pêssego/salmão suave */
-    --diary-accent-green: #D4E2D4;   /* Destaque em tom verde pastel (saúde) */
-    --diary-border: #EFEBE4;        /* Cor suave para bordas e linhas */
+    /* existentes (preservados) */
+    --diary-bg: #FBF9F6;
+    --diary-container-bg: #FFFFFF;
+    --diary-primary-text: #413A30;
+    --diary-secondary-text: #7D7060;
+    --diary-accent-peach: #FADACD;
+    --diary-accent-green: #D4E2D4;
+    --diary-border: #EFEBE4;
+
+    /* novos */
+    --font-sm: 0.875rem;
+    --font-base: 1rem;
+    --font-lg: 1.125rem;
+
+    --brand-secondary: #6B5B95;
+    --brand-primary-light: #A7C7E7;
+
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+    --shadow-md: 0 6px 18px rgba(0,0,0,.08);
+    --shadow-lg: 0 10px 28px rgba(0,0,0,.10);
+    --shadow-xl: 0 18px 48px rgba(0,0,0,.12);
+
+    --validation-success: #B8E6C2;
+    --validation-error:  #F6B7B7;
+
+    color-scheme: light;
 }
+
 
 /* =================================================================== */
 /* ======                 ESTRUTURA E LAYOUT GERAL              ====== */
@@ -335,17 +356,14 @@ body {
     filter: grayscale(0);
 }
 
-.emoji-selector input:checked + span {
-    transform: scale(1.1);
-    filter: grayscale(0);
-    border-color: var(--diary-primary-text);
-    background: rgba(250, 218, 205, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.emoji-selector input:checked + label span{
+  transform: scale(1.1);
+  filter: grayscale(0);
+  border-color: var(--diary-primary-text);
+  background: rgba(250,218,205,.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,.1);
 }
-
-.emoji-selector input:checked + span::before {
-    opacity: 0.2;
-}
+.emoji-selector input:checked + label span::before{ opacity:.2; }
 
 .emoji-selector p { 
     font-size: 0.85rem; 
