@@ -388,6 +388,17 @@ function initWellnessFlower() {
     });
 }
 
+function initButtonBounce() {
+  const labels = document.querySelectorAll('.radio-group label');
+  labels.forEach(label => {
+    label.addEventListener('click', () => {
+      label.classList.remove('bounce'); // reseta se já tiver
+      void label.offsetWidth; // força reflow
+      label.classList.add('bounce'); // reaplica animação
+    });
+  });
+}
+
 
 // --- EXECUÇÃO DO SCRIPT QUANDO A PÁGINA CARREGA ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -413,5 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initProfileEditing();
     initMessageBoard();
     initExportButton();
+    initButtonBounce();
 });
 
