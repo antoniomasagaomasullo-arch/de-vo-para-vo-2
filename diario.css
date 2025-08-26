@@ -1347,3 +1347,14 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     100% { transform: rotate(360deg); }
 }
 
+@keyframes bounceClick {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.1); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.bounce {
+  animation: bounceClick 0.3s ease;
+}
+
