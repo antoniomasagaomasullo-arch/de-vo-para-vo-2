@@ -1358,3 +1358,21 @@ textarea.item-input { resize: vertical; min-height: 60px; }
   animation: bounceClick 0.3s ease;
 }
 
+function initRadioVisualSelection() {
+  const radios = document.querySelectorAll('.radio-group input[type="radio"]');
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      const group = radio.closest('.radio-group');
+      const allLabels = group.querySelectorAll('label');
+
+      allLabels.forEach(label => label.classList.remove('selected'));
+
+      const selectedLabel = radio.closest('label');
+      if (selectedLabel) {
+        selectedLabel.classList.add('selected');
+      }
+    });
+  });
+}
+
