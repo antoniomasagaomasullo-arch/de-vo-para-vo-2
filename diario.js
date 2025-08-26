@@ -354,6 +354,20 @@ function initWellnessFlower() {
         } else {
             petal.classList.remove('filled', 'vibrant');
         }
+       form.addEventListener('input', () => {
+    const mood = form.querySelector('input[name="mood"]:checked');
+    const sleep = form.querySelector('input[name="sleep"]:checked');
+    const eating = form.querySelector('input[name="eating"]:checked');
+    const activity = form.querySelector('input[name="activity"]:checked');
+
+    const flowerContainer = document.querySelector('.wellness-flower-container');
+    
+    if (mood && sleep && eating && activity) {
+        flowerContainer.classList.remove('completed'); // Reset
+        void flowerContainer.offsetWidth; // Força reflow para reanimar
+        flowerContainer.classList.add('completed');
+    }
+});
     };
 
     // Adiciona os listeners aos campos do formulário
