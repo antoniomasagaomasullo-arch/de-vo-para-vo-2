@@ -235,14 +235,14 @@ body {
 
 /* Seletores (Emoji, Toggle, Checkbox) */
 .emoji-selector, .toggle-selector, .checkbox-selector { 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.75rem;
+    display: flex; 
+    gap: 1rem; 
+    flex-wrap: wrap; 
     margin: 1.5rem 0;
 }
 
-.emoji-selector {
-    grid-template-columns: repeat(4, 1fr);
+.emoji-selector { 
+    justify-content: space-around; 
 }
 
 .emoji-selector label, .toggle-selector label, .checkbox-selector label { 
@@ -254,6 +254,7 @@ body {
 .emoji-selector input, .toggle-selector input, .checkbox-selector input { 
     display: none; 
 }
+
 
 /* SELETORES DE EMOJI MODERNOS */
 .emoji-selector label {
@@ -292,12 +293,40 @@ body {
 
 .emoji-selector span {
     font-size: 2.8rem;
-    display: block;
-    margin-bottom: 0.5rem;
+    padding: 1rem;
+    border-radius: 20px;
+    border: 2px solid var(--diary-border);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    z-index: 2;
+    overflow: hidden;
     filter: grayscale(0.4);
+}
+
+.emoji-selector span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--diary-accent-peach), var(--diary-accent-green));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.emoji-selector span:hover {
+    transform: scale(1.05);
+    filter: grayscale(0.2);
+    border-color: var(--diary-accent-peach);
+}
+
+.emoji-selector span:hover::before {
+    opacity: 0.1;
 }
 
 .emoji-selector label:hover span,
@@ -306,45 +335,52 @@ body {
     filter: grayscale(0);
 }
 
-.emoji-selector input:checked + label span {
-    transform: scale(1.15);
-    animation: celebration 0.5s ease-out;
+.emoji-selector input:checked + span {
+    transform: scale(1.1);
+    filter: grayscale(0);
+    border-color: var(--diary-primary-text);
+    background: rgba(250, 218, 205, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.emoji-selector p {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--diary-secondary-text);
+.emoji-selector input:checked + span::before {
+    opacity: 0.2;
+}
+
+.emoji-selector p { 
+    font-size: 0.85rem; 
+    margin-top: 0.5rem; 
+    color: var(--diary-secondary-text); 
     text-align: center;
-    margin: 0;
-    position: relative;
-    z-index: 2;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
+
 .emoji-selector label:hover p,
-.emoji-selector input:checked + label p {
+.emoji-selector input:checked + span + p {
     color: var(--diary-primary-text);
+    font-weight: 600;
 }
 
 /* Melhoria: Animação de seleção para os seletores de texto */
-.toggle-selector label, .checkbox-selector label {
+.toggle-selector span, .checkbox-selector span {
+    padding: 1rem 2rem; 
+    border: 2px solid var(--diary-border); 
+    border-radius: 16px;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
-    border: 2px solid var(--diary-border);
-    border-radius: 16px;
-    padding: 1rem 1.5rem;
-    text-align: center;
-    font-weight: 500;
+    font-weight: 500; 
     color: var(--diary-secondary-text);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     position: relative;
     overflow: hidden;
     user-select: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: inline-block;
 }
 
-.toggle-selector label::before, .checkbox-selector label::before {
+.toggle-selector span::before, .checkbox-selector span::before {
     content: '';
     position: absolute;
     top: 0;
@@ -357,13 +393,30 @@ body {
     transform: scale(0.8);
 }
 
-.toggle-selector label:hover::before, .checkbox-selector label:hover::before {
+
+.toggle-selector span:hover, .checkbox-selector span:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: var(--diary-accent-green);
+}
+
+.toggle-selector span:hover::before, .checkbox-selector span:hover::before {
     opacity: 0.1;
     transform: scale(1);
 }
 
-.toggle-selector input:checked + label::before, 
-.checkbox-selector input:checked + label::before {
+.toggle-selector input:checked + span, 
+.checkbox-selector input:checked + span {
+    background: var(--diary-accent-green);
+    border-color: var(--diary-accent-green);
+    color: var(--diary-primary-text);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+}
+
+.toggle-selector input:checked + span::before, 
+.checkbox-selector input:checked + span::before {
     opacity: 1;
     transform: scale(1);
 }
@@ -387,6 +440,18 @@ body {
     position: relative;
     z-index: 2;
     transition: all 0.3s ease;
+}
+
+@keyframes selectPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.toggle-selector input:checked + span, 
+.checkbox-selector input:checked + span,
+.emoji-selector input:checked + span {
+    animation: selectPulse 0.3s ease-out;
 }
 
 /* ANIMAÇÕES */
