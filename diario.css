@@ -1306,4 +1306,31 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     }
 }
 
+/* Tabs: indicador animado e foco visível */
+.tabs-container { position: relative; } /* garante referência ao indicador */
+
+.tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--diary-primary-text);
+  transition: left .25s ease, width .25s ease;
+  pointer-events: none;
+}
+
+.tab-link {
+  position: relative; /* já existe, reforça o foco */
+  outline: none;
+}
+
+.tab-link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(65, 58, 48, .18);
+  border-radius: 10px;
+}
+
+/* Estados de acessibilidade quando desativado pelo teclado */
+.tab-link[tabindex="-1"] { outline: none; }
+
+
 
