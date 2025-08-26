@@ -407,7 +407,7 @@ body {
 
 .toggle-selector input:checked + span, 
 .checkbox-selector input:checked + span {
-    background: var(--diary-accent-green);
+    background: rgba(212, 226, 212, 0.8);
     border-color: var(--diary-accent-green);
     color: var(--diary-primary-text);
     transform: translateY(-3px);
@@ -417,8 +417,7 @@ body {
 
 .toggle-selector input:checked + span::before, 
 .checkbox-selector input:checked + span::before {
-    opacity: 1;
-    transform: scale(1);
+    display: none; /* MUDANÇA: remove o overlay que estava cobrindo o texto */
 }
 
 .toggle-selector label:hover, .checkbox-selector label:hover {
