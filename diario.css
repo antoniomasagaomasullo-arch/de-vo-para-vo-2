@@ -1334,4 +1334,19 @@ textarea.item-input { resize: vertical; min-height: 60px; }
   fill: var(--diary-accent-green);
 }
 
+.wellness-flower-container {
+    transition: transform 0.8s ease;
+}
+
+.wellness-flower-container.completed {
+    animation: flowerSpin 0.8s ease;
+}
+
+@keyframes flowerSpin {
+    0% { transform: rotate(0deg); }
+    40% { transform: rotate(15deg); }
+    70% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+}
+
 
