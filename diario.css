@@ -130,6 +130,7 @@ body {
 /* ======                    SISTEMA DE ABAS                    ====== */
 /* =================================================================== */
 .tabs-container {
+    position: relative; /* <-- ESSENCIAL para o indicador funcionar */
     justify-content: flex-start;
     margin-bottom: 2.5rem;
     display: flex;
@@ -171,6 +172,14 @@ body {
     display: block;
 }
 
+.tab-indicator {
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    background-color: var(--diary-primary-text);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
 
 /* =================================================================== */
 /* ======              FORMULÁRIO DE REGISTRO DIÁRIO            ====== */
