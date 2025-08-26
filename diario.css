@@ -1,6 +1,10 @@
-/* =================================================================== */
-/* ======        PALETA DE CORES EXCLUSIVA DO DIÁRIO        ====== */
-/* =================================================================== */
+/* =============================================================
+   DIARY.CSS — ORIGINAL + MELHORIAS (M1–M10)
+   Observação: este arquivo preserva TODO o seu CSS original e
+   apenas ADICIONA regras ao final (append-only). Nada foi apagado.
+   ============================================================= */
+
+/* ==================== SEU CSS ORIGINAL (como enviado) ==================== */
 :root {
     --diary-bg: #FBF9F6;            /* Cor de papel antigo, bem claro */
     --diary-container-bg: #FFFFFF;  /* Branco puro para o container principal */
@@ -235,14 +239,14 @@ body {
 
 /* Seletores (Emoji, Toggle, Checkbox) */
 .emoji-selector, .toggle-selector, .checkbox-selector { 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.75rem;
+    display: flex; 
+    gap: 1rem; 
+    flex-wrap: wrap; 
     margin: 1.5rem 0;
 }
 
-.emoji-selector {
-    grid-template-columns: repeat(4, 1fr);
+.emoji-selector { 
+    justify-content: space-around; 
 }
 
 .emoji-selector label, .toggle-selector label, .checkbox-selector label { 
@@ -254,6 +258,7 @@ body {
 .emoji-selector input, .toggle-selector input, .checkbox-selector input { 
     display: none; 
 }
+
 
 /* SELETORES DE EMOJI MODERNOS */
 .emoji-selector label {
@@ -292,12 +297,40 @@ body {
 
 .emoji-selector span {
     font-size: 2.8rem;
-    display: block;
-    margin-bottom: 0.5rem;
+    padding: 1rem;
+    border-radius: 20px;
+    border: 2px solid var(--diary-border);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    z-index: 2;
+    overflow: hidden;
     filter: grayscale(0.4);
+}
+
+.emoji-selector span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--diary-accent-peach), var(--diary-accent-green));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.emoji-selector span:hover {
+    transform: scale(1.05);
+    filter: grayscale(0.2);
+    border-color: var(--diary-accent-peach);
+}
+
+.emoji-selector span:hover::before {
+    opacity: 0.1;
 }
 
 .emoji-selector label:hover span,
@@ -306,45 +339,52 @@ body {
     filter: grayscale(0);
 }
 
-.emoji-selector input:checked + label span {
-    transform: scale(1.15);
-    animation: celebration 0.5s ease-out;
+.emoji-selector input:checked + span {
+    transform: scale(1.1);
+    filter: grayscale(0);
+    border-color: var(--diary-primary-text);
+    background: rgba(250, 218, 205, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.emoji-selector p {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--diary-secondary-text);
+.emoji-selector input:checked + span::before {
+    opacity: 0.2;
+}
+
+.emoji-selector p { 
+    font-size: 0.85rem; 
+    margin-top: 0.5rem; 
+    color: var(--diary-secondary-text); 
     text-align: center;
-    margin: 0;
-    position: relative;
-    z-index: 2;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
+
 .emoji-selector label:hover p,
-.emoji-selector input:checked + label p {
+.emoji-selector input:checked + span + p {
     color: var(--diary-primary-text);
+    font-weight: 600;
 }
 
 /* Melhoria: Animação de seleção para os seletores de texto */
-.toggle-selector label, .checkbox-selector label {
+.toggle-selector span, .checkbox-selector span {
+    padding: 1rem 2rem; 
+    border: 2px solid var(--diary-border); 
+    border-radius: 16px;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
-    border: 2px solid var(--diary-border);
-    border-radius: 16px;
-    padding: 1rem 1.5rem;
-    text-align: center;
-    font-weight: 500;
+    font-weight: 500; 
     color: var(--diary-secondary-text);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     position: relative;
     overflow: hidden;
     user-select: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: inline-block;
 }
 
-.toggle-selector label::before, .checkbox-selector label::before {
+.toggle-selector span::before, .checkbox-selector span::before {
     content: '';
     position: absolute;
     top: 0;
@@ -357,15 +397,31 @@ body {
     transform: scale(0.8);
 }
 
-.toggle-selector label:hover::before, .checkbox-selector label:hover::before {
+
+.toggle-selector span:hover, .checkbox-selector span:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: var(--diary-accent-green);
+}
+
+.toggle-selector span:hover::before, .checkbox-selector span:hover::before {
     opacity: 0.1;
     transform: scale(1);
 }
 
-.toggle-selector input:checked + label::before, 
-.checkbox-selector input:checked + label::before {
-    opacity: 1;
-    transform: scale(1);
+.toggle-selector input:checked + span, 
+.checkbox-selector input:checked + span {
+    background: rgba(212, 226, 212, 0.8);
+    border-color: var(--diary-accent-green);
+    color: var(--diary-primary-text);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+}
+
+.toggle-selector input:checked + span::before, 
+.checkbox-selector input:checked + span::before {
+    display: none; /* MUDANÇA: remove o overlay que estava cobrindo o texto */
 }
 
 .toggle-selector label:hover, .checkbox-selector label:hover {
@@ -387,6 +443,18 @@ body {
     position: relative;
     z-index: 2;
     transition: all 0.3s ease;
+}
+
+@keyframes selectPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.toggle-selector input:checked + span, 
+.checkbox-selector input:checked + span,
+.emoji-selector input:checked + span {
+    animation: selectPulse 0.3s ease-out;
 }
 
 /* ANIMAÇÕES */
@@ -1306,4 +1374,108 @@ textarea.item-input { resize: vertical; min-height: 60px; }
     }
 }
 
+/* ==================== FIM DO SEU CSS ORIGINAL ==================== */
 
+
+/* ==================== MELHORIAS APPEND-ONLY (M1–M10) ==================== */
+
+/* M1 — tokens complementares (append-only) */
+:root{
+  /* tipografia base usada no arquivo */
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.125rem;
+
+  /* identidade usada nos gráficos */
+  --brand-secondary: #6B5B95;
+  --brand-primary-light: #A7C7E7;
+
+  /* sombras padronizadas (você já usa --shadow-*) */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+  --shadow-md: 0 6px 18px rgba(0,0,0,.08);
+  --shadow-lg: 0 10px 28px rgba(0,0,0,.10);
+  --shadow-xl: 0 18px 48px rgba(0,0,0,.12);
+
+  /* validação referenciada em :focus */
+  --validation-success: #B8E6C2;
+  --validation-error:  #F6B7B7;
+
+  color-scheme: light; /* melhora contraste de UI nativo */
+}
+
+/* M2 — foco acessível sem quebrar o atual */
+.input-group input:focus { outline: 2px solid transparent; }
+.input-group input:focus-visible {
+  border-color: var(--diary-primary-text);
+  box-shadow: 0 0 0 3px var(--validation-success);
+}
+.input-group input:focus-visible:invalid { box-shadow: 0 0 0 3px var(--validation-error); }
+
+/* M3 — escala tipográfica fluida (rem-safe) */
+html { font-size: clamp(15px, 1.2vw, 17px); }
+/* body permanece como está; ajuste leve de leitura se quiser */
+/* body { line-height: 1.65; } */
+
+/* M4 — correção do relacionamento input → label → span (emoji) */
+.emoji-selector input:checked + label span{
+  transform: scale(1.1);
+  filter: grayscale(0);
+  border-color: var(--diary-primary-text);
+  background: rgba(250,218,205,.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,.1);
+}
+.emoji-selector input:checked + label span::before{ opacity:.2; }
+
+/* M5 — usa grid para seletores (substitui flex via cascade) */
+.emoji-selector, .toggle-selector, .checkbox-selector { 
+  display: grid; grid-auto-flow: row;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 1rem; margin: 1.5rem 0;
+}
+@media (max-width: 768px){
+  .emoji-selector { grid-template-columns: repeat(2, 1fr); gap:.5rem; }
+  .toggle-selector, .checkbox-selector { grid-template-columns: 1fr; gap:.5rem; }
+}
+@media (max-width: 480px){
+  .emoji-selector { grid-template-columns: repeat(4,1fr); gap:.4rem; }
+}
+
+/* M6 — microinteração do botão Salvar unificada (evita duplicidade) */
+.submit-btn{
+  position: relative; overflow: hidden; min-height: 44px;
+  transition: transform .15s ease, background-color .25s ease, width .25s ease, height .25s ease;
+}
+.submit-btn:active{ transform: scale(.98); }
+.submit-btn .btn-text{ transition: opacity .18s ease; }
+.submit-btn .icon-success{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(.8);
+  transition: transform .25s ease, opacity .25s ease; fill:#fff; opacity:0;
+}
+.submit-btn.is-success{ background-color: var(--diary-accent-green); width:50px; height:50px; border-radius:50%; }
+.submit-btn.is-success .btn-text{ opacity:0; }
+.submit-btn.is-success .icon-success{ transform:translate(-50%,-50%) scale(1); opacity:1; }
+
+/* M7 — timeline com estados mais ricos (hover, active, focus) */
+.timeline-dot{ transition: border-color .25s ease, background-color .25s ease, transform .15s ease; }
+.timeline-item.active .timeline-dot,
+.timeline-item[data-active="true"] .timeline-dot{ border-color: var(--diary-primary-text); transform: scale(1.02); }
+.timeline-header:focus-visible + .timeline-dot,
+.timeline-item:focus-within .timeline-dot{ outline:3px solid color-mix(in oklab, var(--diary-accent-peach) 60%, white); outline-offset:2px; }
+
+/* M8 — header com vidro mais leve + motion-safe */
+@supports ((backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px))) {
+  .diary-header { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+}
+.diary-header{ background: rgba(255,255,255,.9); box-shadow: var(--shadow-sm); transition: background-color .25s ease, box-shadow .25s ease, transform .15s ease; }
+.diary-header:hover{ transform: translateY(-2px); box-shadow: var(--shadow-md); }
+@media (prefers-reduced-motion: reduce){ .diary-header{ animation:none !important; transition:none !important; } }
+
+/* M9 — foco visível padronizado e área de toque mínima */
+.tab-link:focus-visible,
+.export-btn:focus-visible,
+.accordion-header:focus-visible{ outline:3px solid color-mix(in oklab, var(--diary-accent-peach) 60%, white); outline-offset:3px; border-radius:12px; }
+.tab-link, .export-btn, .accordion-header{ min-height:44px; }
+
+/* M10 — responsividade por container + fallback */
+.chart-wrapper{ container-type: inline-size; }
+@container (min-width: 720px){ .mood-mosaic{ min-width: 0; } .line-chart{ min-width: 0; } }
